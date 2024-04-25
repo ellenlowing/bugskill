@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class HandController : MonoBehaviour
 {
-    public GameObject SplatterPrefab;
+    public bool IsRightHand;
 
     bool isTouchingLandingSurface = false;
     bool isTouchingOtherHand = false;
@@ -25,19 +25,15 @@ public class HandController : MonoBehaviour
     {
         if (other.gameObject.layer == 6)
         {
-            // GetComponent<Renderer>().material.color = Color.green;
             isTouchingLandingSurface = true;
             touchedWallTransform = other.transform;
         }
         else if (other.gameObject.tag == "Hands")
         {
-            // GetComponent<Renderer>().material.color = Color.red;
             isTouchingOtherHand = true;
         }
         else if (other.gameObject.tag == "Fly")
         {
-            // GetComponent<Renderer>().material.color = Color.yellow;
-            // isTouchingFly = true;
             touchedFlyTransform = other.transform;
             StartCoroutine(CheckFlyHit());
         }
@@ -47,18 +43,15 @@ public class HandController : MonoBehaviour
     {
         if (other.gameObject.layer == 6)
         {
-            // GetComponent<Renderer>().material.color = Color.blue;
             isTouchingLandingSurface = false;
             touchedWallTransform = null;
         }
         else if (other.gameObject.tag == "Hands")
         {
-            // GetComponent<Renderer>().material.color = Color.blue;
             isTouchingOtherHand = false;
         }
         else if (other.gameObject.tag == "Fly")
         {
-            // GetComponent<Renderer>().material.color = Color.blue;
             isTouchingFly = false;
             touchedFlyTransform = null;
         }
@@ -70,17 +63,21 @@ public class HandController : MonoBehaviour
         {
             isTouchingFly = true;
 
-            if (isTouchingLandingSurface || isTouchingOtherHand)
+            if (
+                isTouchingLandingSurface
+            // || (isTouchingOtherHand && IsRightHand)
+            )
             {
+                GameObject splatterPrefab = GameManager.Instance.BloodSplatterPrefabs[Random.Range(0, GameManager.Instance.BloodSplatterPrefabs.Count)];
+
                 if (isTouchingLandingSurface)
                 {
-                    Instantiate(SplatterPrefab, touchedFlyTransform.position, Quaternion.LookRotation(touchedWallTransform.right, Vector3.up));
+                    Instantiate(splatterPrefab, touchedFlyTransform.position, Quaternion.LookRotation(touchedWallTransform.right, Vector3.up));
                 }
-                else if (isTouchingOtherHand)
-                {
-                    Instantiate(SplatterPrefab, touchedFlyTransform.position, Quaternion.identity);
-
-                }
+                // else if (isTouchingOtherHand)
+                // {
+                //     Instantiate(splatterPrefab, touchedFlyTransform.position, Quaternion.identity);
+                // }
                 Destroy(touchedFlyTransform.gameObject);
                 isTouchingFly = false;
             }

@@ -108,4 +108,13 @@ public class FlyMovement : MonoBehaviour
 
         return oppositeDirection;
     }
+
+    private void OnCollisionEnter(Collision other)
+    {
+        Debug.Log("touching " + other.gameObject.name);
+        if (other.gameObject.tag == "Hands")
+        {
+            Debug.Log("Touched hands");
+        }
+    }
 }

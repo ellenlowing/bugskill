@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class EnvironmentSetup : MonoBehaviour
 {
+    public List<MeshCollider> landingSurfaceMeshColliders = new List<MeshCollider>();
     public int landingSurfaceLayerNum = 6;
 
     void Start()
@@ -30,9 +31,22 @@ public class EnvironmentSetup : MonoBehaviour
         var walls = room.WallAnchors;
         foreach (var wall in walls)
         {
-            wall.GetComponentInChildren<Collider>().gameObject.layer = landingSurfaceLayerNum;
+            AddLandingSurfaceColliders(wall);
         }
-        room.CeilingAnchor.GetComponentInChildren<Collider>().gameObject.layer = landingSurfaceLayerNum;
-        room.FloorAnchor.GetComponentInChildren<Collider>().gameObject.layer = landingSurfaceLayerNum;
+
+        AddLandingSurfaceColliders(room.CeilingAnchor);
+        AddLandingSurfaceColliders(room.FloorAnchor);
+
+    }
+
+    public void AddLandingSurfaceColliders(MRUKAnchor anchor)
+    {
+        var colliders = anchor.GetComponentsInChildren<MeshCollider>();
+        foreach (var collider in colliders)
+        {
+            landingSurfaceMeshColliders.Add(collider);
+            collider.gameObject.layer = landingSurfaceLayerNum;
+            collider.convex = true;
+        }
     }
 }

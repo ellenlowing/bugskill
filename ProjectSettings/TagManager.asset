@@ -5,6 +5,10 @@ TagManager:
   serializedVersion: 2
   tags:
   - fly
+  - Wall
+  - Ceiling
+  - Floor
+  - Hands
   layers:
   - Default
   - TransparentFX

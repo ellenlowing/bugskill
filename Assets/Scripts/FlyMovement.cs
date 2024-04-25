@@ -11,6 +11,7 @@ public class FlyMovement : MonoBehaviour
     public float maxRestTime = 5.0f;
     public float takeOffTime = 0.5f;             // Time the fly takes off from the landing surface
     public float detectionRange = 2.0f;          // Range to detect landing surfaces
+    public float takeOffChance = 0.8f;
     public LayerMask landingSurfaceLayer;        // Layer for landing surfaces
 
     private bool isResting = false;              // Flag to check if the fly is resting
@@ -19,6 +20,7 @@ public class FlyMovement : MonoBehaviour
     private Vector3 closestPoint;
     private float restTime = 2.0f;
     private float speed = 2.0f;
+    private bool restedOnce = false;
 
     private void Start()
     {
@@ -67,20 +69,30 @@ public class FlyMovement : MonoBehaviour
                     }
 
                     // If landing surface detected, start resting
-                    StartCoroutine(Rest(closestCollider));
+                    if (!restedOnce || Random.Range(0, 1f) < takeOffChance)
+                    {
+                        StartCoroutine(Rest(closestCollider));
+                    }
+                    else
+                    {
+                        randomDirection = GenerateOppositeDirection(closestCollider.transform);
+                    }
                 }
             }
-
-
         }
     }
 
     private IEnumerator Rest(Collider landingSurface)
     {
+        if (!restedOnce)
+        {
+            restedOnce = true;
+        }
         isResting = true;
         transform.position = landingSurface.ClosestPoint(transform.position);
         closestPoint = landingSurface.ClosestPoint(transform.position);
         transform.up = landingSurface.transform.forward;
+        transform.rotation = transform.rotation * Quaternion.Euler(0, Random.Range(0, 360f), 0);
         yield return new WaitForSeconds(restTime);
         isResting = false;
         timeSinceLastRest = 0;

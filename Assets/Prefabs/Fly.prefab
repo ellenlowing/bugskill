@@ -53,6 +53,7 @@ MonoBehaviour:
   maxRestTime: 5
   takeOffTime: 0.1
   detectionRange: 0.001
+  takeOffChance: 0.9
   landingSurfaceLayer:
     serializedVersion: 2
     m_Bits: 64

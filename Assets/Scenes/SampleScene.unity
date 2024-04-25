@@ -137,7 +137,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2296141232796561049, guid: cee191920b8eb41b0960b1082a393a3e, type: 3}
       propertyPath: hideMesh
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2296141232796561049, guid: cee191920b8eb41b0960b1082a393a3e, type: 3}
       propertyPath: Colliders
@@ -889,8 +889,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   FlySpawnPositions: []
   FlyPrefab: {fileID: 708182128869486111, guid: 75d14416f534f4b11aec372b6307c3bb, type: 3}
-  FlySpawnIntervalMin: 4
-  FlySpawnIntervalMax: 10
+  FlySpawnIntervalMin: 2
+  FlySpawnIntervalMax: 8
   BloodSplatterPrefabs:
   - {fileID: 1038763753378116429, guid: 49c79d619d82a4d4ebb6014bc86c59e5, type: 3}
   - {fileID: 6949516455442263442, guid: 21282a9663a7f4df0b165f6c5533d8cd, type: 3}

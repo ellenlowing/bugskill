@@ -72,7 +72,8 @@ public class HandController : MonoBehaviour
 
                 if (isTouchingLandingSurface)
                 {
-                    Instantiate(splatterPrefab, touchedFlyTransform.position, Quaternion.LookRotation(touchedWallTransform.right, Vector3.up));
+                    var splatter = Instantiate(splatterPrefab, touchedFlyTransform.position, Quaternion.identity);
+                    splatter.transform.up = touchedWallTransform.forward;
                 }
                 // else if (isTouchingOtherHand)
                 // {
@@ -80,6 +81,8 @@ public class HandController : MonoBehaviour
                 // }
                 Destroy(touchedFlyTransform.gameObject);
                 isTouchingFly = false;
+                isTouchingLandingSurface = false;
+                touchedWallTransform = null;
             }
         }
         yield return null;

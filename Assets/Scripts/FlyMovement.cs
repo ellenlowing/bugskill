@@ -15,6 +15,7 @@ public class FlyMovement : MonoBehaviour
     private bool isResting = false;              // Flag to check if the fly is resting
     private Vector3 randomDirection;             // Random direction for the fly to move
     private float timeSinceLastRest;
+    private Vector3 closestPoint;
 
     private void Start()
     {
@@ -85,6 +86,7 @@ public class FlyMovement : MonoBehaviour
     {
         isResting = true;
         transform.position = landingSurface.ClosestPoint(transform.position);
+        closestPoint = landingSurface.ClosestPoint(transform.position);
         transform.up = landingSurface.transform.forward;
         yield return new WaitForSeconds(restTime);
         isResting = false;
@@ -109,12 +111,12 @@ public class FlyMovement : MonoBehaviour
         return oppositeDirection;
     }
 
-    private void OnCollisionEnter(Collision other)
+    private void OnDrawGizmos()
     {
-        Debug.Log("touching " + other.gameObject.name);
-        if (other.gameObject.tag == "Hands")
-        {
-            Debug.Log("Touched hands");
-        }
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, detectionRange);
+
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireSphere(closestPoint, 0.1f);
     }
 }

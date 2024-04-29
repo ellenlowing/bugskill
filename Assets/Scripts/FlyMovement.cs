@@ -90,7 +90,6 @@ public class FlyMovement : MonoBehaviour
         }
         isResting = true;
         transform.position = landingSurface.ClosestPoint(transform.position);
-        closestPoint = landingSurface.ClosestPoint(transform.position);
         transform.up = landingSurface.transform.forward;
         transform.rotation = transform.rotation * Quaternion.Euler(0, Random.Range(0, 360f), 0);
         yield return new WaitForSeconds(restTime);

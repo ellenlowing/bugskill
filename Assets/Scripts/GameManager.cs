@@ -28,16 +28,20 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-
+        GetWindowOrDoorFrames(MRUK.Instance.GetCurrentRoom());
     }
 
     void Update()
     {
-
     }
 
     IEnumerator SpawnFlyAtRandomPosition()
     {
+        if (FlySpawnPositions.Count == 0)
+        {
+            yield break;
+        }
+
         while (true)
         {
             if (FlySpawnPositions.Count > 0)
@@ -60,10 +64,7 @@ public class GameManager : MonoBehaviour
 
     public void StartGame()
     {
-        foreach (var room in MRUK.Instance.Rooms)
-        {
-            GetWindowOrDoorFrames(room);
-        }
+        GetWindowOrDoorFrames(MRUK.Instance.GetCurrentRoom());
 
         StartCoroutine(SpawnFlyAtRandomPosition());
     }

@@ -12,6 +12,9 @@ public class GameManager : MonoBehaviour
     public float FlySpawnIntervalMax = 15.0f;
     public List<GameObject> BloodSplatterPrefabs;
 
+    // ---
+    public GameObject Portal;
+
     void Awake()
     {
         if (Instance != null && Instance != this)
@@ -69,6 +72,9 @@ public class GameManager : MonoBehaviour
         StartCoroutine(SpawnFlyAtRandomPosition());
     }
 
+    // 
+    bool doneOnce = false;
+
     public void GetWindowOrDoorFrames(MRUKRoom room)
     {
         foreach (var anchor in room.Anchors)
@@ -76,6 +82,12 @@ public class GameManager : MonoBehaviour
             if (anchor.HasLabel("WINDOW_FRAME") || anchor.HasLabel("DOOR_FRAME"))
             {
                 FlySpawnPositions.Add(anchor);
+                if (!doneOnce)
+                {
+                    Instantiate(Portal, anchor.transform.position, Portal.transform.rotation);
+                    doneOnce = true;
+                }
+
             }
         }
     }

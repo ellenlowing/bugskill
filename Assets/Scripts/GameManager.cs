@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
     public float FlySpawnIntervalMin = 5.0f;
     public float FlySpawnIntervalMax = 15.0f;
     public List<GameObject> BloodSplatterPrefabs;
+    public GameObject splatterParticle;
 
     // ---
     public GameObject Portal;

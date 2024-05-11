@@ -11,6 +11,7 @@ public class HandController : MonoBehaviour
     bool isTouchingFly = false;
     Transform touchedWallTransform = null;
     Transform touchedFlyTransform = null;
+    Transform SlowedDownFlyTransform = null;
 
     public float SlowDownTime = 4f;
     public float SlowDownSpeed = 1.0f;
@@ -35,6 +36,12 @@ public class HandController : MonoBehaviour
         else if (other.gameObject.tag == "Hands")
         {
             isTouchingOtherHand = true;
+            if(other.gameObject.tag == "Fly")
+            {
+                touchedFlyTransform= other.transform;
+            }
+            StartCoroutine(CheckFlyHit());
+            
         }
         else if (other.gameObject.tag == "Fly")
         {
@@ -43,11 +50,13 @@ public class HandController : MonoBehaviour
             // slow mid air if only fly is touched
             if(!isTouchingLandingSurface)
             {
+                //SlowedDownFlyTransform = touchedFlyTransform;
                 other.GetComponent<SlowDown>().SlowDownFly();
             }
 
             StartCoroutine(CheckFlyHit());
         }
+
     }
 
     private void OnTriggerExit(Collider other)
@@ -75,9 +84,7 @@ public class HandController : MonoBehaviour
         {
             isTouchingFly = true;
 
-            if ( isTouchingLandingSurface
-            // || (isTouchingOtherHand && IsRightHand)
- )
+            if (isTouchingLandingSurface | (isTouchingOtherHand && IsRightHand))
             {
                 GameObject splatterPrefab = GameManager.Instance.BloodSplatterPrefabs[Random.Range(0, GameManager.Instance.BloodSplatterPrefabs.Count)];
 
@@ -86,11 +93,11 @@ public class HandController : MonoBehaviour
                     var splatter = Instantiate(splatterPrefab, touchedFlyTransform.position, Quaternion.identity);
                     splatter.transform.up = touchedWallTransform.forward;
                 }
-
-                // else if (isTouchingOtherHand)
-                // {
-                //     Instantiate(splatterPrefab, touchedFlyTransform.position, Quaternion.identity);
-                // }
+                else if (isTouchingOtherHand)
+                {
+                    Instantiate(GameManager.Instance.splatterParticle, touchedFlyTransform.position, Quaternion.identity);
+                    Debug.LogWarning("Two Hand Smash");
+                }
 
                 Destroy(touchedFlyTransform.gameObject);
                 isTouchingFly = false;

@@ -7,7 +7,6 @@ public class EnvironmentSetup : MonoBehaviour
 {
     public List<MeshCollider> landingSurfaceMeshColliders = new List<MeshCollider>();
     public int landingSurfaceLayerNum = 6;
-    public Transform Hourglass;
 
     void Start()
     {
@@ -21,8 +20,12 @@ public class EnvironmentSetup : MonoBehaviour
 
     public void PlaceHourglassOnTable()
     {
-        var floor = MRUK.Instance.GetCurrentRoom().FloorAnchor;
-        Hourglass.position = floor.transform.position + new Vector3(0, 0.075f, 0);
+        var Hourglass = GameObject.Find("Hourglass").transform;
+        if (Hourglass != null)
+        {
+            var floor = MRUK.Instance.GetCurrentRoom().FloorAnchor;
+            Hourglass.position = floor.transform.position + new Vector3(0, 0.075f, 0);
+        }
     }
 
     public void AddLandingSurfaceLayer()

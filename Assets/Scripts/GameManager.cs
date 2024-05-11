@@ -8,10 +8,10 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance;
     public List<MRUKAnchor> FlySpawnPositions;
     public GameObject FlyPrefab;
-    public float FlySpawnIntervalMin = 5.0f;
-    public float FlySpawnIntervalMax = 15.0f;
+    public SettingSO settings;
     public List<GameObject> BloodSplatterPrefabs;
     public GameObject splatterParticle;
+    public Transform FlyParentAnchor;
 
     // ---
     public GameObject Portal;
@@ -37,7 +37,12 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
+        if(OVRInput.GetDown(OVRInput.Button.One))
+        {
+
+        }
     }
+
 
     IEnumerator SpawnFlyAtRandomPosition()
     {
@@ -59,9 +64,10 @@ public class GameManager : MonoBehaviour
                     randomPosition += new Vector3(Random.Range(-size.x / 2, size.x / 2), 0, Random.Range(-size.y / 2, size.y / 2));
                 }
 
-                Instantiate(FlyPrefab, randomPosition, Quaternion.identity);
+                // keep reference to all spawned flies
+                settings.flies.Add(Instantiate(FlyPrefab, randomPosition, Quaternion.identity,FlyParentAnchor));
 
-                yield return new WaitForSeconds(Random.Range(FlySpawnIntervalMin, FlySpawnIntervalMax));
+                yield return new WaitForSeconds(Random.Range(settings.flySpawnIntervalMin, settings.flySpawnIntervalMax));
             }
         }
     }

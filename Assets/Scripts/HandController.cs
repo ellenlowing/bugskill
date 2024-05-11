@@ -1,21 +1,20 @@
+
 using System.Collections;
 using System.Collections.Generic;
+using System.Dynamic;
 using UnityEngine;
 
 public class HandController : MonoBehaviour
 {
     public bool IsRightHand;
+    public UIManager UIM;
+    public SettingSO settings;
 
     bool isTouchingLandingSurface = false;
     bool isTouchingOtherHand = false;
     bool isTouchingFly = false;
     Transform touchedWallTransform = null;
     Transform touchedFlyTransform = null;
-    Transform SlowedDownFlyTransform = null;
-
-    public float SlowDownTime = 4f;
-    public float SlowDownSpeed = 1.0f;
-    public float InitialTime = 0.0f;
 
     void Start()
     {
@@ -103,6 +102,13 @@ public class HandController : MonoBehaviour
                 isTouchingFly = false;
                 isTouchingLandingSurface = false;
                 touchedWallTransform = null;
+
+
+                // game flow updates
+                settings.numberOfKills += 1;
+                settings.score += settings.scoreMulFactor;
+                UIM.ScoreUpdate();
+                UIM.KillUpdate();
             }
         }
         yield return null;

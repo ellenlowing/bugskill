@@ -6,41 +6,39 @@ using UnityEngine.UIElements;
 
 public class SlowDown : MonoBehaviour
 {
-    public float SlowDownTime = 8f;
-    public float SlowDownSpeed = 0.5f;
-    public float InitialTime = 0.0f;
+    
     public bool slowDownNow = false;
+    public SettingSO settings;
     public FlyMovement flyMovements;
-    public Material[] CircularEyeMaterial;
-    public Material[] DefaultMaterial;
-    public List<MeshRenderer> EyeMeshRenderers;
+    public List<MeshRenderer> NormalEyeMesh;
+    public List<MeshRenderer> CircularEyeMesh;
     
 
     private float currentSpeed = 0.0f;
-    
+    private float InitialTime = 0.0f;
 
     private void Start()
     {
        flyMovements =  GetComponentInParent<FlyMovement>();
        Assert.IsNotNull(flyMovements, "Flymovements not assigned");
-       Assert.IsNotNull(EyeMeshRenderers, "Fly Mesh not Assigned");
+       Assert.IsNotNull(NormalEyeMesh, "Fly Mesh not Assigned");
+       Assert.IsNotNull(CircularEyeMesh, "Fly Circular Mesh not Assigned");
     }
 
     // changes the materials of the eye mesh
     public void ChangeEyeType(bool circular)
     {
-        foreach(MeshRenderer eye in EyeMeshRenderers)
-        {
-             eye.materials = (circular == true) ? CircularEyeMaterial : DefaultMaterial;
-            //eye.material = CircularEyeMaterial;
-        }
+         CircularEyeMesh[0].enabled = circular;
+         CircularEyeMesh[1].enabled = circular; 
+         NormalEyeMesh[0].enabled = !circular;
+         NormalEyeMesh[1].enabled = !circular;
     }
 
     public void SlowDownFly()
     {
         slowDownNow = true;
         currentSpeed = flyMovements.speed;
-        flyMovements.speed = SlowDownSpeed;
+        flyMovements.speed = settings.flySlowDownSpeed;
         ChangeEyeType(true);
     }
 
@@ -48,7 +46,7 @@ public class SlowDown : MonoBehaviour
     {
         if (slowDownNow)
         {
-            if(InitialTime > SlowDownTime)
+            if(InitialTime > settings.flySlowDownTime)
             {
                 InitialTime = 0f;
                 slowDownNow = false;
@@ -57,6 +55,5 @@ public class SlowDown : MonoBehaviour
             }
             InitialTime += Time.deltaTime;
         }
-
     }
 }

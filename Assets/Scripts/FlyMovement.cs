@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class FlyMovement : MonoBehaviour
 {
+
+    // external reference
+    public float speed = 2.0f;
+
     public float minSpeed = 2.0f;
     public float maxSpeed = 10.0f;
     public float rotationSpeed = 5.0f;          // Rotation speed of the fly
@@ -12,14 +16,14 @@ public class FlyMovement : MonoBehaviour
     public float takeOffTime = 0.5f;             // Time the fly takes off from the landing surface
     public float detectionRange = 2.0f;          // Range to detect landing surfaces
     public float takeOffChance = 0.8f;
-    public LayerMask landingSurfaceLayer;        // Layer for landing surfaces
+    public LayerMask landingSurfaceLayer;
+    // Layer for landing surfaces
 
     private bool isResting = false;              // Flag to check if the fly is resting
     private Vector3 randomDirection;             // Random direction for the fly to move
     private float timeSinceLastRest;
     private Vector3 closestPoint;
     private float restTime = 2.0f;
-    private float speed = 2.0f;
     private bool restedOnce = false;
 
     private void Start()

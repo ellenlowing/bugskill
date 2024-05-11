@@ -12,6 +12,10 @@ public class HandController : MonoBehaviour
     Transform touchedWallTransform = null;
     Transform touchedFlyTransform = null;
 
+    public float SlowDownTime = 4f;
+    public float SlowDownSpeed = 1.0f;
+    public float InitialTime = 0.0f;
+
     void Start()
     {
 
@@ -35,6 +39,13 @@ public class HandController : MonoBehaviour
         else if (other.gameObject.tag == "Fly")
         {
             touchedFlyTransform = other.transform;
+
+            // slow mid air if only fly is touched
+            if(!isTouchingLandingSurface)
+            {
+                other.GetComponent<SlowDown>().SlowDownFly();
+            }
+
             StartCoroutine(CheckFlyHit());
         }
     }
@@ -57,16 +68,16 @@ public class HandController : MonoBehaviour
         }
     }
 
+
     IEnumerator CheckFlyHit()
     {
         if (!isTouchingFly && touchedFlyTransform != null)
         {
             isTouchingFly = true;
 
-            if (
-                isTouchingLandingSurface
+            if ( isTouchingLandingSurface
             // || (isTouchingOtherHand && IsRightHand)
-            )
+ )
             {
                 GameObject splatterPrefab = GameManager.Instance.BloodSplatterPrefabs[Random.Range(0, GameManager.Instance.BloodSplatterPrefabs.Count)];
 
@@ -75,10 +86,12 @@ public class HandController : MonoBehaviour
                     var splatter = Instantiate(splatterPrefab, touchedFlyTransform.position, Quaternion.identity);
                     splatter.transform.up = touchedWallTransform.forward;
                 }
+
                 // else if (isTouchingOtherHand)
                 // {
                 //     Instantiate(splatterPrefab, touchedFlyTransform.position, Quaternion.identity);
                 // }
+
                 Destroy(touchedFlyTransform.gameObject);
                 isTouchingFly = false;
                 isTouchingLandingSurface = false;

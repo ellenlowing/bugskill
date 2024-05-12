@@ -12,26 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 345cf1bedd32c9f4483a79373f5c4bc1, type: 3}
   m_Name: SettingSO
   m_EditorClassIdentifier: 
-  flies:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  flies: []
   score: 0
   scoreMulFactor: 5
   numberOfKills: 0
@@ -41,8 +22,9 @@ MonoBehaviour:
   flySpawnIntervalFactor: 0.5
   flySlowDownTime: 8
   flySlowDownSpeed: 0.5
-  flyDuplicateNumber: 3
+  WaveWaitTime: 5
   numberOfWaves: 10
   timeBtwStarting: 2
   nextWaveTimeGap: 3
-  waveTimeToComplete: 8
+  maxWaitTime: 14000000140000001400000014000000
+  Waves: 050000000a0000001400000028000000

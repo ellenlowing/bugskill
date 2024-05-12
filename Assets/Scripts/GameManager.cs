@@ -1,7 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using Meta.XR.MRUtilityKit;
+using TMPro.EditorUtilities;
 using UnityEngine;
+using UnityEngine.Assertions;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -12,9 +15,12 @@ public class GameManager : MonoBehaviour
     public List<GameObject> BloodSplatterPrefabs;
     public GameObject splatterParticle;
     public Transform FlyParentAnchor;
+    public UIManager UIM;
 
     // ---
     public GameObject Portal;
+    private int waveIndex = 0;
+    private bool canSpawn = true;
 
     void Awake()
     {
@@ -32,17 +38,45 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        // check references
+        UIM = GetComponent<UIManager>();
+        Assert.IsNotNull(UIM, "UIManager Reference Missing");
+
         GetWindowOrDoorFrames(MRUK.Instance.GetCurrentRoom());
     }
 
+    private bool moveToNextWave = false;
+    private float initialTime = 0;
+
     void Update()
     {
-        if(OVRInput.GetDown(OVRInput.Button.One))
-        {
+        TrackTimer();
 
+        // restarting for quick testing on deployment
+        if (OVRInput.GetDown(OVRInput.Button.Four))
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
+
     }
 
+    private void TrackTimer()
+    {
+        if (moveToNextWave)
+        {
+            if (initialTime > settings.maxWaitTime[waveIndex])
+            {
+                // empty all fly list
+                foreach (var obj in settings.flies)
+                {
+                    Destroy(obj);
+                }
+                settings.flies.Clear();
+                initialTime = 0;
+            }
+            initialTime += Time.deltaTime;
+        }
+    }
 
     IEnumerator SpawnFlyAtRandomPosition()
     {
@@ -55,19 +89,54 @@ public class GameManager : MonoBehaviour
         {
             if (FlySpawnPositions.Count > 0)
             {
-                int randomIndex = Random.Range(0, FlySpawnPositions.Count);
-                MRUKAnchor randomAnchor = FlySpawnPositions[randomIndex];
-                Vector3 randomPosition = randomAnchor.GetAnchorCenter();
-                if (randomAnchor.PlaneRect.HasValue)
+
+                // loop here with wave count which changes
+                // destroy all current flies before next wave
+                // before next wave, wait for certain amount of time
+                if (canSpawn)
                 {
-                    Vector2 size = randomAnchor.PlaneRect.Value.size;
-                    randomPosition += new Vector3(Random.Range(-size.x / 2, size.x / 2), 0, Random.Range(-size.y / 2, size.y / 2));
+                    for (int i = 0; i < settings.Waves[waveIndex]; i++)
+                    {
+                        int randomIndex = Random.Range(0, FlySpawnPositions.Count);
+                        MRUKAnchor randomAnchor = FlySpawnPositions[randomIndex];
+                        Vector3 randomPosition = randomAnchor.GetAnchorCenter();
+                        if (randomAnchor.PlaneRect.HasValue)
+                        {
+                            Vector2 size = randomAnchor.PlaneRect.Value.size;
+                            randomPosition += new Vector3(Random.Range(-size.x / 2, size.x / 2), 0, Random.Range(-size.y / 2, size.y / 2));
+                        }
+
+                        // keep reference to all spawned flies
+                        // spawn wave number through loop which uses settings factor
+                        settings.flies.Add(Instantiate(FlyPrefab, randomPosition, Quaternion.identity, FlyParentAnchor));
+
+                    }
+                    canSpawn = false;
+                    moveToNextWave = true;             
+                }
+                
+
+                // check if all flies are killed
+                // move to next wave count
+                // play theme wave wait sound
+                if(settings.flies.Count == 0)
+                {
+                    waveIndex++;
+                    moveToNextWave = false;
+                    canSpawn = true;
+                    yield return new WaitForSeconds(settings.WaveWaitTime);
                 }
 
-                // keep reference to all spawned flies
-                settings.flies.Add(Instantiate(FlyPrefab, randomPosition, Quaternion.identity,FlyParentAnchor));
+                if(waveIndex >= settings.Waves.Length)
+                {
+                    // call completion here with ui score update
+                    UIM.KillUpdate();
+                    yield break;
+                }
 
-                yield return new WaitForSeconds(Random.Range(settings.flySpawnIntervalMin, settings.flySpawnIntervalMax));
+                // 2 second frame checks
+                yield return new WaitForSeconds(2.0f);
+                // yield return new WaitForSeconds(Random.Range(settings.flySpawnIntervalMin, settings.flySpawnIntervalMax));
             }
         }
     }
@@ -75,7 +144,6 @@ public class GameManager : MonoBehaviour
     public void StartGame()
     {
         GetWindowOrDoorFrames(MRUK.Instance.GetCurrentRoom());
-
         StartCoroutine(SpawnFlyAtRandomPosition());
     }
 
@@ -86,6 +154,7 @@ public class GameManager : MonoBehaviour
     {
         foreach (var anchor in room.Anchors)
         {
+            // handling only door and window points
             if (anchor.HasLabel("WINDOW_FRAME") || anchor.HasLabel("DOOR_FRAME"))
             {
                 FlySpawnPositions.Add(anchor);

@@ -99,6 +99,7 @@ public class HandController : MonoBehaviour
                 }
 
                 Destroy(touchedFlyTransform.gameObject);
+               
                 isTouchingFly = false;
                 isTouchingLandingSurface = false;
                 touchedWallTransform = null;
@@ -106,9 +107,9 @@ public class HandController : MonoBehaviour
 
                 // game flow updates
                 settings.numberOfKills += 1;
-                settings.score += settings.scoreMulFactor;
-                UIM.ScoreUpdate();
-                UIM.KillUpdate();
+               // settings.score += settings.scoreMulFactor;
+               // UIM.ScoreUpdate();
+               // UIM.KillUpdate();
             }
         }
         yield return null;

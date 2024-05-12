@@ -6,7 +6,6 @@ using UnityEngine.UIElements;
 
 public class SlowDown : MonoBehaviour
 {
-    
     public bool slowDownNow = false;
     public SettingSO settings;
     public FlyMovement flyMovements;

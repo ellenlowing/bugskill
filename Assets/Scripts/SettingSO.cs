@@ -23,11 +23,13 @@ public class SettingSO : ScriptableObject
     public float flySlowDownSpeed = 0.5f;
 
     [Header("Game Play Flow")]
-    public int flyDuplicateNumber = 3;
-    public int numberOfWaves = 10;
+    public float WaveWaitTime = 30f;
+    public int numberOfWaves = 4;
     public float timeBtwStarting = 2.0f;
     public float nextWaveTimeGap = 3.0f;
-    public float waveTimeToComplete = 10.0f;
+    public int[] maxWaitTime = { 60, 120, 200, 300 };
+
+    public int[] Waves = { 5, 10, 20, 40 };
 
 
 }

@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class UIManager : MonoBehaviour
 {
     public SettingSO settings;
-
+    public GameObject UIObject;
     public TextMeshProUGUI ScoreText;
     public TextMeshProUGUI KillText;
     public TextMeshProUGUI TimerText;
@@ -23,7 +23,7 @@ public class UIManager : MonoBehaviour
 
     private void OnDisable()
     {
-        settings.waveTimeToComplete = 10.0f;
+       // settings.waveTimeToComplete = 10.0f;
     }
 
     public void Update()
@@ -32,7 +32,7 @@ public class UIManager : MonoBehaviour
         {
             UpdateTimer();
 
-            if(TimeChange > settings.waveTimeToComplete)
+            if(TimeChange > settings.WaveWaitTime)
             {
                 RunTimer = false;
                 TimeChange = 0;
@@ -44,8 +44,8 @@ public class UIManager : MonoBehaviour
 
     public void UpdateTimer()
     {
-        TimerText.text = Mathf.RoundToInt(TimeChange) + "/" + Mathf.RoundToInt(settings.waveTimeToComplete);
-        TimerSprite.fillAmount = TimeChange / settings.waveTimeToComplete;
+       // TimerText.text = Mathf.RoundToInt(TimeChange) + "/" + Mathf.RoundToInt(settings.waveTimeToComplete);
+       // TimerSprite.fillAmount = TimeChange / settings.waveTimeToComplete;
     }
 
     public void ScoreUpdate()
@@ -55,6 +55,7 @@ public class UIManager : MonoBehaviour
 
     public void KillUpdate()
     {
+        UIObject.SetActive(true);
         KillText.text = "Kills : " + settings.numberOfKills.ToString();
     }
 }

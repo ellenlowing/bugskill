@@ -46,16 +46,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb8863dbb824349b8bd7d6449768ca8e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canLandLabels: 11263
+  canLand: 11263
   minRestDuration: 2
   maxRestDuration: 5
   speed: 2
   rotationSpeed: 2.72
-  obstacleLayers:
-    serializedVersion: 2
-    m_Bits: 1
-  checkDistance: 1
-  isResting: 0
+  minDistanceForNewTarget: 5
+  distanceToEdges: 0.2
 --- !u!54 &1778244852545078343
 Rigidbody:
   m_ObjectHideFlags: 0

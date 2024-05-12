@@ -5,8 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e5348e81-3315-4d09-b966-76e1eeedee7b" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.slap-da-fly/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.slap-da-fly/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Fly.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Fly.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/EnvironmentSetup.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/EnvironmentSetup.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/FlyMovement.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/FlyMovement.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -19,6 +20,7 @@
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="mock://C:/Users/User/Documents/XRB/Prototyping/slap-da-fly/Assets/Prefabs/Fly.prefab" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.meta.xr.mrutilitykit@64.0.0/Core/Scripts/LabelFilter.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.meta.xr.mrutilitykit@64.0.0/Core/Scripts/MRUKRoom.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
@@ -103,7 +105,7 @@
       <option name="presentableId" value="Default" />
       <updated>1715500276336</updated>
       <workItem from="1715500279569" duration="299000" />
-      <workItem from="1715500591123" duration="6791000" />
+      <workItem from="1715500591123" duration="8505000" />
     </task>
     <servers />
   </component>

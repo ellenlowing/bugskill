@@ -1345,13 +1345,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 675479433}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0.2862, y: -0.034, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3989662362035910848}
-  m_Father: {fileID: 1747532722}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &705507993
 GameObject:
@@ -2381,9 +2381,6 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 130871179}
     - targetCorrespondingSourceObject: {fileID: 487254, guid: 126d619cf4daa52469682f85c1378b4a, type: 3}
-      insertIndex: 0
-      addedObject: {fileID: 675479434}
-    - targetCorrespondingSourceObject: {fileID: 487254, guid: 126d619cf4daa52469682f85c1378b4a, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1914841801}
     - targetCorrespondingSourceObject: {fileID: 487254, guid: 126d619cf4daa52469682f85c1378b4a, type: 3}
@@ -2977,6 +2974,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8139941694995477076, guid: 75d14416f534f4b11aec372b6307c3bb, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3031,12 +3032,12 @@ CapsuleCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
-  m_Height: 2
+  m_Radius: 1.54
+  m_Height: 3.42
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &3165569736981589795
@@ -3122,6 +3123,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3989662362035910848}
   - component: {fileID: 6090135644912278821}
+  - component: {fileID: 6090135644912278822}
   m_Layer: 0
   m_Name: Froggy
   m_TagString: Untagged
@@ -3313,7 +3315,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   FroggyParentTransform: {fileID: 675479434}
   FrogTongueTransform: {fileID: 6423958060745369248}
-  FroggyActiveHand: {fileID: 1510492947}
+  FroggyActiveHand: {fileID: 0}
   FroggyActive: 0
   GrabSpeed: 2
   ReturnSpeed: 1
@@ -3327,6 +3329,33 @@ MonoBehaviour:
   FroggyRotationOffset: {x: 0, y: 0, z: 45}
   TongueTipObjectTransform: {fileID: 7177477376904043734}
   TongueTipTargetTransform: {fileID: 476714125}
+--- !u!54 &6090135644912278822
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3672095448259031691}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 3
 --- !u!33 &6293951646630729494
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -3482,3 +3511,4 @@ SceneRoots:
   - {fileID: 1850054656283578920}
   - {fileID: 907711823}
   - {fileID: 3165569736981589795}
+  - {fileID: 675479434}

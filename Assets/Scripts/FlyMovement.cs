@@ -13,6 +13,7 @@ public class FlyMovement : MonoBehaviour
     public float detectionRange = 2.0f;          // Range to detect landing surfaces
     public float takeOffChance = 0.8f;
     public LayerMask landingSurfaceLayer;        // Layer for landing surfaces
+    public bool isCaught = false;
 
     private bool isResting = false;              // Flag to check if the fly is resting
     private Vector3 randomDirection;             // Random direction for the fly to move
@@ -33,7 +34,14 @@ public class FlyMovement : MonoBehaviour
 
     private void Update()
     {
-        if (!isResting)
+        if (isCaught)
+        {
+            if (!FroggyController.Instance.FroggyActive)
+            {
+                Destroy(gameObject);
+            }
+        }
+        else if (!isResting)
         {
             // Move the fly
             transform.position += randomDirection * speed * Time.deltaTime;

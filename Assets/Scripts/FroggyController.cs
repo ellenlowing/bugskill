@@ -31,6 +31,8 @@ public class FroggyController : MonoBehaviour
         }
     }
 
+    public static FroggyController Instance;
+
     public Transform FroggyParentTransform;
     public Transform FrogTongueTransform;
     public OVRHand FroggyActiveHand = null;
@@ -51,6 +53,18 @@ public class FroggyController : MonoBehaviour
     private HandData _leftHandData;
     private HandData _rightHandData;
     private Vector3 _originalFrogTongueScale;
+
+    void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(this);
+        }
+        else
+        {
+            Instance = this;
+        }
+    }
 
     void Start()
     {
@@ -96,7 +110,7 @@ public class FroggyController : MonoBehaviour
                     FroggyParentTransform.localEulerAngles = FroggyRotationOffset + new Vector3(0, 0, 180);
                 }
             }
-            else if (FroggyActiveHand == handData.Hand && distanceFromMiddleFingerTipToThumbTip >= MinDistanceToActivateFroggy)
+            else if (FroggyActiveHand == handData.Hand && !FroggyActive && distanceFromMiddleFingerTipToThumbTip >= MinDistanceToActivateFroggy)
             {
                 FroggyActiveHand = null;
                 FroggyParentTransform.parent = null;
@@ -155,7 +169,7 @@ public class FroggyController : MonoBehaviour
         // {
         // PlaySound("GrabFailure");
         // }
-        // yield return new WaitForSeconds(0.7f);
+        yield return new WaitForSeconds(0.7f);
         // StopSound();
 
         t = 0;
@@ -169,4 +183,16 @@ public class FroggyController : MonoBehaviour
         FrogTongueTransform.localScale = inScale;
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "Fly")
+        {
+            Debug.Log("Fly caught!");
+            other.GetComponentInParent<FlyMovement>().isCaught = true;
+            other.GetComponentInChildren<Animator>().speed = 0;
+            other.transform.parent = TongueTipObjectTransform;
+            other.transform.position = TongueTipObjectTransform.GetComponent<Collider>().ClosestPoint(other.transform.position);
+            other.transform.localScale = other.transform.localScale * 0.5f;
+        }
+    }
 }

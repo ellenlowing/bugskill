@@ -31,6 +31,9 @@ public class SlowDown : MonoBehaviour
          CircularEyeMesh[1].enabled = circular; 
          NormalEyeMesh[0].enabled = !circular;
          NormalEyeMesh[1].enabled = !circular;
+
+        CircularEyeMesh[0].transform.gameObject.GetComponent<EyeSpiral>().canRotate = circular;
+        CircularEyeMesh[1].transform.gameObject.GetComponent<EyeSpiral>().canRotate = circular;
     }
 
     public void SlowDownFly()

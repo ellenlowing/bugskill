@@ -21,6 +21,7 @@ public class SettingSO : ScriptableObject
     public float flySpawnIntervalFactor = 0.5f;
     public float flySlowDownTime = 8.0f;
     public float flySlowDownSpeed = 0.5f;
+    public float eyeSpiralSpeed = 1.0f;
 
     [Header("Game Play Flow")]
     public float WaveWaitTime = 30f;

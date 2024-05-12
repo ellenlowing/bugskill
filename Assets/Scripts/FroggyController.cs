@@ -45,6 +45,8 @@ public class FroggyController : MonoBehaviour
     public float MinDistanceToActivateFroggy = 0.08f;
     public Vector3 FroggyPositionOffset;
     public Vector3 FroggyRotationOffset;
+    public Transform TongueTipObjectTransform;
+    public Transform TongueTipTargetTransform;
 
     private HandData _leftHandData;
     private HandData _rightHandData;
@@ -55,12 +57,16 @@ public class FroggyController : MonoBehaviour
         _originalFrogTongueScale = FrogTongueTransform.localScale;
         _leftHandData = new HandData(LeftHand, LeftHandSkeleton);
         _rightHandData = new HandData(RightHand, RightHandSkeleton);
+        FrogTongueTransform.localScale = new Vector3(1, 0.1f, 1);
     }
 
     void Update()
     {
         UpdateHandData(_leftHandData);
         UpdateHandData(_rightHandData);
+
+        TongueTipObjectTransform.position = TongueTipTargetTransform.position;
+        TongueTipObjectTransform.rotation = TongueTipTargetTransform.rotation;
 
         if (Input.GetKeyDown(KeyCode.Space))
         {

@@ -10,6 +10,8 @@ public class FlyMovement : MonoBehaviour
     public MRUKAnchor.SceneLabels canLand = MRUKAnchor.SceneLabels.FLOOR | MRUKAnchor.SceneLabels.CEILING;
     public float minRestDuration = 2f;
     public float maxRestDuration = 5f;
+    public float minSpeed = 2.0f;
+    public float maxSpeed = 10.0f;
     public float speed = 2.0f;
     public float rotationSpeed = 10f;
     public float minDistanceForNewTarget = 5.0f;
@@ -23,6 +25,7 @@ public class FlyMovement : MonoBehaviour
 
     private void Start()
     {
+        speed = Random.Range(minSpeed, maxSpeed);
     }
 
     private void Update()
@@ -50,7 +53,7 @@ public class FlyMovement : MonoBehaviour
         isMoving = true; 
         Vector3 direction = (targetPosition - transform.position).normalized;
         transform.position += direction * speed * Time.deltaTime;
-        // Rotate to face movement direction 
+        // Fly rotates to face moving direction 
         transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(direction), rotationSpeed * Time.deltaTime);
     }
 

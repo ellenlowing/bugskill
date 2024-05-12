@@ -32,4 +32,8 @@ public class SettingSO : ScriptableObject
     public int[] Waves = { 5, 10, 20, 40 };
 
 
+    [Header("HourGlass")]
+    public float divFactor = 2.7f;
+
+
 }

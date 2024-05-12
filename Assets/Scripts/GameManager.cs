@@ -16,11 +16,15 @@ public class GameManager : MonoBehaviour
     public GameObject splatterParticle;
     public Transform FlyParentAnchor;
     public UIManager UIM;
+    public Animator animator;
+    public GameObject HourGlass;
+    
 
     // ---
     public GameObject Portal;
     private int waveIndex = 0;
     private bool canSpawn = true;
+
 
     void Awake()
     {
@@ -73,6 +77,9 @@ public class GameManager : MonoBehaviour
                 }
                 settings.flies.Clear();
                 initialTime = 0;
+
+                // hide hourglass before next countdown
+                HourGlass.SetActive(false);
             }
             initialTime += Time.deltaTime;
         }
@@ -112,7 +119,12 @@ public class GameManager : MonoBehaviour
 
                     }
                     canSpawn = false;
-                    moveToNextWave = true;             
+                    moveToNextWave = true;   
+                    
+
+                    // enable and set timescale for loading based on time anticapated per wave
+                    HourGlass.SetActive(true);
+                    animator.speed = settings.divFactor / settings.maxWaitTime[waveIndex];
                 }
                 
 
@@ -124,7 +136,14 @@ public class GameManager : MonoBehaviour
                     waveIndex++;
                     moveToNextWave = false;
                     canSpawn = true;
+                    // enable hour glass here
+                    // set the animation speed to scale with div factor
+                    HourGlass.SetActive(true);
+
+                    animator.speed = settings.divFactor / settings.WaveWaitTime;
+                   // animator.speed = 0.02f;
                     yield return new WaitForSeconds(settings.WaveWaitTime);
+                    HourGlass.SetActive(false);
                 }
 
                 if(waveIndex >= settings.Waves.Length)

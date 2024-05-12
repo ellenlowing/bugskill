@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using Meta.XR.MRUtilityKit;
-using TMPro.EditorUtilities;
 using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.SceneManagement;
@@ -190,7 +189,7 @@ public class GameManager : MonoBehaviour
             {
                 if (!doneOnce)
                 {
-                    HourGlass.transform.position = anchor.transform.position + new Vector3(0f, 0.25f, 0f);
+                    HourGlass.transform.position = anchor.transform.position + new Vector3(0f, 0.3f, 0f);
                     doneOnce = true;
                 }
             }

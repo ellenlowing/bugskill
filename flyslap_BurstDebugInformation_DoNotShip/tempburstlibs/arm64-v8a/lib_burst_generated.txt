@@ -1,0 +1,44 @@
+Library: C:\Users\akuma\2024\XR BOOTCAMP\slap-da-fly\Temp\BurstOutput\tempburstlibs\arm64-v8a\lib_burst_generated
+--platform=Android
+--backend=burst-llvm-16
+--target=ARMV8A_AARCH64
+--global-safety-checks-setting=Off
+--meta-data-generation=False
+--dump=Function
+--float-precision=Standard
+--target-framework=NetFramework
+--assembly-defines=Assembly-CSharp;
+--assembly-defines=depthapi;
+--assembly-defines=Meta.XR.Audio;
+--assembly-defines=Meta.XR.BuildingBlocks;
+--assembly-defines=meta.xr.mrutilitykit;
+--assembly-defines=Mono.Security;
+--assembly-defines=mscorlib;
+--assembly-defines=Newtonsoft.Json;
+--assembly-defines=Oculus.Interaction;
+--assembly-defines=Oculus.Interaction.OVR;
+--assembly-defines=Oculus.VR;
+--assembly-defines=System.Configuration;
+--assembly-defines=System.Core;
+--assembly-defines=System.Data;
+--assembly-defines=System;
+--assembly-defines=System.Numerics;
+--assembly-defines=System.Runtime.Serialization;
+--assembly-defines=System.Xml;
+--assembly-defines=System.Xml.Linq;
+--assembly-defines=Unity.AI.Navigation;
+--assembly-defines=Unity.RenderPipelines.Core.Runtime;
+--assembly-defines=Unity.TextMeshPro;
+--assembly-defines=Unity.Timeline;
+--assembly-defines=Unity.VisualEffectGraph.Runtime;
+--assembly-defines=Unity.XR.Management;
+--assembly-defines=Unity.XR.Oculus;
+--assembly-defines=UnityEngine;
+--generate-link-xml=Temp\burst.link.xml
+--temp-folder=C:\Users\akuma\2024\XR BOOTCAMP\slap-da-fly\Temp\Burst
+--key-folder=C:/Program Files/Unity/Hub/Editor/2022.3.18f1/Editor/Data/PlaybackEngines/AndroidPlayer
+--decode-folder=C:\Users\akuma\2024\XR BOOTCAMP\slap-da-fly\Library\Burst
+--output=C:\Users\akuma\2024\XR BOOTCAMP\slap-da-fly\Temp\BurstOutput\tempburstlibs\arm64-v8a\lib_burst_generated
+--pdb-search-paths=Temp/ManagedSymbols/
+
+

@@ -34,6 +34,7 @@ public class SettingSO : ScriptableObject
 
     [Header("HourGlass")]
     public float divFactor = 2.7f;
+    public float distanceFromCamera = 1.0f;
 
 
 }

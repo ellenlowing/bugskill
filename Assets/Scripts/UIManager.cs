@@ -56,6 +56,17 @@ public class UIManager : MonoBehaviour
     public void KillUpdate()
     {
         UIObject.SetActive(true);
-        KillText.text = "Kills : " + settings.numberOfKills.ToString();
+
+        // set position to forward vector of center eye with match height
+        UIObject.transform.position = OVRManager.instance.GetComponent<OVRCameraRig>().centerEyeAnchor.position + new Vector3(0, 0, settings.distanceFromCamera);
+
+        if(settings.numberOfKills == 1)
+        {
+            KillText.text = "you killed " + "<color=yellow>" + settings.numberOfKills + "</color>" + " fly...";
+        }
+        else
+        {
+            KillText.text = "you killed " + "<color=yellow>" + settings.numberOfKills + "</color>" + " flies...";
+        }
     }
 }

@@ -51,6 +51,11 @@ MonoBehaviour:
   maxRestDuration: 5
   speed: 2
   rotationSpeed: 2.72
+  obstacleLayers:
+    serializedVersion: 2
+    m_Bits: 1
+  checkDistance: 1
+  isResting: 0
 --- !u!54 &1778244852545078343
 Rigidbody:
   m_ObjectHideFlags: 0

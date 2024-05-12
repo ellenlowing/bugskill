@@ -177,12 +177,22 @@ public class GameManager : MonoBehaviour
             if (anchor.HasLabel("WINDOW_FRAME") || anchor.HasLabel("DOOR_FRAME"))
             {
                 FlySpawnPositions.Add(anchor);
+               // if (!doneOnce)
+               // {
+               //     Instantiate(Portal, anchor.transform.position, Portal.transform.rotation);
+               //     doneOnce = true;
+               // }
+
+            }
+
+            // place hourglass on table
+            if (anchor.HasLabel("TABLE"))
+            {
                 if (!doneOnce)
                 {
-                    Instantiate(Portal, anchor.transform.position, Portal.transform.rotation);
+                    HourGlass.transform.position = anchor.transform.position + new Vector3(0f, 0.25f, 0f);
                     doneOnce = true;
                 }
-
             }
         }
     }

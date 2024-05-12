@@ -12,7 +12,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 345cf1bedd32c9f4483a79373f5c4bc1, type: 3}
   m_Name: SettingSO
   m_EditorClassIdentifier: 
-  flies: []
+  flies:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   score: 0
   scoreMulFactor: 5
   numberOfKills: 0
@@ -26,5 +46,6 @@ MonoBehaviour:
   numberOfWaves: 10
   timeBtwStarting: 2
   nextWaveTimeGap: 3
-  maxWaitTime: 14000000140000001400000014000000
+  maxWaitTime: 140000003c0000005000000064000000
   Waves: 050000000a0000001400000028000000
+  divFactor: 2.7

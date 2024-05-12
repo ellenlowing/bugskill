@@ -33,7 +33,6 @@ public class EnvironmentSetup : MonoBehaviour
         {
             AddLandingSurfaceColliders(wall);
         }
-
         AddLandingSurfaceColliders(room.CeilingAnchor);
         AddLandingSurfaceColliders(room.FloorAnchor);
     }

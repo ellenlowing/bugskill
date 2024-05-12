@@ -14,14 +14,17 @@ public class FlyMovement : MonoBehaviour
     public float maxSpeed = 10.0f;
     public float speed = 2.0f;
     public float rotationSpeed = 10f;
-    public float minDistanceForNewTarget = 5.0f;
     public float distanceToEdges = 0.2f;
+    public float checkDistance = 0.15f;  // Small forward distance to project the spherecast along the normal
+    public float radius = 0.15f;         // Radius to check around the target position
+
 
     private bool isResting = false;
     private Vector3 targetPosition;
     private Vector3 targetNormal;
     private bool needNewTarget = true;
     private bool isMoving = false; 
+    
 
     private void Start()
     {
@@ -42,7 +45,7 @@ public class FlyMovement : MonoBehaviour
         }
         
         // If moving and reached target position, rest 
-        if (isMoving && Vector3.Distance(transform.position, targetPosition) < 0.1f)
+        if (isMoving && Vector3.Distance(transform.position, targetPosition) < 0.01f)
         {
             StartCoroutine(Rest());
         }
@@ -70,18 +73,44 @@ public class FlyMovement : MonoBehaviour
             if (currentRoom.GenerateRandomPositionOnSurface(MRUK.SurfaceType.FACING_UP | MRUK.SurfaceType.VERTICAL,
                 distanceToEdges, labelFilter, out Vector3 position, out Vector3 normal))
             {
-                Vector3 direction = (position - transform.position).normalized;
-                // If there's not something in the fly's path, set target position 
-                if (!Physics.Raycast(transform.position + direction * 0.5f, direction, Vector3.Distance(transform.position, position) - 0.5f))
-                {
-                    targetPosition = position;
-                    targetNormal = normal;
-                    needNewTarget = false;
-                }
+                CheckValidPosition(position, normal);
             }
         }
     }
 
+    private void CheckValidPosition(Vector3 position, Vector3 normal)
+    {
+        Vector3 direction = (position - transform.position).normalized;
+        
+        // If there's no obstacle in the fly's path
+        if (!Physics.Raycast(transform.position, direction, Vector3.Distance(transform.position, position)))
+        {
+            // If the player can reach the position
+            if (IsPositionAccessible(position, normal))
+            {
+                targetPosition = position;
+                targetNormal = normal;
+                needNewTarget = false;
+            }
+        }
+    }
+
+    
+    // Check if the position is sufficiently distant from other scene anchors
+    private bool IsPositionAccessible(Vector3 position, Vector3 normal)
+    {
+        // Project the sphere slightly along the normal to ensure it starts checking from the surface outward
+        Vector3 start = position + normal * radius;
+
+        // Use Physics.SphereCast to check for collisions within the radius along a very short distance
+        if (Physics.SphereCast(start, radius, normal, out RaycastHit hit, checkDistance))
+        {
+            return false;  // There is an object within the buffer zone
+        }
+        return true;  // No objects found within the buffer zone, position is accessible
+    }
+
+    
     private IEnumerator Rest()
     {
         isMoving = false; 
@@ -92,10 +121,63 @@ public class FlyMovement : MonoBehaviour
         isResting = false;
         needNewTarget = true;  // Need new target position after resting 
     }
+    
+    private void OnDrawGizmos()
+    {
+        if (targetPosition != Vector3.zero)
+        {
+            // Draw the target position
+            Gizmos.color = Color.red;
+            Gizmos.DrawSphere(targetPosition, 0.01f);
+
+            // Draw the raycast for checking the fly's path
+            Vector3 direction = (targetPosition - transform.position).normalized;
+            float distance = Vector3.Distance(transform.position, targetPosition);
+            Gizmos.color = Color.yellow;
+            Gizmos.DrawRay(transform.position, direction * distance); // Adjusted ray start and distance
+
+            // Draw the spherecast for accessibility check
+            Gizmos.color = Color.green;
+            Vector3 startSphereCast = targetPosition + targetNormal * radius;  // Adjusted start position along the normal
+            Gizmos.DrawWireSphere(startSphereCast, radius);  // Draw the sphere at the target position
+            Vector3 endSphereCast = startSphereCast + targetNormal * checkDistance;  // End position of the spherecast
+            Gizmos.DrawWireSphere(endSphereCast, radius);
+
+            // Draw a line representing the spherecast path
+            Gizmos.DrawLine(startSphereCast, endSphereCast);
+            
+            // Optional: Draw the normal at the target position
+            Gizmos.color = Color.blue;
+            Gizmos.DrawRay(targetPosition, targetNormal * 0.5f);  // Show the direction of the normal // Draw the spherecast area
+        }
+    }
 }
     
     
     
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     
 // isResting = true;
 // RaycastHit hit;

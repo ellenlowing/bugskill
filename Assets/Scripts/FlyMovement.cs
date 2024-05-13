@@ -17,9 +17,7 @@ public class FlyMovement : MonoBehaviour
     public float distanceToEdges = 0.2f;
     public float checkDistance = 0.15f;  // Small forward distance to project the spherecast along the normal
     public float radius = 0.15f;         // Radius to check around the target position
-
-
-    private bool isResting = false;
+    public bool isResting = false;
     private Vector3 targetPosition;
     private Vector3 targetNormal;
     private bool needNewTarget = true;

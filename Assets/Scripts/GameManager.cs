@@ -17,7 +17,7 @@ public class GameManager : MonoBehaviour
     public UIManager UIM;
     public Animator animator;
     public GameObject HourGlass;
-    
+
 
     // ---
     public GameObject Portal;
@@ -70,15 +70,24 @@ public class GameManager : MonoBehaviour
             if (initialTime > settings.maxWaitTime[waveIndex])
             {
                 // empty all fly list
-                foreach (var obj in settings.flies)
-                {
-                    Destroy(obj);
-                }
-                settings.flies.Clear();
-                initialTime = 0;
+                // foreach (var obj in settings.flies)
+                // {
+                //     Destroy(obj);
+                // }
+                // settings.flies.Clear();
 
-                // hide hourglass before next countdown
+                waveIndex++;
+                moveToNextWave = false;
+                canSpawn = true;
+                // enable hour glass here
+                // set the animation speed to scale with div factor
+                HourGlass.SetActive(true);
+
+                animator.speed = settings.divFactor / settings.WaveWaitTime;
+                // animator.speed = 0.02f;
                 HourGlass.SetActive(false);
+
+                initialTime = 0;
             }
             initialTime += Time.deltaTime;
         }
@@ -118,34 +127,34 @@ public class GameManager : MonoBehaviour
 
                     }
                     canSpawn = false;
-                    moveToNextWave = true;   
-                    
+                    moveToNextWave = true;
+
 
                     // enable and set timescale for loading based on time anticapated per wave
                     HourGlass.SetActive(true);
                     animator.speed = settings.divFactor / settings.maxWaitTime[waveIndex];
                 }
-                
+
 
                 // check if all flies are killed
                 // move to next wave count
                 // play theme wave wait sound
-                if(settings.flies.Count == 0)
-                {
-                    waveIndex++;
-                    moveToNextWave = false;
-                    canSpawn = true;
-                    // enable hour glass here
-                    // set the animation speed to scale with div factor
-                    HourGlass.SetActive(true);
+                // if (settings.flies.Count == 0)
+                // {
+                //     waveIndex++;
+                //     moveToNextWave = false;
+                //     canSpawn = true;
+                //     // enable hour glass here
+                //     // set the animation speed to scale with div factor
+                //     HourGlass.SetActive(true);
 
-                    animator.speed = settings.divFactor / settings.WaveWaitTime;
-                   // animator.speed = 0.02f;
-                    yield return new WaitForSeconds(settings.WaveWaitTime);
-                    HourGlass.SetActive(false);
-                }
+                //     animator.speed = settings.divFactor / settings.WaveWaitTime;
+                //     // animator.speed = 0.02f;
+                //     yield return new WaitForSeconds(settings.WaveWaitTime);
+                //     HourGlass.SetActive(false);
+                // }
 
-                if(waveIndex >= settings.Waves.Length)
+                if (waveIndex >= settings.Waves.Length)
                 {
                     // call completion here with ui score update
                     UIM.KillUpdate();
@@ -176,11 +185,11 @@ public class GameManager : MonoBehaviour
             if (anchor.HasLabel("WINDOW_FRAME") || anchor.HasLabel("DOOR_FRAME"))
             {
                 FlySpawnPositions.Add(anchor);
-               // if (!doneOnce)
-               // {
-               //     Instantiate(Portal, anchor.transform.position, Portal.transform.rotation);
-               //     doneOnce = true;
-               // }
+                // if (!doneOnce)
+                // {
+                //     Instantiate(Portal, anchor.transform.position, Portal.transform.rotation);
+                //     doneOnce = true;
+                // }
 
             }
 

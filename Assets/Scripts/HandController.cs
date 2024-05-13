@@ -105,7 +105,7 @@ public class HandController : MonoBehaviour
                     audioSource.clip = buzzSource.flySplatClip;
                     audioSource.pitch = Random.Range(0.1f, 2.0f);
                     audioSource.spatialBlend = 1f;
-                    audioSource.volume = 10f;
+                    audioSource.volume = 1f;
                     audioSource.loop = false;
                     audioSource.spatialize = true;
                     audioSource.playOnAwake = true;

@@ -5,17 +5,17 @@ using UnityEngine;
 public class FlyAudioSource : MonoBehaviour
 {
     public List<AudioClip> flyMovingClip;
-    public AudioClip flyDizzyClip;
+    public List<AudioClip> flyDizzyClip;
     public AudioClip flySplatClip;
-    private AudioClip prevClip;
     private FlyMovement flyMove;
     public float minVelocity = 0.1f;
     private AudioSource audioSource;
+    private int idx=0;
 
     // Start is called before the first frame update
     void Start()
     {
-        int idx = Random.Range(0, flyMovingClip.Count);
+        idx = Random.Range(0, flyMovingClip.Count);
         if (idx > 1)
         {
             transform.localScale = new Vector3(0.5f,0.5f,0.5f);
@@ -35,14 +35,15 @@ public class FlyAudioSource : MonoBehaviour
 
     public void DizzyClip()
     {
-        prevClip = audioSource.clip;
-        audioSource.clip = flyDizzyClip;
+        audioSource.loop=false;
+        audioSource.clip = flyDizzyClip[idx>1?1:0];
         audioSource.Play();
     }
 
     public void MoveClip()
     {
-        audioSource.clip = prevClip;
+        audioSource.clip = flyMovingClip[idx];
+        audioSource.loop = true;
         audioSource.Play();
     }
 

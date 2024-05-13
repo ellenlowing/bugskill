@@ -18,12 +18,12 @@ public class UIManager : MonoBehaviour
 
     private void Start()
     {
-        
+
     }
 
     private void OnDisable()
     {
-       // settings.waveTimeToComplete = 10.0f;
+        // settings.waveTimeToComplete = 10.0f;
     }
 
     public void Update()
@@ -32,7 +32,7 @@ public class UIManager : MonoBehaviour
         {
             UpdateTimer();
 
-            if(TimeChange > settings.WaveWaitTime)
+            if (TimeChange > settings.WaveWaitTime)
             {
                 RunTimer = false;
                 TimeChange = 0;
@@ -44,8 +44,8 @@ public class UIManager : MonoBehaviour
 
     public void UpdateTimer()
     {
-       // TimerText.text = Mathf.RoundToInt(TimeChange) + "/" + Mathf.RoundToInt(settings.waveTimeToComplete);
-       // TimerSprite.fillAmount = TimeChange / settings.waveTimeToComplete;
+        // TimerText.text = Mathf.RoundToInt(TimeChange) + "/" + Mathf.RoundToInt(settings.waveTimeToComplete);
+        // TimerSprite.fillAmount = TimeChange / settings.waveTimeToComplete;
     }
 
     public void ScoreUpdate()
@@ -58,15 +58,16 @@ public class UIManager : MonoBehaviour
         UIObject.SetActive(true);
 
         // set position to forward vector of center eye with match height
-        UIObject.transform.position = OVRManager.instance.GetComponent<OVRCameraRig>().centerEyeAnchor.position + new Vector3(0, 0, settings.distanceFromCamera);
+        UIObject.transform.position = Camera.main.transform.position + Camera.main.transform.forward * settings.distanceFromCamera;
+        UIObject.transform.forward = Camera.main.transform.forward;
 
-        if(settings.numberOfKills == 1)
+        if (settings.numberOfKills == 1)
         {
-            KillText.text = "you killed " + "<color=yellow>" + settings.numberOfKills + "</color>" + " fly...";
+            KillText.text = "you killed " + "<color=red>" + settings.numberOfKills + "</color>" + " fly...";
         }
         else
         {
-            KillText.text = "you killed " + "<color=yellow>" + settings.numberOfKills + "</color>" + " flies...";
+            KillText.text = "you killed " + "<color=red>" + settings.numberOfKills + "</color>" + " flies...";
         }
     }
 }

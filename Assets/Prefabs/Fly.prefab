@@ -281,12 +281,13 @@ MonoBehaviour:
   maxRestDuration: 5
   minSpeed: 1
   maxSpeed: 4
-  speed: 2
+  speed: 1
   rotationSpeed: 2.72
   distanceToEdges: 0.05
-  checkDistance: 0.34
+  checkDistance: 0.3
   radius: 0.15
   isResting: 0
+  takeOffChance: 0.5
 --- !u!54 &1778244852545078343
 Rigidbody:
   m_ObjectHideFlags: 0

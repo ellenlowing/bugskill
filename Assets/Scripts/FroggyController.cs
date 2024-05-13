@@ -62,7 +62,7 @@ public class FroggyController : MonoBehaviour
     public LayerMask FlyLayerMask;
 
     [Header("Cooldown")]
-    public float CooldownTime = 1f;
+    public float CooldownTime = 3f;
     public float FroggyLastTriggeredTime = 0;
 
     private HandData _leftHandData;
@@ -70,6 +70,13 @@ public class FroggyController : MonoBehaviour
     private Vector3 _originalFrogTongueScale;
     private Collider _hitFlyCollider = null;
 
+    [Header("Sounds")]
+    public AudioSource audioSource;
+    public AudioClip munchClip;
+    public AudioClip croakClip;
+    public AudioClip slurpClip;
+    private bool _successFly = false;
+    
     void Awake()
     {
         if (Instance != null && Instance != this)
@@ -88,6 +95,14 @@ public class FroggyController : MonoBehaviour
         _originalFrogTongueScale = FrogTongueTransform.localScale;
         _leftHandData = new HandData(LeftHand, LeftHandSkeleton);
         _rightHandData = new HandData(RightHand, RightHandSkeleton);
+        audioSource = gameObject.GetComponent<AudioSource>();
+        audioSource.clip = croakClip;
+        audioSource.spatialBlend = 1f;
+        audioSource.loop = false;
+        audioSource.spatialize = true;
+        audioSource.playOnAwake = false;
+        var metaAudio = gameObject.AddComponent<MetaXRAudioSource>();
+        metaAudio.EnableSpatialization = true;
     }
 
     void Update()
@@ -131,6 +146,9 @@ public class FroggyController : MonoBehaviour
             {
                 FroggyActiveHand = handData.Hand;
                 ShowAllRenderers();
+                //croaking frog while in hand
+                RestartCroaking();
+                //
                 FroggyParentTransform.parent = FroggyActiveHand.transform;
                 FroggyParentTransform.localPosition = FroggyPositionOffset;
                 FroggyParentTransform.localEulerAngles = FroggyRotationOffset;
@@ -149,6 +167,7 @@ public class FroggyController : MonoBehaviour
                 FroggyActiveHand = null;
                 FroggyParentTransform.parent = null;
                 HideAllRenderers();
+                
             }
 
             if (handData.IsIndexFingerPinching && (Time.time - FroggyLastTriggeredTime) > CooldownTime)
@@ -166,6 +185,8 @@ public class FroggyController : MonoBehaviour
         {
             renderer.enabled = true;
         }
+
+        audioSource.mute = false;
     }
 
     void HideAllRenderers()
@@ -174,6 +195,8 @@ public class FroggyController : MonoBehaviour
         {
             renderer.enabled = false;
         }
+        //stop croaking while not in hand
+        audioSource.mute = true;
     }
 
     void TriggerPress()
@@ -182,6 +205,7 @@ public class FroggyController : MonoBehaviour
         {
             if (_hitFlyCollider != null)
             {
+                _successFly = true;
                 float distance = Vector3.Distance(_hitFlyCollider.transform.position, TongueTipObjectTransform.position);
                 float scaleY = Mathf.Clamp(map(distance, 0, SphereCastDistance, MinScaleY, MaxScaleY), MinScaleY, MaxScaleY);
                 Debug.Log("Hitting " + _hitFlyCollider.name + ", extending tongue by " + scaleY);
@@ -189,6 +213,7 @@ public class FroggyController : MonoBehaviour
             }
             else
             {
+                _successFly = false;
                 float scaleY = map(0.15f, 0, 1, MinScaleY, MaxScaleY);
                 StartCoroutine(AnimateFrogTongueScale(_originalFrogTongueScale, new Vector3(1f, scaleY, 1f), GrabSpeed, ReturnSpeed));
             }
@@ -198,6 +223,11 @@ public class FroggyController : MonoBehaviour
     IEnumerator AnimateFrogTongueScale(Vector3 inScale, Vector3 outScale, float grabSpeed, float returnSpeed)
     {
         // PlaySound("Reload");
+        //start slurping while lashing tongue
+        audioSource.clip = slurpClip;
+        audioSource.loop = false;
+        audioSource.Play();
+        //
         float t = 0;
         FroggyActive = true;
         while (t <= 1)
@@ -206,7 +236,8 @@ public class FroggyController : MonoBehaviour
             t += Time.deltaTime * grabSpeed;
             yield return null;
         }
-
+        
+        
         // if (returnSpeed == FastClawReturnAnimationSpeed)
         // {
         // PlaySound("GrabSuccess");
@@ -218,6 +249,8 @@ public class FroggyController : MonoBehaviour
         yield return new WaitForSeconds(0.15f);
         // StopSound();
 
+        Invoke(nameof(StartMunching), 0.3f);        
+        
         t = 0;
         while (Vector3.Distance(FrogTongueTransform.localScale, inScale) > 0.001f)
         {
@@ -227,6 +260,22 @@ public class FroggyController : MonoBehaviour
         }
         FroggyActive = false;
         FrogTongueTransform.localScale = inScale;
+        Invoke(nameof(RestartCroaking), 0.2f);
+    }
+
+    private void StartMunching()
+    {
+        audioSource.clip = _successFly ? munchClip : croakClip;
+        audioSource.loop = !_successFly;
+        audioSource.Play();
+        _successFly = false;
+    }
+    
+    private void RestartCroaking()
+    {
+        audioSource.clip = croakClip;
+        audioSource.loop = true;
+        audioSource.Play();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -239,7 +288,7 @@ public class FroggyController : MonoBehaviour
             other.transform.parent = TongueTipObjectTransform;
             other.transform.position = GetRandomPointWithinBounds(TongueTipObjectTransform.gameObject);
             other.transform.localScale = other.transform.localScale * 0.5f;
-
+            
             Destroy(other.gameObject, 1f);
         }
     }

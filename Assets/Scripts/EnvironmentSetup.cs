@@ -39,7 +39,10 @@ public class EnvironmentSetup : MonoBehaviour
                 if (labelFilter.PassesFilter(anchor.AnchorLabels))
                 {
                     anchor.gameObject.layer = 6;
-                    Debug.Log("Assigned layer to " + anchor.name);
+                    foreach (Transform child in anchor.transform)
+                    {
+                        child.gameObject.layer = 6;
+                    }
                 }
             }
         }

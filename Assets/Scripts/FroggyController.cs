@@ -261,8 +261,6 @@ public class FroggyController : MonoBehaviour
         float randomY = Random.Range(bounds.min.y, bounds.max.y);
         float randomZ = Random.Range(bounds.min.z, bounds.max.z);
 
-        Debug.Log("Random point: " + new Vector3(randomX, randomY, randomZ) + " within bounds: " + bounds.min + " " + bounds.max);
-
         return new Vector3(randomX, randomY, randomZ);
     }
 

@@ -27,19 +27,19 @@ public class HandController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+
         if (other.gameObject.layer == 6)
         {
             isTouchingLandingSurface = true;
             touchedWallTransform = other.transform;
-            Debug.Log("Touching wall");
         }
         else if (other.gameObject.tag == "Hands")
         {
             isTouchingOtherHand = true;
-            if (other.gameObject.tag == "Fly")
-            {
-                touchedFlyTransform = other.transform;
-            }
+            // if (other.gameObject.tag == "Fly")
+            // {
+            //     touchedFlyTransform = other.transform;
+            // }
         }
         else if (other.gameObject.tag == "Fly")
         {
@@ -95,8 +95,8 @@ public class HandController : MonoBehaviour
                 }
                 else if (isTouchingOtherHand)
                 {
-                    //Instantiate(GameManager.Instance.splatterParticle, touchedFlyTransform.position, Quaternion.identity);
-                    Debug.LogWarning("Two Hand Smash");
+                    Instantiate(GameManager.Instance.splatterParticle, touchedFlyTransform.position, Quaternion.identity);
+                    Debug.Log("Two Hand Smash");
                 }
 
                 if (touchedFlyTransform.gameObject.TryGetComponent<FlyAudioSource>(out var buzzSource))

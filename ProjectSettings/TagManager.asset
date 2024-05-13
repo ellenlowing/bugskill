@@ -9,6 +9,7 @@ TagManager:
   - Floor
   - Hands
   - Fly
+  - SamplesInfoPanel
   layers:
   - Default
   - TransparentFX
@@ -17,7 +18,7 @@ TagManager:
   - Water
   - UI
   - Landing
-  - 
+  - Fly
   - 
   - 
   - 

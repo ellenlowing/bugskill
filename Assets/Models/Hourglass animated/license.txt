@@ -1,0 +1,8 @@
+Model Information:
+* title:	Hourglass - Animated
+* source:	https://sketchfab.com/3d-models/hourglass-animated-3d9778c0a8b04672b7a9f1967698cdab
+* author:	Ritordp (https://sketchfab.com/ritordp)
+
+Model License:
+* license type:	SKETCHFAB Standard (https://sketchfab.com/licenses)
+* requirements:	Under basic restrictions, use worldwide, on all types of media, commercially or not, and in all types of derivative works

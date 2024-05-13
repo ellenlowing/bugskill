@@ -20,7 +20,7 @@ public class EnvironmentSetup : MonoBehaviour
                 MeshCollider[] meshColliders = anchor.GetComponentsInChildren<MeshCollider>();
                 foreach (MeshCollider meshCollider in meshColliders)
                 {
-                    meshCollider.convex = true; 
+                    meshCollider.convex = true;
                 }
             }
         }

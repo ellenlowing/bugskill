@@ -4,23 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e5348e81-3315-4d09-b966-76e1eeedee7b" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.slap-da-fly/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.slap-da-fly/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Oculus/OculusProjectConfig.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Oculus/OculusProjectConfig.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/OVRBuildConfig.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/OVRBuildConfig.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/OVRBuildConfig.asset.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/OVRBuildConfig.asset.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/protoScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/protoScene.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/FlyAudioSource.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/FlyAudioSource.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/FroggyController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/FroggyController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/HandController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/HandController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sounds/dizzy.mp3" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sounds/dizzy.mp3" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sounds/dizzy.mp3.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sounds/dizzy.mp3.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sounds/tuau.mp3" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sounds/tuau.mp3" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sounds/tuau.mp3.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sounds/tuau.mp3.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/Packages/com.unity.testtools.codecoverage/Settings.json" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/Packages/com.unity.testtools.codecoverage/Settings.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/ProjectSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/ProjectSettings.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserSettings/Layouts/default-2022.dwlt" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/Layouts/default-2022.dwlt" afterDir="false" />
-    </list>
+    <list default="true" id="e5348e81-3315-4d09-b966-76e1eeedee7b" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -122,7 +106,7 @@
       <workItem from="1715500591123" duration="8828000" />
       <workItem from="1715581245195" duration="1339000" />
       <workItem from="1715591523543" duration="350000" />
-      <workItem from="1715591898269" duration="5020000" />
+      <workItem from="1715591898269" duration="5790000" />
     </task>
     <servers />
   </component>

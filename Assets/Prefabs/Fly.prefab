@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3282216096727397303}
   - component: {fileID: 3410932105094737876}
   - component: {fileID: 3950760371981990406}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: left-eye-cir
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -118,7 +118,7 @@ GameObject:
   - component: {fileID: 5468476972978534699}
   - component: {fileID: 4983446621007840089}
   - component: {fileID: 3930196080396434392}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: eye_left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -241,7 +241,7 @@ GameObject:
   - component: {fileID: 7207335563215581596}
   - component: {fileID: 4482827973642035594}
   - component: {fileID: 8809435430099479294}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Fly
   m_TagString: Fly
   m_Icon: {fileID: 0}
@@ -355,7 +355,9 @@ MonoBehaviour:
   - {fileID: 8300000, guid: a1033389167ebaf47bcdeb3d9f4946d1, type: 3}
   - {fileID: 8300000, guid: 24dedd5d157d32f4f877dc521571f28f, type: 3}
   - {fileID: 8300000, guid: 08f00e5982d0216419015759133a4f09, type: 3}
-  flyDizzyClip: {fileID: 8300000, guid: 24cb6d6149142ef4ca0ece1939e862fa, type: 3}
+  flyDizzyClip:
+  - {fileID: 8300000, guid: 24cb6d6149142ef4ca0ece1939e862fa, type: 3}
+  - {fileID: 8300000, guid: 358e0bfad598e2040a3077a6e5990986, type: 3}
   flySplatClip: {fileID: 8300000, guid: 74da2862d959e7e499c4cb5b31c3f2d2, type: 3}
   minVelocity: 0.1
 --- !u!82 &4482827973642035594
@@ -488,7 +490,7 @@ GameObject:
   - component: {fileID: 8860143217507585408}
   - component: {fileID: 1580154761112210043}
   - component: {fileID: 5509550933052834594}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: eyes_right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -608,7 +610,7 @@ GameObject:
   - component: {fileID: 5256194027201612351}
   - component: {fileID: 6518266998346339009}
   - component: {fileID: 9017895430391700916}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: right-eye-cr
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -712,7 +714,7 @@ GameObject:
   - component: {fileID: 8151125162887450878}
   - component: {fileID: 8171161980780702588}
   - component: {fileID: 8161108033435662170}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: left-legs
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -795,7 +797,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8142648167534934466}
   - component: {fileID: 8089709310135259662}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Fly-flying
   m_TagString: Fly
   m_Icon: {fileID: 0}
@@ -860,7 +862,7 @@ GameObject:
   - component: {fileID: 8151186618165528196}
   - component: {fileID: 8172032450144359244}
   - component: {fileID: 8161353380878517188}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: left-eye
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -943,7 +945,7 @@ GameObject:
   - component: {fileID: 8151309558971962406}
   - component: {fileID: 8171740508348681788}
   - component: {fileID: 8161639700808888584}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: right-wings
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1027,7 +1029,7 @@ GameObject:
   - component: {fileID: 8143003390999155268}
   - component: {fileID: 8171672984397532438}
   - component: {fileID: 8161488179538572312}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: right-eye
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1110,7 +1112,7 @@ GameObject:
   - component: {fileID: 8142953552667422556}
   - component: {fileID: 8171943151940059156}
   - component: {fileID: 8161343422958390254}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: right-wing
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1193,7 +1195,7 @@ GameObject:
   - component: {fileID: 8143063709195603190}
   - component: {fileID: 8171193339678192218}
   - component: {fileID: 8161479640683861072}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: left-wing
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1276,7 +1278,7 @@ GameObject:
   - component: {fileID: 8151410391257601842}
   - component: {fileID: 8171430243018445582}
   - component: {fileID: 8162125125776691950}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: body
   m_TagString: Untagged
   m_Icon: {fileID: 0}

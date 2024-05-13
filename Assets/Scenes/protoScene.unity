@@ -5480,21 +5480,9 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 68172244178121177, guid: 75d14416f534f4b11aec372b6307c3bb, type: 3}
-      propertyPath: m_Layer
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 553032459457603851, guid: 75d14416f534f4b11aec372b6307c3bb, type: 3}
-      propertyPath: m_Layer
-      value: 7
-      objectReference: {fileID: 0}
     - target: {fileID: 708182128869486111, guid: 75d14416f534f4b11aec372b6307c3bb, type: 3}
       propertyPath: m_Name
       value: Fly
-      objectReference: {fileID: 0}
-    - target: {fileID: 708182128869486111, guid: 75d14416f534f4b11aec372b6307c3bb, type: 3}
-      propertyPath: m_Layer
-      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 2300318445620189431, guid: 75d14416f534f4b11aec372b6307c3bb, type: 3}
       propertyPath: m_LocalPosition.x
@@ -5535,58 +5523,6 @@ PrefabInstance:
     - target: {fileID: 2300318445620189431, guid: 75d14416f534f4b11aec372b6307c3bb, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4171755376823053841, guid: 75d14416f534f4b11aec372b6307c3bb, type: 3}
-      propertyPath: m_Layer
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 5431793350995527409, guid: 75d14416f534f4b11aec372b6307c3bb, type: 3}
-      propertyPath: m_Layer
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 7207335563215581596, guid: 75d14416f534f4b11aec372b6307c3bb, type: 3}
-      propertyPath: flyDizzyClip.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 7207335563215581596, guid: 75d14416f534f4b11aec372b6307c3bb, type: 3}
-      propertyPath: flyDizzyClip.Array.data[0]
-      value: 
-      objectReference: {fileID: 8300000, guid: 24cb6d6149142ef4ca0ece1939e862fa, type: 3}
-    - target: {fileID: 7207335563215581596, guid: 75d14416f534f4b11aec372b6307c3bb, type: 3}
-      propertyPath: flyDizzyClip.Array.data[1]
-      value: 
-      objectReference: {fileID: 8300000, guid: 358e0bfad598e2040a3077a6e5990986, type: 3}
-    - target: {fileID: 8148174429972817220, guid: 75d14416f534f4b11aec372b6307c3bb, type: 3}
-      propertyPath: m_Layer
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 8148184885496207710, guid: 75d14416f534f4b11aec372b6307c3bb, type: 3}
-      propertyPath: m_Layer
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 8148241569799788100, guid: 75d14416f534f4b11aec372b6307c3bb, type: 3}
-      propertyPath: m_Layer
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 8148333609706243974, guid: 75d14416f534f4b11aec372b6307c3bb, type: 3}
-      propertyPath: m_Layer
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 8148370949261273826, guid: 75d14416f534f4b11aec372b6307c3bb, type: 3}
-      propertyPath: m_Layer
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 8148497402268784964, guid: 75d14416f534f4b11aec372b6307c3bb, type: 3}
-      propertyPath: m_Layer
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 8148593740056793158, guid: 75d14416f534f4b11aec372b6307c3bb, type: 3}
-      propertyPath: m_Layer
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 8148820874368414700, guid: 75d14416f534f4b11aec372b6307c3bb, type: 3}
-      propertyPath: m_Layer
-      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

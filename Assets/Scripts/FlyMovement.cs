@@ -36,10 +36,7 @@ public class FlyMovement : MonoBehaviour
     {
         if (isCaught)
         {
-            if (!FroggyController.Instance.FroggyActive)
-            {
-                Destroy(gameObject);
-            }
+
         }
         else if (!isResting)
         {

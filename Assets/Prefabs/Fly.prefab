@@ -11,7 +11,8 @@ GameObject:
   - component: {fileID: 2300318445620189431}
   - component: {fileID: 6558061756533918786}
   - component: {fileID: 1778244852545078343}
-  m_Layer: 0
+  - component: {fileID: 8069624324660063772}
+  m_Layer: 7
   m_Name: Fly
   m_TagString: Fly
   m_Icon: {fileID: 0}
@@ -41,22 +42,23 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 708182128869486111}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bb8863dbb824349b8bd7d6449768ca8e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minSpeed: 1
-  maxSpeed: 4
+  minSpeed: 0.1
+  maxSpeed: 1
   rotationSpeed: 2.72
   minRestTime: 1
-  maxRestTime: 5
+  maxRestTime: 60
   takeOffTime: 0.1
   detectionRange: 0.001
   takeOffChance: 0.9
   landingSurfaceLayer:
     serializedVersion: 2
     m_Bits: 64
+  isCaught: 0
 --- !u!54 &1778244852545078343
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -84,6 +86,29 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!136 &8069624324660063772
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 708182128869486111}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.2
+  m_Height: 0.18
+  m_Direction: 2
+  m_Center: {x: 0, y: -0.07798463, z: 0}
 --- !u!1001 &8147187725473287508
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -92,17 +117,53 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2300318445620189431}
     m_Modifications:
+    - target: {fileID: 1145884836940498, guid: 6de5aac1a04c7d14da2c889eb4e8740a, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1253609947178934, guid: 6de5aac1a04c7d14da2c889eb4e8740a, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1268197360756752, guid: 6de5aac1a04c7d14da2c889eb4e8740a, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 1278635780035594, guid: 6de5aac1a04c7d14da2c889eb4e8740a, type: 3}
       propertyPath: m_Name
       value: Fly-flying
       objectReference: {fileID: 0}
     - target: {fileID: 1278635780035594, guid: 6de5aac1a04c7d14da2c889eb4e8740a, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1278635780035594, guid: 6de5aac1a04c7d14da2c889eb4e8740a, type: 3}
       propertyPath: m_TagString
-      value: Fly
+      value: Untagged
+      objectReference: {fileID: 0}
+    - target: {fileID: 1356938578550296, guid: 6de5aac1a04c7d14da2c889eb4e8740a, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 1356938578550296, guid: 6de5aac1a04c7d14da2c889eb4e8740a, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1405842666478352, guid: 6de5aac1a04c7d14da2c889eb4e8740a, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1476400515947794, guid: 6de5aac1a04c7d14da2c889eb4e8740a, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1661520650867728, guid: 6de5aac1a04c7d14da2c889eb4e8740a, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1914778633535160, guid: 6de5aac1a04c7d14da2c889eb4e8740a, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 4406082924705548, guid: 6de5aac1a04c7d14da2c889eb4e8740a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -235,6 +296,7 @@ PrefabInstance:
     - {fileID: 65487367649459824, guid: 6de5aac1a04c7d14da2c889eb4e8740a, type: 3}
     - {fileID: 65574938208390720, guid: 6de5aac1a04c7d14da2c889eb4e8740a, type: 3}
     - {fileID: 114836809065966040, guid: 6de5aac1a04c7d14da2c889eb4e8740a, type: 3}
+    - {fileID: 136869175356997376, guid: 6de5aac1a04c7d14da2c889eb4e8740a, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []

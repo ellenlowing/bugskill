@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Data;
 using UnityEngine;
 using UnityEngine.XR;
 
@@ -39,20 +40,26 @@ public class FroggyController : MonoBehaviour
     public bool FroggyActive = false;
     public float GrabSpeed = 2;
     public float ReturnSpeed = 1;
+    public float MinScaleY = 0.1f;
     public float MaxScaleY = 5f;
     public OVRHand LeftHand;
     public OVRHand RightHand;
     public OVRSkeleton LeftHandSkeleton;
     public OVRSkeleton RightHandSkeleton;
-    public float MinDistanceToActivateFroggy = 0.08f;
+    public float MaxDistanceToActivateFroggy = 0.1f;
+    public float MaxDistanceToGrab = 0.02f;
     public Vector3 FroggyPositionOffset;
     public Vector3 FroggyRotationOffset;
     public Transform TongueTipObjectTransform;
     public Transform TongueTipTargetTransform;
+    public float SphereCastRadius = 0.2f;
+    public float SphereCastDistance = 4f;
+    public LayerMask FlyLayerMask;
 
     private HandData _leftHandData;
     private HandData _rightHandData;
     private Vector3 _originalFrogTongueScale;
+    public Collider _hitFlyCollider = null;
 
     void Awake()
     {
@@ -68,17 +75,33 @@ public class FroggyController : MonoBehaviour
 
     void Start()
     {
+        FrogTongueTransform.localScale = new Vector3(1, 0.1f, 1);
         _originalFrogTongueScale = FrogTongueTransform.localScale;
         _leftHandData = new HandData(LeftHand, LeftHandSkeleton);
         _rightHandData = new HandData(RightHand, RightHandSkeleton);
-        FrogTongueTransform.localScale = new Vector3(1, 0.1f, 1);
     }
 
     void Update()
     {
-        UpdateHandData(_leftHandData);
+        // Get the hand data
+        // UpdateHandData(_leftHandData);
         UpdateHandData(_rightHandData);
 
+        // Check if there's a fly in front
+        if (Physics.SphereCast(FroggyParentTransform.position, SphereCastRadius, -FroggyParentTransform.right, out RaycastHit hit, SphereCastDistance, FlyLayerMask))
+        {
+            if (_hitFlyCollider == null || hit.collider != _hitFlyCollider)
+            {
+                _hitFlyCollider = hit.collider;
+                Debug.Log("Fly in front!");
+            }
+        }
+        else
+        {
+            _hitFlyCollider = null;
+        }
+
+        // Sync tongue tip gameobject with extended tongue
         TongueTipObjectTransform.position = TongueTipTargetTransform.position;
         TongueTipObjectTransform.rotation = TongueTipTargetTransform.rotation;
 
@@ -90,13 +113,12 @@ public class FroggyController : MonoBehaviour
 
     void UpdateHandData(HandData handData)
     {
-
         if (handData.Hand.IsTracked)
         {
-            handData.IsMiddleFingerPinching = handData.Hand.GetFingerIsPinching(OVRHand.HandFinger.Middle);
-
             var distanceFromMiddleFingerTipToThumbTip = Vector3.Distance(handData.MiddleFingerTipTransform.position, handData.ThumbTipTransform.position);
-            if (FroggyActiveHand == null && distanceFromMiddleFingerTipToThumbTip < MinDistanceToActivateFroggy)
+            handData.IsMiddleFingerPinching = distanceFromMiddleFingerTipToThumbTip < MaxDistanceToGrab;
+
+            if (FroggyActiveHand == null && distanceFromMiddleFingerTipToThumbTip < MaxDistanceToActivateFroggy)
             {
                 FroggyActiveHand = handData.Hand;
                 ShowAllRenderers();
@@ -110,7 +132,7 @@ public class FroggyController : MonoBehaviour
                     FroggyParentTransform.localEulerAngles = FroggyRotationOffset + new Vector3(0, 0, 180);
                 }
             }
-            else if (FroggyActiveHand == handData.Hand && !FroggyActive && distanceFromMiddleFingerTipToThumbTip >= MinDistanceToActivateFroggy)
+            else if (FroggyActiveHand == handData.Hand && !FroggyActive && distanceFromMiddleFingerTipToThumbTip >= MaxDistanceToActivateFroggy)
             {
                 FroggyActiveHand = null;
                 FroggyParentTransform.parent = null;
@@ -122,7 +144,6 @@ public class FroggyController : MonoBehaviour
                 TriggerPress();
             }
         }
-
     }
 
     void ShowAllRenderers()
@@ -145,7 +166,18 @@ public class FroggyController : MonoBehaviour
     {
         if (FroggyActiveHand != null && !FroggyActive)
         {
-            StartCoroutine(AnimateFrogTongueScale(_originalFrogTongueScale, new Vector3(1f, MaxScaleY, 1f), GrabSpeed, ReturnSpeed));
+            if (_hitFlyCollider != null)
+            {
+                float distance = Vector3.Distance(_hitFlyCollider.transform.position, TongueTipObjectTransform.position);
+                float scaleY = map(distance, 0, 2f, MinScaleY, MaxScaleY);
+                Debug.Log("Hitting " + _hitFlyCollider.name + ", extending tongue by " + scaleY);
+                StartCoroutine(AnimateFrogTongueScale(_originalFrogTongueScale, new Vector3(1f, scaleY, 1f), GrabSpeed, ReturnSpeed));
+            }
+            else
+            {
+                float scaleY = map(0.2f, 0, 1, MinScaleY, MaxScaleY);
+                StartCoroutine(AnimateFrogTongueScale(_originalFrogTongueScale, new Vector3(1f, scaleY, 1f), GrabSpeed, ReturnSpeed));
+            }
         }
     }
 
@@ -169,7 +201,7 @@ public class FroggyController : MonoBehaviour
         // {
         // PlaySound("GrabFailure");
         // }
-        yield return new WaitForSeconds(0.7f);
+        // yield return new WaitForSeconds(0.7f);
         // StopSound();
 
         t = 0;
@@ -193,6 +225,20 @@ public class FroggyController : MonoBehaviour
             other.transform.parent = TongueTipObjectTransform;
             other.transform.position = TongueTipObjectTransform.GetComponent<Collider>().ClosestPoint(other.transform.position);
             other.transform.localScale = other.transform.localScale * 0.5f;
+
+            Destroy(other.gameObject, 1f);
         }
+    }
+
+    private float map(float x, float in_min, float in_max, float out_min, float out_max)
+    {
+        return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(FroggyParentTransform.position + SphereCastDistance * -FroggyParentTransform.right, SphereCastRadius);
+        Gizmos.DrawRay(FroggyParentTransform.position, -FroggyParentTransform.right * SphereCastDistance);
     }
 }

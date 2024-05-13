@@ -9,12 +9,15 @@ public class HandController : MonoBehaviour
     public bool IsRightHand;
     public UIManager UIM;
     public SettingSO settings;
+    public GameObject HandSplat;
+    public float BloodSplatTimeout = 2f;
 
     bool isTouchingLandingSurface = false;
     bool isTouchingOtherHand = false;
     bool isTouchingFly = false;
     Transform touchedWallTransform = null;
     Transform touchedFlyTransform = null;
+    float BloodSplatTimer = 0;
 
     void Start()
     {
@@ -23,6 +26,10 @@ public class HandController : MonoBehaviour
 
     void Update()
     {
+        if (Time.time - BloodSplatTimer > BloodSplatTimeout)
+        {
+            HandSplat.SetActive(false);
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -35,14 +42,16 @@ public class HandController : MonoBehaviour
 
             StartCoroutine(CheckFlyHit());
         }
-        // else if (other.gameObject.tag == "Hands")
-        // {
-        //     isTouchingOtherHand = true;
-        //     // if (other.gameObject.tag == "Fly")
-        //     // {
-        //     //     touchedFlyTransform = other.transform;
-        //     // }
-        // }
+        else if (other.gameObject.tag == "Hands")
+        {
+            isTouchingOtherHand = true;
+            // if (other.gameObject.tag == "Fly")
+            // {
+            //     touchedFlyTransform = other.transform;
+            // }
+
+            StartCoroutine(CheckFlyHit());
+        }
         else if (other.gameObject.tag == "Fly")
         {
             touchedFlyTransform = other.transform;
@@ -64,10 +73,10 @@ public class HandController : MonoBehaviour
             isTouchingLandingSurface = false;
             touchedWallTransform = null;
         }
-        // else if (other.gameObject.tag == "Hands")
-        // {
-        //     isTouchingOtherHand = false;
-        // }
+        else if (other.gameObject.tag == "Hands")
+        {
+            isTouchingOtherHand = false;
+        }
         else if (other.gameObject.tag == "Fly")
         {
             isTouchingFly = false;
@@ -82,7 +91,7 @@ public class HandController : MonoBehaviour
         {
             isTouchingFly = true;
 
-            if (isTouchingLandingSurface || (isTouchingOtherHand && IsRightHand))
+            if (isTouchingLandingSurface || isTouchingOtherHand)
             {
                 GameObject splatterPrefab = GameManager.Instance.BloodSplatterPrefabs[Random.Range(0, GameManager.Instance.BloodSplatterPrefabs.Count)];
 
@@ -95,17 +104,20 @@ public class HandController : MonoBehaviour
                 }
                 else if (isTouchingOtherHand)
                 {
-                    if (IsRightHand)
-                    {
-                        var splatter = Instantiate(splatterPrefab, transform);
-                        splatter.transform.up = -transform.up;
-                        splatter.transform.localScale = splatter.transform.localScale * 2f;
-                        // splatter.transform.parent = transform;
-                        splatter.transform.localPosition = Vector3.zero;
-                        Destroy(splatter, 2f);
-                    }
-                    // Instantiate(GameManager.Instance.splatterParticle, touchedFlyTransform.position, Quaternion.identity);
-                    Debug.Log("Two Hand Smash");
+                    HandSplat.SetActive(true);
+                    BloodSplatTimer = Time.time;
+
+                    // if (IsRightHand)
+                    // {
+                    //     var splatter = Instantiate(splatterPrefab, transform);
+                    //     splatter.transform.up = -transform.up;
+                    //     splatter.transform.localScale = splatter.transform.localScale * 2f;
+                    //     // splatter.transform.parent = transform;
+                    //     splatter.transform.localPosition = Vector3.zero;
+                    //     Destroy(splatter, 2f);
+                    // }
+                    // // Instantiate(GameManager.Instance.splatterParticle, touchedFlyTransform.position, Quaternion.identity);
+                    // Debug.Log("Two Hand Smash");
                 }
 
                 if (touchedFlyTransform.gameObject.TryGetComponent<FlyAudioSource>(out var buzzSource))
@@ -120,7 +132,6 @@ public class HandController : MonoBehaviour
                     audioSource.playOnAwake = true;
                     var metaAudio = splatterPrefab.AddComponent<MetaXRAudioSource>();
                     metaAudio.EnableSpatialization = true;
-                    //metaAudio.
                     audioSource.Play();
                 }
 

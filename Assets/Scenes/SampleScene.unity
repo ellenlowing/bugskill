@@ -3692,22 +3692,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6558061756533918786, guid: 75d14416f534f4b11aec372b6307c3bb, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8069624324660063772, guid: 75d14416f534f4b11aec372b6307c3bb, type: 3}
-      propertyPath: m_Radius
-      value: 0.12
-      objectReference: {fileID: 0}
-    - target: {fileID: 8069624324660063772, guid: 75d14416f534f4b11aec372b6307c3bb, type: 3}
-      propertyPath: m_Center.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8142648167534934466, guid: 75d14416f534f4b11aec372b6307c3bb, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4043,8 +4027,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   FroggyParentTransform: {fileID: 675479434}
   FrogTongueTransform: {fileID: 6423958060745369248}
-  GrabSpeed: 1
-  ReturnSpeed: 1
+  GrabSpeed: 4
+  ReturnSpeed: 4
   MinScaleY: 0.1
   MaxScaleY: 80
   FroggyActive: 0

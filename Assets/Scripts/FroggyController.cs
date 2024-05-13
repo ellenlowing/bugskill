@@ -11,8 +11,8 @@ public class FroggyController : MonoBehaviour
         public OVRHand Hand;
         public OVRSkeleton Skeleton;
         public Transform ThumbTipTransform;
-        public Transform MiddleFingerTipTransform;
-        public bool IsMiddleFingerPinching = false;
+        public Transform IndexFingerTipTransform;
+        public bool IsIndexFingerPinching = false;
 
         public HandData(OVRHand hand, OVRSkeleton skeleton)
         {
@@ -24,9 +24,9 @@ public class FroggyController : MonoBehaviour
                 {
                     ThumbTipTransform = b.Transform;
                 }
-                else if (b.Id == OVRSkeleton.BoneId.Hand_MiddleTip)
+                else if (b.Id == OVRSkeleton.BoneId.Hand_IndexTip)
                 {
-                    MiddleFingerTipTransform = b.Transform;
+                    IndexFingerTipTransform = b.Transform;
                 }
             }
         }
@@ -34,32 +34,41 @@ public class FroggyController : MonoBehaviour
 
     public static FroggyController Instance;
 
+    [Header("Tongue")]
     public Transform FroggyParentTransform;
     public Transform FrogTongueTransform;
-    public OVRHand FroggyActiveHand = null;
-    public bool FroggyActive = false;
     public float GrabSpeed = 2;
     public float ReturnSpeed = 1;
     public float MinScaleY = 0.1f;
     public float MaxScaleY = 5f;
+    public bool FroggyActive = false;
+    public Transform TongueTipObjectTransform;
+    public Transform TongueTipTargetTransform;
+    public float MaxDistanceToActivateFroggy = 0.1f;
+    public float MaxDistanceToGrab = 0.02f;
+
+    [Header("Hands")]
+    public OVRHand FroggyActiveHand = null;
     public OVRHand LeftHand;
     public OVRHand RightHand;
     public OVRSkeleton LeftHandSkeleton;
     public OVRSkeleton RightHandSkeleton;
-    public float MaxDistanceToActivateFroggy = 0.1f;
-    public float MaxDistanceToGrab = 0.02f;
     public Vector3 FroggyPositionOffset;
     public Vector3 FroggyRotationOffset;
-    public Transform TongueTipObjectTransform;
-    public Transform TongueTipTargetTransform;
+
+    [Header("SphereCast")]
     public float SphereCastRadius = 0.2f;
     public float SphereCastDistance = 4f;
     public LayerMask FlyLayerMask;
 
+    [Header("Cooldown")]
+    public float CooldownTime = 1f;
+    public float FroggyLastTriggeredTime = 0;
+
     private HandData _leftHandData;
     private HandData _rightHandData;
     private Vector3 _originalFrogTongueScale;
-    public Collider _hitFlyCollider = null;
+    private Collider _hitFlyCollider = null;
 
     void Awake()
     {
@@ -115,10 +124,10 @@ public class FroggyController : MonoBehaviour
     {
         if (handData.Hand.IsTracked)
         {
-            var distanceFromMiddleFingerTipToThumbTip = Vector3.Distance(handData.MiddleFingerTipTransform.position, handData.ThumbTipTransform.position);
-            handData.IsMiddleFingerPinching = distanceFromMiddleFingerTipToThumbTip < MaxDistanceToGrab;
+            var distanceFromIndexFingerTipToThumbTip = Vector3.Distance(handData.IndexFingerTipTransform.position, handData.ThumbTipTransform.position);
+            handData.IsIndexFingerPinching = distanceFromIndexFingerTipToThumbTip < MaxDistanceToGrab;
 
-            if (FroggyActiveHand == null && distanceFromMiddleFingerTipToThumbTip < MaxDistanceToActivateFroggy)
+            if (FroggyActiveHand == null && distanceFromIndexFingerTipToThumbTip < MaxDistanceToActivateFroggy)
             {
                 FroggyActiveHand = handData.Hand;
                 ShowAllRenderers();
@@ -126,23 +135,28 @@ public class FroggyController : MonoBehaviour
                 FroggyParentTransform.localPosition = FroggyPositionOffset;
                 FroggyParentTransform.localEulerAngles = FroggyRotationOffset;
 
-                if (FroggyActiveHand == LeftHand)
-                {
-                    FroggyParentTransform.localPosition = -FroggyPositionOffset;
-                    FroggyParentTransform.localEulerAngles = FroggyRotationOffset + new Vector3(0, 0, 180);
-                }
+                // FroggyParentTransform.rotation = handData.Hand.PointerPose.rotation;
+
+                // Uncomment if left hand is used
+                // if (FroggyActiveHand == LeftHand)
+                // {
+                //     FroggyParentTransform.localPosition = -FroggyPositionOffset;
+                //     FroggyParentTransform.localEulerAngles = FroggyRotationOffset + new Vector3(0, 0, 180);
+                // }
             }
-            else if (FroggyActiveHand == handData.Hand && !FroggyActive && distanceFromMiddleFingerTipToThumbTip >= MaxDistanceToActivateFroggy)
+            else if (FroggyActiveHand == handData.Hand && !FroggyActive && distanceFromIndexFingerTipToThumbTip >= MaxDistanceToActivateFroggy)
             {
                 FroggyActiveHand = null;
                 FroggyParentTransform.parent = null;
                 HideAllRenderers();
             }
 
-            if (handData.IsMiddleFingerPinching)
+            if (handData.IsIndexFingerPinching && (Time.time - FroggyLastTriggeredTime) > CooldownTime)
             {
                 TriggerPress();
+                FroggyLastTriggeredTime = Time.time;
             }
+
         }
     }
 
@@ -169,13 +183,13 @@ public class FroggyController : MonoBehaviour
             if (_hitFlyCollider != null)
             {
                 float distance = Vector3.Distance(_hitFlyCollider.transform.position, TongueTipObjectTransform.position);
-                float scaleY = map(distance, 0, 2f, MinScaleY, MaxScaleY);
+                float scaleY = Mathf.Clamp(map(distance, 0, SphereCastDistance, MinScaleY, MaxScaleY), MinScaleY, MaxScaleY);
                 Debug.Log("Hitting " + _hitFlyCollider.name + ", extending tongue by " + scaleY);
                 StartCoroutine(AnimateFrogTongueScale(_originalFrogTongueScale, new Vector3(1f, scaleY, 1f), GrabSpeed, ReturnSpeed));
             }
             else
             {
-                float scaleY = map(0.2f, 0, 1, MinScaleY, MaxScaleY);
+                float scaleY = map(0.15f, 0, 1, MinScaleY, MaxScaleY);
                 StartCoroutine(AnimateFrogTongueScale(_originalFrogTongueScale, new Vector3(1f, scaleY, 1f), GrabSpeed, ReturnSpeed));
             }
         }
@@ -201,7 +215,7 @@ public class FroggyController : MonoBehaviour
         // {
         // PlaySound("GrabFailure");
         // }
-        // yield return new WaitForSeconds(0.7f);
+        yield return new WaitForSeconds(0.15f);
         // StopSound();
 
         t = 0;
@@ -223,7 +237,7 @@ public class FroggyController : MonoBehaviour
             other.GetComponentInParent<FlyMovement>().isCaught = true;
             other.GetComponentInChildren<Animator>().speed = 0;
             other.transform.parent = TongueTipObjectTransform;
-            other.transform.position = TongueTipObjectTransform.GetComponent<Collider>().ClosestPoint(other.transform.position);
+            other.transform.position = GetRandomPointWithinBounds(TongueTipObjectTransform.gameObject);
             other.transform.localScale = other.transform.localScale * 0.5f;
 
             Destroy(other.gameObject, 1f);
@@ -233,6 +247,23 @@ public class FroggyController : MonoBehaviour
     private float map(float x, float in_min, float in_max, float out_min, float out_max)
     {
         return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
+    }
+
+    Vector3 GetRandomPointWithinBounds(GameObject obj)
+    {
+        // Get the Renderer component of the GameObject
+        Renderer renderer = obj.GetComponent<Renderer>();
+
+        Bounds bounds = renderer.bounds;
+
+        // Generate random point within bounds
+        float randomX = Random.Range(bounds.min.x, bounds.max.x);
+        float randomY = Random.Range(bounds.min.y, bounds.max.y);
+        float randomZ = Random.Range(bounds.min.z, bounds.max.z);
+
+        Debug.Log("Random point: " + new Vector3(randomX, randomY, randomZ) + " within bounds: " + bounds.min + " " + bounds.max);
+
+        return new Vector3(randomX, randomY, randomZ);
     }
 
     private void OnDrawGizmos()

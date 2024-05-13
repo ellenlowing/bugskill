@@ -32,27 +32,27 @@ public class HandController : MonoBehaviour
         {
             isTouchingLandingSurface = true;
             touchedWallTransform = other.transform;
+
+            StartCoroutine(CheckFlyHit());
         }
-        else if (other.gameObject.tag == "Hands")
-        {
-            isTouchingOtherHand = true;
-            // if (other.gameObject.tag == "Fly")
-            // {
-            //     touchedFlyTransform = other.transform;
-            // }
-        }
+        // else if (other.gameObject.tag == "Hands")
+        // {
+        //     isTouchingOtherHand = true;
+        //     // if (other.gameObject.tag == "Fly")
+        //     // {
+        //     //     touchedFlyTransform = other.transform;
+        //     // }
+        // }
         else if (other.gameObject.tag == "Fly")
         {
             touchedFlyTransform = other.transform;
 
             // slow mid air if only fly is touched
-            if (!isTouchingLandingSurface)
+            if (!isTouchingLandingSurface || (isTouchingOtherHand && IsRightHand))
             {
                 //SlowedDownFlyTransform = touchedFlyTransform;
                 other.GetComponent<SlowDown>().SlowDownFly();
             }
-
-            StartCoroutine(CheckFlyHit());
         }
 
     }
@@ -64,10 +64,10 @@ public class HandController : MonoBehaviour
             isTouchingLandingSurface = false;
             touchedWallTransform = null;
         }
-        else if (other.gameObject.tag == "Hands")
-        {
-            isTouchingOtherHand = false;
-        }
+        // else if (other.gameObject.tag == "Hands")
+        // {
+        //     isTouchingOtherHand = false;
+        // }
         else if (other.gameObject.tag == "Fly")
         {
             isTouchingFly = false;

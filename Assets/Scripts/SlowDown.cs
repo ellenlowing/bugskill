@@ -42,8 +42,10 @@ public class SlowDown : MonoBehaviour
         slowDownNow = true;
         currentSpeed = flyMovements.speed;
         flyMovements.speed = settings.flySlowDownSpeed;
-        var fl = GetComponentInParent<FlyAudioSource>();
-        if(fl!=null) fl.DizzyClip();
+        if (TryGetComponent<FlyAudioSource>(out var bz))
+        {
+            bz.DizzyClip();
+        }
         ChangeEyeType(true);
     }
 
@@ -56,8 +58,10 @@ public class SlowDown : MonoBehaviour
                 InitialTime = 0f;
                 slowDownNow = false;
                 flyMovements.speed = currentSpeed;
-                var fl = GetComponentInParent<FlyAudioSource>(); 
-                if(fl!=null) fl.MoveClip();
+                if (TryGetComponent<FlyAudioSource>(out var bz))
+                {
+                    bz.MoveClip();
+                }
                 ChangeEyeType(false);
             }
             InitialTime += Time.deltaTime;

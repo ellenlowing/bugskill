@@ -240,6 +240,7 @@ GameObject:
   - component: {fileID: 9178032825499093740}
   - component: {fileID: 7207335563215581596}
   - component: {fileID: 4482827973642035594}
+  - component: {fileID: 8809435430099479294}
   m_Layer: 0
   m_Name: Fly
   m_TagString: Fly
@@ -380,9 +381,9 @@ AudioSource:
   Priority: 128
   DopplerLevel: 5
   MinDistance: 0.1
-  MaxDistance: 2
+  MaxDistance: 5
   Pan2D: 0
-  rolloffMode: 1
+  rolloffMode: 0
   BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0
@@ -455,6 +456,27 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &8809435430099479294
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 708182128869486111}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49d387d6bc727e64a95603a09e3fd98a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  slowDownNow: 0
+  settings: {fileID: 11400000, guid: 415f7b1141256224db7c3c8720566774, type: 2}
+  flyMovements: {fileID: 6558061756533918786}
+  NormalEyeMesh:
+  - {fileID: 8161353380878517188}
+  - {fileID: 8161488179538572312}
+  CircularEyeMesh:
+  - {fileID: 8860143217507585408}
+  - {fileID: 5468476972978534699}
 --- !u!1 &4171755376823053841
 GameObject:
   m_ObjectHideFlags: 0
@@ -775,7 +797,6 @@ GameObject:
   m_Component:
   - component: {fileID: 8142648167534934466}
   - component: {fileID: 8089709310135259662}
-  - component: {fileID: 6234403991944218040}
   m_Layer: 0
   m_Name: Fly-flying
   m_TagString: Fly
@@ -830,27 +851,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &6234403991944218040
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8148184885496207710}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 49d387d6bc727e64a95603a09e3fd98a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  slowDownNow: 0
-  settings: {fileID: 11400000, guid: 415f7b1141256224db7c3c8720566774, type: 2}
-  flyMovements: {fileID: 6558061756533918786}
-  NormalEyeMesh:
-  - {fileID: 8161353380878517188}
-  - {fileID: 8161488179538572312}
-  CircularEyeMesh:
-  - {fileID: 8860143217507585408}
-  - {fileID: 5468476972978534699}
 --- !u!1 &8148241569799788100
 GameObject:
   m_ObjectHideFlags: 0

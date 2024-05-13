@@ -97,6 +97,22 @@ public class HandController : MonoBehaviour
                     Instantiate(GameManager.Instance.splatterParticle, touchedFlyTransform.position, Quaternion.identity);
                     Debug.LogWarning("Two Hand Smash");
                 }
+                
+                if (touchedFlyTransform.gameObject.TryGetComponent<FlyAudioSource>(out var buzzSource))
+                {
+                    var audioSource = splatterPrefab.AddComponent<AudioSource>();
+                    audioSource.clip = buzzSource.flySplatClip;
+                    audioSource.pitch = Random.Range(0.1f, 2.0f);
+                    audioSource.spatialBlend = 1f;
+                    audioSource.volume = 10f;
+                    audioSource.loop = false;
+                    audioSource.spatialize = true;
+                    audioSource.playOnAwake = true;
+                    var metaAudio = splatterPrefab.AddComponent<MetaXRAudioSource>();
+                    metaAudio.EnableSpatialization = true;
+                    //metaAudio.
+                    audioSource.Play();
+                }
 
                 Destroy(touchedFlyTransform.gameObject);
                

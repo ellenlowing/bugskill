@@ -2412,7 +2412,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &1850054656283578920
+--- !u!1001 &1387972819039236502
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -2464,6 +2464,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4482827973642035594, guid: 75d14416f534f4b11aec372b6307c3bb, type: 3}
+      propertyPath: rolloffMode
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2480,7 +2484,7 @@ SceneRoots:
   - {fileID: 115128580}
   - {fileID: 730595227}
   - {fileID: 2055367446}
-  - {fileID: 1850054656283578920}
+  - {fileID: 1387972819039236502}
   - {fileID: 907711823}
   - {fileID: 652486518}
   - {fileID: 700587093}

@@ -36,11 +36,14 @@ public class SlowDown : MonoBehaviour
         CircularEyeMesh[1].transform.gameObject.GetComponent<EyeSpiral>().canRotate = circular;
     }
 
+    
     public void SlowDownFly()
     {
         slowDownNow = true;
         currentSpeed = flyMovements.speed;
         flyMovements.speed = settings.flySlowDownSpeed;
+        var fl = GetComponentInParent<FlyAudioSource>();
+        if(fl!=null) fl.DizzyClip();
         ChangeEyeType(true);
     }
 
@@ -53,6 +56,8 @@ public class SlowDown : MonoBehaviour
                 InitialTime = 0f;
                 slowDownNow = false;
                 flyMovements.speed = currentSpeed;
+                var fl = GetComponentInParent<FlyAudioSource>(); 
+                if(fl!=null) fl.MoveClip();
                 ChangeEyeType(false);
             }
             InitialTime += Time.deltaTime;

@@ -19,7 +19,7 @@ public class FlyMovement : MonoBehaviour
     public LayerMask landingSurfaceLayer;
     // Layer for landing surfaces
 
-    private bool isResting = false;              // Flag to check if the fly is resting
+    public bool isResting = false;              // Flag to check if the fly is resting
     private Vector3 randomDirection;             // Random direction for the fly to move
     private float timeSinceLastRest;
     private Vector3 closestPoint;

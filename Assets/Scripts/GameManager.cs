@@ -104,12 +104,12 @@ public class GameManager : MonoBehaviour
         {
             if (FlySpawnPositions.Count > 0)
             {
-                
+
                 if (waveIndex == settings.Waves.Length)
                 {
-                   // call completion here with ui score update
-                   UIM.KillUpdate();
-                   yield break;
+                    // call completion here with ui score update
+                    UIM.KillUpdate();
+                    yield break;
                 }
 
                 // loop here with wave count which changes
@@ -125,12 +125,16 @@ public class GameManager : MonoBehaviour
                         if (randomAnchor.PlaneRect.HasValue)
                         {
                             Vector2 size = randomAnchor.PlaneRect.Value.size;
-                            randomPosition += new Vector3(Random.Range(-size.x / 2, size.x / 2), 0, Random.Range(-size.y / 2, size.y / 2));
+                            randomPosition += new Vector3(Random.Range(-size.x / 2, size.x / 2), size.y / 2, 0);
                         }
+
+                        var fly = Instantiate(FlyPrefab, randomPosition, Quaternion.identity, FlyParentAnchor);
+                        fly.transform.up = randomAnchor.transform.forward;
+                        fly.transform.rotation = fly.transform.rotation * Quaternion.Euler(0, Random.Range(0, 360f), 0);
 
                         // keep reference to all spawned flies
                         // spawn wave number through loop which uses settings factor
-                        settings.flies.Add(Instantiate(FlyPrefab, randomPosition, Quaternion.identity, FlyParentAnchor));
+                        settings.flies.Add(fly);
 
                     }
                     canSpawn = false;

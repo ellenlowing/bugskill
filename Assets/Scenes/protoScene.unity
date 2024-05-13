@@ -393,7 +393,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2296141232796561049, guid: cee191920b8eb41b0960b1082a393a3e, type: 3}
       propertyPath: hideMesh
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2296141232796561049, guid: cee191920b8eb41b0960b1082a393a3e, type: 3}
       propertyPath: Colliders
@@ -1298,7 +1298,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.2569865, g: 0.27778864, b: 0.990566, a: 0.5529412}
+  m_Color: {r: 0, g: 0.02019982, b: 0.735849, a: 0.5529412}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -2023,7 +2023,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 700587092}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 79160f2f05c81a24e8e7d601e9658b89, type: 3}
   m_Name: 
@@ -2387,7 +2387,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 787182954}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -2993,7 +2993,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: you killed <color=yellow>123</color> flies...
+  m_text: you killed <color=red>123</color> flies...
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: a1cf4650e3c72154eaabc186b2334cae, type: 2}
   m_sharedMaterial: {fileID: -4363285517083403727, guid: a1cf4650e3c72154eaabc186b2334cae, type: 2}
@@ -3026,11 +3026,11 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 1
+  m_fontStyle: 0
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
-  m_characterSpacing: 0
+  m_characterSpacing: 4.67
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
@@ -4650,7 +4650,7 @@ MonoBehaviour:
   FroggyActive: 0
   TongueTipObjectTransform: {fileID: 1713798816}
   TongueTipTargetTransform: {fileID: 1987142210}
-  MaxDistanceToActivateFroggy: 0.07
+  MaxDistanceToActivateFroggy: 0.04
   MaxDistanceToGrab: 0.02
   FroggyActiveHand: {fileID: 0}
   LeftHand: {fileID: 1933187286}
@@ -5379,21 +5379,9 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 68172244178121177, guid: 75d14416f534f4b11aec372b6307c3bb, type: 3}
-      propertyPath: m_Layer
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 553032459457603851, guid: 75d14416f534f4b11aec372b6307c3bb, type: 3}
-      propertyPath: m_Layer
-      value: 7
-      objectReference: {fileID: 0}
     - target: {fileID: 708182128869486111, guid: 75d14416f534f4b11aec372b6307c3bb, type: 3}
       propertyPath: m_Name
       value: Fly
-      objectReference: {fileID: 0}
-    - target: {fileID: 708182128869486111, guid: 75d14416f534f4b11aec372b6307c3bb, type: 3}
-      propertyPath: m_Layer
-      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 2300318445620189431, guid: 75d14416f534f4b11aec372b6307c3bb, type: 3}
       propertyPath: m_LocalPosition.x
@@ -5435,45 +5423,13 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4171755376823053841, guid: 75d14416f534f4b11aec372b6307c3bb, type: 3}
-      propertyPath: m_Layer
-      value: 7
+    - target: {fileID: 6558061756533918786, guid: 75d14416f534f4b11aec372b6307c3bb, type: 3}
+      propertyPath: maxSpeed
+      value: 3
       objectReference: {fileID: 0}
-    - target: {fileID: 5431793350995527409, guid: 75d14416f534f4b11aec372b6307c3bb, type: 3}
-      propertyPath: m_Layer
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 8148174429972817220, guid: 75d14416f534f4b11aec372b6307c3bb, type: 3}
-      propertyPath: m_Layer
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 8148184885496207710, guid: 75d14416f534f4b11aec372b6307c3bb, type: 3}
-      propertyPath: m_Layer
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 8148241569799788100, guid: 75d14416f534f4b11aec372b6307c3bb, type: 3}
-      propertyPath: m_Layer
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 8148333609706243974, guid: 75d14416f534f4b11aec372b6307c3bb, type: 3}
-      propertyPath: m_Layer
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 8148370949261273826, guid: 75d14416f534f4b11aec372b6307c3bb, type: 3}
-      propertyPath: m_Layer
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 8148497402268784964, guid: 75d14416f534f4b11aec372b6307c3bb, type: 3}
-      propertyPath: m_Layer
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 8148593740056793158, guid: 75d14416f534f4b11aec372b6307c3bb, type: 3}
-      propertyPath: m_Layer
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 8148820874368414700, guid: 75d14416f534f4b11aec372b6307c3bb, type: 3}
-      propertyPath: m_Layer
-      value: 7
+    - target: {fileID: 6558061756533918786, guid: 75d14416f534f4b11aec372b6307c3bb, type: 3}
+      propertyPath: takeOffChance
+      value: 0.1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

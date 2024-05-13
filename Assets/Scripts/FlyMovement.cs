@@ -43,7 +43,7 @@ public class FlyMovement : MonoBehaviour
         }
 
         // If moving and reached target position, rest 
-        if (isMoving && Vector3.Distance(transform.position, targetPosition) < 0.01f)
+        if (isMoving && Vector3.Distance(transform.position, targetPosition) < 0.08f)
         {
             StartCoroutine(Rest());
         }
@@ -114,7 +114,7 @@ public class FlyMovement : MonoBehaviour
         isMoving = false;
         isResting = true;
         transform.up = targetNormal;  // Align the fly's 'up' with the surface normal
-        transform.rotation = Quaternion.LookRotation(Vector3.Cross(transform.right, targetNormal), targetNormal);  // Recalculate forward vector to keep the fly's 'up' aligned with the normal
+        transform.rotation = transform.rotation * Quaternion.Euler(0, Random.Range(0, 360f), 0);
         yield return new WaitForSeconds(Random.Range(minRestDuration, maxRestDuration));
         isResting = false;
         needNewTarget = true;  // Need new target position after resting 

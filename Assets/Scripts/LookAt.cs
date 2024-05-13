@@ -9,7 +9,7 @@ public class LookAt : MonoBehaviour
 
     private void Start()
     {
-        Target = OVRManager.instance.GetComponent<OVRCameraRig>().centerEyeAnchor;
+        Target = Camera.main.transform;
     }
 
     private void Update()

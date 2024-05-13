@@ -5,47 +5,24 @@ using UnityEngine;
 
 public class EnvironmentSetup : MonoBehaviour
 {
-    public List<MeshCollider> landingSurfaceMeshColliders = new List<MeshCollider>();
-    public int landingSurfaceLayerNum = 6;
-
     void Start()
     {
-
+        SetAllAnchorsToConvex();
     }
 
-    void Update()
+    private void SetAllAnchorsToConvex()
     {
-
-    }
-
-    public void AddLandingSurfaceLayer()
-    {
-        foreach (var room in MRUK.Instance.Rooms)
+        MRUKRoom currentRoom = MRUK.Instance.GetCurrentRoom();
+        if (currentRoom != null)
         {
-            AddLandingSurfaceLayer(room);
-        }
-    }
-
-    public void AddLandingSurfaceLayer(MRUKRoom room)
-    {
-        var walls = room.WallAnchors;
-        foreach (var wall in walls)
-        {
-            AddLandingSurfaceColliders(wall);
-        }
-
-        AddLandingSurfaceColliders(room.CeilingAnchor);
-        AddLandingSurfaceColliders(room.FloorAnchor);
-    }
-
-    public void AddLandingSurfaceColliders(MRUKAnchor anchor)
-    {
-        var colliders = anchor.GetComponentsInChildren<MeshCollider>();
-        foreach (var collider in colliders)
-        {
-            landingSurfaceMeshColliders.Add(collider);
-            collider.gameObject.layer = landingSurfaceLayerNum;
-            collider.convex = true;
+            foreach (var anchor in currentRoom.Anchors)
+            {
+                MeshCollider[] meshColliders = anchor.GetComponentsInChildren<MeshCollider>();
+                foreach (MeshCollider meshCollider in meshColliders)
+                {
+                    meshCollider.convex = true;
+                }
+            }
         }
     }
 }

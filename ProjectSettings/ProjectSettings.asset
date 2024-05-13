@@ -142,6 +142,8 @@ PlayerSettings:
   bundleVersion: 0.1
   preloadedAssets:
   - {fileID: 11400000, guid: a027ac6f8faab40579a6372dcecb7d91, type: 2}
+  - {fileID: -2078529398321860687, guid: 3d8246caf03fd4f85b7d38f261a92fd9, type: 2}
+  - {fileID: 11400000, guid: 0d13d5ecbd96d441381e48c0e32f77d7, type: 2}
   metroInputSource: 0
   wsaTransparentSwapchain: 0
   m_HolographicPauseOnTrackingLoss: 1
@@ -163,6 +165,7 @@ PlayerSettings:
   androidMaxAspectRatio: 2.1
   applicationIdentifier:
     Android: com.EllenLo.MosquitoCatcher
+    Standalone: com.EllenLo.MosquitoCatcher
   buildNumber:
     Standalone: 0
     VisionOS: 0
@@ -412,7 +415,7 @@ PlayerSettings:
   - m_BuildTarget: iOSSupport
     m_GraphicsJobs: 0
   - m_BuildTarget: WindowsStandaloneSupport
-    m_GraphicsJobs: 1
+    m_GraphicsJobs: 0
   - m_BuildTarget: XboxOnePlayer
     m_GraphicsJobs: 1
   - m_BuildTarget: LuminSupport
@@ -439,6 +442,9 @@ PlayerSettings:
   - m_BuildTarget: WebGLSupport
     m_APIs: 0b000000
     m_Automatic: 1
+  - m_BuildTarget: WindowsStandaloneSupport
+    m_APIs: 02000000
+    m_Automatic: 0
   m_BuildTargetVRSettings:
   - m_BuildTarget: Standalone
     m_Enabled: 0
@@ -772,7 +778,7 @@ PlayerSettings:
   m_RenderingPath: 1
   m_MobileRenderingPath: 1
   metroPackageName: MosquitoCatcher
-  metroPackageVersion: 
+  metroPackageVersion: 1.0.0.0
   metroCertificatePath: 
   metroCertificatePassword: 
   metroCertificateSubject: 
@@ -780,7 +786,7 @@ PlayerSettings:
   metroCertificateNotAfter: 0000000000000000
   metroApplicationDescription: MosquitoCatcher
   wsaImages: {}
-  metroTileShortName: 
+  metroTileShortName: MosquitoCatcher
   metroTileShowName: 0
   metroMediumTileShowName: 0
   metroLargeTileShowName: 0

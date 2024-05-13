@@ -104,6 +104,13 @@ public class GameManager : MonoBehaviour
         {
             if (FlySpawnPositions.Count > 0)
             {
+                
+                if (waveIndex == settings.Waves.Length)
+                {
+                   // call completion here with ui score update
+                   UIM.KillUpdate();
+                   yield break;
+                }
 
                 // loop here with wave count which changes
                 // destroy all current flies before next wave
@@ -153,13 +160,6 @@ public class GameManager : MonoBehaviour
                 //     yield return new WaitForSeconds(settings.WaveWaitTime);
                 //     HourGlass.SetActive(false);
                 // }
-
-                if (waveIndex >= settings.Waves.Length)
-                {
-                    // call completion here with ui score update
-                    UIM.KillUpdate();
-                    yield break;
-                }
 
                 // 2 second frame checks
                 yield return new WaitForSeconds(2.0f);

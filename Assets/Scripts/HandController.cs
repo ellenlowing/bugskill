@@ -94,7 +94,7 @@ public class HandController : MonoBehaviour
                 }
                 else if (isTouchingOtherHand)
                 {
-                    Instantiate(GameManager.Instance.splatterParticle, touchedFlyTransform.position, Quaternion.identity);
+                    //Instantiate(GameManager.Instance.splatterParticle, touchedFlyTransform.position, Quaternion.identity);
                     Debug.LogWarning("Two Hand Smash");
                 }
                 

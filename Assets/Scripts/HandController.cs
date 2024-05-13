@@ -89,13 +89,22 @@ public class HandController : MonoBehaviour
                 if (isTouchingLandingSurface)
                 {
                     var splatter = Instantiate(splatterPrefab, touchedFlyTransform.position, Quaternion.identity);
-                    splatter.transform.up = touchedWallTransform.forward;
+                    splatter.transform.up = touchedFlyTransform.up;
 
                     Debug.Log("Instantiating splatter on wall");
                 }
                 else if (isTouchingOtherHand)
                 {
-                    Instantiate(GameManager.Instance.splatterParticle, touchedFlyTransform.position, Quaternion.identity);
+                    if (IsRightHand)
+                    {
+                        var splatter = Instantiate(splatterPrefab, transform);
+                        splatter.transform.up = -transform.up;
+                        splatter.transform.localScale = splatter.transform.localScale * 2f;
+                        // splatter.transform.parent = transform;
+                        splatter.transform.localPosition = Vector3.zero;
+                        Destroy(splatter, 2f);
+                    }
+                    // Instantiate(GameManager.Instance.splatterParticle, touchedFlyTransform.position, Quaternion.identity);
                     Debug.Log("Two Hand Smash");
                 }
 

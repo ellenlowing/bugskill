@@ -131,7 +131,7 @@ MonoBehaviour:
   numberOfWaves: 4
   timeBtwStarting: 2
   nextWaveTimeGap: 3
-  maxWaitTime: 01000000010000000100000001000000
+  maxWaitTime: 1e0000003c0000005a00000078000000
   Waves: 080000000c0000001000000014000000
   divFactor: 2.7
   distanceFromCamera: 0.5

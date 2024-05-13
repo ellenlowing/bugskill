@@ -1,130 +1,197 @@
 using System.Collections;
 using System.Collections.Generic;
+using Meta.XR.MRUtilityKit;
 using UnityEngine;
+using UnityEngine.Serialization;
+using Random = UnityEngine.Random;
 
 public class FlyMovement : MonoBehaviour
 {
-
-    // external reference
-    public float speed = 2.0f;
-
+    public MRUKAnchor.SceneLabels canLand = MRUKAnchor.SceneLabels.FLOOR | MRUKAnchor.SceneLabels.CEILING;
+    public float minRestDuration = 2f;
+    public float maxRestDuration = 5f;
     public float minSpeed = 2.0f;
     public float maxSpeed = 10.0f;
-    public float rotationSpeed = 5.0f;          // Rotation speed of the fly
-    public float minRestTime = 2.0f;
-    public float maxRestTime = 5.0f;
-    public float takeOffTime = 0.5f;             // Time the fly takes off from the landing surface
-    public float detectionRange = 2.0f;          // Range to detect landing surfaces
-    public float takeOffChance = 0.8f;
-    public LayerMask landingSurfaceLayer;
-    // Layer for landing surfaces
+    public float speed = 2.0f;
+    public float rotationSpeed = 10f;
+    public float distanceToEdges = 0.2f;
+    public float checkDistance = 0.15f;  // Small forward distance to project the spherecast along the normal
+    public float radius = 0.15f;         // Radius to check around the target position
 
-    public bool isResting = false;              // Flag to check if the fly is resting
-    private Vector3 randomDirection;             // Random direction for the fly to move
-    private float timeSinceLastRest;
-    private Vector3 closestPoint;
-    private float restTime = 2.0f;
-    private bool restedOnce = false;
+
+    private bool isResting = false;
+    private Vector3 targetPosition;
+    private Vector3 targetNormal;
+    private bool needNewTarget = true;
+    private bool isMoving = false;
+
 
     private void Start()
     {
-        // Set initial random direction
-        randomDirection = Random.insideUnitSphere.normalized;
-        timeSinceLastRest = takeOffTime;
-        restTime = Random.Range(minRestTime, maxRestTime);
         speed = Random.Range(minSpeed, maxSpeed);
     }
 
     private void Update()
     {
-        if (!isResting)
+        if (needNewTarget)
         {
-            // Move the fly
-            transform.position += randomDirection * speed * Time.deltaTime;
-            timeSinceLastRest += Time.deltaTime;
+            FindNewPosition();
+        }
 
-            // If fly has had enough time to leave landed surface
-            bool shouldLand = timeSinceLastRest > takeOffTime;
+        // If not resting and has a target position, move to target position
+        if (!isResting && !needNewTarget)
+        {
+            MoveTowardsTargetPosition();
+        }
 
-            // Rotate the fly towards the moving direction
-            Quaternion lookRotation = Quaternion.LookRotation(randomDirection);
-            transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, rotationSpeed * Time.deltaTime);
+        // If moving and reached target position, rest 
+        if (isMoving && Vector3.Distance(transform.position, targetPosition) < 0.01f)
+        {
+            StartCoroutine(Rest());
+        }
+    }
 
-            // Check for landing surfaces
-            if (shouldLand)
+    private void MoveTowardsTargetPosition()
+    {
+        isMoving = true;
+        Vector3 direction = (targetPosition - transform.position).normalized;
+        transform.position += direction * speed * Time.deltaTime;
+        // Fly rotates to face moving direction 
+        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(direction), rotationSpeed * Time.deltaTime);
+    }
+
+    private void FindNewPosition()
+    {
+        MRUKRoom currentRoom = MRUK.Instance.GetCurrentRoom();
+        if (currentRoom != null)
+        {
+            // Anchor labels that fly can land on (chosen in editor) 
+            var labelFilter = LabelFilter.FromEnum(canLand);
+
+            // Generate random position on any surface that is not facing down 
+            // + position is not too close to anchor's edge 
+            if (currentRoom.GenerateRandomPositionOnSurface(MRUK.SurfaceType.FACING_UP | MRUK.SurfaceType.VERTICAL,
+                distanceToEdges, labelFilter, out Vector3 position, out Vector3 normal))
             {
-                Collider[] hitColliders = Physics.OverlapSphere(transform.position, detectionRange, landingSurfaceLayer);
-
-                if (hitColliders.Length > 0)
-                {
-                    // Get closest landing surface
-                    Collider closestCollider = null;
-                    float closestDistance = float.MaxValue;
-
-                    foreach (Collider col in hitColliders)
-                    {
-                        float distance = Vector3.Distance(transform.position, col.ClosestPoint(transform.position));
-
-                        if (distance < closestDistance)
-                        {
-                            closestDistance = distance;
-                            closestCollider = col;
-                        }
-                    }
-
-                    // If landing surface detected, start resting
-                    if (!restedOnce || Random.Range(0, 1f) < takeOffChance)
-                    {
-                        StartCoroutine(Rest(closestCollider));
-                    }
-                    else
-                    {
-                        randomDirection = GenerateOppositeDirection(closestCollider.transform);
-                    }
-                }
+                CheckValidPosition(position, normal);
             }
         }
     }
 
-    private IEnumerator Rest(Collider landingSurface)
+    private void CheckValidPosition(Vector3 position, Vector3 normal)
     {
-        if (!restedOnce)
+        Vector3 direction = (position - transform.position).normalized;
+
+        // If there's no obstacle in the fly's path
+        if (!Physics.Raycast(transform.position, direction, Vector3.Distance(transform.position, position)))
         {
-            restedOnce = true;
+            // If the player can reach the position
+            if (IsPositionAccessible(position, normal))
+            {
+                targetPosition = position;
+                targetNormal = normal;
+                needNewTarget = false;
+            }
         }
-        isResting = true;
-        transform.position = landingSurface.ClosestPoint(transform.position);
-        transform.up = landingSurface.transform.forward;
-        transform.rotation = transform.rotation * Quaternion.Euler(0, Random.Range(0, 360f), 0);
-        yield return new WaitForSeconds(restTime);
-        isResting = false;
-        timeSinceLastRest = 0;
-        randomDirection = GenerateOppositeDirection(landingSurface.transform);
     }
 
-    private Vector3 GenerateOppositeDirection(Transform wallTransform)
+
+    // Check if the position is sufficiently distant from other scene anchors
+    private bool IsPositionAccessible(Vector3 position, Vector3 normal)
     {
-        // Get the wall's surface normal
-        Vector3 wallNormal = wallTransform.forward; // Assuming the wall's forward direction is its surface normal
+        // Project the sphere slightly along the normal to ensure it starts checking from the surface outward
+        Vector3 start = position + normal * radius;
 
-        // Generate a random direction
-        Vector3 randomDirection = Random.insideUnitSphere.normalized;
+        // Use Physics.SphereCast to check for collisions within the radius along a very short distance
+        if (Physics.SphereCast(start, radius, normal, out RaycastHit hit, checkDistance))
+        {
+            return false;  // There is an object within the buffer zone
+        }
+        return true;  // No objects found within the buffer zone, position is accessible
+    }
 
-        // Calculate a direction somewhat opposite to the wall's normal
-        Vector3 oppositeDirection = wallNormal + randomDirection * 0.5f;
 
-        // Normalize the direction
-        oppositeDirection.Normalize();
-
-        return oppositeDirection;
+    private IEnumerator Rest()
+    {
+        isMoving = false;
+        isResting = true;
+        transform.up = targetNormal;  // Align the fly's 'up' with the surface normal
+        transform.rotation = Quaternion.LookRotation(Vector3.Cross(transform.right, targetNormal), targetNormal);  // Recalculate forward vector to keep the fly's 'up' aligned with the normal
+        yield return new WaitForSeconds(Random.Range(minRestDuration, maxRestDuration));
+        isResting = false;
+        needNewTarget = true;  // Need new target position after resting 
     }
 
     private void OnDrawGizmos()
     {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, detectionRange);
+        if (targetPosition != Vector3.zero)
+        {
+            // Draw the target position
+            Gizmos.color = Color.red;
+            Gizmos.DrawSphere(targetPosition, 0.01f);
 
-        Gizmos.color = Color.green;
-        Gizmos.DrawWireSphere(closestPoint, 0.1f);
+            // Draw the raycast for checking the fly's path
+            Vector3 direction = (targetPosition - transform.position).normalized;
+            float distance = Vector3.Distance(transform.position, targetPosition);
+            Gizmos.color = Color.yellow;
+            Gizmos.DrawRay(transform.position, direction * distance); // Adjusted ray start and distance
+
+            // Draw the spherecast for accessibility check
+            Gizmos.color = Color.green;
+            Vector3 startSphereCast = targetPosition + targetNormal * radius;  // Adjusted start position along the normal
+            Gizmos.DrawWireSphere(startSphereCast, radius);  // Draw the sphere at the target position
+            Vector3 endSphereCast = startSphereCast + targetNormal * checkDistance;  // End position of the spherecast
+            Gizmos.DrawWireSphere(endSphereCast, radius);
+
+            // Draw a line representing the spherecast path
+            Gizmos.DrawLine(startSphereCast, endSphereCast);
+
+            // Optional: Draw the normal at the target position
+            Gizmos.color = Color.blue;
+            Gizmos.DrawRay(targetPosition, targetNormal * 0.5f);  // Show the direction of the normal // Draw the spherecast area
+        }
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// isResting = true;
+// RaycastHit hit;
+// if (Physics.Raycast(transform.position + targetNormal * 0.1f, -targetNormal, out hit, 0.2f))
+// {
+//     transform.position = hit.point;
+//     Vector3 forwardDirection = Vector3.Cross(transform.right, targetNormal);
+//     transform.rotation = Quaternion.LookRotation(forwardDirection, targetNormal);
+// }
+// else
+// {
+//     transform.up = targetNormal;
+//     transform.rotation = Quaternion.LookRotation(Vector3.Cross(transform.right, targetNormal), targetNormal);
+// }
+// yield return new WaitForSeconds(Random.Range(minRestDuration, maxRestDuration));
+// isResting = false;
+// needNewTarget = true;

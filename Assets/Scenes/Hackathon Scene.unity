@@ -4417,6 +4417,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Hourglass
       objectReference: {fileID: 0}
+    - target: {fileID: 3580063073326057738, guid: aca035ab27e384e8ca972446e93c64fa, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

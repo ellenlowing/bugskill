@@ -6,7 +6,7 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/protoScene.unity
+    path: Assets/Scenes/Hackathon Scene.unity
     guid: 3c22bff77cfff5646a23d7e2c11608fa
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: 0d13d5ecbd96d441381e48c0e32f77d7, type: 2}

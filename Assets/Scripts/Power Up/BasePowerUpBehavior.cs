@@ -17,12 +17,12 @@ public class BasePowerUpBehavior : MonoBehaviour
     public float ChargePowerRate = 0.05f;
     public PowerUpState CurrentState;
 
-    void Start()
+    public void Start()
     {
         EnterState(PowerUpState.IDLE);
     }
 
-    void Update()
+    public void Update()
     {
         UpdateState();
     }

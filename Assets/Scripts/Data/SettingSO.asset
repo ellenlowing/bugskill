@@ -12,17 +12,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 345cf1bedd32c9f4483a79373f5c4bc1, type: 3}
   m_Name: SettingSO
   m_EditorClassIdentifier: 
-  flies: []
   score: 0
   scoreMulFactor: 5
-  numberOfKills: 4
+  numberOfKills: 5
   skillScoreValue: 100
-  flySlowDownTime: 8
-  flySlowDownSpeed: 0.5
+  flies: []
   eyeSpiralSpeed: 220
-  waveWaitTime: 30
-  waveIndex: 0
-  durationOfWave: 3c00000078000000c80000002c010000
-  fliesInWave: 050000000a00000014000000280000002800000032000000
+  flyIntelLevels:
+  - {fileID: 11400000, guid: 94c1c6d1603a36147af3eee62718f46c, type: 2}
+  - {fileID: 11400000, guid: 2f595e10582c6d040ac0e0827bbf9a97, type: 2}
+  - {fileID: 11400000, guid: 5d57f6c22de3aaa4fbac695a7c0a185c, type: 2}
+  - {fileID: 11400000, guid: f5898cf1fcc934a4784ab8ecd71b4934, type: 2}
+  - {fileID: 11400000, guid: 2cb2a157148019742a5339d058893360, type: 2}
+  waveWaitTime: 10
+  waveIndex: 5
+  durationOfWave: 1e000000050000000500000005000000050000000a000000
+  fliesInWave: 1e0000002800000032000000320000003c00000001000000
   divFactor: 2.7
   distanceFromCamera: 0.8

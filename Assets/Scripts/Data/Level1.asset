@@ -12,14 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f3807ef8626e3643970322efcdda1f1, type: 3}
   m_Name: Level1
   m_EditorClassIdentifier: 
-  minRestDuration: 2
-  maxRestDuration: 5
-  minSpeed: 2
-  maxSpeed: 10
-  speed: 2
+  minRestDuration: 15
+  maxRestDuration: 20
+  minSpeed: 1
+  maxSpeed: 2
+  speed: 1
+  flySlowDownTime: 20
+  flySlowDownSpeed: 0.1
   rotationSpeed: 10
   distanceToEdges: 0.2
   checkDistance: 0.15
   radius: 0.15
-  flySlowDownTime: 8
-  flySlowDownSpeed: 0.5

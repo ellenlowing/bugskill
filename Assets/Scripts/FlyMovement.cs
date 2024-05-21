@@ -8,7 +8,7 @@ using Random = UnityEngine.Random;
 public class FlyMovement : MonoBehaviour
 {
     public MRUKAnchor.SceneLabels canLand = MRUKAnchor.SceneLabels.FLOOR | MRUKAnchor.SceneLabels.CEILING;
-    public FlySO flySettings;
+    public SettingSO settings;
     public bool isResting = false;
     private Vector3 targetPosition;
     private Vector3 targetNormal;
@@ -18,10 +18,13 @@ public class FlyMovement : MonoBehaviour
     [HideInInspector]
     public float speed;
 
+    private FlySO flyBehaviour;
+
 
     private void Start()
     {
-        speed = flySettings.speed;
+        flyBehaviour = settings.flyIntelLevels[settings.waveIndex];
+        speed = flyBehaviour.speed;
     }
 
     private void Update()
@@ -50,7 +53,7 @@ public class FlyMovement : MonoBehaviour
         Vector3 direction = (targetPosition - transform.position).normalized;
         transform.position += direction * speed * Time.deltaTime;
         // Fly rotates to face moving direction 
-        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(direction), flySettings.rotationSpeed * Time.deltaTime);
+        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(direction), flyBehaviour.rotationSpeed * Time.deltaTime);
     }
 
     private void FindNewPosition()
@@ -64,7 +67,7 @@ public class FlyMovement : MonoBehaviour
             // Generate random position on any surface that is not facing down 
             // + position is not too close to anchor's edge 
             if (currentRoom.GenerateRandomPositionOnSurface(MRUK.SurfaceType.FACING_UP | MRUK.SurfaceType.VERTICAL,
-                flySettings.distanceToEdges, labelFilter, out Vector3 position, out Vector3 normal))
+                flyBehaviour.distanceToEdges, labelFilter, out Vector3 position, out Vector3 normal))
             {
                 CheckValidPosition(position, normal);
             }
@@ -93,10 +96,10 @@ public class FlyMovement : MonoBehaviour
     private bool IsPositionAccessible(Vector3 position, Vector3 normal)
     {
         // Project the sphere slightly along the normal to ensure it starts checking from the surface outward
-        Vector3 start = position + normal * flySettings.radius;
+        Vector3 start = position + normal * flyBehaviour.radius;
 
         // Use Physics.SphereCast to check for collisions within the radius along a very short distance
-        if (Physics.SphereCast(start, flySettings.radius, normal, out RaycastHit hit, flySettings.checkDistance))
+        if (Physics.SphereCast(start, flyBehaviour.radius, normal, out RaycastHit hit, flyBehaviour.checkDistance))
         {
             return false;  // There is an object within the buffer zone
         }
@@ -110,7 +113,7 @@ public class FlyMovement : MonoBehaviour
         isResting = true;
         transform.up = targetNormal;  // Align the fly's 'up' with the surface normal
         transform.rotation = transform.rotation * Quaternion.Euler(0, Random.Range(0, 360f), 0);
-        yield return new WaitForSeconds(Random.Range(flySettings.minRestDuration, flySettings.maxRestDuration));
+        yield return new WaitForSeconds(Random.Range(flyBehaviour.minRestDuration, flyBehaviour.maxRestDuration));
         isResting = false;
         needNewTarget = true;  // Need new target position after resting 
     }
@@ -131,10 +134,10 @@ public class FlyMovement : MonoBehaviour
 
             // Draw the spherecast for accessibility check
             Gizmos.color = Color.green;
-            Vector3 startSphereCast = targetPosition + targetNormal * flySettings.radius;  // Adjusted start position along the normal
-            Gizmos.DrawWireSphere(startSphereCast, flySettings.radius);  // Draw the sphere at the target position
-            Vector3 endSphereCast = startSphereCast + targetNormal * flySettings.checkDistance;  // End position of the spherecast
-            Gizmos.DrawWireSphere(endSphereCast, flySettings.radius);
+            Vector3 startSphereCast = targetPosition + targetNormal * flyBehaviour.radius;  // Adjusted start position along the normal
+            Gizmos.DrawWireSphere(startSphereCast, flyBehaviour.radius);  // Draw the sphere at the target position
+            Vector3 endSphereCast = startSphereCast + targetNormal * flyBehaviour.checkDistance;  // End position of the spherecast
+            Gizmos.DrawWireSphere(endSphereCast, flyBehaviour.radius);
 
             // Draw a line representing the spherecast path
             Gizmos.DrawLine(startSphereCast, endSphereCast);

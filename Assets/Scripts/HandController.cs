@@ -144,6 +144,7 @@ public class HandController : MonoBehaviour
 
                 // game flow updates
                 settings.numberOfKills += 1;
+                settings.score += settings.scoreMulFactor;
                 // settings.score += settings.scoreMulFactor;
                 // UIM.ScoreUpdate();
                 // UIM.KillUpdate();

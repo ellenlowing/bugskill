@@ -32,7 +32,7 @@ public class UIManager : MonoBehaviour
         {
             UpdateTimer();
 
-            if (TimeChange > settings.WaveWaitTime)
+            if (TimeChange > settings.waveWaitTime)
             {
                 RunTimer = false;
                 TimeChange = 0;

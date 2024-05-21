@@ -41,7 +41,7 @@ public class SlowDown : MonoBehaviour
     {
         slowDownNow = true;
         currentSpeed = flyMovements.speed;
-        flyMovements.speed = settings.flySlowDownSpeed;
+        flyMovements.speed = settings.flyIntelLevels[settings.waveIndex].flySlowDownSpeed;
         if (TryGetComponent<FlyAudioSource>(out var bz))
         {
             bz.DizzyClip();
@@ -53,7 +53,7 @@ public class SlowDown : MonoBehaviour
     {
         if (slowDownNow)
         {
-            if(InitialTime > settings.flySlowDownTime)
+            if(InitialTime > settings.flyIntelLevels[settings.waveIndex].flySlowDownTime)
             {
                 InitialTime = 0f;
                 slowDownNow = false;

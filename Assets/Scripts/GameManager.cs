@@ -67,7 +67,7 @@ public class GameManager : MonoBehaviour
     {
         if (moveToNextWave)
         {
-            if (initialTime > settings.maxWaitTime[waveIndex])
+            if (initialTime > settings.durationOfWave[waveIndex])
             {
                 // empty all fly list
                 // foreach (var obj in settings.flies)
@@ -77,13 +77,17 @@ public class GameManager : MonoBehaviour
                 // settings.flies.Clear();
 
                 waveIndex++;
+
+                // update wave index across gameplay
+                settings.waveIndex = waveIndex;
+
                 moveToNextWave = false;
                 canSpawn = true;
                 // enable hour glass here
                 // set the animation speed to scale with div factor
                 HourGlass.SetActive(true);
 
-                animator.speed = settings.divFactor / settings.WaveWaitTime;
+                animator.speed = settings.divFactor / settings.waveWaitTime;
                 // animator.speed = 0.02f;
                 HourGlass.SetActive(false);
 
@@ -105,7 +109,7 @@ public class GameManager : MonoBehaviour
             if (FlySpawnPositions.Count > 0)
             {
 
-                if (waveIndex == settings.Waves.Length)
+                if (waveIndex == settings.fliesInWave.Length)
                 {
                     // call completion here with ui score update
                     UIM.KillUpdate();
@@ -117,7 +121,7 @@ public class GameManager : MonoBehaviour
                 // before next wave, wait for certain amount of time
                 if (canSpawn)
                 {
-                    for (int i = 0; i < settings.Waves[waveIndex]; i++)
+                    for (int i = 0; i < settings.fliesInWave[waveIndex]; i++)
                     {
                         int randomIndex = Random.Range(0, FlySpawnPositions.Count);
                         MRUKAnchor randomAnchor = FlySpawnPositions[randomIndex];
@@ -143,7 +147,7 @@ public class GameManager : MonoBehaviour
 
                     // enable and set timescale for loading based on time anticapated per wave
                     HourGlass.SetActive(true);
-                    animator.speed = settings.divFactor / settings.maxWaitTime[waveIndex];
+                    animator.speed = settings.divFactor / settings.durationOfWave[waveIndex];
                 }
 
 

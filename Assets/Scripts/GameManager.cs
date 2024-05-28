@@ -255,7 +255,7 @@ public partial class GameManager : MonoBehaviour
     public void StartGame()
     {
         GetWindowOrDoorFrames(MRUK.Instance.GetCurrentRoom());
-       GameLoopRoutine =  StartCoroutine(SpawnFlyAtRandomPosition());
+        GameLoopRoutine =  StartCoroutine(SpawnFlyAtRandomPosition());
     }
 
     // 

@@ -20,6 +20,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject UpgradeUIObj;
     [SerializeField] private GameObject SwatterUIObj;
     [SerializeField] private GameObject BossfightUI;
+    [SerializeField] private GameObject UIScoreObj;
 
 
     [Header("Buttons")]
@@ -53,6 +54,7 @@ public class UIManager : MonoBehaviour
     public VoidEventChannelSO GameEnds;
     public VoidEventChannelSO BossFightEvent;
     public VoidEventChannelSO StartNextWaveEvent;
+    public FVEventSO ScoreUIUpdateEvent;
    
 
 
@@ -72,6 +74,11 @@ public class UIManager : MonoBehaviour
         Assert.IsNotNull(GameEnds, "Event not Assigned");
     }
 
+    private void OnEnable()
+    {
+        ScoreUIUpdateEvent.OnEventRaised.AddListener(UpdateScore);
+    }
+
     private void Start()
     {
 
@@ -84,6 +91,7 @@ public class UIManager : MonoBehaviour
         ElectricSwatterPowerUp.OnEventRaised += SwatterUI;
         UpgradePowerUps.OnEventRaised += UpgradeUI;
         BossFightEvent.OnEventRaised += BossFight;
+       
 
 
         FrogStartBtn.onClick.AddListener(FrogStart);
@@ -91,6 +99,7 @@ public class UIManager : MonoBehaviour
         SwatterStartBtn.onClick.AddListener(SwatterStart);
         UpgradeStartBtn.onClick.AddListener(UpgradeStart);
         BossFightStartBtn.onClick.AddListener(BossStart);
+       
     }
 
     private void OnDisable()
@@ -217,6 +226,21 @@ public class UIManager : MonoBehaviour
             KillText.text = "you killed " + "<color=red>" + settings.numberOfKills + "</color>" + " flies...";
         }
     }
+
+    private GameObject tempObj;
+    private TextMeshProUGUI tempText;
+
+    public void UpdateScore(float Score, Vector3 position)
+    {
+        tempObj = Instantiate(UIScoreObj, position, Quaternion.identity);
+        tempText = UIScoreObj.GetComponentInChildren<TextMeshProUGUI>();
+        tempText.text = "+" + Score;
+        FaceCamera(tempObj);
+        Destroy(tempObj, 2);
+    }
+
+
+    
 
     private void FaceCamera(GameObject obj)
     {

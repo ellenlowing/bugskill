@@ -25,8 +25,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: f5898cf1fcc934a4784ab8ecd71b4934, type: 2}
   - {fileID: 11400000, guid: 2cb2a157148019742a5339d058893360, type: 2}
   waveWaitTime: 10
-  waveIndex: 5
-  durationOfWave: 1e000000050000000500000005000000050000000a000000
+  waveIndex: 6
+  durationOfWave: 1e0000001e0000001e0000001e0000001e0000001e000000
   fliesInWave: 1e0000002800000032000000320000003c00000001000000
   divFactor: 2.7
   distanceFromCamera: 0.8

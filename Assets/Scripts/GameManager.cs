@@ -37,12 +37,18 @@ public partial class GameManager : MonoBehaviour
     [Tooltip("Subscribe to activate when game ends")]
     public VoidEventChannelSO GameEnds;
 
+    [Tooltip("Starts the Next Wave Event")]
+    public VoidEventChannelSO StartNextWaveEvent;
+
 
     private int waveIndex = 0;
     private bool canSpawn = true;
     private bool moveToNextWave = false;
     private float initialTime = 0;
     private GameObject fly;
+    private Coroutine GameLoopRoutine;
+
+    private int runningIndex = 0;
 
     void Awake()
     {
@@ -137,7 +143,7 @@ public partial class GameManager : MonoBehaviour
                 // before next wave, wait for certain amount of time
                 if (canSpawn)
                 {
-                    for (int i = 0; i < settings.fliesInWave[waveIndex]; i++)
+                    for (int i = runningIndex; i < settings.fliesInWave[waveIndex]; i++)
                     {
                         int randomIndex = Random.Range(0, FlySpawnPositions.Count);
                         MRUKAnchor randomAnchor = FlySpawnPositions[randomIndex];
@@ -205,6 +211,21 @@ public partial class GameManager : MonoBehaviour
         }
     }
 
+    private void OnEnable()
+    {
+        StartNextWaveEvent.OnEventRaised += StartNextWave;
+    }
+
+
+    // force next wave to start
+    public void StartNextWave()
+    {
+        StopCoroutine(GameLoopRoutine);
+        runningIndex = waveIndex;
+        canSpawn = true;
+        GameLoopRoutine = StartCoroutine(SpawnFlyAtRandomPosition());       
+    }
+
 
     // check game start to determine powerup
     private void WhatPowerUp(int waveIndex)
@@ -229,10 +250,12 @@ public partial class GameManager : MonoBehaviour
         }
     }
 
+
+
     public void StartGame()
     {
         GetWindowOrDoorFrames(MRUK.Instance.GetCurrentRoom());
-        StartCoroutine(SpawnFlyAtRandomPosition());
+       GameLoopRoutine =  StartCoroutine(SpawnFlyAtRandomPosition());
     }
 
     // 
@@ -265,6 +288,4 @@ public partial class GameManager : MonoBehaviour
             }
         }
     }
-
-
 }

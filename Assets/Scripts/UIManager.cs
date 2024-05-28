@@ -22,11 +22,21 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject BossfightUI;
 
 
+    [Header("Buttons")]
+    [Space(20)]
+    [SerializeField] private Button FrogStartBtn;
+    [SerializeField] private Button SprayStartBtn;
+    [SerializeField] private Button UpgradeStartBtn;
+    [SerializeField] private Button SwatterStartBtn;
+    [SerializeField] private Button BossFightStartBtn;
+
+
     // public TextMeshProUGUI ScoreText;
     // public TextMeshProUGUI TimerText;
 
     public bool RunTimer = false;
     private float TimeChange = 0.1f;
+    private float quickStart = 2.0f;
     [Header("Events")]
     [Space(20)]
     [Tooltip("Subscribe to run before first game wave")]
@@ -42,6 +52,7 @@ public class UIManager : MonoBehaviour
     [Tooltip("Subscribe to activate when game ends")]
     public VoidEventChannelSO GameEnds;
     public VoidEventChannelSO BossFightEvent;
+    public VoidEventChannelSO StartNextWaveEvent;
    
 
 
@@ -52,8 +63,6 @@ public class UIManager : MonoBehaviour
         Assert.IsNotNull(SprayUIObj, "UI not Assigned");
         Assert.IsNotNull(UpgradeUIObj, "UI not Assigned");
         Assert.IsNotNull(SwatterUIObj, "UI not Assigned");
-
-
 
         Assert.IsNotNull(GameBegins, "Event not Assigned");
         Assert.IsNotNull(FrogPowerUp, "Event not Assigned");
@@ -75,6 +84,13 @@ public class UIManager : MonoBehaviour
         ElectricSwatterPowerUp.OnEventRaised += SwatterUI;
         UpgradePowerUps.OnEventRaised += UpgradeUI;
         BossFightEvent.OnEventRaised += BossFight;
+
+
+        FrogStartBtn.onClick.AddListener(FrogStart);
+        SprayStartBtn.onClick.AddListener(SprayStart);
+        SwatterStartBtn.onClick.AddListener(SwatterStart);
+        UpgradeStartBtn.onClick.AddListener(UpgradeStart);
+        BossFightStartBtn.onClick.AddListener(BossStart);
     }
 
     private void OnDisable()
@@ -109,39 +125,81 @@ public class UIManager : MonoBehaviour
        // ScoreText.text = "Score : " + settings.score.ToString();
     }
 
+    #region UI QUICK START
+    private void FrogStart()
+    {
+        DestroyPanel(FrogUIObj, quickStart);
+        StartNextWaveEvent.RaiseEvent();
+    }
+
+    private void SprayStart()
+    {
+        Destroy(SprayUIObj, quickStart);
+        StartNextWaveEvent.RaiseEvent();
+    }
+
+    private void SwatterStart()
+    {
+        Destroy(SwatterUIObj, quickStart);
+        StartNextWaveEvent.RaiseEvent();
+    }
+
+    private void UpgradeStart()
+    {
+        Destroy(UpgradeUIObj, quickStart);
+        StartNextWaveEvent.RaiseEvent();
+    }
+
+    private void BossStart()
+    {
+        Destroy(BossFightStartBtn, quickStart);
+        StartNextWaveEvent.RaiseEvent();
+    }
+    #endregion  
+
+    #region  UI POPUP
     public void FrogUI()
     {
         FrogUIObj.SetActive(true);
         FaceCamera(FrogUIObj);
-        Destroy(FrogUIObj, settings.waveWaitTime);
+        DestroyPanel(FrogUIObj, settings.waveWaitTime);
     }
 
     public void SwatterUI()
     {
         SwatterUIObj.SetActive(true);
         FaceCamera(SwatterUIObj);
-        Destroy(SwatterUIObj, settings.waveWaitTime);
+        DestroyPanel(SwatterUIObj, settings.waveWaitTime);
     }
 
     public void UpgradeUI()
     {
         UpgradeUIObj.SetActive(true);
         FaceCamera(UpgradeUIObj);
-        Destroy(UpgradeUIObj, settings.waveWaitTime);
+        DestroyPanel(UpgradeUIObj, settings.waveWaitTime);
     }
 
     public void SprayUI()
     {
         SprayUIObj.SetActive(true);
         FaceCamera(SprayUIObj);
-        Destroy(SprayUIObj, settings.waveWaitTime);
+        DestroyPanel(SprayUIObj, settings.waveWaitTime);
     }
 
     public void BossFight()
     {
         BossfightUI.SetActive(true);
         FaceCamera(BossfightUI);
-        Destroy(BossfightUI, settings.waveWaitTime);
+        DestroyPanel(BossfightUI, settings.waveWaitTime);
+    }
+    #endregion
+
+    public void DestroyPanel(GameObject obj, float waitTime)
+    {
+        if(obj != null)
+        {
+            Destroy(obj, waitTime);
+        }
     }
 
     public void KillUpdate()

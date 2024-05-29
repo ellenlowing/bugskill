@@ -62,3 +62,5 @@ sysinfo.txt
 crashlytics-build.properties
 
 .DS_Store
+*.dwlt
+/UserSettings/Layouts

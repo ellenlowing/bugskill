@@ -66,8 +66,8 @@ public class FlyMovement : MonoBehaviour
 
             // Generate random position on any surface that is not facing down 
             // + position is not too close to anchor's edge 
-            if (currentRoom.GenerateRandomPositionOnSurface(MRUK.SurfaceType.FACING_UP | MRUK.SurfaceType.VERTICAL,
-                flyBehaviour.distanceToEdges, labelFilter, out Vector3 position, out Vector3 normal))
+
+            if (currentRoom.GenerateRandomPositionOnSurface(MRUK.SurfaceType.FACING_UP | MRUK.SurfaceType.VERTICAL,flyBehaviour.distanceToEdges, labelFilter, out Vector3 position, out Vector3 normal))
             {
                 CheckValidPosition(position, normal);
             }

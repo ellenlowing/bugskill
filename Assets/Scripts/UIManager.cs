@@ -244,8 +244,6 @@ public class UIManager : MonoBehaviour
         GameBegins.RaiseEvent();
     }
 
-    
-
     private void FaceCamera(GameObject obj)
     {
         if (obj != null)

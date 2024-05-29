@@ -1,42 +1,46 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class Swatter : BasePowerUpBehavior
 {
-    public float destroyFlyDelay = 0.5f;
-    public Transform ElectricityEffectPosition; 
+    public bool ForDebugging = false;
     public bool IsHeld { get; set; } = false;
-    
-    [Header("Effects and Sounds")]
+
+    [Header("Effects and Sounds")] 
     public ParticleSystem ElectricityEffect;
     public ParticleSystem HitEffect;
-    public AudioSource SoundPlayer;
+    public Transform ElectricityEffectPosition;
+    public Transform SwatterPosition;
+    public AudioSource ElectricityEffectSoundPlayer; 
+    public AudioSource BatteryLevelSoundPlayer;
+    public AudioSource HitSoundPlayer;
+    public float destroyFlyDelay = 0.5f;
 
-    [Header("Audio Clips")]
-    public AudioClip ActiveSoundClip;
-    public AudioClip HitSoundClip;
+    [Header("Audio Clips")] 
     public AudioClip RechargeSoundClip;
     public AudioClip DepletedSoundClip;
 
     [Header("Recharge Settings")]
-    public float RechargeDelay = 5.0f;  // Time it takes to start recharging after depletion
-    
+    public float RechargeDelay = 5.0f; // Time it takes to start recharging after depletion
+
     private float rechargeTimer;
     private bool charged = true;
-    private int flyLayer;
-    private ParticleSystem electricityEffectInstance; 
+    private ParticleSystem electricityEffectInstance;
 
 
     private void Awake()
     {
-        flyLayer = LayerMask.NameToLayer("Fly");
+        if (ForDebugging) IsHeld = true; 
     }
-    
+
     public override void EnterIdleState()
     {
-        ToggleEffects(false, null, false); //Need to check if null causes errors
+        ToggleEffects(false, null); 
     }
+
     public override void UpdateIdleState()
     {
         if (!charged)
@@ -48,9 +52,10 @@ public class Swatter : BasePowerUpBehavior
             EnterState(PowerUpState.ACTIVE);
         }
     }
+
     public override void EnterInactiveState()
     {
-        ToggleEffects(false, DepletedSoundClip, false);
+        ToggleEffects(false, DepletedSoundClip);
         charged = false;
         rechargeTimer = RechargeDelay;
     }
@@ -58,6 +63,7 @@ public class Swatter : BasePowerUpBehavior
 
     public override void UpdateInactiveState()
     {
+        // May remove; redundant? just slow recharge? 
         if (rechargeTimer > 0)
         {
             rechargeTimer -= Time.deltaTime;
@@ -68,7 +74,7 @@ public class Swatter : BasePowerUpBehavior
             if (PowerCapacity >= MaxPowerCapacity)
             {
                 charged = true;
-                ToggleEffects(true, RechargeSoundClip, false); // May need to adjust timing that ElectricityEffect and Active sound effect begin relative to recharge sound effect  
+                ToggleEffects(false, RechargeSoundClip); // May need to adjust timing that ElectricityEffect and Active sound effect begin relative to recharge sound effect  
                 if (IsHeld)
                 {
                     EnterState(PowerUpState.ACTIVE);
@@ -80,11 +86,11 @@ public class Swatter : BasePowerUpBehavior
             }
         }
     }
-    
+
     public override void EnterActiveState()
-     {
-         ToggleEffects(true, ActiveSoundClip, true);
-     }
+    {
+        ToggleEffects(true, null);
+    }
 
     public override void UpdateActiveState()
     {
@@ -92,55 +98,92 @@ public class Swatter : BasePowerUpBehavior
         if (PowerCapacity <= 0)
         {
             EnterState(PowerUpState.INACTIVE);
+            return; 
+        }
+
+        if (!IsHeld)
+        {
+            EnterState(PowerUpState.IDLE); 
         }
     }
 
     // Change and play particle and sound effects 
-    private void ToggleEffects(bool active, AudioClip clip, bool loop)
+    private void ToggleEffects(bool active, AudioClip clip)
     {
-        if (clip != null)
-        {
-            SoundPlayer.clip = clip;
-            SoundPlayer.loop = loop; 
-        }
-
         if (active)
         {
-            electricityEffectInstance = Instantiate(ElectricityEffect, ElectricityEffectPosition.position, Quaternion.identity);
-            electricityEffectInstance.Play();        
+            electricityEffectInstance =
+                Instantiate(ElectricityEffect, ElectricityEffectPosition.position, Quaternion.identity);
+            electricityEffectInstance.transform.SetParent(ElectricityEffectPosition);
+            electricityEffectInstance.Play();
+            
+            ElectricityEffectSoundPlayer.Play();
         }
         else
         {
             if (electricityEffectInstance != null)
             {
-                Destroy(electricityEffectInstance); 
+                Destroy(electricityEffectInstance.gameObject);
             }
-            SoundPlayer.Stop();
-            return; 
+
+            ElectricityEffectSoundPlayer.Stop();
         }
         
-        SoundPlayer.Play();
-    }
-    private void OnCollisionEnter(Collision collision)
-    {
-        // If the net collides with a fly while Active 
-        if (collision.gameObject.layer == flyLayer && CurrentState == PowerUpState.ACTIVE)
+        if (clip != null)
         {
-            // Play a sound
-            SoundPlayer.clip = HitSoundClip;
-            SoundPlayer.loop = false;  
-            SoundPlayer.Play();
-            
-            // Instantiate shock effect at contact point 
-            ParticleSystem hitEffectInstance = Instantiate(HitEffect, collision.contacts[0].point, Quaternion.identity);
+            BatteryLevelSoundPlayer.clip = clip;
+            BatteryLevelSoundPlayer.Play();
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        Debug.Log("OnTriggerEnter()");
+        
+        // If the net collides with a fly while Active 
+        if (CurrentState == PowerUpState.ACTIVE)
+        {
+            Debug.Log("OnTriggerEnter() past checks");
+           HitSoundPlayer.Play();
+           
+           other.transform.SetParent(SwatterPosition);
+
+            // Instantiate shock effect on fly
+            ParticleSystem hitEffectInstance =
+                Instantiate(HitEffect, other.transform.position, Quaternion.identity);
             hitEffectInstance.Play();
             Destroy(hitEffectInstance.gameObject, hitEffectInstance.main.duration);
-            
+
             // Destroy fly after delay 
-            Destroy(collision.gameObject, destroyFlyDelay);
+            Destroy(other.gameObject, destroyFlyDelay);
         }
     }
 }
+
+
+
+//
+// private void OnCollisionEnter(Collision collision)    
+// {
+//         // If the net collides while Active 
+//         if ((collision.gameObject.layer == flyLayer && CurrentState == PowerUpState.ACTIVE))
+//         {
+//             // Play a sound
+//             SoundPlayer.clip = HitSoundClip;
+//             SoundPlayer.loop = false;  
+//             SoundPlayer.Play();
+//             
+//             // Instantiate shock effect on fly
+//             ParticleSystem hitEffectInstance = Instantiate(HitEffect, collision.contacts[0].point, Quaternion.identity);
+//             hitEffectInstance.Play();
+//             Destroy(hitEffectInstance.gameObject, hitEffectInstance.main.duration);
+//             
+//             // Destroy fly after delay 
+//             Destroy(collision.gameObject, destroyFlyDelay);
+//         }
+//     }
+// }
+
 
 
 //

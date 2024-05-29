@@ -103,7 +103,6 @@ public class FroggyController : MonoBehaviour
             if (_hitFlyCollider == null || hit.collider != _hitFlyCollider)
             {
                 _hitFlyCollider = hit.collider;
-                Debug.Log("Fly in front!");
             }
         }
         else
@@ -128,18 +127,16 @@ public class FroggyController : MonoBehaviour
             var distanceFromIndexFingerTipToThumbTip = Vector3.Distance(handData.IndexFingerTipTransform.position, handData.ThumbTipTransform.position);
             handData.IsIndexFingerPinching = distanceFromIndexFingerTipToThumbTip < MaxDistanceToGrab;
 
-            if (FroggyActiveHand == null && distanceFromIndexFingerTipToThumbTip < MaxDistanceToActivateFroggy)
+            if (FroggyActiveHand == null)
             {
                 FroggyActiveHand = handData.Hand;
                 ShowAllRenderers();
                 //croaking frog while in hand
                 RestartCroaking();
-                //
+
                 FroggyParentTransform.parent = FroggyActiveHand.transform;
                 FroggyParentTransform.localPosition = FroggyPositionOffset;
                 FroggyParentTransform.localEulerAngles = FroggyRotationOffset;
-
-                // FroggyParentTransform.rotation = handData.Hand.PointerPose.rotation;
 
                 // Uncomment if left hand is used
                 // if (FroggyActiveHand == LeftHand)
@@ -148,13 +145,12 @@ public class FroggyController : MonoBehaviour
                 //     FroggyParentTransform.localEulerAngles = FroggyRotationOffset + new Vector3(0, 0, 180);
                 // }
             }
-            else if (FroggyActiveHand == handData.Hand && !FroggyActive && distanceFromIndexFingerTipToThumbTip >= MaxDistanceToActivateFroggy)
-            {
-                FroggyActiveHand = null;
-                FroggyParentTransform.parent = null;
-                HideAllRenderers();
-
-            }
+            // else if (FroggyActiveHand == handData.Hand && !FroggyActive && distanceFromIndexFingerTipToThumbTip >= MaxDistanceToActivateFroggy)
+            // {
+            //     FroggyActiveHand = null;
+            //     FroggyParentTransform.parent = null;
+            //     HideAllRenderers();
+            // }
 
             if (handData.IsIndexFingerPinching && (Time.time - FroggyLastTriggeredTime) > CooldownTime)
             {
@@ -213,7 +209,7 @@ public class FroggyController : MonoBehaviour
         audioSource.clip = slurpClip;
         audioSource.loop = false;
         audioSource.Play();
-        //
+
         float t = 0;
         FroggyActive = true;
         while (t <= 1)
@@ -222,18 +218,7 @@ public class FroggyController : MonoBehaviour
             t += Time.deltaTime * grabSpeed;
             yield return null;
         }
-
-
-        // if (returnSpeed == FastClawReturnAnimationSpeed)
-        // {
-        // PlaySound("GrabSuccess");
-        // }
-        // else
-        // {
-        // PlaySound("GrabFailure");
-        // }
         yield return new WaitForSeconds(0.15f);
-        // StopSound();
 
         Invoke(nameof(StartMunching), 0.3f);
 
@@ -252,7 +237,7 @@ public class FroggyController : MonoBehaviour
     private void StartMunching()
     {
         audioSource.clip = _successFly ? munchClip : croakClip;
-        audioSource.loop = !_successFly;
+        // audioSource.loop = !_successFly;
         audioSource.Play();
         _successFly = false;
     }
@@ -260,7 +245,7 @@ public class FroggyController : MonoBehaviour
     private void RestartCroaking()
     {
         audioSource.clip = croakClip;
-        audioSource.loop = true;
+        // audioSource.loop = true;
         audioSource.Play();
     }
 

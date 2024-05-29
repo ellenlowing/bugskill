@@ -32,8 +32,6 @@ public class FroggyController : MonoBehaviour
         }
     }
 
-    public static FroggyController Instance;
-
     [Header("Tongue")]
     public Transform FroggyParentTransform;
     public Transform FrogTongueTransform;
@@ -76,18 +74,6 @@ public class FroggyController : MonoBehaviour
     public AudioClip croakClip;
     public AudioClip slurpClip;
     private bool _successFly = false;
-    
-    void Awake()
-    {
-        if (Instance != null && Instance != this)
-        {
-            Destroy(this);
-        }
-        else
-        {
-            Instance = this;
-        }
-    }
 
     void Start()
     {
@@ -167,7 +153,7 @@ public class FroggyController : MonoBehaviour
                 FroggyActiveHand = null;
                 FroggyParentTransform.parent = null;
                 HideAllRenderers();
-                
+
             }
 
             if (handData.IsIndexFingerPinching && (Time.time - FroggyLastTriggeredTime) > CooldownTime)
@@ -236,8 +222,8 @@ public class FroggyController : MonoBehaviour
             t += Time.deltaTime * grabSpeed;
             yield return null;
         }
-        
-        
+
+
         // if (returnSpeed == FastClawReturnAnimationSpeed)
         // {
         // PlaySound("GrabSuccess");
@@ -249,8 +235,8 @@ public class FroggyController : MonoBehaviour
         yield return new WaitForSeconds(0.15f);
         // StopSound();
 
-        Invoke(nameof(StartMunching), 0.3f);        
-        
+        Invoke(nameof(StartMunching), 0.3f);
+
         t = 0;
         while (Vector3.Distance(FrogTongueTransform.localScale, inScale) > 0.001f)
         {
@@ -270,7 +256,7 @@ public class FroggyController : MonoBehaviour
         audioSource.Play();
         _successFly = false;
     }
-    
+
     private void RestartCroaking()
     {
         audioSource.clip = croakClip;
@@ -288,7 +274,7 @@ public class FroggyController : MonoBehaviour
             other.transform.parent = TongueTipObjectTransform;
             other.transform.position = GetRandomPointWithinBounds(TongueTipObjectTransform.gameObject);
             other.transform.localScale = other.transform.localScale * 0.5f;
-            
+
             Destroy(other.gameObject, 1f);
         }
     }

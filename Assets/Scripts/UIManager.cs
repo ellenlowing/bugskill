@@ -239,6 +239,10 @@ public class UIManager : MonoBehaviour
         Destroy(tempObj, 2);
     }
 
+    public void StartGameLoopTrigger()
+    {
+        GameBegins.RaiseEvent();
+    }
 
     
 

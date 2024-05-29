@@ -1936,7 +1936,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3613868102660323786, guid: c2e00db6d2dfa42ac8d821db8d493a44, type: 3}
       propertyPath: SceneLoadedEvent.m_PersistentCalls.m_Calls.Array.data[2].m_CallState
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3613868102660323786, guid: c2e00db6d2dfa42ac8d821db8d493a44, type: 3}
       propertyPath: RoomCreatedEvent.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
@@ -2876,7 +2876,7 @@ MonoBehaviour:
   animator: {fileID: 738638577}
   HourGlass: {fileID: 738638576}
   Portal: {fileID: 842779040715382500, guid: 4e73909f16ccb82439fc8df54169d1b3, type: 3}
-  GameBegins: {fileID: 11400000, guid: c1a84f5b7ab33cc4db52ff5f0a27404a, type: 2}
+  GameBegins: {fileID: 11400000, guid: e1f9e8cd7ed35bb4f933dfe252aff86d, type: 2}
   FrogPowerUp: {fileID: 11400000, guid: d77f5a68065e545499e35851c0ded3e1, type: 2}
   SprayPowerUp: {fileID: 11400000, guid: e4a38373fc5699847ad7d4c59e987ae5, type: 2}
   ElectricSwatterPowerUp: {fileID: 11400000, guid: 793b6ad92a0542b4b9c97ab4c35131e6, type: 2}
@@ -2913,7 +2913,7 @@ MonoBehaviour:
   SwatterStartBtn: {fileID: 1044726519}
   BossFightStartBtn: {fileID: 1099508017}
   RunTimer: 0
-  GameBegins: {fileID: 11400000, guid: c1a84f5b7ab33cc4db52ff5f0a27404a, type: 2}
+  GameBegins: {fileID: 11400000, guid: e1f9e8cd7ed35bb4f933dfe252aff86d, type: 2}
   FrogPowerUp: {fileID: 11400000, guid: d77f5a68065e545499e35851c0ded3e1, type: 2}
   SprayPowerUp: {fileID: 11400000, guid: e4a38373fc5699847ad7d4c59e987ae5, type: 2}
   ElectricSwatterPowerUp: {fileID: 11400000, guid: 793b6ad92a0542b4b9c97ab4c35131e6, type: 2}

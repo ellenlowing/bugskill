@@ -36,7 +36,6 @@ public partial class GameManager : MonoBehaviour
     public VoidEventChannelSO BossFightEvent;
     [Tooltip("Subscribe to activate when game ends")]
     public VoidEventChannelSO GameEnds;
-
     [Tooltip("Starts the Next Wave Event")]
     public VoidEventChannelSO StartNextWaveEvent;
 
@@ -194,11 +193,12 @@ public partial class GameManager : MonoBehaviour
                     moveToNextWave = false;
                     canSpawn = true;
                     WhatPowerUp(waveIndex);
+
+
                     // enable hour glass here
                     // set the animation speed to scale with div factor
-                    HourGlass.SetActive(true);
-
-                    animator.speed = settings.divFactor / settings.waveWaitTime;
+                    // HourGlass.SetActive(true);
+                    // animator.speed = settings.divFactor / settings.waveWaitTime;
                     // animator.speed = 0.02f;
                     yield return new WaitForSeconds(settings.waveWaitTime);
                     HourGlass.SetActive(false);
@@ -214,6 +214,7 @@ public partial class GameManager : MonoBehaviour
     private void OnEnable()
     {
         StartNextWaveEvent.OnEventRaised += StartNextWave;
+        GameBegins.OnEventRaised += StartGameLoop;
     }
 
 
@@ -251,11 +252,15 @@ public partial class GameManager : MonoBehaviour
     }
 
 
+    public void StartGameLoop()
+    {
+        GameLoopRoutine = StartCoroutine(SpawnFlyAtRandomPosition());
+    }
 
+    // this event has been removed from the MRUK event call 
     public void StartGame()
     {
-        GetWindowOrDoorFrames(MRUK.Instance.GetCurrentRoom());
-        GameLoopRoutine =  StartCoroutine(SpawnFlyAtRandomPosition());
+        GetWindowOrDoorFrames(MRUK.Instance.GetCurrentRoom());    
     }
 
     // 

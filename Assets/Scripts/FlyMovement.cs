@@ -23,7 +23,6 @@ public class FlyMovement : MonoBehaviour
     private bool needNewTarget = true;
     private bool isMoving = false;
 
-
     private void Start()
     {
         speed = Random.Range(minSpeed, maxSpeed);

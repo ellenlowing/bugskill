@@ -4,27 +4,27 @@ using UnityEngine;
 namespace Power_Up
 {
     public class Swatter : BasePowerUpBehavior
-    { 
+    {
         public bool IsHeld { get; set; } = false;
 
-        [Header("Effects and Sounds")] 
+        [Header("Effects and Sounds")]
         public ParticleSystem ElectricityEffect;
         public ParticleSystem HitEffect;
         public Transform ElectricityEffectPosition;
         public Transform SwatterPosition;
-        public AudioSource ElectricityEffectSoundPlayer; 
+        public AudioSource ElectricityEffectSoundPlayer;
         public AudioSource BatteryLevelSoundPlayer;
         public AudioSource HitSoundPlayer;
         public float destroyFlyDelay = 0.5f;
 
-        [Header("Audio Clips")] 
+        [Header("Audio Clips")]
         public AudioClip RechargeSoundClip;
         public AudioClip DepletedSoundClip;
 
         [Header("Recharge Settings")]
         public float RechargeDelay = 5.0f; // Time it takes to start recharging after depletion
 
-    
+
         private float rechargeTimer;
         private bool charged = true;
         private ParticleSystem electricityEffectInstance;
@@ -32,13 +32,13 @@ namespace Power_Up
 
         private void Awake()
         {
-            if (ForDebugging) IsHeld = true; 
+            if (ForDebugging) IsHeld = true;
         }
 
         public override void EnterIdleState()
         {
             Debug.Log("EnterIdleState");
-            ToggleEffects(false, null); 
+            ToggleEffects(false, null);
         }
 
         public override void UpdateIdleState()
@@ -103,12 +103,12 @@ namespace Power_Up
             if (PowerCapacity <= 0)
             {
                 EnterState(PowerUpState.INACTIVE);
-                return; 
+                return;
             }
 
             if (!IsHeld)
             {
-                EnterState(PowerUpState.IDLE); 
+                EnterState(PowerUpState.IDLE);
             }
         }
 
@@ -120,14 +120,14 @@ namespace Power_Up
                 Debug.Log($"ToggleEffects({active}, {clip.name})");
             }
             else Debug.Log($"ToggleEffects({active}");
-            
+
             if (active)
             {
                 electricityEffectInstance =
                     Instantiate(ElectricityEffect, ElectricityEffectPosition.position, Quaternion.identity);
                 electricityEffectInstance.transform.SetParent(ElectricityEffectPosition);
                 electricityEffectInstance.Play();
-            
+
                 ElectricityEffectSoundPlayer.Play();
             }
             else
@@ -139,7 +139,7 @@ namespace Power_Up
 
                 ElectricityEffectSoundPlayer.Stop();
             }
-        
+
             if (clip != null)
             {
                 BatteryLevelSoundPlayer.clip = clip;
@@ -150,13 +150,14 @@ namespace Power_Up
         private void OnTriggerEnter(Collider other)
         {
             Debug.Log("OnTriggerEnter()");
-        
+
             // If the net collides with a fly while Active 
             if (other.gameObject.CompareTag("Fly") && CurrentState == PowerUpState.ACTIVE)
             {
                 Debug.Log("OnTriggerEnter() past checks");
                 HitSoundPlayer.Play();
-           
+
+                UIManager.Instance.IncrementKill(other.transform.position);
                 other.transform.SetParent(SwatterPosition);
 
                 // Instantiate shock effect on fly
@@ -170,18 +171,13 @@ namespace Power_Up
             }
         }
 
-        
-        
-        
-        
-      
-        [Header("Debugging")] 
+        [Header("Debugging")]
         public bool ForDebugging = false;
         public TMP_Text isHeldText;
         public TMP_Text currentStateText;
         public TMP_Text powerCapacityText;
         public TMP_Text batteryEffectsText;
-        public TMP_Text chargedText; 
+        public TMP_Text chargedText;
 
         public void DebugLogMessage(string message)
         {
@@ -199,9 +195,9 @@ namespace Power_Up
             powerCapacityText.text = $"{PowerCapacity}";
             if (BatteryLevelSoundPlayer.clip != null)
             {
-                batteryEffectsText.text = $"{BatteryLevelSoundPlayer.clip.name}";   
+                batteryEffectsText.text = $"{BatteryLevelSoundPlayer.clip.name}";
             }
-            chargedText.text = $"{charged}"; 
+            chargedText.text = $"{charged}";
         }
     }
 }

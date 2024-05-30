@@ -203,7 +203,7 @@ public partial class GameManager : MonoBehaviour
                     // animator.speed = settings.divFactor / settings.waveWaitTime;
                     // animator.speed = 0.02f;
                     // animator.speed = 0;
-                    // yield return new WaitForSeconds(settings.waveWaitTime);
+                    yield return new WaitForSeconds(settings.waveWaitTime);
                     // HourGlass.SetActive(false);
                 }
 
@@ -244,10 +244,10 @@ public partial class GameManager : MonoBehaviour
                 SprayPowerUp.RaiseEvent();
                 break;
             case (int)POWERUP.SWATTER:
-                UpgradePowerUps.RaiseEvent();
+                ElectricSwatterPowerUp.RaiseEvent();
                 break;
             case (int)POWERUP.UPGRADE:
-                ElectricSwatterPowerUp.RaiseEvent();
+                UpgradePowerUps.RaiseEvent();
                 break;
             case (int)POWERUP.BOSS:
                 BossFightEvent.RaiseEvent();

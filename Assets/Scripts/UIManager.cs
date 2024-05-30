@@ -36,10 +36,12 @@ public class UIManager : MonoBehaviour
     [SerializeField] private InteractableUnityEventWrapper GameStartButton;
     [SerializeField] private InteractableUnityEventWrapper FrogStartButton;
     [SerializeField] private InteractableUnityEventWrapper SprayStartButton;
+    [SerializeField] private InteractableUnityEventWrapper SwatterStartButton;
 
     [Header("Power Up")]
     [Space(20)]
     [SerializeField] private FroggyController FroggyController;
+    [SerializeField] private GameObject Swatter;
 
     private float TimeChange = 0.1f;
     private float quickStart = 0.5f;
@@ -119,6 +121,7 @@ public class UIManager : MonoBehaviour
         GameStartButton.WhenSelect.AddListener(StartGameLoopTrigger);
         FrogStartButton.WhenSelect.AddListener(FrogStart);
         SprayStartButton.WhenSelect.AddListener(SprayStart);
+        SwatterStartButton.WhenSelect.AddListener(SwatterStart);
     }
 
     private void OnDisable()
@@ -195,8 +198,10 @@ public class UIManager : MonoBehaviour
 
     public void SwatterUI()
     {
+        FroggyController.Deactivate();
         SwatterUIObj.SetActive(true);
         FaceCamera(SwatterUIObj);
+        Swatter.SetActive(true);
     }
 
     public void UpgradeUI()
@@ -207,7 +212,7 @@ public class UIManager : MonoBehaviour
 
     public void SprayUI()
     {
-        FroggyController.Deactivate();
+        SwatterUIObj.SetActive(false);
         SprayUIObj.SetActive(true);
         FaceCamera(SprayUIObj);
     }

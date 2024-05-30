@@ -3,8 +3,8 @@
     public enum POWERUP
     {
         FROG = 1,
-        SPRAY = 2,
-        SWATTER = 3,
+        SPRAY = 3,
+        SWATTER = 2,
         UPGRADE = 4,
         BOSS = 5,
     }

@@ -269,6 +269,7 @@ public class FroggyController : MonoBehaviour
         {
             Debug.Log("Fly caught!");
             // other.GetComponentInParent<FlyMovement>().isCaught = true;
+            UIManager.Instance.IncrementKill(other.transform.position);
             other.GetComponentInChildren<Animator>().speed = 0;
             other.transform.parent = TongueTipObjectTransform;
             other.transform.position = GetRandomPointWithinBounds(TongueTipObjectTransform.gameObject);

@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: SettingSO
   m_EditorClassIdentifier: 
   score: 0
-  scoreMulFactor: 5
-  numberOfKills: 5
+  scoreMulFactor: 1
+  numberOfKills: 0
   skillScoreValue: 100
   flies:
   - {fileID: 0}

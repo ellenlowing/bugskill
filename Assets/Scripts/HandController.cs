@@ -7,19 +7,14 @@ using UnityEngine;
 
 public class HandController : MonoBehaviour
 {
-
-    
-
     public bool IsRightHand;
     public SettingSO settings;
     public GameObject HandSplat;
     public float BloodSplatTimeout = 2f;
 
-
     [Header("Events")]
     [Space(20)]
     [SerializeField] private FVEventSO ScoreUpdateEvent;
-
 
     bool isTouchingLandingSurface = false;
     bool isTouchingOtherHand = false;
@@ -108,6 +103,7 @@ public class HandController : MonoBehaviour
                 {
                     var splatter = Instantiate(splatterPrefab, touchedFlyTransform.position, Quaternion.identity);
                     splatter.transform.up = touchedFlyTransform.up;
+                    UIManager.Instance.IncrementKill(touchedFlyTransform.position);
 
                     Debug.Log("Instantiating splatter on wall");
                 }
@@ -115,6 +111,11 @@ public class HandController : MonoBehaviour
                 {
                     HandSplat.SetActive(true);
                     BloodSplatTimer = Time.time;
+
+                    if (IsRightHand)
+                    {
+                        UIManager.Instance.IncrementKill(touchedFlyTransform.position);
+                    }
 
                     // if (IsRightHand)
                     // {
@@ -150,11 +151,6 @@ public class HandController : MonoBehaviour
                 isTouchingLandingSurface = false;
                 touchedWallTransform = null;
 
-
-                // game flow updates
-                settings.numberOfKills += 1;
-                settings.score += settings.scoreMulFactor;
-                ScoreUpdateEvent.RaiseEvent(settings.score, touchedFlyTransform.position);
                 // settings.score += settings.scoreMulFactor;
                 // UIM.ScoreUpdate();
                 // UIM.KillUpdate();

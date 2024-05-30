@@ -8,6 +8,7 @@ using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
+    public static UIManager Instance;
     public SettingSO settings;
     public GameObject UIObject;
     public Image TimerSprite;
@@ -82,6 +83,18 @@ public class UIManager : MonoBehaviour
     private void OnEnable()
     {
         ScoreUIUpdateEvent.OnEventRaised.AddListener(UpdateScore);
+    }
+
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(this);
+        }
+        else
+        {
+            Instance = this;
+        }
     }
 
     private void Start()
@@ -231,13 +244,14 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    public void UpdateScore(float Score, Vector3 position)
+    public void UpdateScore(float numKills, Vector3 position)
     {
-        tempObj = Instantiate(UIScoreObj, position, Quaternion.identity);
         tempText = UIScoreObj.GetComponentInChildren<TextMeshProUGUI>();
-        tempText.text = "+" + Score;
+        tempText.text = numKills.ToString();
+        tempObj = Instantiate(UIScoreObj, position, Quaternion.identity);
         FaceCamera(tempObj);
-        Destroy(tempObj, 2);
+        Destroy(tempObj, 1f);
+        Debug.Log("Number of kills: " + numKills);
     }
 
     public void StartGameLoopTrigger()
@@ -254,5 +268,12 @@ public class UIManager : MonoBehaviour
             obj.transform.forward = Camera.main.transform.forward;
             obj.transform.eulerAngles = new Vector3(0, obj.transform.eulerAngles.y, obj.transform.eulerAngles.z);
         }
+    }
+
+    public void IncrementKill(Vector3 pos)
+    {
+        settings.numberOfKills += 1;
+        settings.score += settings.scoreMulFactor;
+        ScoreUIUpdateEvent.RaiseEvent(settings.numberOfKills, pos);
     }
 }

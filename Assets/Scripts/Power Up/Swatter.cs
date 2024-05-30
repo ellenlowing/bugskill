@@ -141,7 +141,7 @@ public class Swatter : BasePowerUpBehavior
         Debug.Log("OnTriggerEnter()");
         
         // If the net collides with a fly while Active 
-        if (CurrentState == PowerUpState.ACTIVE)
+        if (other.gameObject.CompareTag("Fly") && CurrentState == PowerUpState.ACTIVE)
         {
             Debug.Log("OnTriggerEnter() past checks");
            HitSoundPlayer.Play();

@@ -278,8 +278,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1185461180533347024}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.70296353, y: -0.049560055, z: 0.23200177, w: -0.67049336}
-  m_LocalPosition: {x: 0.0781, y: -0.0639, z: -0.0026}
+  m_LocalRotation: {x: -0.71337616, y: -0.08197963, z: 0.19767886, w: -0.6673057}
+  m_LocalPosition: {x: 0.081068315, y: -0.056154728, z: -0.003020741}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -287,7 +287,7 @@ Transform:
   - {fileID: 8031816425598058148}
   - {fileID: 2935317200793486891}
   m_Father: {fileID: 6734971544782742302}
-  m_LocalEulerAnglesHint: {x: 75.374, y: -19.835, z: -45.282}
+  m_LocalEulerAnglesHint: {x: 79.896, y: -100.262, z: -123.162}
 --- !u!114 &7192070754475274885
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -588,7 +588,7 @@ AudioSource:
   Mute: 0
   Spatialize: 1
   SpatializePostEffects: 0
-  Priority: 128
+  Priority: 97
   DopplerLevel: 1
   MinDistance: 1
   MaxDistance: 500
@@ -677,7 +677,7 @@ GameObject:
   - component: {fileID: 1916573277068636998}
   - component: {fileID: 3758947151657376300}
   m_Layer: 0
-  m_Name: CapsuleCollider
+  m_Name: HandleCollider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -711,7 +711,7 @@ CapsuleCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 128
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
@@ -771,7 +771,7 @@ AudioSource:
   Mute: 0
   Spatialize: 1
   SpatializePostEffects: 0
-  Priority: 0
+  Priority: 33
   DopplerLevel: 1
   MinDistance: 1
   MaxDistance: 500
@@ -946,7 +946,7 @@ GameObject:
   - component: {fileID: 2796636168851972562}
   - component: {fileID: 4732227119909391817}
   - component: {fileID: 7844762176497630490}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Swatter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1145,7 +1145,7 @@ BoxCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 383
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
   m_ProvidesContacts: 0
@@ -1551,8 +1551,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4057251202029043531}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.03331621, y: 0.70838183, z: 0.6714885, w: 0.2149151}
-  m_LocalPosition: {x: 0.0781, y: -0.06390002, z: -0.0026}
+  m_LocalRotation: {x: -0.08682192, y: 0.7232793, z: 0.6666849, w: 0.15767135}
+  m_LocalPosition: {x: 0.082642995, y: -0.050989926, z: -0.0022942508}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1560,7 +1560,7 @@ Transform:
   - {fileID: 6412057043302918393}
   - {fileID: 176134007859231781}
   m_Father: {fileID: 6734971544782742302}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -82.647, y: 118.642, z: 41.406}
 --- !u!114 &6269796276987476530
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1987,7 +1987,7 @@ AudioSource:
   m_PlayOnAwake: 0
   m_Volume: 0.512
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 1
   SpatializePostEffects: 0

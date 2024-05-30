@@ -33,6 +33,7 @@ public class FroggyController : MonoBehaviour
     }
 
     public static FroggyController Instance;
+    public bool IsActive = false;
 
     [Header("Tongue")]
     public Transform FroggyParentTransform;
@@ -98,31 +99,44 @@ public class FroggyController : MonoBehaviour
 
     void Update()
     {
-        // Get the hand data
-        UpdateHandData(_leftHandData);
-        UpdateHandData(_rightHandData);
-
-        // Check if there's a fly in front
-        if (Physics.SphereCast(FroggyParentTransform.position, SphereCastRadius, -FroggyParentTransform.right, out RaycastHit hit, SphereCastDistance, FlyLayerMask))
+        if (IsActive)
         {
-            if (_hitFlyCollider == null || hit.collider != _hitFlyCollider)
+            // Get the hand data
+            UpdateHandData(_leftHandData);
+            UpdateHandData(_rightHandData);
+
+            // Check if there's a fly in front
+            if (Physics.SphereCast(FroggyParentTransform.position, SphereCastRadius, -FroggyParentTransform.right, out RaycastHit hit, SphereCastDistance, FlyLayerMask))
             {
-                _hitFlyCollider = hit.collider;
+                if (_hitFlyCollider == null || hit.collider != _hitFlyCollider)
+                {
+                    _hitFlyCollider = hit.collider;
+                }
+            }
+            else
+            {
+                _hitFlyCollider = null;
+            }
+
+            // Sync tongue tip gameobject with extended tongue
+            TongueTipObjectTransform.position = TongueTipTargetTransform.position;
+            TongueTipObjectTransform.rotation = TongueTipTargetTransform.rotation;
+
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                TriggerPress();
             }
         }
-        else
-        {
-            _hitFlyCollider = null;
-        }
+    }
 
-        // Sync tongue tip gameobject with extended tongue
-        TongueTipObjectTransform.position = TongueTipTargetTransform.position;
-        TongueTipObjectTransform.rotation = TongueTipTargetTransform.rotation;
+    public void Activate()
+    {
+        IsActive = true;
+    }
 
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            TriggerPress();
-        }
+    public void Deactivate()
+    {
+        IsActive = false;
     }
 
     public void Initialize()

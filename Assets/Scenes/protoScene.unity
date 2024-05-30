@@ -153,7 +153,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7990456346235167908, guid: 0d1e25132d9984c9ea998e3992cdadad, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.0262
+      value: -0.0279
       objectReference: {fileID: 0}
     - target: {fileID: 7990456346235167908, guid: 0d1e25132d9984c9ea998e3992cdadad, type: 3}
       propertyPath: m_LocalPosition.z
@@ -3578,7 +3578,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2688137125304809275, guid: 21282a9663a7f4df0b165f6c5533d8cd, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.0278
+      value: 0.0296
       objectReference: {fileID: 0}
     - target: {fileID: 2688137125304809275, guid: 21282a9663a7f4df0b165f6c5533d8cd, type: 3}
       propertyPath: m_LocalPosition.z
@@ -10005,7 +10005,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1953963002
 Transform:
   m_ObjectHideFlags: 0
@@ -10061,6 +10061,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 008ce57f6c6444a1b8f550a8283ac0fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsActive: 0
   FroggyParentTransform: {fileID: 115383779}
   FrogTongueTransform: {fileID: 78144844}
   GrabSpeed: 4

@@ -190,8 +190,7 @@ public class UIManager : MonoBehaviour
     {
         FrogUIObj.SetActive(true);
         FaceCamera(FrogUIObj);
-        FroggyController.gameObject.SetActive(true);
-        FroggyController.Initialize();
+        FroggyController.Activate();
     }
 
     public void SwatterUI()
@@ -208,7 +207,7 @@ public class UIManager : MonoBehaviour
 
     public void SprayUI()
     {
-        FroggyController.gameObject.SetActive(false);
+        FroggyController.Deactivate();
         SprayUIObj.SetActive(true);
         FaceCamera(SprayUIObj);
     }
@@ -251,7 +250,6 @@ public class UIManager : MonoBehaviour
         tempObj = Instantiate(UIScoreObj, position, Quaternion.identity);
         FaceCamera(tempObj);
         Destroy(tempObj, 1f);
-        Debug.Log("Number of kills: " + numKills);
     }
 
     public void StartGameLoopTrigger()

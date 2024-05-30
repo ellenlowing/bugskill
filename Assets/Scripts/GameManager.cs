@@ -100,7 +100,7 @@ public partial class GameManager : MonoBehaviour
 
                 // waveIndex++;
                 // update wave index across gameplay
-               
+
 
                 // moveToNextWave = false;
                 // canSpawn = true;
@@ -163,7 +163,7 @@ public partial class GameManager : MonoBehaviour
                         {
                             fly = Instantiate(FlyPrefab, randomPosition, Quaternion.identity, FlyParentAnchor);
                         }
-                        
+
 
                         fly.transform.up = randomAnchor.transform.forward;
                         fly.transform.rotation = fly.transform.rotation * Quaternion.Euler(0, Random.Range(0, 360f), 0);
@@ -194,7 +194,6 @@ public partial class GameManager : MonoBehaviour
                     canSpawn = true;
                     WhatPowerUp(waveIndex);
 
-
                     // enable hour glass here
                     // set the animation speed to scale with div factor
                     // HourGlass.SetActive(true);
@@ -217,14 +216,13 @@ public partial class GameManager : MonoBehaviour
         GameBegins.OnEventRaised += StartGameLoop;
     }
 
-
     // force next wave to start
     public void StartNextWave()
     {
         StopCoroutine(GameLoopRoutine);
         runningIndex = waveIndex;
         canSpawn = true;
-        GameLoopRoutine = StartCoroutine(SpawnFlyAtRandomPosition());       
+        GameLoopRoutine = StartCoroutine(SpawnFlyAtRandomPosition());
     }
 
 
@@ -260,7 +258,7 @@ public partial class GameManager : MonoBehaviour
     // this event has been removed from the MRUK event call 
     public void StartGame()
     {
-        GetWindowOrDoorFrames(MRUK.Instance.GetCurrentRoom());    
+        GetWindowOrDoorFrames(MRUK.Instance.GetCurrentRoom());
     }
 
     // 

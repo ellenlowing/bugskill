@@ -91,18 +91,7 @@ public class FroggyController : MonoBehaviour
 
     void Start()
     {
-        FrogTongueTransform.localScale = new Vector3(1, 0.1f, 1);
-        _originalFrogTongueScale = FrogTongueTransform.localScale;
-        _leftHandData = new HandData(LeftHand, LeftHandSkeleton);
-        _rightHandData = new HandData(RightHand, RightHandSkeleton);
-        audioSource = gameObject.GetComponent<AudioSource>();
-        audioSource.clip = croakClip;
-        audioSource.spatialBlend = 1f;
-        audioSource.loop = false;
-        audioSource.spatialize = true;
-        audioSource.playOnAwake = false;
-        var metaAudio = gameObject.AddComponent<MetaXRAudioSource>();
-        metaAudio.EnableSpatialization = true;
+        Initialize();
     }
 
     void Update()
@@ -132,6 +121,23 @@ public class FroggyController : MonoBehaviour
         {
             TriggerPress();
         }
+    }
+
+    public void Initialize()
+    {
+        FrogTongueTransform.localScale = new Vector3(1, 0.1f, 1);
+        _originalFrogTongueScale = FrogTongueTransform.localScale;
+        _leftHandData = new HandData(LeftHand, LeftHandSkeleton);
+        _rightHandData = new HandData(RightHand, RightHandSkeleton);
+        audioSource = gameObject.GetComponent<AudioSource>();
+        audioSource.clip = croakClip;
+        audioSource.spatialBlend = 1f;
+        audioSource.loop = false;
+        audioSource.spatialize = true;
+        audioSource.playOnAwake = false;
+        var metaAudio = gameObject.AddComponent<MetaXRAudioSource>();
+        metaAudio.EnableSpatialization = true;
+        HideAllRenderers();
     }
 
     void UpdateHandData(HandData handData)

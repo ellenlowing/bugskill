@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Oculus.Interaction;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Assertions;
@@ -11,6 +12,7 @@ public class UIManager : MonoBehaviour
     public GameObject UIObject;
     public Image TimerSprite;
     public TextMeshProUGUI KillText;
+    public bool RunTimer = false;
 
     [Header("UI Objects")]
     [Space(20)]
@@ -22,22 +24,23 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject BossfightUI;
     [SerializeField] private GameObject UIScoreObj;
 
-
     [Header("Buttons")]
     [Space(20)]
+    [SerializeField] private Button GameStartBtn;
     [SerializeField] private Button FrogStartBtn;
     [SerializeField] private Button SprayStartBtn;
     [SerializeField] private Button UpgradeStartBtn;
     [SerializeField] private Button SwatterStartBtn;
     [SerializeField] private Button BossFightStartBtn;
+    [SerializeField] private InteractableUnityEventWrapper GameStartButton;
+    [SerializeField] private InteractableUnityEventWrapper FrogStartButton;
 
+    [Header("Power Up")]
+    [Space(20)]
+    [SerializeField] private FroggyController FroggyController;
 
-    // public TextMeshProUGUI ScoreText;
-    // public TextMeshProUGUI TimerText;
-
-    public bool RunTimer = false;
     private float TimeChange = 0.1f;
-    private float quickStart = 2.0f;
+    private float quickStart = 0.5f;
     [Header("Events")]
     [Space(20)]
     [Tooltip("Subscribe to run before first game wave")]
@@ -55,13 +58,14 @@ public class UIManager : MonoBehaviour
     public VoidEventChannelSO BossFightEvent;
     public VoidEventChannelSO StartNextWaveEvent;
     public FVEventSO ScoreUIUpdateEvent;
-   
 
+    private GameObject tempObj;
+    private TextMeshProUGUI tempText;
 
     private void IsNotNull()
     {
         Assert.IsNotNull(GameStartUI, "UI not Assigned");
-        Assert.IsNotNull(FrogUIObj , "UI not Assigned");
+        Assert.IsNotNull(FrogUIObj, "UI not Assigned");
         Assert.IsNotNull(SprayUIObj, "UI not Assigned");
         Assert.IsNotNull(UpgradeUIObj, "UI not Assigned");
         Assert.IsNotNull(SwatterUIObj, "UI not Assigned");
@@ -81,7 +85,6 @@ public class UIManager : MonoBehaviour
 
     private void Start()
     {
-
         IsNotNull();
 
         // subscribe to all events
@@ -91,15 +94,16 @@ public class UIManager : MonoBehaviour
         ElectricSwatterPowerUp.OnEventRaised += SwatterUI;
         UpgradePowerUps.OnEventRaised += UpgradeUI;
         BossFightEvent.OnEventRaised += BossFight;
-       
 
+        // GameStartBtn.onClick.AddListener(StartGameLoopTrigger);
+        // FrogStartBtn.onClick.AddListener(FrogStart);
+        // SprayStartBtn.onClick.AddListener(SprayStart);
+        // SwatterStartBtn.onClick.AddListener(SwatterStart);
+        // UpgradeStartBtn.onClick.AddListener(UpgradeStart);
+        // BossFightStartBtn.onClick.AddListener(BossStart);
 
-        FrogStartBtn.onClick.AddListener(FrogStart);
-        SprayStartBtn.onClick.AddListener(SprayStart);
-        SwatterStartBtn.onClick.AddListener(SwatterStart);
-        UpgradeStartBtn.onClick.AddListener(UpgradeStart);
-        BossFightStartBtn.onClick.AddListener(BossStart);
-       
+        GameStartButton.WhenSelect.AddListener(StartGameLoopTrigger);
+        FrogStartButton.WhenSelect.AddListener(FrogStart);
     }
 
     private void OnDisable()
@@ -131,7 +135,7 @@ public class UIManager : MonoBehaviour
 
     public void ScoreUpdate()
     {
-       // ScoreText.text = "Score : " + settings.score.ToString();
+        // ScoreText.text = "Score : " + settings.score.ToString();
     }
 
     #region UI QUICK START
@@ -139,6 +143,8 @@ public class UIManager : MonoBehaviour
     {
         DestroyPanel(FrogUIObj, quickStart);
         StartNextWaveEvent.RaiseEvent();
+        FroggyController.gameObject.SetActive(true);
+        FroggyController.Initialize();
     }
 
     private void SprayStart()
@@ -190,6 +196,7 @@ public class UIManager : MonoBehaviour
 
     public void SprayUI()
     {
+        FroggyController.gameObject.SetActive(false);
         SprayUIObj.SetActive(true);
         FaceCamera(SprayUIObj);
         DestroyPanel(SprayUIObj, settings.waveWaitTime);
@@ -205,7 +212,7 @@ public class UIManager : MonoBehaviour
 
     public void DestroyPanel(GameObject obj, float waitTime)
     {
-        if(obj != null)
+        if (obj != null)
         {
             Destroy(obj, waitTime);
         }
@@ -227,9 +234,6 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    private GameObject tempObj;
-    private TextMeshProUGUI tempText;
-
     public void UpdateScore(float Score, Vector3 position)
     {
         tempObj = Instantiate(UIScoreObj, position, Quaternion.identity);
@@ -241,16 +245,17 @@ public class UIManager : MonoBehaviour
 
     public void StartGameLoopTrigger()
     {
+        Destroy(GameStartUI, quickStart);
         GameBegins.RaiseEvent();
     }
 
-    private void FaceCamera(GameObject obj)
+    public void FaceCamera(GameObject obj)
     {
         if (obj != null)
         {
             obj.transform.position = Camera.main.transform.position + Camera.main.transform.forward * settings.distanceFromCamera;
             obj.transform.forward = Camera.main.transform.forward;
+            obj.transform.eulerAngles = new Vector3(0, obj.transform.eulerAngles.y, obj.transform.eulerAngles.z);
         }
-      
     }
 }

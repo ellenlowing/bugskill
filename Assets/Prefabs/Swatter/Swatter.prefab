@@ -278,7 +278,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1185461180533347024}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.7148534, y: -0.025624108, z: 0.24914688, w: -0.6528812}
+  m_LocalRotation: {x: -0.6770758, y: -0.0137357, z: 0.24826305, w: -0.6926364}
   m_LocalPosition: {x: 0.0718, y: -0.056154728, z: -0.0025}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -287,7 +287,7 @@ Transform:
   - {fileID: 8031816425598058148}
   - {fileID: 2935317200793486891}
   m_Father: {fileID: 6734971544782742302}
-  m_LocalEulerAnglesHint: {x: 71.12, y: -94.137, z: -116.855}
+  m_LocalEulerAnglesHint: {x: 70.866, y: -75.375, z: -97.033}
 --- !u!114 &7192070754475274885
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -586,7 +586,7 @@ AudioSource:
   m_Pitch: 1
   Loop: 0
   Mute: 0
-  Spatialize: 1
+  Spatialize: 0
   SpatializePostEffects: 0
   Priority: 97
   DopplerLevel: 1
@@ -765,11 +765,11 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 0204370d634bd2141b02b32fb45e0f29, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.567
   m_Pitch: 1
   Loop: 0
   Mute: 0
-  Spatialize: 1
+  Spatialize: 0
   SpatializePostEffects: 0
   Priority: 33
   DopplerLevel: 1
@@ -946,7 +946,9 @@ GameObject:
   - component: {fileID: 2796636168851972562}
   - component: {fileID: 4732227119909391817}
   - component: {fileID: 7844762176497630490}
-  m_Layer: 8
+  - component: {fileID: 1115925511914914640}
+  - component: {fileID: 7404412667251487294}
+  m_Layer: 0
   m_Name: Swatter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1011,7 +1013,6 @@ MonoBehaviour:
   UsePowerRate: 0.001
   ChargePowerRate: 0.05
   CurrentState: 0
-  ForDebugging: 0
   ElectricityEffect: {fileID: 9027514048236820043, guid: effb650189dc5714e9e9801b1cfb3991, type: 3}
   HitEffect: {fileID: 1141330259687333425, guid: 6718dc24203da53468af9ada8fef7d6d, type: 3}
   ElectricityEffectPosition: {fileID: 6972176862947461984}
@@ -1023,6 +1024,12 @@ MonoBehaviour:
   RechargeSoundClip: {fileID: 8300000, guid: 56227355334454a669691eddf1801cb9, type: 3}
   DepletedSoundClip: {fileID: 8300000, guid: 6dbfbc610e2d9c3449bda691c28f3a3b, type: 3}
   RechargeDelay: 5
+  ForDebugging: 0
+  isHeldText: {fileID: 0}
+  currentStateText: {fileID: 0}
+  powerCapacityText: {fileID: 0}
+  batteryEffectsText: {fileID: 0}
+  chargedText: {fileID: 0}
 --- !u!114 &2796636168851972562
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1072,6 +1079,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+      - m_Target: {fileID: 8103863654310763284}
+        m_TargetAssemblyTypeName: Swatter, Assembly-CSharp
+        m_MethodName: DebugLogMessage
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Pointable- select
+          m_BoolArgument: 0
+        m_CallState: 2
   _whenUnselect:
     m_PersistentCalls:
       m_Calls:
@@ -1098,6 +1117,18 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 8103863654310763284}
+        m_TargetAssemblyTypeName: Swatter, Assembly-CSharp
+        m_MethodName: DebugLogMessage
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Pointable- unselect
+          m_BoolArgument: 1
         m_CallState: 2
   _whenMove:
     m_PersistentCalls:
@@ -1145,14 +1176,184 @@ BoxCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 383
+    m_Bits: 0
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.19582087, y: 0.24653654, z: 0.016231827}
-  m_Center: {x: -0.4397133, y: 0.26129705, z: 0.0017085917}
+  m_Size: {x: 0.19440717, y: 0.24653655, z: 0.016231827}
+  m_Center: {x: -0.0017767065, y: 0.26129335, z: 0.0017085187}
+--- !u!114 &1115925511914914640
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2991904239131300368}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1464721f2283eb14e94a33e812b47be4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _interactableView: {fileID: 7192070754475274885}
+  _whenHover:
+    m_PersistentCalls:
+      m_Calls: []
+  _whenUnhover:
+    m_PersistentCalls:
+      m_Calls: []
+  _whenSelect:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8103863654310763284}
+        m_TargetAssemblyTypeName: Swatter, Assembly-CSharp
+        m_MethodName: DebugLogMessage
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Interactable wrapper- WhenSelect()
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 8103863654310763284}
+        m_TargetAssemblyTypeName: Swatter, Assembly-CSharp
+        m_MethodName: set_IsHeld
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+  _whenUnselect:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8103863654310763284}
+        m_TargetAssemblyTypeName: Swatter, Assembly-CSharp
+        m_MethodName: DebugLogMessage
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 'Interactable wrapper- WhenUnselect() '
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 8103863654310763284}
+        m_TargetAssemblyTypeName: Swatter, Assembly-CSharp
+        m_MethodName: set_IsHeld
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  _whenInteractorViewAdded:
+    m_PersistentCalls:
+      m_Calls: []
+  _whenInteractorViewRemoved:
+    m_PersistentCalls:
+      m_Calls: []
+  _whenSelectingInteractorViewAdded:
+    m_PersistentCalls:
+      m_Calls: []
+  _whenSelectingInteractorViewRemoved:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &7404412667251487294
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2991904239131300368}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1464721f2283eb14e94a33e812b47be4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _interactableView: {fileID: 6269796276987476530}
+  _whenHover:
+    m_PersistentCalls:
+      m_Calls: []
+  _whenUnhover:
+    m_PersistentCalls:
+      m_Calls: []
+  _whenSelect:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8103863654310763284}
+        m_TargetAssemblyTypeName: Swatter, Assembly-CSharp
+        m_MethodName: DebugLogMessage
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Interactable wrapper- Select()
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 8103863654310763284}
+        m_TargetAssemblyTypeName: Swatter, Assembly-CSharp
+        m_MethodName: set_IsHeld
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+  _whenUnselect:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8103863654310763284}
+        m_TargetAssemblyTypeName: Swatter, Assembly-CSharp
+        m_MethodName: DebugLogMessage
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 'Interactable wrapper- Unselect() '
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 8103863654310763284}
+        m_TargetAssemblyTypeName: Swatter, Assembly-CSharp
+        m_MethodName: set_IsHeld
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  _whenInteractorViewAdded:
+    m_PersistentCalls:
+      m_Calls: []
+  _whenInteractorViewRemoved:
+    m_PersistentCalls:
+      m_Calls: []
+  _whenSelectingInteractorViewAdded:
+    m_PersistentCalls:
+      m_Calls: []
+  _whenSelectingInteractorViewRemoved:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &3010923914784760570
 GameObject:
   m_ObjectHideFlags: 0
@@ -1280,7 +1481,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3815887849257454255}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3266c3d920715b84089935c4ab019210, type: 3}
   m_Name: 
@@ -1551,7 +1752,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4057251202029043531}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.010573059, y: 0.7321178, z: 0.6421765, w: 0.22693858}
+  m_LocalRotation: {x: 0.0041004624, y: 0.6955779, z: 0.6809507, w: 0.22904296}
   m_LocalPosition: {x: 0.0756, y: -0.050989926, z: -0.0019}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1560,7 +1761,7 @@ Transform:
   - {fileID: 6412057043302918393}
   - {fileID: 176134007859231781}
   m_Father: {fileID: 6734971544782742302}
-  m_LocalEulerAnglesHint: {x: -70.926, y: 102.767, z: 57.622}
+  m_LocalEulerAnglesHint: {x: -70.984, y: 84.309, z: 77.129}
 --- !u!114 &6269796276987476530
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1666,7 +1867,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 338ee72640f023047bf6aa58483591de, type: 2}
+  - {fileID: 2100000, guid: 33c158a65cdbd6a4cb4c633e7dce3022, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1985,11 +2186,11 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: faa3afd31e89f294285fbfcbe19976fd, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.512
+  m_Volume: 0.355
   m_Pitch: 1
   Loop: 1
   Mute: 0
-  Spatialize: 1
+  Spatialize: 0
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1

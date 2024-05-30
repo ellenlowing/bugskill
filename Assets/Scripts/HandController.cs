@@ -1,4 +1,5 @@
 
+using Oculus.Interaction.PoseDetection.Debug;
 using System.Collections;
 using System.Collections.Generic;
 using System.Dynamic;
@@ -6,11 +7,19 @@ using UnityEngine;
 
 public class HandController : MonoBehaviour
 {
+
+    
+
     public bool IsRightHand;
-    public UIManager UIM;
     public SettingSO settings;
     public GameObject HandSplat;
     public float BloodSplatTimeout = 2f;
+
+
+    [Header("Events")]
+    [Space(20)]
+    [SerializeField] private FVEventSO ScoreUpdateEvent;
+
 
     bool isTouchingLandingSurface = false;
     bool isTouchingOtherHand = false;
@@ -144,6 +153,8 @@ public class HandController : MonoBehaviour
 
                 // game flow updates
                 settings.numberOfKills += 1;
+                settings.score += settings.scoreMulFactor;
+                ScoreUpdateEvent.RaiseEvent(settings.score, touchedFlyTransform.position);
                 // settings.score += settings.scoreMulFactor;
                 // UIM.ScoreUpdate();
                 // UIM.KillUpdate();

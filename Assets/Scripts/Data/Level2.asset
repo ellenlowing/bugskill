@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f3807ef8626e3643970322efcdda1f1, type: 3}
+  m_Name: Level2
+  m_EditorClassIdentifier: 
+  minRestDuration: 8
+  maxRestDuration: 12
+  minSpeed: 2
+  maxSpeed: 4
+  speed: 2
+  flySlowDownTime: 12
+  flySlowDownSpeed: 0.3
+  rotationSpeed: 10
+  distanceToEdges: 0.2
+  checkDistance: 0.15
+  radius: 0.15

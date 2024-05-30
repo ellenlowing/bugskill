@@ -277,17 +277,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canLand: 16383
-  minRestDuration: 2
-  maxRestDuration: 5
-  minSpeed: 1
-  maxSpeed: 4
-  speed: 1
-  rotationSpeed: 2.72
-  distanceToEdges: 0.05
-  checkDistance: 0.3
-  radius: 0.15
+  settings: {fileID: 11400000, guid: 415f7b1141256224db7c3c8720566774, type: 2}
   isResting: 0
-  takeOffChance: 0.5
+  speed: 1
 --- !u!54 &1778244852545078343
 Rigidbody:
   m_ObjectHideFlags: 0

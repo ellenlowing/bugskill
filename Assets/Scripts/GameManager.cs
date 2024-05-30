@@ -4,8 +4,9 @@ using Meta.XR.MRUtilityKit;
 using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.SceneManagement;
+using UnityEngine.Events;
 
-public class GameManager : MonoBehaviour
+public partial class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
     public List<MRUKAnchor> FlySpawnPositions;
@@ -17,13 +18,36 @@ public class GameManager : MonoBehaviour
     public UIManager UIM;
     public Animator animator;
     public GameObject HourGlass;
-
-
-    // ---
     public GameObject Portal;
+
+    [Header("Game Events")]
+    [Space(20)]
+    [Tooltip("Subscribe to run before first game wave")]
+    public VoidEventChannelSO GameBegins;
+    [Tooltip("Subscribe to activate FrogPowerUp panels and tutorials during cooldown time after a wave")]
+    public VoidEventChannelSO FrogPowerUp;
+    [Tooltip("Subscribe to activate SprayPowerUp panels and tutorials during cooldown time after a wave")]
+    public VoidEventChannelSO SprayPowerUp;
+    [Tooltip("Subscribe to activate ElectricSwatter panels and tutorials during cooldown time after a wave")]
+    public VoidEventChannelSO ElectricSwatterPowerUp;
+    [Tooltip("Subscribe to activate power up upgrades")]
+    public VoidEventChannelSO UpgradePowerUps;
+    [Tooltip("Subscribe to activate during boss fight begin")]
+    public VoidEventChannelSO BossFightEvent;
+    [Tooltip("Subscribe to activate when game ends")]
+    public VoidEventChannelSO GameEnds;
+    [Tooltip("Starts the Next Wave Event")]
+    public VoidEventChannelSO StartNextWaveEvent;
+
+
     private int waveIndex = 0;
     private bool canSpawn = true;
+    private bool moveToNextWave = false;
+    private float initialTime = 0;
+    private GameObject fly;
+    private Coroutine GameLoopRoutine;
 
+    private int runningIndex = 0;
 
     void Awake()
     {
@@ -36,6 +60,7 @@ public class GameManager : MonoBehaviour
             Instance = this;
         }
 
+        settings.waveIndex = 0;
         FlySpawnPositions = new List<MRUKAnchor>();
     }
 
@@ -47,9 +72,6 @@ public class GameManager : MonoBehaviour
 
         GetWindowOrDoorFrames(MRUK.Instance.GetCurrentRoom());
     }
-
-    private bool moveToNextWave = false;
-    private float initialTime = 0;
 
     void Update()
     {
@@ -67,25 +89,28 @@ public class GameManager : MonoBehaviour
     {
         if (moveToNextWave)
         {
-            if (initialTime > settings.maxWaitTime[waveIndex])
+            if (initialTime > settings.durationOfWave[waveIndex])
             {
                 // empty all fly list
-                // foreach (var obj in settings.flies)
-                // {
-                //     Destroy(obj);
-                // }
-                // settings.flies.Clear();
+                foreach (var obj in settings.flies)
+                {
+                    Destroy(obj);
+                }
+                settings.flies.Clear();
 
-                waveIndex++;
-                moveToNextWave = false;
-                canSpawn = true;
+                // waveIndex++;
+                // update wave index across gameplay
+               
+
+                // moveToNextWave = false;
+                // canSpawn = true;
                 // enable hour glass here
                 // set the animation speed to scale with div factor
-                HourGlass.SetActive(true);
+                // HourGlass.SetActive(true);
 
-                animator.speed = settings.divFactor / settings.WaveWaitTime;
+                // animator.speed = settings.divFactor / settings.waveWaitTime;
                 // animator.speed = 0.02f;
-                HourGlass.SetActive(false);
+                // HourGlass.SetActive(false);
 
                 initialTime = 0;
             }
@@ -105,10 +130,10 @@ public class GameManager : MonoBehaviour
             if (FlySpawnPositions.Count > 0)
             {
 
-                if (waveIndex == settings.Waves.Length)
+                if (waveIndex == settings.fliesInWave.Length)
                 {
                     // call completion here with ui score update
-                    UIM.KillUpdate();
+                    GameEnds.RaiseEvent();
                     yield break;
                 }
 
@@ -117,7 +142,7 @@ public class GameManager : MonoBehaviour
                 // before next wave, wait for certain amount of time
                 if (canSpawn)
                 {
-                    for (int i = 0; i < settings.Waves[waveIndex]; i++)
+                    for (int i = runningIndex; i < settings.fliesInWave[waveIndex]; i++)
                     {
                         int randomIndex = Random.Range(0, FlySpawnPositions.Count);
                         MRUKAnchor randomAnchor = FlySpawnPositions[randomIndex];
@@ -128,7 +153,18 @@ public class GameManager : MonoBehaviour
                             randomPosition += new Vector3(Random.Range(-size.x / 2, size.x / 2), size.y / 2, 0);
                         }
 
-                        var fly = Instantiate(FlyPrefab, randomPosition, Quaternion.identity, FlyParentAnchor);
+
+                        if (settings.fliesInWave[waveIndex] == 1)
+                        {
+                            fly = Instantiate(FlyPrefab, randomPosition, Quaternion.identity, FlyParentAnchor);
+                            fly.transform.localScale = new Vector3(4, 4, 4);
+                        }
+                        else
+                        {
+                            fly = Instantiate(FlyPrefab, randomPosition, Quaternion.identity, FlyParentAnchor);
+                        }
+                        
+
                         fly.transform.up = randomAnchor.transform.forward;
                         fly.transform.rotation = fly.transform.rotation * Quaternion.Euler(0, Random.Range(0, 360f), 0);
 
@@ -143,27 +179,30 @@ public class GameManager : MonoBehaviour
 
                     // enable and set timescale for loading based on time anticapated per wave
                     HourGlass.SetActive(true);
-                    animator.speed = settings.divFactor / settings.maxWaitTime[waveIndex];
+                    animator.speed = settings.divFactor / settings.durationOfWave[waveIndex];
                 }
 
 
                 // check if all flies are killed
                 // move to next wave count
                 // play theme wave wait sound
-                // if (settings.flies.Count == 0)
-                // {
-                //     waveIndex++;
-                //     moveToNextWave = false;
-                //     canSpawn = true;
-                //     // enable hour glass here
-                //     // set the animation speed to scale with div factor
-                //     HourGlass.SetActive(true);
+                if (settings.flies.Count == 0)
+                {
+                    waveIndex++;
+                    settings.waveIndex = waveIndex;
+                    moveToNextWave = false;
+                    canSpawn = true;
+                    WhatPowerUp(waveIndex);
 
-                //     animator.speed = settings.divFactor / settings.WaveWaitTime;
-                //     // animator.speed = 0.02f;
-                //     yield return new WaitForSeconds(settings.WaveWaitTime);
-                //     HourGlass.SetActive(false);
-                // }
+
+                    // enable hour glass here
+                    // set the animation speed to scale with div factor
+                    // HourGlass.SetActive(true);
+                    // animator.speed = settings.divFactor / settings.waveWaitTime;
+                    // animator.speed = 0.02f;
+                    yield return new WaitForSeconds(settings.waveWaitTime);
+                    HourGlass.SetActive(false);
+                }
 
                 // 2 second frame checks
                 yield return new WaitForSeconds(2.0f);
@@ -172,10 +211,56 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private void OnEnable()
+    {
+        StartNextWaveEvent.OnEventRaised += StartNextWave;
+        GameBegins.OnEventRaised += StartGameLoop;
+    }
+
+
+    // force next wave to start
+    public void StartNextWave()
+    {
+        StopCoroutine(GameLoopRoutine);
+        runningIndex = waveIndex;
+        canSpawn = true;
+        GameLoopRoutine = StartCoroutine(SpawnFlyAtRandomPosition());       
+    }
+
+
+    // check game start to determine powerup
+    private void WhatPowerUp(int waveIndex)
+    {
+        switch (waveIndex)
+        {
+            case (int)POWERUP.FROG:
+                FrogPowerUp.RaiseEvent();
+                break;
+            case (int)POWERUP.SPRAY:
+                SprayPowerUp.RaiseEvent();
+                break;
+            case (int)POWERUP.SWATTER:
+                UpgradePowerUps.RaiseEvent();
+                break;
+            case (int)POWERUP.UPGRADE:
+                ElectricSwatterPowerUp.RaiseEvent();
+                break;
+            case (int)POWERUP.BOSS:
+                BossFightEvent.RaiseEvent();
+                break;
+        }
+    }
+
+
+    public void StartGameLoop()
+    {
+        GameLoopRoutine = StartCoroutine(SpawnFlyAtRandomPosition());
+    }
+
+    // this event has been removed from the MRUK event call 
     public void StartGame()
     {
-        GetWindowOrDoorFrames(MRUK.Instance.GetCurrentRoom());
-        StartCoroutine(SpawnFlyAtRandomPosition());
+        GetWindowOrDoorFrames(MRUK.Instance.GetCurrentRoom());    
     }
 
     // 

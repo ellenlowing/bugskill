@@ -63,8 +63,8 @@
       "url": "https://packages.unity.com"
     },
     "com.meta.xr.sdk.core": {
-      "version": "64.0.0",
-      "depth": 1,
+      "version": "65.0.0",
+      "depth": 2,
       "source": "registry",
       "dependencies": {},
       "url": "https://packages.unity.com"
@@ -79,8 +79,8 @@
       "url": "https://packages.unity.com"
     },
     "com.meta.xr.sdk.interaction": {
-      "version": "64.0.0",
-      "depth": 1,
+      "version": "65.0.0",
+      "depth": 2,
       "source": "registry",
       "dependencies": {
         "com.unity.textmeshpro": "3.0.6",
@@ -89,22 +89,22 @@
       "url": "https://packages.unity.com"
     },
     "com.meta.xr.sdk.interaction.ovr": {
-      "version": "64.0.0",
+      "version": "65.0.0",
       "depth": 1,
       "source": "registry",
       "dependencies": {
-        "com.meta.xr.sdk.core": "64.0.0",
-        "com.meta.xr.sdk.interaction": "64.0.0"
+        "com.meta.xr.sdk.core": "65.0.0",
+        "com.meta.xr.sdk.interaction": "65.0.0"
       },
       "url": "https://packages.unity.com"
     },
     "com.meta.xr.sdk.interaction.ovr.samples": {
-      "version": "64.0.0",
+      "version": "65.0.0",
       "depth": 0,
       "source": "registry",
       "dependencies": {
-        "com.meta.xr.sdk.interaction.ovr": "64.0.0",
-        "com.meta.xr.sdk.sharedassets": "64.0.0"
+        "com.meta.xr.sdk.interaction.ovr": "65.0.0",
+        "com.meta.xr.sdk.sharedassets": "65.0.0"
       },
       "url": "https://packages.unity.com"
     },
@@ -119,7 +119,7 @@
       "url": "https://packages.unity.com"
     },
     "com.meta.xr.sdk.sharedassets": {
-      "version": "64.0.0",
+      "version": "65.0.0",
       "depth": 1,
       "source": "registry",
       "dependencies": {

@@ -349,8 +349,8 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 24dedd5d157d32f4f877dc521571f28f, type: 3}
   - {fileID: 8300000, guid: 08f00e5982d0216419015759133a4f09, type: 3}
   flyDizzyClip:
-  - {fileID: 8300000, guid: 24cb6d6149142ef4ca0ece1939e862fa, type: 3}
   - {fileID: 8300000, guid: 358e0bfad598e2040a3077a6e5990986, type: 3}
+  - {fileID: 8300000, guid: 24cb6d6149142ef4ca0ece1939e862fa, type: 3}
   flySplatClip: {fileID: 8300000, guid: 74da2862d959e7e499c4cb5b31c3f2d2, type: 3}
   minVelocity: 0.1
 --- !u!82 &4482827973642035594

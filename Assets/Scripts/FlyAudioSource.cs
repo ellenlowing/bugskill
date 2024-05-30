@@ -10,7 +10,7 @@ public class FlyAudioSource : MonoBehaviour
     private FlyMovement flyMove;
     public float minVelocity = 0.1f;
     private AudioSource audioSource;
-    private int idx=0;
+    private int idx = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -18,7 +18,7 @@ public class FlyAudioSource : MonoBehaviour
         idx = Random.Range(0, flyMovingClip.Count);
         if (idx > 1)
         {
-            transform.localScale = new Vector3(0.5f,0.5f,0.5f);
+            transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
         }
         audioSource = gameObject.GetComponent<AudioSource>();
         audioSource.clip = flyMovingClip[idx];
@@ -35,9 +35,22 @@ public class FlyAudioSource : MonoBehaviour
 
     public void DizzyClip()
     {
-        audioSource.loop=false;
-        audioSource.clip = flyDizzyClip[idx>1?1:0];
+        audioSource.loop = false;
+        audioSource.clip = flyDizzyClip[idx > 1 ? 1 : 0];
         audioSource.Play();
+
+        // StartCoroutine(PlayDizzyCoroutine());
+    }
+
+    IEnumerator PlayDizzyCoroutine()
+    {
+        audioSource.loop = false;
+        audioSource.clip = flyDizzyClip[idx > 1 ? 1 : 0];
+        audioSource.Play();
+
+        yield return new WaitForSeconds(0.8f);
+
+        audioSource.Stop();
     }
 
     public void MoveClip()

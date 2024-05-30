@@ -38,6 +38,7 @@ public class Swatter : BasePowerUpBehavior
 
     public override void EnterIdleState()
     {
+        Debug.Log("EnterIdleState");
         ToggleEffects(false, null); 
     }
 
@@ -55,6 +56,7 @@ public class Swatter : BasePowerUpBehavior
 
     public override void EnterInactiveState()
     {
+        Debug.Log("EnterInactiveState");
         ToggleEffects(false, DepletedSoundClip);
         charged = false;
         rechargeTimer = RechargeDelay;
@@ -89,6 +91,7 @@ public class Swatter : BasePowerUpBehavior
 
     public override void EnterActiveState()
     {
+        Debug.Log("EnterActiveState");
         ToggleEffects(true, null);
     }
 
@@ -110,6 +113,7 @@ public class Swatter : BasePowerUpBehavior
     // Change and play particle and sound effects 
     private void ToggleEffects(bool active, AudioClip clip)
     {
+        Debug.Log($"ToggleEffects({active}, {clip.name}");
         if (active)
         {
             electricityEffectInstance =

@@ -3780,7 +3780,7 @@ MonoBehaviour:
   FlyLayerMask:
     serializedVersion: 2
     m_Bits: 128
-  CooldownTime: 0
+  CooldownTime: 2
   FroggyLastTriggeredTime: 0
   audioSource: {fileID: 1953963005}
   munchClip: {fileID: 8300000, guid: 21417dbb25a2bfb40b6de9fad5db1462, type: 3}
@@ -4732,14 +4732,6 @@ PrefabInstance:
     - target: {fileID: 2300318445620189431, guid: 75d14416f534f4b11aec372b6307c3bb, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6558061756533918786, guid: 75d14416f534f4b11aec372b6307c3bb, type: 3}
-      propertyPath: maxSpeed
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 6558061756533918786, guid: 75d14416f534f4b11aec372b6307c3bb, type: 3}
-      propertyPath: takeOffChance
-      value: 0.1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -49,11 +49,6 @@ public class HandController : MonoBehaviour
         else if (other.gameObject.tag == "Hands")
         {
             isTouchingOtherHand = true;
-            // if (other.gameObject.tag == "Fly")
-            // {
-            //     touchedFlyTransform = other.transform;
-            // }
-
             StartCoroutine(CheckFlyHit());
         }
         else if (other.gameObject.tag == "Fly")
@@ -118,18 +113,6 @@ public class HandController : MonoBehaviour
                     {
                         UIManager.Instance.IncrementKill(touchedFlyTransform.position);
                     }
-
-                    // if (IsRightHand)
-                    // {
-                    //     var splatter = Instantiate(splatterPrefab, transform);
-                    //     splatter.transform.up = -transform.up;
-                    //     splatter.transform.localScale = splatter.transform.localScale * 2f;
-                    //     // splatter.transform.parent = transform;
-                    //     splatter.transform.localPosition = Vector3.zero;
-                    //     Destroy(splatter, 2f);
-                    // }
-                    // // Instantiate(GameManager.Instance.splatterParticle, touchedFlyTransform.position, Quaternion.identity);
-                    // Debug.Log("Two Hand Smash");
                 }
 
                 if (touchedFlyTransform.gameObject.TryGetComponent<FlyAudioSource>(out var buzzSource))
@@ -152,10 +135,6 @@ public class HandController : MonoBehaviour
                 isTouchingFly = false;
                 isTouchingLandingSurface = false;
                 touchedWallTransform = null;
-
-                // settings.score += settings.scoreMulFactor;
-                // UIM.ScoreUpdate();
-                // UIM.KillUpdate();
             }
         }
         yield return null;

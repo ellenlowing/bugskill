@@ -34,6 +34,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Button BossFightStartBtn;
     [SerializeField] private InteractableUnityEventWrapper GameStartButton;
     [SerializeField] private InteractableUnityEventWrapper FrogStartButton;
+    [SerializeField] private InteractableUnityEventWrapper SprayStartButton;
 
     [Header("Power Up")]
     [Space(20)]
@@ -104,6 +105,7 @@ public class UIManager : MonoBehaviour
 
         GameStartButton.WhenSelect.AddListener(StartGameLoopTrigger);
         FrogStartButton.WhenSelect.AddListener(FrogStart);
+        SprayStartButton.WhenSelect.AddListener(SprayStart);
     }
 
     private void OnDisable()
@@ -143,8 +145,6 @@ public class UIManager : MonoBehaviour
     {
         DestroyPanel(FrogUIObj, quickStart);
         StartNextWaveEvent.RaiseEvent();
-        FroggyController.gameObject.SetActive(true);
-        FroggyController.Initialize();
     }
 
     private void SprayStart()
@@ -177,21 +177,20 @@ public class UIManager : MonoBehaviour
     {
         FrogUIObj.SetActive(true);
         FaceCamera(FrogUIObj);
-        DestroyPanel(FrogUIObj, settings.waveWaitTime);
+        FroggyController.gameObject.SetActive(true);
+        FroggyController.Initialize();
     }
 
     public void SwatterUI()
     {
         SwatterUIObj.SetActive(true);
         FaceCamera(SwatterUIObj);
-        DestroyPanel(SwatterUIObj, settings.waveWaitTime);
     }
 
     public void UpgradeUI()
     {
         UpgradeUIObj.SetActive(true);
         FaceCamera(UpgradeUIObj);
-        DestroyPanel(UpgradeUIObj, settings.waveWaitTime);
     }
 
     public void SprayUI()
@@ -199,14 +198,12 @@ public class UIManager : MonoBehaviour
         FroggyController.gameObject.SetActive(false);
         SprayUIObj.SetActive(true);
         FaceCamera(SprayUIObj);
-        DestroyPanel(SprayUIObj, settings.waveWaitTime);
     }
 
     public void BossFight()
     {
         BossfightUI.SetActive(true);
         FaceCamera(BossfightUI);
-        DestroyPanel(BossfightUI, settings.waveWaitTime);
     }
     #endregion
 

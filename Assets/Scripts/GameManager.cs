@@ -153,7 +153,6 @@ public partial class GameManager : MonoBehaviour
                             randomPosition += new Vector3(Random.Range(-size.x / 2, size.x / 2), size.y / 2, 0);
                         }
 
-
                         if (settings.fliesInWave[waveIndex] == 1)
                         {
                             fly = Instantiate(FlyPrefab, randomPosition, Quaternion.identity, FlyParentAnchor);
@@ -176,12 +175,10 @@ public partial class GameManager : MonoBehaviour
                     canSpawn = false;
                     moveToNextWave = true;
 
-
                     // enable and set timescale for loading based on time anticapated per wave
                     HourGlass.SetActive(true);
                     animator.speed = settings.divFactor / settings.durationOfWave[waveIndex];
                 }
-
 
                 // check if all flies are killed
                 // move to next wave count
@@ -194,17 +191,24 @@ public partial class GameManager : MonoBehaviour
                     canSpawn = true;
                     WhatPowerUp(waveIndex);
 
+                    animator.speed = 1f;
+
+                    if (animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1)
+                    {
+                        animator.speed = 0;
+                    }
                     // enable hour glass here
                     // set the animation speed to scale with div factor
                     // HourGlass.SetActive(true);
                     // animator.speed = settings.divFactor / settings.waveWaitTime;
                     // animator.speed = 0.02f;
-                    yield return new WaitForSeconds(settings.waveWaitTime);
-                    HourGlass.SetActive(false);
+                    // animator.speed = 0;
+                    // yield return new WaitForSeconds(settings.waveWaitTime);
+                    // HourGlass.SetActive(false);
                 }
 
-                // 2 second frame checks
-                yield return new WaitForSeconds(2.0f);
+                // 1 second frame checks
+                yield return null;
                 // yield return new WaitForSeconds(Random.Range(settings.flySpawnIntervalMin, settings.flySpawnIntervalMax));
             }
         }
@@ -222,6 +226,8 @@ public partial class GameManager : MonoBehaviour
         StopCoroutine(GameLoopRoutine);
         runningIndex = waveIndex;
         canSpawn = true;
+        animator.speed = settings.divFactor / settings.durationOfWave[waveIndex];
+        animator.Play("Animation", 0, 0);
         GameLoopRoutine = StartCoroutine(SpawnFlyAtRandomPosition());
     }
 

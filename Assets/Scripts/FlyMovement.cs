@@ -67,7 +67,7 @@ public class FlyMovement : MonoBehaviour
             // Generate random position on any surface that is not facing down 
             // + position is not too close to anchor's edge 
 
-            if (currentRoom.GenerateRandomPositionOnSurface(MRUK.SurfaceType.FACING_UP | MRUK.SurfaceType.VERTICAL,flyBehaviour.distanceToEdges, labelFilter, out Vector3 position, out Vector3 normal))
+            if (currentRoom.GenerateRandomPositionOnSurface(MRUK.SurfaceType.FACING_UP | MRUK.SurfaceType.VERTICAL, flyBehaviour.distanceToEdges, labelFilter, out Vector3 position, out Vector3 normal))
             {
                 CheckValidPosition(position, normal);
             }
@@ -148,46 +148,3 @@ public class FlyMovement : MonoBehaviour
         }
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// isResting = true;
-// RaycastHit hit;
-// if (Physics.Raycast(transform.position + targetNormal * 0.1f, -targetNormal, out hit, 0.2f))
-// {
-//     transform.position = hit.point;
-//     Vector3 forwardDirection = Vector3.Cross(transform.right, targetNormal);
-//     transform.rotation = Quaternion.LookRotation(forwardDirection, targetNormal);
-// }
-// else
-// {
-//     transform.up = targetNormal;
-//     transform.rotation = Quaternion.LookRotation(Vector3.Cross(transform.right, targetNormal), targetNormal);
-// }
-// yield return new WaitForSeconds(Random.Range(minRestDuration, maxRestDuration));
-// isResting = false;
-// needNewTarget = true;

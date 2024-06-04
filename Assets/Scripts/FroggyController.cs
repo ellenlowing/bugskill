@@ -35,6 +35,9 @@ public class FroggyController : MonoBehaviour
     public static FroggyController Instance;
     public bool IsActive = false;
 
+    [Header("Settings Data")]
+    [SerializeField] private SettingSO settings;
+
     [Header("Tongue")]
     public Transform FroggyParentTransform;
     public Transform FrogTongueTransform;
@@ -290,6 +293,7 @@ public class FroggyController : MonoBehaviour
             other.transform.localScale = other.transform.localScale * 0.5f;
 
             Destroy(other.gameObject, 1f);
+            settings.Cash += (int)SCOREFACTOR.FROG;
         }
     }
 

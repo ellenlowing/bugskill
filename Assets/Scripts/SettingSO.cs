@@ -27,6 +27,7 @@ public class SettingSO : ScriptableObject
     public int waveIndex = 0;
     public int[] durationOfWave = { 60, 120, 200, 300 };
     public int[] fliesInWave = { 5, 10, 20, 40 };
+    public int[] LevelGoals = { 2, 2, 2, 2 };
 
 
     [Header("HourGlass")]

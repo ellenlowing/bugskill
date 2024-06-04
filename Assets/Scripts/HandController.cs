@@ -1,4 +1,5 @@
 
+using Meta.WitAi;
 using Oculus.Interaction.PoseDetection.Debug;
 using System.Collections;
 using System.Collections.Generic;
@@ -101,6 +102,7 @@ public class HandController : MonoBehaviour
                     var splatter = Instantiate(splatterPrefab, touchedFlyTransform.position, Quaternion.identity);
                     splatter.transform.up = touchedFlyTransform.up;
                     UIManager.Instance.IncrementKill(touchedFlyTransform.position);
+                    settings.Cash += (int)SCOREFACTOR.SLAP;
 
                     Debug.Log("Instantiating splatter on wall");
                 }
@@ -112,6 +114,11 @@ public class HandController : MonoBehaviour
                     if (IsRightHand)
                     {
                         UIManager.Instance.IncrementKill(touchedFlyTransform.position);
+                        if (touchedFlyTransform.localScale == new Vector3(4f, 4f, 4f))
+                        {
+                            settings.Cash += (int)SCOREFACTOR.FAT;
+                        }
+                        settings.Cash += (int)SCOREFACTOR.CLAP;
                     }
                 }
 

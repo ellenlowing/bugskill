@@ -7,6 +7,9 @@ namespace Power_Up
     {
         public bool IsHeld { get; set; } = false;
 
+        [Header("Settings Data")]
+        [SerializeField] private SettingSO settings;
+
         [Header("Effects and Sounds")]
         public ParticleSystem ElectricityEffect;
         public ParticleSystem HitEffect;
@@ -165,6 +168,7 @@ namespace Power_Up
                     Instantiate(HitEffect, other.transform.position, Quaternion.identity);
                 hitEffectInstance.Play();
                 Destroy(hitEffectInstance.gameObject, hitEffectInstance.main.duration);
+                settings.Cash += (int)SCOREFACTOR.SWATTER;
 
                 // Destroy fly after delay 
                 Destroy(other.gameObject, destroyFlyDelay);

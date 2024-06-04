@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Oculus.Interaction;
 using TMPro;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.UI;
@@ -24,19 +25,17 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject SwatterUIObj;
     [SerializeField] private GameObject BossfightUI;
     [SerializeField] private GameObject UIScoreObj;
+    [SerializeField] private GameObject FailurePanel;
+    [SerializeField] private TextMeshProUGUI FailText;
 
     [Header("Buttons")]
     [Space(20)]
-    [SerializeField] private Button GameStartBtn;
-    [SerializeField] private Button FrogStartBtn;
-    [SerializeField] private Button SprayStartBtn;
-    [SerializeField] private Button UpgradeStartBtn;
-    [SerializeField] private Button SwatterStartBtn;
-    [SerializeField] private Button BossFightStartBtn;
     [SerializeField] private InteractableUnityEventWrapper GameStartButton;
     [SerializeField] private InteractableUnityEventWrapper FrogStartButton;
     [SerializeField] private InteractableUnityEventWrapper SprayStartButton;
     [SerializeField] private InteractableUnityEventWrapper SwatterStartButton;
+    [SerializeField] private InteractableUnityEventWrapper GameExitButton;
+
 
     [Header("Power Up")]
     [Space(20)]
@@ -61,6 +60,7 @@ public class UIManager : MonoBehaviour
     public VoidEventChannelSO GameEnds;
     public VoidEventChannelSO BossFightEvent;
     public VoidEventChannelSO StartNextWaveEvent;
+  
     public FVEventSO ScoreUIUpdateEvent;
 
     private GameObject tempObj;
@@ -102,7 +102,6 @@ public class UIManager : MonoBehaviour
     private void Start()
     {
         IsNotNull();
-
         // subscribe to all events
         GameEnds.OnEventRaised += KillUpdate;
         FrogPowerUp.OnEventRaised += FrogUI;
@@ -110,18 +109,21 @@ public class UIManager : MonoBehaviour
         ElectricSwatterPowerUp.OnEventRaised += SwatterUI;
         UpgradePowerUps.OnEventRaised += UpgradeUI;
         BossFightEvent.OnEventRaised += BossFight;
-
-        // GameStartBtn.onClick.AddListener(StartGameLoopTrigger);
-        // FrogStartBtn.onClick.AddListener(FrogStart);
-        // SprayStartBtn.onClick.AddListener(SprayStart);
-        // SwatterStartBtn.onClick.AddListener(SwatterStart);
-        // UpgradeStartBtn.onClick.AddListener(UpgradeStart);
-        // BossFightStartBtn.onClick.AddListener(BossStart);
+       
 
         GameStartButton.WhenSelect.AddListener(StartGameLoopTrigger);
         FrogStartButton.WhenSelect.AddListener(FrogStart);
         SprayStartButton.WhenSelect.AddListener(SprayStart);
         SwatterStartButton.WhenSelect.AddListener(SwatterStart);
+        GameExitButton.WhenSelect.AddListener(QuitGame);
+    }
+
+    private void QuitGame()
+    {
+#if UNITY_EDITOR 
+       EditorApplication.isPlaying = false;
+#endif
+        Application.Quit();
     }
 
     private void OnDisable()
@@ -156,6 +158,15 @@ public class UIManager : MonoBehaviour
         // ScoreText.text = "Score : " + settings.score.ToString();
     }
 
+ 
+    public void FailedPanel(bool state, int kills, int currentIndex)
+    {
+        // show failure panel
+            FailurePanel.SetActive(state);
+            FailText.text = kills + " / " + settings.LevelGoals[currentIndex];
+            FaceCamera(FailurePanel);     
+    }
+
     #region UI QUICK START
     private void FrogStart()
     {
@@ -183,7 +194,7 @@ public class UIManager : MonoBehaviour
 
     private void BossStart()
     {
-        Destroy(BossFightStartBtn, quickStart);
+        //Destroy(BossFightStartBtn, quickStart);
         StartNextWaveEvent.RaiseEvent();
     }
     #endregion  
@@ -248,10 +259,10 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    public void UpdateScore(float numKills, Vector3 position)
+    public void UpdateScore(float cashAmount, Vector3 position)
     {
         tempText = UIScoreObj.GetComponentInChildren<TextMeshProUGUI>();
-        tempText.text = numKills.ToString();
+        tempText.text = cashAmount.ToString();
         tempObj = Instantiate(UIScoreObj, position, Quaternion.identity);
         FaceCamera(tempObj);
         Destroy(tempObj, 1f);
@@ -276,7 +287,6 @@ public class UIManager : MonoBehaviour
     public void IncrementKill(Vector3 pos)
     {
         settings.numberOfKills += 1;
-        settings.score += settings.scoreMulFactor;
-        ScoreUIUpdateEvent.RaiseEvent(settings.numberOfKills, pos);
+        ScoreUIUpdateEvent.RaiseEvent(settings.Cash, pos);
     }
 }

@@ -12,6 +12,7 @@ public class SettingSO : ScriptableObject
     public int scoreMulFactor = 175;
     public int numberOfKills = 0;
     public int skillScoreValue = 100;
+    public int Cash = 0;
 
     [Header("Fly Objects")]
     public List<GameObject> flies;

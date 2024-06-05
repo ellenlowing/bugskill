@@ -291,7 +291,11 @@ public class FroggyController : MonoBehaviour
             other.transform.parent = TongueTipObjectTransform;
             other.transform.position = GetRandomPointWithinBounds(TongueTipObjectTransform.gameObject);
             other.transform.localScale = other.transform.localScale * 0.5f;
-
+            
+            if(other.gameObject.transform.localScale == Vector3.one)
+            {
+                settings.Cash += (int)SCOREFACTOR.SLIM;
+            }
             Destroy(other.gameObject, 1f);
             settings.Cash += (int)SCOREFACTOR.FROG;
         }

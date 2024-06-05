@@ -168,6 +168,10 @@ namespace Power_Up
                     Instantiate(HitEffect, other.transform.position, Quaternion.identity);
                 hitEffectInstance.Play();
                 Destroy(hitEffectInstance.gameObject, hitEffectInstance.main.duration);
+                if(other.gameObject.transform.localScale == Vector3.one)
+                {
+                    settings.Cash += (int)SCOREFACTOR.SLIM;
+                }
                 settings.Cash += (int)SCOREFACTOR.SWATTER;
 
                 // Destroy fly after delay 

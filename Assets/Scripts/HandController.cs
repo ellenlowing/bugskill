@@ -102,6 +102,7 @@ public class HandController : MonoBehaviour
                     var splatter = Instantiate(splatterPrefab, touchedFlyTransform.position, Quaternion.identity);
                     splatter.transform.up = touchedFlyTransform.up;
                     UIManager.Instance.IncrementKill(touchedFlyTransform.position);
+                    CashSlimFly();
                     settings.Cash += (int)SCOREFACTOR.SLAP;
 
                     Debug.Log("Instantiating splatter on wall");
@@ -114,10 +115,7 @@ public class HandController : MonoBehaviour
                     if (IsRightHand)
                     {
                         UIManager.Instance.IncrementKill(touchedFlyTransform.position);
-                        if (touchedFlyTransform.localScale == new Vector3(4f, 4f, 4f))
-                        {
-                            settings.Cash += (int)SCOREFACTOR.FAT;
-                        }
+                        CashSlimFly();
                         settings.Cash += (int)SCOREFACTOR.CLAP;
                     }
                 }
@@ -145,5 +143,13 @@ public class HandController : MonoBehaviour
             }
         }
         yield return null;
+    }
+
+    private void CashSlimFly()
+    {
+        if (touchedFlyTransform.localScale == new Vector3(1f, 1f, 1f))
+        {
+            settings.Cash += (int)SCOREFACTOR.SLIM;
+        }
     }
 }

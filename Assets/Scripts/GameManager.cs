@@ -350,12 +350,18 @@ public partial class GameManager : MonoBehaviour
             if (anchor.HasLabel("WINDOW_FRAME") || anchor.HasLabel("DOOR_FRAME"))
             {
                 FlySpawnPositions.Add(anchor);
-                // if (!doneOnce)
-                // {
-                //     Instantiate(Portal, anchor.transform.position, Portal.transform.rotation);
-                //     doneOnce = true;
-                // }
+                /*if (!doneOnce)
+                 {
+                     Instantiate(Portal, anchor.transform.position, Portal.transform.rotation);
+                     doneOnce = true;
+                 } */
 
+            } else 
+            {
+                if (anchor.HasLabel("CEILING") || anchor.HasLabel("FLOOR") || anchor.HasLabel("WALL_FACE"))
+                {
+                    FlySpawnPositions.Add(anchor);
+                }                
             }
 
             // place hourglass on table
@@ -365,6 +371,17 @@ public partial class GameManager : MonoBehaviour
                 {
                     HourGlass.transform.position = anchor.transform.position + new Vector3(0f, 0.3f, 0f);
                     doneOnce = true;
+                }
+            }
+            else
+            {
+                if (anchor.HasLabel("FLOOR"))
+                {
+                    if (!doneOnce)
+                    {
+                        HourGlass.transform.position = anchor.transform.position + new Vector3(0f, 0.3f, 0f);
+                        doneOnce = true;
+                    }
                 }
             }
         }

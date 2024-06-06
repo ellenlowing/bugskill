@@ -24,7 +24,6 @@ namespace Power_Up
         [Header("Recharge Settings")]
         public float RechargeDelay = 5.0f; // Time it takes to start recharging after depletion
 
-
         private float rechargeTimer;
         private bool charged = true;
         private ParticleSystem electricityEffectInstance;
@@ -37,13 +36,13 @@ namespace Power_Up
 
         public override void EnterIdleState()
         {
-            Debug.Log("EnterIdleState");
+            // Debug.Log("EnterIdleState");
             ToggleEffects(false, null);
         }
 
         public override void UpdateIdleState()
         {
-            Debug.Log("UpdateIdleState");
+            // Debug.Log("UpdateIdleState");
             if (!charged)
             {
                 EnterState(PowerUpState.INACTIVE);
@@ -56,16 +55,15 @@ namespace Power_Up
 
         public override void EnterInactiveState()
         {
-            Debug.Log("EnterInactiveState");
+            // Debug.Log("EnterInactiveState");
             ToggleEffects(false, DepletedSoundClip);
             charged = false;
             rechargeTimer = RechargeDelay;
         }
 
-
         public override void UpdateInactiveState()
         {
-            Debug.Log("UpdateInactiveState");
+            // Debug.Log("UpdateInactiveState");
             // May remove; redundant? just slow recharge? 
             if (rechargeTimer > 0)
             {
@@ -92,13 +90,13 @@ namespace Power_Up
 
         public override void EnterActiveState()
         {
-            Debug.Log("EnterActiveState");
+            // Debug.Log("EnterActiveState");
             ToggleEffects(true, null);
         }
 
         public override void UpdateActiveState()
         {
-            Debug.Log("UpdateActiveState");
+            // Debug.Log("UpdateActiveState");
             base.UpdateActiveState(); // Decrements PowerCapacity by UsePowerRate
             if (PowerCapacity <= 0)
             {

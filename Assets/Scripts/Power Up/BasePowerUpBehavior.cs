@@ -17,6 +17,9 @@ public class BasePowerUpBehavior : MonoBehaviour
     public float ChargePowerRate = 0.05f;
     public PowerUpState CurrentState;
 
+    [SerializeField] private Renderer _rightHandRenderer;
+    [SerializeField] private Material _handMaterial;
+
     public void Start()
     {
         EnterState(PowerUpState.IDLE);
@@ -88,6 +91,17 @@ public class BasePowerUpBehavior : MonoBehaviour
         {
             PowerCapacity = MaxPowerCapacity;
         }
+    }
+
+    public void OnHover()
+    {
+        _rightHandRenderer.material = _handMaterial;
+    }
+
+    public void OnUnhover()
+    {
+        _rightHandRenderer.material = null;
+        _rightHandRenderer.materials = new Material[0];
     }
 
 }

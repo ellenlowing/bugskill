@@ -18,6 +18,7 @@ public class BasePowerUpBehavior : MonoBehaviour
     public float UsePowerRate = 0.001f;
     public float ChargePowerRate = 0.05f;
     public PowerUpState CurrentState;
+    public PointableUnityEventWrapper PointableEventWrapper;
 
     [SerializeField] private GameObject _leftHandRenderer;
     [SerializeField] private GameObject _rightHandRenderer;
@@ -25,6 +26,8 @@ public class BasePowerUpBehavior : MonoBehaviour
     public void Start()
     {
         EnterState(PowerUpState.IDLE);
+        PointableEventWrapper.WhenHover.AddListener(OnHover);
+        PointableEventWrapper.WhenUnhover.AddListener(OnUnhover);
     }
 
     public void Update()

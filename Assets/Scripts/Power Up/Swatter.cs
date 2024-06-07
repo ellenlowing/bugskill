@@ -29,8 +29,6 @@ namespace Power_Up
         [Header("Activate Button")]
         public SwatterActivateButton ActivateButton;
 
-        public PointableUnityEventWrapper PointableEventWrapper;
-
         private ParticleSystem electricityEffectInstance;
 
         private void Awake()
@@ -43,8 +41,6 @@ namespace Power_Up
             base.Start();
             PointableEventWrapper.WhenSelect.AddListener(OnGrabbableSelect);
             PointableEventWrapper.WhenUnselect.AddListener(OnGrabbableUnselect);
-            PointableEventWrapper.WhenHover.AddListener(OnHover);
-            PointableEventWrapper.WhenUnhover.AddListener(OnUnhover);
             ActivateButton.WhenActivated.AddListener(OnButtonActivated);
             ActivateButton.WhenDeactivated.AddListener(OnButtonDeactivated);
         }

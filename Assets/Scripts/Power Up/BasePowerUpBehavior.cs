@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using Oculus.Interaction;
+using Oculus.Interaction.Input;
 using UnityEngine;
 
 public class BasePowerUpBehavior : MonoBehaviour
@@ -17,8 +19,8 @@ public class BasePowerUpBehavior : MonoBehaviour
     public float ChargePowerRate = 0.05f;
     public PowerUpState CurrentState;
 
-    [SerializeField] private Renderer _rightHandRenderer;
-    [SerializeField] private Material _handMaterial;
+    [SerializeField] private GameObject _leftHandRenderer;
+    [SerializeField] private GameObject _rightHandRenderer;
 
     public void Start()
     {
@@ -93,15 +95,32 @@ public class BasePowerUpBehavior : MonoBehaviour
         }
     }
 
-    public void OnHover()
+    public void OnHover(PointerEvent arg0)
     {
-        _rightHandRenderer.material = _handMaterial;
+        HandRef handData = (HandRef)arg0.Data;
+        Handedness handedness = handData.Handedness;
+        if (handedness == Handedness.Right)
+        {
+            _rightHandRenderer.SetActive(true);
+        }
+        else
+        {
+            _leftHandRenderer.SetActive(true);
+        }
     }
 
-    public void OnUnhover()
+    public void OnUnhover(PointerEvent arg0)
     {
-        _rightHandRenderer.material = null;
-        _rightHandRenderer.materials = new Material[0];
+        HandRef handData = (HandRef)arg0.Data;
+        Handedness handedness = handData.Handedness;
+        if (handedness == Handedness.Right)
+        {
+            _rightHandRenderer.SetActive(false);
+        }
+        else
+        {
+            _leftHandRenderer.SetActive(false);
+        }
     }
 
 }

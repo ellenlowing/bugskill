@@ -1,3 +1,5 @@
+using Oculus.Interaction;
+using Oculus.Interaction.Input;
 using TMPro;
 using UnityEngine;
 
@@ -24,90 +26,67 @@ namespace Power_Up
         [Header("Recharge Settings")]
         public float RechargeDelay = 5.0f; // Time it takes to start recharging after depletion
 
-        private float rechargeTimer;
-        private bool charged = true;
-        private ParticleSystem electricityEffectInstance;
+        [Header("Activate Button")]
+        public SwatterActivateButton ActivateButton;
 
+        public PointableUnityEventWrapper PointableEventWrapper;
+
+        private ParticleSystem electricityEffectInstance;
 
         private void Awake()
         {
             if (ForDebugging) IsHeld = true;
         }
 
+        new void Start()
+        {
+            base.Start();
+            PointableEventWrapper.WhenSelect.AddListener(OnGrabbableSelect);
+            PointableEventWrapper.WhenUnselect.AddListener(OnGrabbableUnselect);
+            PointableEventWrapper.WhenHover.AddListener(OnHover);
+            PointableEventWrapper.WhenUnhover.AddListener(OnUnhover);
+            ActivateButton.WhenActivated.AddListener(OnButtonActivated);
+            ActivateButton.WhenDeactivated.AddListener(OnButtonDeactivated);
+        }
+
+        new void Update()
+        {
+            base.Update();
+        }
+
         public override void EnterIdleState()
         {
-            // Debug.Log("EnterIdleState");
             ToggleEffects(false, null);
         }
 
         public override void UpdateIdleState()
         {
-            // Debug.Log("UpdateIdleState");
-            if (!charged)
-            {
-                EnterState(PowerUpState.INACTIVE);
-            }
-            else if (IsHeld)
-            {
-                EnterState(PowerUpState.ACTIVE);
-            }
+            base.UpdateIdleState();
         }
 
         public override void EnterInactiveState()
         {
-            // Debug.Log("EnterInactiveState");
-            ToggleEffects(false, DepletedSoundClip);
-            charged = false;
-            rechargeTimer = RechargeDelay;
+            // ToggleEffects(false, DepletedSoundClip);
         }
 
         public override void UpdateInactiveState()
         {
-            // Debug.Log("UpdateInactiveState");
-            // May remove; redundant? just slow recharge? 
-            if (rechargeTimer > 0)
+            base.UpdateInactiveState();
+            Charge();
+            if (PowerCapacity >= MaxPowerCapacity)
             {
-                rechargeTimer -= Time.deltaTime;
-            }
-            else
-            {
-                Charge();
-                if (PowerCapacity >= MaxPowerCapacity)
-                {
-                    charged = true;
-                    ToggleEffects(false, RechargeSoundClip); // May need to adjust timing that ElectricityEffect and Active sound effect begin relative to recharge sound effect  
-                    if (IsHeld)
-                    {
-                        EnterState(PowerUpState.ACTIVE);
-                    }
-                    else //come back 
-                    {
-                        EnterState(PowerUpState.IDLE);
-                    }
-                }
+                ToggleEffects(false, RechargeSoundClip); // May need to adjust timing that ElectricityEffect and Active sound effect begin relative to recharge sound effect  
             }
         }
 
         public override void EnterActiveState()
         {
-            // Debug.Log("EnterActiveState");
             ToggleEffects(true, null);
         }
 
         public override void UpdateActiveState()
         {
-            // Debug.Log("UpdateActiveState");
-            base.UpdateActiveState(); // Decrements PowerCapacity by UsePowerRate
-            if (PowerCapacity <= 0)
-            {
-                EnterState(PowerUpState.INACTIVE);
-                return;
-            }
-
-            if (!IsHeld)
-            {
-                EnterState(PowerUpState.IDLE);
-            }
+            base.UpdateActiveState();
         }
 
         // Change and play particle and sound effects 
@@ -117,7 +96,10 @@ namespace Power_Up
             {
                 Debug.Log($"ToggleEffects({active}, {clip.name})");
             }
-            else Debug.Log($"ToggleEffects({active}");
+            else
+            {
+                Debug.Log($"ToggleEffects({active}");
+            }
 
             if (active)
             {
@@ -147,12 +129,8 @@ namespace Power_Up
 
         private void OnTriggerEnter(Collider other)
         {
-            Debug.Log("OnTriggerEnter()");
-
-            // If the net collides with a fly while Active 
             if (other.gameObject.CompareTag("Fly") && CurrentState == PowerUpState.ACTIVE)
             {
-                Debug.Log("OnTriggerEnter() past checks");
                 HitSoundPlayer.Play();
 
                 UIManager.Instance.IncrementKill(other.transform.position);
@@ -166,6 +144,34 @@ namespace Power_Up
 
                 // Destroy fly after delay 
                 Destroy(other.gameObject, destroyFlyDelay);
+            }
+        }
+
+        private void OnGrabbableSelect(PointerEvent arg0)
+        {
+            IsHeld = true;
+            EnterState(PowerUpState.INACTIVE);
+        }
+
+        private void OnGrabbableUnselect(PointerEvent arg0)
+        {
+            IsHeld = false;
+            EnterState(PowerUpState.IDLE);
+        }
+
+        private void OnButtonActivated()
+        {
+            if (PowerCapacity > 0 && IsHeld)
+            {
+                EnterState(PowerUpState.ACTIVE);
+            }
+        }
+
+        private void OnButtonDeactivated()
+        {
+            if (IsHeld)
+            {
+                EnterState(PowerUpState.INACTIVE);
             }
         }
 
@@ -195,7 +201,6 @@ namespace Power_Up
             {
                 batteryEffectsText.text = $"{BatteryLevelSoundPlayer.clip.name}";
             }
-            chargedText.text = $"{charged}";
         }
     }
 }

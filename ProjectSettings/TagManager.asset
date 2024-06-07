@@ -10,6 +10,8 @@ TagManager:
   - Hands
   - Fly
   - SamplesInfoPanel
+  - FxTemporaire
+  - Thumb
   layers:
   - Default
   - TransparentFX

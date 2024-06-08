@@ -26,8 +26,8 @@ namespace Power_Up
         [Header("Recharge Settings")]
         public float RechargeDelay = 5.0f; // Time it takes to start recharging after depletion
 
-        [Header("Activate Button")]
-        public SwatterActivateButton ActivateButton;
+        // [Header("Activate Button")]
+        // public SwatterActivateButton ActivateButton;
 
         private ParticleSystem electricityEffectInstance;
 
@@ -41,8 +41,8 @@ namespace Power_Up
             base.Start();
             PointableEventWrapper.WhenSelect.AddListener(OnGrabbableSelect);
             PointableEventWrapper.WhenUnselect.AddListener(OnGrabbableUnselect);
-            ActivateButton.WhenActivated.AddListener(OnButtonActivated);
-            ActivateButton.WhenDeactivated.AddListener(OnButtonDeactivated);
+            // ActivateButton.WhenActivated.AddListener(OnButtonActivated);
+            // ActivateButton.WhenDeactivated.AddListener(OnButtonDeactivated);
         }
 
         new void Update()
@@ -63,16 +63,23 @@ namespace Power_Up
         public override void EnterInactiveState()
         {
             // ToggleEffects(false, DepletedSoundClip);
+
+            // TODO do dissolve effect
+            if (PowerCapacity <= 0)
+            {
+                PowerCapacity = 0;
+                ToggleEffects(false, DepletedSoundClip);
+            }
         }
 
         public override void UpdateInactiveState()
         {
-            base.UpdateInactiveState();
-            Charge();
-            if (PowerCapacity >= MaxPowerCapacity)
-            {
-                ToggleEffects(false, RechargeSoundClip); // May need to adjust timing that ElectricityEffect and Active sound effect begin relative to recharge sound effect  
-            }
+            // base.UpdateInactiveState();
+            // Charge();
+            // if (PowerCapacity >= MaxPowerCapacity)
+            // {
+            //     ToggleEffects(false, RechargeSoundClip); // May need to adjust timing that ElectricityEffect and Active sound effect begin relative to recharge sound effect  
+            // }
         }
 
         public override void EnterActiveState()
@@ -83,6 +90,12 @@ namespace Power_Up
         public override void UpdateActiveState()
         {
             base.UpdateActiveState();
+
+            if (PowerCapacity < 0)
+            {
+                EnterState(PowerUpState.INACTIVE);
+                Debug.Log("Power capacity is less than 0");
+            }
         }
 
         // Change and play particle and sound effects 
@@ -146,7 +159,7 @@ namespace Power_Up
         private void OnGrabbableSelect(PointerEvent arg0)
         {
             IsHeld = true;
-            EnterState(PowerUpState.INACTIVE);
+            EnterState(PowerUpState.ACTIVE);
         }
 
         private void OnGrabbableUnselect(PointerEvent arg0)

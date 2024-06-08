@@ -80,7 +80,7 @@ public class BasePowerUpBehavior : MonoBehaviour
     public virtual void EnterActiveState() { }
     public virtual void UpdateActiveState()
     {
-        if (PowerCapacity > 0)
+        if (PowerCapacity >= 0)
         {
             PowerCapacity -= UsePowerRate;
         }

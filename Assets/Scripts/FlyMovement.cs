@@ -17,9 +17,7 @@ public class FlyMovement : MonoBehaviour
 
     [HideInInspector]
     public float speed;
-
     private FlySO flyBehaviour;
-
 
     private void Start()
     {

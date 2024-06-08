@@ -47,13 +47,16 @@ public class FroggyController : MonoBehaviour
     public Transform TongueTipTargetTransform;
     public float MaxDistanceToActivateFroggy = 0.1f;
     public float MaxDistanceToGrab = 0.02f;
+    public Outline SelectionOutline;
 
     [Header("Hands")]
     public OVRHand FroggyActiveHand = null;
-    public OVRHand LeftHand;
-    public OVRHand RightHand;
-    public OVRSkeleton LeftHandSkeleton;
-    public OVRSkeleton RightHandSkeleton;
+    // public OVRHand LeftHand;
+    // public OVRHand RightHand;
+    // public OVRSkeleton LeftHandSkeleton;
+    // public OVRSkeleton RightHandSkeleton;
+    public GameObject LeftHand;
+    public GameObject RightHand;
     public Vector3 FroggyPositionOffset;
     public Vector3 FroggyRotationOffset;
 
@@ -66,18 +69,17 @@ public class FroggyController : MonoBehaviour
     public float CooldownTime = 3f;
     public float FroggyLastTriggeredTime = 0;
 
-    private HandData _leftHandData;
-    private HandData _rightHandData;
-    private Vector3 _originalFrogTongueScale;
-    private Collider _hitFlyCollider = null;
-
     [Header("Sounds")]
     public AudioSource audioSource;
     public AudioClip munchClip;
     public AudioClip croakClip;
     public AudioClip slurpClip;
-    private bool _successFly = false;
 
+    private HandData _leftHandData;
+    private HandData _rightHandData;
+    private Vector3 _originalFrogTongueScale;
+    private Collider _hitFlyCollider = null;
+    private bool _successFly = false;
     private bool _initialized = false;
 
     void Awake()
@@ -111,11 +113,17 @@ public class FroggyController : MonoBehaviour
                 if (_hitFlyCollider == null || hit.collider != _hitFlyCollider)
                 {
                     _hitFlyCollider = hit.collider;
+                    SelectionOutline = _hitFlyCollider.GetComponentInChildren<Outline>();
+                    SelectionOutline.enabled = true;
                 }
             }
             else
             {
                 _hitFlyCollider = null;
+                if (SelectionOutline != null)
+                {
+                    SelectionOutline.enabled = false;
+                }
             }
 
             // Sync tongue tip gameobject with extended tongue
@@ -145,8 +153,8 @@ public class FroggyController : MonoBehaviour
         {
             FrogTongueTransform.localScale = new Vector3(1, 0.1f, 1);
             _originalFrogTongueScale = FrogTongueTransform.localScale;
-            _leftHandData = new HandData(LeftHand, LeftHandSkeleton);
-            _rightHandData = new HandData(RightHand, RightHandSkeleton);
+            _leftHandData = new HandData(LeftHand.GetComponent<OVRHand>(), LeftHand.GetComponent<OVRSkeleton>());
+            _rightHandData = new HandData(RightHand.GetComponent<OVRHand>(), RightHand.GetComponent<OVRSkeleton>());
             audioSource = gameObject.GetComponent<AudioSource>();
             audioSource.clip = croakClip;
             audioSource.spatialBlend = 1f;
@@ -155,7 +163,7 @@ public class FroggyController : MonoBehaviour
             audioSource.playOnAwake = false;
             var metaAudio = gameObject.AddComponent<MetaXRAudioSource>();
             metaAudio.EnableSpatialization = true;
-            HideAllRenderers();
+            // HideAllRenderers();
             _initialized = true;
         }
     }
@@ -167,7 +175,9 @@ public class FroggyController : MonoBehaviour
             var distanceFromIndexFingerTipToThumbTip = Vector3.Distance(handData.IndexFingerTipTransform.position, handData.ThumbTipTransform.position);
             handData.IsIndexFingerPinching = distanceFromIndexFingerTipToThumbTip < MaxDistanceToGrab;
 
-            if (FroggyActiveHand == null && handData.IsIndexFingerPinching && (Time.time - FroggyLastTriggeredTime) > CooldownTime)
+            FroggyParentTransform.parent = FroggyActiveHand.transform;
+
+            if (handData.IsIndexFingerPinching && (Time.time - FroggyLastTriggeredTime) > CooldownTime)
             {
                 FroggyActiveHand = handData.Hand;
                 ShowAllRenderers();
@@ -256,11 +266,11 @@ public class FroggyController : MonoBehaviour
         }
         FroggyActive = false;
         FrogTongueTransform.localScale = inScale;
-        FroggyActiveHand = null;
+        // FroggyActiveHand = null;
         FroggyParentTransform.parent = null;
 
         yield return new WaitForSeconds(0.2f);
-        HideAllRenderers();
+        // HideAllRenderers();
     }
 
     private void StartMunching()
@@ -281,9 +291,8 @@ public class FroggyController : MonoBehaviour
     {
         if (other.tag == "Fly")
         {
-            Debug.Log("Fly caught!");
-            // other.GetComponentInParent<FlyMovement>().isCaught = true;
             UIManager.Instance.IncrementKill(other.transform.position);
+            other.GetComponentInChildren<Outline>().enabled = false;
             other.GetComponentInChildren<Animator>().speed = 0;
             other.transform.parent = TongueTipObjectTransform;
             other.transform.position = GetRandomPointWithinBounds(TongueTipObjectTransform.gameObject);

@@ -62,8 +62,6 @@ namespace Power_Up
 
         public override void EnterInactiveState()
         {
-            // ToggleEffects(false, DepletedSoundClip);
-
             // TODO do dissolve effect
             if (PowerCapacity <= 0)
             {

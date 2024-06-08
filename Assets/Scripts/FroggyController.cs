@@ -173,8 +173,9 @@ public class FroggyController : MonoBehaviour
     {
         if (handData.Hand.IsTracked)
         {
-            var distanceFromIndexFingerTipToThumbTip = Vector3.Distance(handData.IndexFingerTipTransform.position, handData.ThumbTipTransform.position);
-            handData.IsIndexFingerPinching = distanceFromIndexFingerTipToThumbTip < MaxDistanceToGrab;
+            // var distanceFromIndexFingerTipToThumbTip = Vector3.Distance(handData.IndexFingerTipTransform.position, handData.ThumbTipTransform.position);
+            // handData.IsIndexFingerPinching = distanceFromIndexFingerTipToThumbTip < MaxDistanceToGrab;
+            handData.IsIndexFingerPinching = handData.Hand.GetFingerIsPinching(OVRHand.HandFinger.Index);
 
             FroggyParentTransform.parent = FroggyActiveHand.transform;
             FroggyParentTransform.localPosition = FroggyPositionOffset;

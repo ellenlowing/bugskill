@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 345cf1bedd32c9f4483a79373f5c4bc1, type: 3}
   m_Name: SettingSO
   m_EditorClassIdentifier: 
-  score: 0
+  score: 25
   scoreMulFactor: 1
-  numberOfKills: 0
+  numberOfKills: 25
   skillScoreValue: 100
   flies: []
   eyeSpiralSpeed: 220
@@ -25,7 +25,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: f5898cf1fcc934a4784ab8ecd71b4934, type: 2}
   - {fileID: 11400000, guid: 2cb2a157148019742a5339d058893360, type: 2}
   waveWaitTime: 99999
-  waveIndex: 1
+  waveIndex: 0
   durationOfWave: 1e0000001e0000001e0000001e0000001e0000001e000000
   fliesInWave: 0f00000014000000190000001e0000002800000001000000
   divFactor: 3

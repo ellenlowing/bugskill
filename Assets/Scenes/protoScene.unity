@@ -706,7 +706,7 @@ Transform:
   m_GameObject: {fileID: 78144843}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.062, z: 0}
+  m_LocalPosition: {x: 0, y: -0.089, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -24896,7 +24896,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 008ce57f6c6444a1b8f550a8283ac0fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsActive: 1
+  IsActive: 0
   FroggyParentTransform: {fileID: 115383779}
   FrogTongueTransform: {fileID: 78144844}
   GrabSpeed: 4
@@ -24914,8 +24914,8 @@ MonoBehaviour:
   RightHand: {fileID: 168149404}
   FroggyPositionOffset: {x: -0.07, y: -0.03, z: 0}
   FroggyRotationOffset: {x: 0, y: 0, z: 60}
-  SphereCastRadius: 0.2
-  SphereCastDistance: 6
+  SphereCastRadius: 0.15
+  SphereCastDistance: 8
   FlyLayerMask:
     serializedVersion: 2
     m_Bits: 128

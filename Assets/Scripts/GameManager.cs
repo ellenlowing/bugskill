@@ -61,6 +61,7 @@ public partial class GameManager : MonoBehaviour
         }
 
         settings.waveIndex = 0;
+        settings.flies = new List<GameObject>();
         FlySpawnPositions = new List<MRUKAnchor>();
     }
 
@@ -97,6 +98,7 @@ public partial class GameManager : MonoBehaviour
                     Destroy(obj);
                 }
                 settings.flies.Clear();
+                settings.flies = new List<GameObject>();
 
                 // waveIndex++;
                 // update wave index across gameplay

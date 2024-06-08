@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using UnityEngine;
 using UnityEngine.XR;
+using System.Linq;
 
 public class FroggyController : MonoBehaviour
 {
@@ -47,14 +48,9 @@ public class FroggyController : MonoBehaviour
     public Transform TongueTipTargetTransform;
     public float MaxDistanceToActivateFroggy = 0.1f;
     public float MaxDistanceToGrab = 0.02f;
-    public Outline SelectionOutline;
 
     [Header("Hands")]
     public OVRHand FroggyActiveHand = null;
-    // public OVRHand LeftHand;
-    // public OVRHand RightHand;
-    // public OVRSkeleton LeftHandSkeleton;
-    // public OVRSkeleton RightHandSkeleton;
     public GameObject LeftHand;
     public GameObject RightHand;
     public Vector3 FroggyPositionOffset;
@@ -64,6 +60,7 @@ public class FroggyController : MonoBehaviour
     public float SphereCastRadius = 0.2f;
     public float SphereCastDistance = 4f;
     public LayerMask FlyLayerMask;
+    private RaycastHit[] _previousHits;
 
     [Header("Cooldown")]
     public float CooldownTime = 3f;
@@ -107,24 +104,27 @@ public class FroggyController : MonoBehaviour
             UpdateHandData(_leftHandData);
             UpdateHandData(_rightHandData);
 
-            // Check if there's a fly in front
-            if (Physics.SphereCast(FroggyParentTransform.position, SphereCastRadius, -FroggyParentTransform.right, out RaycastHit hit, SphereCastDistance, FlyLayerMask))
+            RaycastHit[] hits = Physics.SphereCastAll(FroggyParentTransform.position, SphereCastRadius, -FroggyParentTransform.right, SphereCastDistance, FlyLayerMask);
+
+            // Disable outline for hits that are no longer in the current hits
+            foreach (var hit in _previousHits)
             {
-                if (_hitFlyCollider == null || hit.collider != _hitFlyCollider)
+                if (!hits.Contains(hit))
                 {
-                    _hitFlyCollider = hit.collider;
-                    SelectionOutline = _hitFlyCollider.GetComponentInChildren<Outline>();
-                    SelectionOutline.enabled = true;
+                    if (hit.collider != null)
+                    {
+                        hit.collider.GetComponentInChildren<Outline>().enabled = false;
+                    }
                 }
             }
-            else
+
+            // Enable outline for all current hits
+            foreach (var hit in hits)
             {
-                _hitFlyCollider = null;
-                if (SelectionOutline != null)
-                {
-                    SelectionOutline.enabled = false;
-                }
+                hit.collider.GetComponentInChildren<Outline>().enabled = true;
             }
+
+            _previousHits = hits;
 
             // Sync tongue tip gameobject with extended tongue
             TongueTipObjectTransform.position = TongueTipTargetTransform.position;
@@ -165,6 +165,7 @@ public class FroggyController : MonoBehaviour
             metaAudio.EnableSpatialization = true;
             // HideAllRenderers();
             _initialized = true;
+            _previousHits = new RaycastHit[0];
         }
     }
 
@@ -176,20 +177,22 @@ public class FroggyController : MonoBehaviour
             handData.IsIndexFingerPinching = distanceFromIndexFingerTipToThumbTip < MaxDistanceToGrab;
 
             FroggyParentTransform.parent = FroggyActiveHand.transform;
+            FroggyParentTransform.localPosition = FroggyPositionOffset;
+            FroggyParentTransform.localEulerAngles = FroggyRotationOffset;
 
             if (handData.IsIndexFingerPinching && (Time.time - FroggyLastTriggeredTime) > CooldownTime)
             {
-                FroggyActiveHand = handData.Hand;
-                ShowAllRenderers();
-                FroggyParentTransform.parent = FroggyActiveHand.transform;
-                FroggyParentTransform.localPosition = FroggyPositionOffset;
-                FroggyParentTransform.localEulerAngles = FroggyRotationOffset;
+                // FroggyActiveHand = handData.Hand;
+                // ShowAllRenderers();
+                // FroggyParentTransform.parent = FroggyActiveHand.transform;
+                // FroggyParentTransform.localPosition = FroggyPositionOffset;
+                // FroggyParentTransform.localEulerAngles = FroggyRotationOffset;
 
-                if (FroggyActiveHand == LeftHand)
-                {
-                    FroggyParentTransform.localPosition = -FroggyPositionOffset;
-                    FroggyParentTransform.localEulerAngles = FroggyRotationOffset + new Vector3(0, 0, 180);
-                }
+                // if (FroggyActiveHand == LeftHand)
+                // {
+                //     FroggyParentTransform.localPosition = -FroggyPositionOffset;
+                //     FroggyParentTransform.localEulerAngles = FroggyRotationOffset + new Vector3(0, 0, 180);
+                // }
 
                 TriggerPress();
                 FroggyLastTriggeredTime = Time.time;
@@ -221,12 +224,11 @@ public class FroggyController : MonoBehaviour
     {
         if (FroggyActiveHand != null && !FroggyActive)
         {
-            if (_hitFlyCollider != null)
+            if (_previousHits.Length > 0)
             {
                 _successFly = true;
-                float distance = Vector3.Distance(_hitFlyCollider.transform.position, TongueTipObjectTransform.position);
+                float distance = Vector3.Distance(_previousHits[0].transform.position, TongueTipObjectTransform.position);
                 float scaleY = Mathf.Clamp(map(distance, 0, SphereCastDistance, MinScaleY, MaxScaleY), MinScaleY, MaxScaleY);
-                Debug.Log("Hitting " + _hitFlyCollider.name + ", extending tongue by " + scaleY);
                 StartCoroutine(AnimateFrogTongueScale(_originalFrogTongueScale, new Vector3(1f, scaleY, 1f), GrabSpeed, ReturnSpeed));
             }
             else
@@ -267,7 +269,7 @@ public class FroggyController : MonoBehaviour
         FroggyActive = false;
         FrogTongueTransform.localScale = inScale;
         // FroggyActiveHand = null;
-        FroggyParentTransform.parent = null;
+        // FroggyParentTransform.parent = null;
 
         yield return new WaitForSeconds(0.2f);
         // HideAllRenderers();
@@ -292,13 +294,14 @@ public class FroggyController : MonoBehaviour
         if (other.tag == "Fly")
         {
             UIManager.Instance.IncrementKill(other.transform.position);
+            other.GetComponentInChildren<FlyMovement>().enabled = false;
             other.GetComponentInChildren<Outline>().enabled = false;
             other.GetComponentInChildren<Animator>().speed = 0;
             other.transform.parent = TongueTipObjectTransform;
             other.transform.position = GetRandomPointWithinBounds(TongueTipObjectTransform.gameObject);
             other.transform.localScale = other.transform.localScale * 0.5f;
 
-            Destroy(other.gameObject, 1f);
+            Destroy(other.gameObject, 0.2f);
         }
     }
 

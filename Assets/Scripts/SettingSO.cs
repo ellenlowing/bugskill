@@ -14,7 +14,7 @@ public class SettingSO : ScriptableObject
     public int skillScoreValue = 100;
 
     [Header("Fly Objects")]
-    public List<GameObject> flies;
+    public List<GameObject> flies = new List<GameObject>();
 
     [Header("Fly Controls")]
     public float eyeSpiralSpeed = 220.0f;
@@ -31,5 +31,5 @@ public class SettingSO : ScriptableObject
     [Header("HourGlass")]
     public float divFactor = 2.7f;
     public float distanceFromCamera = 1.0f;
-  
+
 }

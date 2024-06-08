@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.XR;
 using System.Linq;
 
-public class FroggyController : MonoBehaviour
+public class FroggyController : BasePowerUpBehavior
 {
     public class HandData
     {
@@ -37,7 +37,6 @@ public class FroggyController : MonoBehaviour
     public bool IsActive = false;
 
     [Header("Tongue")]
-    public Transform FroggyParentTransform;
     public Transform FrogTongueTransform;
     public float GrabSpeed = 2;
     public float ReturnSpeed = 1;
@@ -91,12 +90,13 @@ public class FroggyController : MonoBehaviour
         }
     }
 
-    void Start()
+    new void Start()
     {
+        base.Start();
         Initialize();
     }
 
-    void Update()
+    new void Update()
     {
         if (IsActive)
         {
@@ -104,7 +104,7 @@ public class FroggyController : MonoBehaviour
             UpdateHandData(_leftHandData);
             UpdateHandData(_rightHandData);
 
-            RaycastHit[] hits = Physics.SphereCastAll(FroggyParentTransform.position, SphereCastRadius, -FroggyParentTransform.right, SphereCastDistance, FlyLayerMask);
+            RaycastHit[] hits = Physics.SphereCastAll(transform.position, SphereCastRadius, -transform.right, SphereCastDistance, FlyLayerMask);
 
             // Disable outline for hits that are no longer in the current hits
             foreach (var hit in _previousHits)
@@ -173,26 +173,24 @@ public class FroggyController : MonoBehaviour
     {
         if (handData.Hand.IsTracked)
         {
-            // var distanceFromIndexFingerTipToThumbTip = Vector3.Distance(handData.IndexFingerTipTransform.position, handData.ThumbTipTransform.position);
-            // handData.IsIndexFingerPinching = distanceFromIndexFingerTipToThumbTip < MaxDistanceToGrab;
             handData.IsIndexFingerPinching = handData.Hand.GetFingerIsPinching(OVRHand.HandFinger.Index);
 
-            FroggyParentTransform.parent = FroggyActiveHand.transform;
-            FroggyParentTransform.localPosition = FroggyPositionOffset;
-            FroggyParentTransform.localEulerAngles = FroggyRotationOffset;
+            // transform.parent = FroggyActiveHand.transform;
+            // transform.localPosition = FroggyPositionOffset;
+            // transform.localEulerAngles = FroggyRotationOffset;
 
             if (handData.IsIndexFingerPinching && (Time.time - FroggyLastTriggeredTime) > CooldownTime)
             {
                 // FroggyActiveHand = handData.Hand;
                 // ShowAllRenderers();
-                // FroggyParentTransform.parent = FroggyActiveHand.transform;
-                // FroggyParentTransform.localPosition = FroggyPositionOffset;
-                // FroggyParentTransform.localEulerAngles = FroggyRotationOffset;
+                // transform.parent = FroggyActiveHand.transform;
+                // transform.localPosition = FroggyPositionOffset;
+                // transform.localEulerAngles = FroggyRotationOffset;
 
                 // if (FroggyActiveHand == LeftHand)
                 // {
-                //     FroggyParentTransform.localPosition = -FroggyPositionOffset;
-                //     FroggyParentTransform.localEulerAngles = FroggyRotationOffset + new Vector3(0, 0, 180);
+                //     transform.localPosition = -FroggyPositionOffset;
+                //     transform.localEulerAngles = FroggyRotationOffset + new Vector3(0, 0, 180);
                 // }
 
                 TriggerPress();
@@ -270,7 +268,7 @@ public class FroggyController : MonoBehaviour
         FroggyActive = false;
         FrogTongueTransform.localScale = inScale;
         // FroggyActiveHand = null;
-        // FroggyParentTransform.parent = null;
+        // transform.parent = null;
 
         yield return new WaitForSeconds(0.2f);
         // HideAllRenderers();
@@ -329,7 +327,7 @@ public class FroggyController : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(FroggyParentTransform.position + SphereCastDistance * -FroggyParentTransform.right, SphereCastRadius);
-        Gizmos.DrawRay(FroggyParentTransform.position, -FroggyParentTransform.right * SphereCastDistance);
+        Gizmos.DrawWireSphere(transform.position + SphereCastDistance * -transform.right, SphereCastRadius);
+        Gizmos.DrawRay(transform.position, -transform.right * SphereCastDistance);
     }
 }

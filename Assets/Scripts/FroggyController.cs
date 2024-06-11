@@ -98,42 +98,68 @@ public class FroggyController : BasePowerUpBehavior
 
     new void Update()
     {
-        if (IsActive)
+    }
+
+    public override void EnterIdleState()
+    {
+
+    }
+
+    public override void UpdateIdleState()
+    {
+
+    }
+
+    public override void EnterInactiveState()
+    {
+
+    }
+
+    public override void UpdateInactiveState()
+    {
+
+    }
+
+    public override void EnterActiveState()
+    {
+
+    }
+
+    public override void UpdateActiveState()
+    {
+        // Get the hand data
+        UpdateHandData(_leftHandData);
+        UpdateHandData(_rightHandData);
+
+        RaycastHit[] hits = Physics.SphereCastAll(transform.position, SphereCastRadius, -transform.right, SphereCastDistance, FlyLayerMask);
+
+        // Disable outline for hits that are no longer in the current hits
+        foreach (var hit in _previousHits)
         {
-            // Get the hand data
-            UpdateHandData(_leftHandData);
-            UpdateHandData(_rightHandData);
-
-            RaycastHit[] hits = Physics.SphereCastAll(transform.position, SphereCastRadius, -transform.right, SphereCastDistance, FlyLayerMask);
-
-            // Disable outline for hits that are no longer in the current hits
-            foreach (var hit in _previousHits)
+            if (!hits.Contains(hit))
             {
-                if (!hits.Contains(hit))
+                if (hit.collider != null)
                 {
-                    if (hit.collider != null)
-                    {
-                        hit.collider.GetComponentInChildren<Outline>().enabled = false;
-                    }
+                    hit.collider.GetComponentInChildren<Outline>().enabled = false;
                 }
             }
+        }
 
-            // Enable outline for all current hits
-            foreach (var hit in hits)
-            {
-                hit.collider.GetComponentInChildren<Outline>().enabled = true;
-            }
+        // Enable outline for all current hits
+        foreach (var hit in hits)
+        {
+            hit.collider.GetComponentInChildren<Outline>().enabled = true;
+        }
 
-            _previousHits = hits;
+        _previousHits = hits;
 
-            // Sync tongue tip gameobject with extended tongue
-            TongueTipObjectTransform.position = TongueTipTargetTransform.position;
-            TongueTipObjectTransform.rotation = TongueTipTargetTransform.rotation;
+        // Sync tongue tip gameobject with extended tongue
+        TongueTipObjectTransform.position = TongueTipTargetTransform.position;
+        TongueTipObjectTransform.rotation = TongueTipTargetTransform.rotation;
 
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                TriggerPress();
-            }
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            TriggerPress();
         }
     }
 
@@ -175,24 +201,8 @@ public class FroggyController : BasePowerUpBehavior
         {
             handData.IsIndexFingerPinching = handData.Hand.GetFingerIsPinching(OVRHand.HandFinger.Index);
 
-            // transform.parent = FroggyActiveHand.transform;
-            // transform.localPosition = FroggyPositionOffset;
-            // transform.localEulerAngles = FroggyRotationOffset;
-
             if (handData.IsIndexFingerPinching && (Time.time - FroggyLastTriggeredTime) > CooldownTime)
             {
-                // FroggyActiveHand = handData.Hand;
-                // ShowAllRenderers();
-                // transform.parent = FroggyActiveHand.transform;
-                // transform.localPosition = FroggyPositionOffset;
-                // transform.localEulerAngles = FroggyRotationOffset;
-
-                // if (FroggyActiveHand == LeftHand)
-                // {
-                //     transform.localPosition = -FroggyPositionOffset;
-                //     transform.localEulerAngles = FroggyRotationOffset + new Vector3(0, 0, 180);
-                // }
-
                 TriggerPress();
                 FroggyLastTriggeredTime = Time.time;
             }

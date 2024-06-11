@@ -24,6 +24,8 @@ public class HandController : MonoBehaviour
     Transform touchedFlyTransform = null;
     float BloodSplatTimer = 0;
 
+    private int totalCash = 0;
+
     void Start()
     {
 
@@ -101,10 +103,13 @@ public class HandController : MonoBehaviour
                 {
                     var splatter = Instantiate(splatterPrefab, touchedFlyTransform.position, Quaternion.identity);
                     splatter.transform.up = touchedFlyTransform.up;
-                    UIManager.Instance.IncrementKill(touchedFlyTransform.position);
+                    
+                   
                     CashSlimFly();
                     settings.Cash += (int)SCOREFACTOR.SLAP;
-
+                    totalCash += (int)SCOREFACTOR.SLAP;
+                    UIManager.Instance.IncrementKill(touchedFlyTransform.position, totalCash);
+                    totalCash = 0;
                     Debug.Log("Instantiating splatter on wall");
                 }
                 else if (isTouchingOtherHand)
@@ -114,9 +119,12 @@ public class HandController : MonoBehaviour
 
                     if (IsRightHand)
                     {
-                        UIManager.Instance.IncrementKill(touchedFlyTransform.position);
+                        
                         CashSlimFly();
                         settings.Cash += (int)SCOREFACTOR.CLAP;
+                        totalCash += (int)SCOREFACTOR.CLAP;
+                        UIManager.Instance.IncrementKill(touchedFlyTransform.position, totalCash);
+                        totalCash = 0;
                     }
                 }
 
@@ -150,6 +158,12 @@ public class HandController : MonoBehaviour
         if (touchedFlyTransform.localScale == new Vector3(1f, 1f, 1f))
         {
             settings.Cash += (int)SCOREFACTOR.SLIM;
+            totalCash += (int)SCOREFACTOR.SLIM;
+        }
+        else
+        {
+            settings.Cash += (int)SCOREFACTOR.FAT;
+            totalCash += (int)SCOREFACTOR.FAT;
         }
     }
 }

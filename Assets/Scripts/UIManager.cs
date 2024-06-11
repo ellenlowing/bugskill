@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 using Oculus.Interaction;
 using TMPro;
 using UnityEditor;
@@ -116,6 +117,13 @@ public class UIManager : MonoBehaviour
         SprayStartButton.WhenSelect.AddListener(SprayStart);
         SwatterStartButton.WhenSelect.AddListener(SwatterStart);
         GameExitButton.WhenSelect.AddListener(QuitGame);
+
+        Invoke(nameof(UpdateStarterMenu), 1.5f);
+    }
+
+    private void UpdateStarterMenu()
+    {
+        FaceCamera(GameStartUI);
     }
 
     private void QuitGame()
@@ -284,9 +292,9 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    public void IncrementKill(Vector3 pos)
+    public void IncrementKill(Vector3 pos, int amount)
     {
         settings.numberOfKills += 1;
-        ScoreUIUpdateEvent.RaiseEvent(settings.Cash, pos);
+        ScoreUIUpdateEvent.RaiseEvent(amount, pos);
     }
 }

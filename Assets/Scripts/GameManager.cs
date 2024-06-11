@@ -328,7 +328,7 @@ public partial class GameManager : MonoBehaviour
         waveIndex = 0;
         settings.numberOfKills = 0;
         settings.Cash = 0;
-        initialTime = 0;
+        //initialTime = 0;
         UIManager.Instance.FailedPanel(false, 0, 0);
         
     }

@@ -240,7 +240,7 @@ MonoBehaviour:
     x: 0
     y: 0
     width: 2150
-    height: 1055
+    height: 1142
   m_MinSize: {x: 200, y: 50}
   m_MaxSize: {x: 16192, y: 8096}
   vertical: 0
@@ -263,7 +263,7 @@ MonoBehaviour:
     x: 0
     y: 0
     width: 358
-    height: 1055
+    height: 1142
   m_MinSize: {x: 201, y: 221}
   m_MaxSize: {x: 4001, y: 4021}
   m_ActualView: {fileID: 18}
@@ -289,7 +289,7 @@ MonoBehaviour:
     x: 358
     y: 0
     width: 1792
-    height: 1055
+    height: 1142
   m_MinSize: {x: 202, y: 221}
   m_MaxSize: {x: 4002, y: 4021}
   m_ActualView: {fileID: 17}
@@ -313,9 +313,9 @@ MonoBehaviour:
   m_Position:
     serializedVersion: 2
     x: 0
-    y: 1055
+    y: 1142
     width: 2150
-    height: 244
+    height: 157
   m_MinSize: {x: 101, y: 121}
   m_MaxSize: {x: 4001, y: 4021}
   m_ActualView: {fileID: 21}
@@ -388,7 +388,7 @@ MonoBehaviour:
     m_OverlaysVisible: 1
   m_LockTracker:
     m_IsLocked: 0
-  m_LastSelectedObjectID: 33112
+  m_LastSelectedObjectID: -2432
 --- !u!114 &16
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -482,7 +482,7 @@ MonoBehaviour:
     x: 358
     y: 73
     width: 1790
-    height: 1034
+    height: 1121
   m_SerializedDataModeController:
     m_DataMode: 0
     m_PreferredDataMode: 0
@@ -854,9 +854,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: -1.4075203, y: 1.4180319, z: 5.244866}
+    m_Target: {x: 0.3519358, y: 2.072817, z: 0.82664204}
     speed: 2
-    m_Value: {x: -1.4075203, y: 1.4180319, z: 5.244866}
+    m_Value: {x: 0.3519358, y: 2.072817, z: 0.82664204}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -902,13 +902,13 @@ MonoBehaviour:
     m_GridAxis: 1
     m_gridOpacity: 0.5
   m_Rotation:
-    m_Target: {x: 0.1233403, y: -0.13650961, z: 0.016934304, w: 0.9828413}
+    m_Target: {x: 0.10211159, y: -0.42011455, z: 0.047410805, w: 0.90052307}
     speed: 2
-    m_Value: {x: -0.12334031, y: 0.13650961, z: -0.016934304, w: -0.9828414}
+    m_Value: {x: 0.10210585, y: -0.4200909, z: 0.047408137, w: 0.9004724}
   m_Size:
     m_Target: 2.8021836
     speed: 2
-    m_Value: 2.9342237
+    m_Value: 2.8021836
   m_Ortho:
     m_Target: 0
     speed: 2
@@ -956,7 +956,7 @@ MonoBehaviour:
     x: 0
     y: 73
     width: 357
-    height: 1034
+    height: 1121
   m_SerializedDataModeController:
     m_DataMode: 0
     m_PreferredDataMode: 0
@@ -970,8 +970,8 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: 
-      m_LastClickedID: 0
+      m_SelectedIDs: 78800000
+      m_LastClickedID: 32888
       m_ExpandedIDs: 28fbffff
       m_RenameOverlay:
         m_UserAcceptedRename: 0
@@ -1115,9 +1115,9 @@ MonoBehaviour:
   m_Pos:
     serializedVersion: 2
     x: 0
-    y: 1216
+    y: 1215
     width: 2149
-    height: 135
+    height: 136
   m_SerializedDataModeController:
     m_DataMode: 0
     m_PreferredDataMode: 0
@@ -1139,7 +1139,7 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Scripts/Data
+    - Assets/Scripts
     m_Globs: []
     m_OriginalText: 
     m_ImportLogFlags: 0
@@ -1147,16 +1147,16 @@ MonoBehaviour:
   m_ViewMode: 1
   m_StartGridSize: 55
   m_LastFolders:
-  - Assets/Scripts/Data
+  - Assets/Scripts
   m_LastFoldersGridSize: 55
   m_LastProjectPath: C:\Users\akuma\2024\XR BOOTCAMP\slap-da-fly
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 525}
-    m_SelectedIDs: 169f0000
-    m_LastClickedID: 40726
-    m_ExpandedIDs: 00000000d49f0000d69f0000d89f0000da9f0000dc9f0000de9f0000e09f0000e29f0000e49f0000e69f0000e89f0000ea9f0000ec9f0000ee9f0000f09f0000f29f0000f49f0000f69f0000f89f0000fa9f0000
+    m_SelectedIDs: da9f0000
+    m_LastClickedID: 40922
+    m_ExpandedIDs: 00000000d49f0000d69f0000d89f0000da9f0000dc9f0000de9f0000e09f0000e29f0000e49f0000e69f0000e89f0000ea9f0000ec9f0000ee9f0000f09f0000f29f0000f49f0000f69f0000f89f0000fa9f0000e6ae000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1209,9 +1209,9 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
   m_ListAreaState:
-    m_SelectedInstanceIDs: 
-    m_LastClickedInstanceID: 0
-    m_HadKeyboardFocusLastEvent: 1
+    m_SelectedInstanceIDs: 80f6ffff
+    m_LastClickedInstanceID: -2432
+    m_HadKeyboardFocusLastEvent: 0
     m_ExpandedInstanceIDs: c6230000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
@@ -1261,9 +1261,9 @@ MonoBehaviour:
   m_Pos:
     serializedVersion: 2
     x: 0
-    y: 1128
+    y: 1215
     width: 2149
-    height: 223
+    height: 136
   m_SerializedDataModeController:
     m_DataMode: 0
     m_PreferredDataMode: 0

@@ -150,6 +150,8 @@ namespace Power_Up
             }
         }
 
+        private int totalCash;
+
         private void OnTriggerEnter(Collider other)
         {
             Debug.Log("OnTriggerEnter()");
@@ -160,7 +162,7 @@ namespace Power_Up
                 Debug.Log("OnTriggerEnter() past checks");
                 HitSoundPlayer.Play();
 
-                UIManager.Instance.IncrementKill(other.transform.position);
+               
                 other.transform.SetParent(SwatterPosition);
 
                 // Instantiate shock effect on fly
@@ -171,9 +173,18 @@ namespace Power_Up
                 if(other.gameObject.transform.localScale == Vector3.one)
                 {
                     settings.Cash += (int)SCOREFACTOR.SLIM;
+                    totalCash += (int)SCOREFACTOR.SLIM;
                 }
-                settings.Cash += (int)SCOREFACTOR.SWATTER;
+                else
+                {
+                    settings.Cash += (int)SCOREFACTOR.FAT;
+                    totalCash += (int)SCOREFACTOR.FAT;
+                }
 
+                settings.Cash += (int)SCOREFACTOR.SWATTER;
+                totalCash += (int)SCOREFACTOR.SWATTER;
+                UIManager.Instance.IncrementKill(other.transform.position, totalCash);
+                totalCash = 0;
                 // Destroy fly after delay 
                 Destroy(other.gameObject, destroyFlyDelay);
             }

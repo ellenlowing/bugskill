@@ -57,6 +57,7 @@ public partial class GameManager : MonoBehaviour
 
     private int runningIndex = 0;
     private int LocalKills = 0;
+    private int LocalCash = 0;
 
     void Awake()
     {
@@ -206,6 +207,8 @@ public partial class GameManager : MonoBehaviour
                     canSpawn = true;
                   
                     LocalKills = settings.numberOfKills - LocalKills;
+                    LocalCash = settings.Cash - LocalCash;
+
                     CanProgress(waveIndex);
                     WhatPowerUp(waveIndex);
                     animator.speed = 1f;
@@ -276,13 +279,23 @@ public partial class GameManager : MonoBehaviour
 
     private void CheckGoal(int waveI)
     {
-        if (!(LocalKills >= settings.LevelGoals[waveI]))
+        //if (!(LocalKills >= settings.LevelGoals[waveI]))
+        //{
+        //    UIManager.Instance.FailedPanel(true, LocalKills, waveIndex);
+        //    canSpawn = false;
+        //    waveIndex = 0;
+        //    runningIndex = waveIndex;     
+            
+        //    StopCoroutine(GameLoopRoutine);
+        //}
+
+        if(!(LocalCash >= settings.LevelGoals[waveI]))
         {
-            UIManager.Instance.FailedPanel(true, LocalKills, waveIndex);
+            UIManager.Instance.FailedPanel(true, LocalCash, waveIndex);
             canSpawn = false;
             waveIndex = 0;
-            runningIndex = waveIndex;     
-            
+            runningIndex = waveIndex;
+
             StopCoroutine(GameLoopRoutine);
         }
     }

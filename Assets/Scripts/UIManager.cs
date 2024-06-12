@@ -28,6 +28,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject UIScoreObj;
     [SerializeField] private GameObject FailurePanel;
     [SerializeField] private TextMeshProUGUI FailText;
+    [SerializeField] private GameObject LevelProgressUI;
     [SerializeField] private TextMeshProUGUI WalletText;
     [SerializeField] private TextMeshProUGUI LevelGoalText;
     [SerializeField] private TextMeshProUGUI LevelNumberText;
@@ -284,6 +285,7 @@ public class UIManager : MonoBehaviour
     {
         LevelNumberText.text = settings.waveIndex.ToString();
         LevelGoalText.text = settings.LevelGoals[settings.waveIndex].ToString();
+        LevelProgressUI.SetActive(true);
     }
 
     public void StartGameLoopTrigger()

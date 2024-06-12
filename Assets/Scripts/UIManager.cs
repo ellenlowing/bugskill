@@ -28,6 +28,9 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject UIScoreObj;
     [SerializeField] private GameObject FailurePanel;
     [SerializeField] private TextMeshProUGUI FailText;
+    [SerializeField] private TextMeshProUGUI WalletText;
+    [SerializeField] private TextMeshProUGUI LevelGoalText;
+    [SerializeField] private TextMeshProUGUI LevelNumberText;
 
     [Header("Buttons")]
     [Space(20)]
@@ -111,8 +114,9 @@ public class UIManager : MonoBehaviour
         UpgradePowerUps.OnEventRaised += UpgradeUI;
         BossFightEvent.OnEventRaised += BossFight;
 
+        StartNextWaveEvent.OnEventRaised += UpdateLevel;
 
-        GameStartButton.WhenSelect.AddListener(StartGameLoopTrigger);
+        // GameStartButton.WhenSelect.AddListener(StartGameLoopTrigger);
         FrogStartButton.WhenSelect.AddListener(FrogStart);
         SprayStartButton.WhenSelect.AddListener(SprayStart);
         SwatterStartButton.WhenSelect.AddListener(SwatterStart);
@@ -271,8 +275,15 @@ public class UIManager : MonoBehaviour
         tempText = UIScoreObj.GetComponentInChildren<TextMeshProUGUI>();
         tempText.text = cashAmount.ToString();
         tempObj = Instantiate(UIScoreObj, position, Quaternion.identity);
+        WalletText.text = settings.Cash.ToString();
         FaceCamera(tempObj);
         Destroy(tempObj, 1f);
+    }
+
+    public void UpdateLevel()
+    {
+        LevelNumberText.text = settings.waveIndex.ToString();
+        LevelGoalText.text = settings.LevelGoals[settings.waveIndex].ToString();
     }
 
     public void StartGameLoopTrigger()

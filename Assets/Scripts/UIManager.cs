@@ -277,6 +277,7 @@ public class UIManager : MonoBehaviour
 
     public void StartGameLoopTrigger()
     {
+        Debug.Log("Start Button clicked");
         Destroy(GameStartUI, quickStart);
         GameBegins.RaiseEvent();
     }

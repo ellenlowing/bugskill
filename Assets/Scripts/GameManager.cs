@@ -380,25 +380,28 @@ public partial class GameManager : MonoBehaviour
             }
 
             // place hourglass on table
-            // if (anchor.HasLabel("TABLE"))
-            // {
-            //     if (!doneOnce)
-            //     {
-            //         HourGlass.transform.position = anchor.transform.position;
-            //         doneOnce = true;
-            //     }
-            // }
-            // else
-            // {
-            if (anchor.HasLabel("FLOOR"))
+            if (anchor.HasLabel("TABLE"))
             {
                 if (!doneOnce)
                 {
                     HourGlass.transform.position = anchor.transform.position;
+                    HourGlass.transform.forward = anchor.transform.right;
                     doneOnce = true;
                 }
             }
-            // }
+            else
+            {
+                if (anchor.HasLabel("FLOOR"))
+                {
+                    if (!doneOnce)
+                    {
+                        HourGlass.transform.position = anchor.transform.position;
+                        HourGlass.transform.forward = anchor.transform.up;
+
+                        doneOnce = true;
+                    }
+                }
+            }
         }
     }
 }

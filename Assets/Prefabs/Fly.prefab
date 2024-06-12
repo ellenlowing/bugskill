@@ -462,6 +462,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slowDownNow: 0
+  DeadFly: {fileID: 3213440733724153885, guid: ee9a8fad1d79dce46a4f3469247eb9a1, type: 3}
   settings: {fileID: 11400000, guid: 415f7b1141256224db7c3c8720566774, type: 2}
   flyMovements: {fileID: 6558061756533918786}
   NormalEyeMesh:

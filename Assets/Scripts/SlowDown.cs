@@ -7,6 +7,7 @@ using UnityEngine.UIElements;
 public class SlowDown : MonoBehaviour
 {
     public bool slowDownNow = false;
+    public GameObject DeadFly;
     public SettingSO settings;
     public FlyMovement flyMovements;
     public List<MeshRenderer> NormalEyeMesh;
@@ -34,6 +35,19 @@ public class SlowDown : MonoBehaviour
         CircularEyeMesh[0].transform.gameObject.GetComponent<EyeSpiral>().canRotate = circular;
         CircularEyeMesh[1].transform.gameObject.GetComponent<EyeSpiral>().canRotate = circular;
     }
+
+    public void DropFly (float DropTime)
+    {
+        Destroy(this, DropTime);
+        StartCoroutine(DropAsap(DropTime));
+    }
+
+    IEnumerator DropAsap(float time)
+    {
+        yield return new WaitForSeconds(time);
+        GameObject obj = Instantiate(DeadFly, transform.position, Quaternion.Euler(Random.Range(0, 360), Random.Range(0, 360), Random.Range(0, 360)));
+        obj.transform.localScale = this.transform.localScale;
+    } 
 
 
     public void SlowDownFly()

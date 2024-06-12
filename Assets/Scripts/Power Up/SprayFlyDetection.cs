@@ -18,7 +18,13 @@ public class SprayFlyDetection : BasePowerUpBehavior
 
     public bool isStreaming = false;
     private float initialTime = 0.0f;
+    private int totalCash = 0;
 
+    private List<string> currentObjects = new List<string>();
+
+    //private bool canKill = false;
+    //private float maxTime = 2.0f;
+    //private float runningTime = 0.0f;
 
     public void CheckSteamOut()
     {
@@ -36,9 +42,15 @@ public class SprayFlyDetection : BasePowerUpBehavior
 
             }
             initialTime += Time.deltaTime;
-
         }
 
+        //if(runningTime > maxTime)
+        //{
+        //    runningTime = 0;
+        //    canKill = true;
+        //}
+
+        //runningTime += Time.deltaTime;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -47,16 +59,37 @@ public class SprayFlyDetection : BasePowerUpBehavior
         {
             if (other.CompareTag("Fly"))
             {
-                Instantiate(DeadFly, other.transform.position, Quaternion.Euler(Random.Range(0,360), Random.Range(0, 360), Random.Range(0, 360)));
-                Destroy(other.gameObject);
-                settings.score += 15;
+               
+                if (other.TryGetComponent<SlowDown>(out SlowDown slowDown))
+                {
+                    slowDown.SlowDownFly();
+                    slowDown.DropFly(2.0f);
+                };
+
+                if (other.gameObject.transform.localScale == Vector3.one)
+                {
+                    settings.Cash += (int)SCOREFACTOR.SLIM;
+                    totalCash += (int)SCOREFACTOR.SLIM;
+                }
+                else
+                {
+                    settings.Cash += (int)SCOREFACTOR.FAT;
+                    totalCash += (int)SCOREFACTOR.FAT;
+                }
+
+                settings.Cash += (int)SCOREFACTOR.SWATTER;
+                totalCash += (int)SCOREFACTOR.SWATTER;
+                settings.numberOfKills += 1;
+                UIManager.Instance.IncrementKill(other.transform.position, totalCash);
+                totalCash = 0;
+
             }
         }
      
     }
 
 
- 
+  
 
     void OnDrawGizmos()
     {

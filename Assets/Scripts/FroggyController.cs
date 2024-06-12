@@ -35,6 +35,9 @@ public class FroggyController : MonoBehaviour
     public static FroggyController Instance;
     public bool IsActive = false;
 
+    [Header("Settings Data")]
+    [SerializeField] private SettingSO settings;
+
     [Header("Tongue")]
     public Transform FroggyParentTransform;
     public Transform FrogTongueTransform;
@@ -277,19 +280,35 @@ public class FroggyController : MonoBehaviour
         audioSource.Play();
     }
 
+    private int totalCash = 0;
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Fly")
         {
             Debug.Log("Fly caught!");
             // other.GetComponentInParent<FlyMovement>().isCaught = true;
-            UIManager.Instance.IncrementKill(other.transform.position);
+            
             other.GetComponentInChildren<Animator>().speed = 0;
             other.transform.parent = TongueTipObjectTransform;
             other.transform.position = GetRandomPointWithinBounds(TongueTipObjectTransform.gameObject);
             other.transform.localScale = other.transform.localScale * 0.5f;
-
+            
+            if(other.gameObject.transform.localScale == Vector3.one)
+            {
+                settings.Cash += (int)SCOREFACTOR.SLIM;
+                totalCash += (int)SCOREFACTOR.SLIM;
+            }
+            else
+            {
+                settings.Cash += (int)SCOREFACTOR.FAT;
+                totalCash += (int)SCOREFACTOR.FAT;
+            }
             Destroy(other.gameObject, 1f);
+            settings.Cash += (int)SCOREFACTOR.FROG;
+            totalCash += (int)SCOREFACTOR.FROG;
+            UIManager.Instance.IncrementKill(other.transform.position, totalCash);
+            totalCash = 0;
         }
     }
 

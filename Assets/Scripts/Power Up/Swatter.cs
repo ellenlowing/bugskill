@@ -9,6 +9,9 @@ namespace Power_Up
     {
         public bool IsHeld { get; set; } = false;
 
+        [Header("Settings Data")]
+        [SerializeField] private SettingSO settings;
+
         [Header("Effects and Sounds")]
         public ParticleSystem ElectricityEffect;
         public ParticleSystem HitEffect;
@@ -134,13 +137,15 @@ namespace Power_Up
             }
         }
 
+        private int totalCash;
+
         private void OnTriggerEnter(Collider other)
         {
             if (other.gameObject.CompareTag("Fly") && CurrentState == PowerUpState.ACTIVE)
             {
                 HitSoundPlayer.Play();
 
-                UIManager.Instance.IncrementKill(other.transform.position);
+               
                 other.transform.SetParent(SwatterPosition);
 
                 // Instantiate shock effect on fly
@@ -148,7 +153,21 @@ namespace Power_Up
                     Instantiate(HitEffect, other.transform.position, Quaternion.identity);
                 hitEffectInstance.Play();
                 Destroy(hitEffectInstance.gameObject, hitEffectInstance.main.duration);
+                if(other.gameObject.transform.localScale == Vector3.one)
+                {
+                    settings.Cash += (int)SCOREFACTOR.SLIM;
+                    totalCash += (int)SCOREFACTOR.SLIM;
+                }
+                else
+                {
+                    settings.Cash += (int)SCOREFACTOR.FAT;
+                    totalCash += (int)SCOREFACTOR.FAT;
+                }
 
+                settings.Cash += (int)SCOREFACTOR.SWATTER;
+                totalCash += (int)SCOREFACTOR.SWATTER;
+                UIManager.Instance.IncrementKill(other.transform.position, totalCash);
+                totalCash = 0;
                 // Destroy fly after delay 
                 Destroy(other.gameObject, destroyFlyDelay);
             }

@@ -5,6 +5,12 @@ using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.SceneManagement;
 using UnityEngine.Events;
+using UnityEditor;
+using System.Dynamic;
+using Oculus.Interaction;
+
+// kills set to zero on start
+// cash still running , will reset somewhere safe
 
 public partial class GameManager : MonoBehaviour
 {
@@ -38,6 +44,8 @@ public partial class GameManager : MonoBehaviour
     public VoidEventChannelSO GameEnds;
     [Tooltip("Starts the Next Wave Event")]
     public VoidEventChannelSO StartNextWaveEvent;
+    [Tooltip("Failed Level Event")]
+    public InteractableUnityEventWrapper GameRestartEvent;
 
 
     private int waveIndex = 0;
@@ -48,6 +56,8 @@ public partial class GameManager : MonoBehaviour
     private Coroutine GameLoopRoutine;
 
     private int runningIndex = 0;
+    private int LocalKills = 0;
+    private int LocalCash = 0;
 
     void Awake()
     {
@@ -68,6 +78,9 @@ public partial class GameManager : MonoBehaviour
     {
         // check references
         UIM = GetComponent<UIManager>();
+        settings.numberOfKills = 0;
+        GameRestartEvent.WhenSelect.AddListener(RestartGameLoop);   
+       
         Assert.IsNotNull(UIM, "UIManager Reference Missing");
 
         GetWindowOrDoorFrames(MRUK.Instance.GetCurrentRoom());
@@ -85,6 +98,7 @@ public partial class GameManager : MonoBehaviour
 
     }
 
+  
     private void TrackTimer()
     {
         if (moveToNextWave)
@@ -122,6 +136,7 @@ public partial class GameManager : MonoBehaviour
     {
         if (FlySpawnPositions.Count == 0)
         {
+            Debug.LogWarning("Fly Spawn Positions Were Zero");
             yield break;
         }
 
@@ -133,6 +148,7 @@ public partial class GameManager : MonoBehaviour
                 if (waveIndex == settings.fliesInWave.Length)
                 {
                     // call completion here with ui score update
+                    Debug.LogWarning("Wave Index Same as Number of Flies in Wave");
                     GameEnds.RaiseEvent();
                     yield break;
                 }
@@ -189,8 +205,12 @@ public partial class GameManager : MonoBehaviour
                     settings.waveIndex = waveIndex;
                     moveToNextWave = false;
                     canSpawn = true;
-                    WhatPowerUp(waveIndex);
+                  
+                    LocalKills = settings.numberOfKills - LocalKills;
+                    LocalCash = settings.Cash - LocalCash;
 
+                    CanProgress(waveIndex);
+                    WhatPowerUp(waveIndex);
                     animator.speed = 1f;
 
                     if (animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1)
@@ -232,6 +252,60 @@ public partial class GameManager : MonoBehaviour
     }
 
 
+    // check state of progression 
+    private void CanProgress(int waveIndex)
+    {
+        switch(waveIndex)
+        {
+            case 0:
+                CheckGoal(waveIndex);
+                break;
+            case 1:
+                CheckGoal(waveIndex);
+                break;
+            case 2:
+                CheckGoal(waveIndex);
+                break;
+            case 3:
+                CheckGoal(waveIndex);
+                break;
+            case 4:
+                CheckGoal(waveIndex);
+                break;
+        }
+    }
+
+
+
+    private void CheckGoal(int waveI)
+    {
+        //if (!(LocalKills >= settings.LevelGoals[waveI]))
+        //{
+        //    UIManager.Instance.FailedPanel(true, LocalKills, waveIndex);
+        //    canSpawn = false;
+        //    waveIndex = 0;
+        //    runningIndex = waveIndex;     
+            
+        //    StopCoroutine(GameLoopRoutine);
+        //}
+
+        if(!(LocalCash >= settings.LevelGoals[waveI]))
+        {
+            UIManager.Instance.FailedPanel(true, LocalCash, waveIndex);
+            canSpawn = false;
+            waveIndex = 0;
+            runningIndex = waveIndex;
+
+            StopCoroutine(GameLoopRoutine);
+        }
+    }
+
+    private void StartGameLoop()
+    {
+        // SceneManager.LoadScene(SceneManager.GetActiveScene().name); 
+        GameLoopRoutine = StartCoroutine(SpawnFlyAtRandomPosition());
+    }
+
     // check game start to determine powerup
     private void WhatPowerUp(int waveIndex)
     {
@@ -256,9 +330,20 @@ public partial class GameManager : MonoBehaviour
     }
 
 
-    public void StartGameLoop()
+    public void RestartGameLoop()
     {
-        GameLoopRoutine = StartCoroutine(SpawnFlyAtRandomPosition());
+        settings.flies.Clear();
+        canSpawn = true;
+        animator.Play("Animation", 0, 0);
+        //animator.speed = settings.divFactor / settings.durationOfWave[0];
+        
+        GameLoopRoutine = StartCoroutine(SpawnFlyAtRandomPosition());     
+        waveIndex = 0;
+        settings.numberOfKills = 0;
+        settings.Cash = 0;
+        //initialTime = 0;
+        UIManager.Instance.FailedPanel(false, 0, 0);
+        
     }
 
     // this event has been removed from the MRUK event call 
@@ -278,12 +363,18 @@ public partial class GameManager : MonoBehaviour
             if (anchor.HasLabel("WINDOW_FRAME") || anchor.HasLabel("DOOR_FRAME"))
             {
                 FlySpawnPositions.Add(anchor);
-                // if (!doneOnce)
-                // {
-                //     Instantiate(Portal, anchor.transform.position, Portal.transform.rotation);
-                //     doneOnce = true;
-                // }
+                /*if (!doneOnce)
+                 {
+                     Instantiate(Portal, anchor.transform.position, Portal.transform.rotation);
+                     doneOnce = true;
+                 } */
 
+            } else 
+            {
+                if (anchor.HasLabel("CEILING") || anchor.HasLabel("FLOOR") || anchor.HasLabel("WALL_FACE"))
+                {
+                    FlySpawnPositions.Add(anchor);
+                }                
             }
 
             // place hourglass on table
@@ -293,6 +384,17 @@ public partial class GameManager : MonoBehaviour
                 {
                     HourGlass.transform.position = anchor.transform.position + new Vector3(0f, 0.3f, 0f);
                     doneOnce = true;
+                }
+            }
+            else
+            {
+                if (anchor.HasLabel("FLOOR"))
+                {
+                    if (!doneOnce)
+                    {
+                        HourGlass.transform.position = anchor.transform.position + new Vector3(0f, 0.3f, 0f);
+                        doneOnce = true;
+                    }
                 }
             }
         }

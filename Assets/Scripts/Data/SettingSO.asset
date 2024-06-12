@@ -16,6 +16,7 @@ MonoBehaviour:
   scoreMulFactor: 1
   numberOfKills: 0
   skillScoreValue: 100
+  Cash: 0
   flies: []
   eyeSpiralSpeed: 220
   flyIntelLevels:
@@ -24,9 +25,10 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 5d57f6c22de3aaa4fbac695a7c0a185c, type: 2}
   - {fileID: 11400000, guid: f5898cf1fcc934a4784ab8ecd71b4934, type: 2}
   - {fileID: 11400000, guid: 2cb2a157148019742a5339d058893360, type: 2}
-  waveWaitTime: 99999
+  waveWaitTime: 9999
   waveIndex: 1
-  durationOfWave: 1e0000001e0000001e0000001e0000001e0000001e000000
-  fliesInWave: 0f00000014000000190000001e0000002800000001000000
+  durationOfWave: 0a0000001e0000001e0000001e0000001e0000001e000000
+  fliesInWave: 1e00000014000000190000001e0000002800000001000000
+  LevelGoals: c8000000c8000000c8000000c8000000c8000000
   divFactor: 3
   distanceFromCamera: 0.8

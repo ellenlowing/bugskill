@@ -262,6 +262,7 @@ Transform:
   - {fileID: 8485045800086535804}
   - {fileID: 4149176408765088981}
   - {fileID: 525833695942253941}
+  - {fileID: 758892428813722169}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &142169463276143837
@@ -349,9 +350,9 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   _axis: 1
-  _releaseThresold: 0.3
-  _fireThresold: 0.7
-  _triggerSpeed: 10
+  _releaseThresold: 0.5
+  _fireThresold: 0.108
+  _triggerSpeed: 20
   _strengthCurve:
     serializedVersion: 2
     m_Curve:
@@ -381,11 +382,11 @@ MonoBehaviour:
     m_Bits: 16
   _spraySpreadAngle: 40
   _streamSpreadAngle: 20
-  _sprayStrength: 5
-  _sprayHits: 6
+  _sprayStrength: 10
+  _sprayHits: 10
   _sprayRandomness: 6
   _maxDistance: 2
-  _dryingSpeed: 0.002
+  _dryingSpeed: 0.02
   _sprayStampMaterial: {fileID: 2100000, guid: 44092c54cacca1046ac25e52c878a0c7, type: 2}
   _waterBumpOverride: {fileID: 2800000, guid: 06aafc7fcb186454893618a0b137089b, type: 3}
   WhenSpray:
@@ -406,6 +407,18 @@ MonoBehaviour:
       - m_Target: {fileID: 2298501694382501359}
         m_TargetAssemblyTypeName: Oculus.Interaction.AudioTrigger, Oculus.Interaction.Samples
         m_MethodName: PlayAudio
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 6986116357758925744}
+        m_TargetAssemblyTypeName: SprayFlyDetection, Assembly-CSharp
+        m_MethodName: CheckSteamOut
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -5383,7 +5396,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 9751ef0d9c1b960409752884ff54a34a, type: 2}
+  - {fileID: 2100000, guid: 3233801bc89364433b55683308294a30, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -5674,6 +5687,84 @@ MonoBehaviour:
   _twoGrabTransformer: {fileID: 0}
   _targetTransform: {fileID: 0}
   _maxGrabPoints: 1
+--- !u!1 &1808865838397451394
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 758892428813722169}
+  - component: {fileID: 6986116357758925744}
+  - component: {fileID: 8971927936163821679}
+  m_Layer: 0
+  m_Name: FlyCollision
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &758892428813722169
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1808865838397451394}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.035, z: 0.343}
+  m_LocalScale: {x: 0.32, y: 0.25, z: 0.7}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5393408075705371527}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6986116357758925744
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1808865838397451394}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61f0307d2ee5bdb4899e2b2aa4f12134, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MaxPowerCapacity: 1
+  PowerCapacity: 1
+  UsePowerRate: 0.001
+  ChargePowerRate: 0.05
+  CurrentState: 0
+  m_MaxDistance: 0.5
+  ScaleFactor: 0
+  TimeBtwChecks: 1
+  DeadFly: {fileID: 3213440733724153885, guid: ee9a8fad1d79dce46a4f3469247eb9a1, type: 3}
+  settings: {fileID: 11400000, guid: 415f7b1141256224db7c3c8720566774, type: 2}
+  bounds: {x: 0.68, y: 0.2, z: 0.2}
+  isStreaming: 0
+--- !u!65 &8971927936163821679
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1808865838397451394}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.91492665, y: 0.86168647, z: 1.0017023}
+  m_Center: {x: -0.015724357, y: 0.007022977, z: 0.24600469}
 --- !u!1 &1877231566190873012
 GameObject:
   m_ObjectHideFlags: 0
@@ -11457,7 +11548,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 70b1ef2f08272984eb0d645c1a858744, type: 2}
+  - {fileID: 2100000, guid: 3dc7efd83b9a04e3c87310aac85a6fab, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

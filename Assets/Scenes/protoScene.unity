@@ -3806,63 +3806,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1747532721}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &562195901
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 277104026520122632, guid: 60ed51aecbbeeef459e833c89bb819f2, type: 3}
-      propertyPath: m_Name
-      value: SprayBottle
-      objectReference: {fileID: 0}
-    - target: {fileID: 5393408075705371527, guid: 60ed51aecbbeeef459e833c89bb819f2, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5393408075705371527, guid: 60ed51aecbbeeef459e833c89bb819f2, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.99
-      objectReference: {fileID: 0}
-    - target: {fileID: 5393408075705371527, guid: 60ed51aecbbeeef459e833c89bb819f2, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0.342
-      objectReference: {fileID: 0}
-    - target: {fileID: 5393408075705371527, guid: 60ed51aecbbeeef459e833c89bb819f2, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5393408075705371527, guid: 60ed51aecbbeeef459e833c89bb819f2, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5393408075705371527, guid: 60ed51aecbbeeef459e833c89bb819f2, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5393408075705371527, guid: 60ed51aecbbeeef459e833c89bb819f2, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5393408075705371527, guid: 60ed51aecbbeeef459e833c89bb819f2, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5393408075705371527, guid: 60ed51aecbbeeef459e833c89bb819f2, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5393408075705371527, guid: 60ed51aecbbeeef459e833c89bb819f2, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 60ed51aecbbeeef459e833c89bb819f2, type: 3}
 --- !u!1 &578403117
 GameObject:
   m_ObjectHideFlags: 0
@@ -12684,6 +12627,63 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1835620350}
   m_CullTransparentMesh: 1
+--- !u!1001 &1868106318
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 277104026520122632, guid: 60ed51aecbbeeef459e833c89bb819f2, type: 3}
+      propertyPath: m_Name
+      value: SprayBottle
+      objectReference: {fileID: 0}
+    - target: {fileID: 5393408075705371527, guid: 60ed51aecbbeeef459e833c89bb819f2, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5393408075705371527, guid: 60ed51aecbbeeef459e833c89bb819f2, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.99
+      objectReference: {fileID: 0}
+    - target: {fileID: 5393408075705371527, guid: 60ed51aecbbeeef459e833c89bb819f2, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.342
+      objectReference: {fileID: 0}
+    - target: {fileID: 5393408075705371527, guid: 60ed51aecbbeeef459e833c89bb819f2, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5393408075705371527, guid: 60ed51aecbbeeef459e833c89bb819f2, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5393408075705371527, guid: 60ed51aecbbeeef459e833c89bb819f2, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5393408075705371527, guid: 60ed51aecbbeeef459e833c89bb819f2, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5393408075705371527, guid: 60ed51aecbbeeef459e833c89bb819f2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5393408075705371527, guid: 60ed51aecbbeeef459e833c89bb819f2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5393408075705371527, guid: 60ed51aecbbeeef459e833c89bb819f2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 60ed51aecbbeeef459e833c89bb819f2, type: 3}
 --- !u!1 &1870976869
 GameObject:
   m_ObjectHideFlags: 0
@@ -14772,6 +14772,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Swatter
       objectReference: {fileID: 0}
+    - target: {fileID: 2991904239131300368, guid: a39955e44dae65146a01bfa1cf124b5f, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6734971544782742302, guid: a39955e44dae65146a01bfa1cf124b5f, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.514
@@ -14881,4 +14885,4 @@ SceneRoots:
   - {fileID: 700587093}
   - {fileID: 1324841158}
   - {fileID: 1061050651}
-  - {fileID: 562195901}
+  - {fileID: 1868106318}

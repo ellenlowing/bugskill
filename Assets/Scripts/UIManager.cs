@@ -287,6 +287,7 @@ public class UIManager : MonoBehaviour
         if (obj != null)
         {
             obj.transform.position = Camera.main.transform.position + Camera.main.transform.forward * settings.distanceFromCamera;
+            obj.transform.position = new Vector3(obj.transform.position.x, Camera.main.transform.position.y, obj.transform.position.z);
             obj.transform.forward = Camera.main.transform.forward;
             obj.transform.eulerAngles = new Vector3(0, obj.transform.eulerAngles.y, obj.transform.eulerAngles.z);
         }

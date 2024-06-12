@@ -919,6 +919,7 @@ MonoBehaviour:
   PointableEventWrapper: {fileID: 2796636168851972562}
   _leftHandRenderer: {fileID: 0}
   _rightHandRenderer: {fileID: 0}
+  settings: {fileID: 11400000, guid: 415f7b1141256224db7c3c8720566774, type: 2}
   ElectricityEffect: {fileID: 9027514048236820043, guid: effb650189dc5714e9e9801b1cfb3991, type: 3}
   HitEffect: {fileID: 1141330259687333425, guid: 6718dc24203da53468af9ada8fef7d6d, type: 3}
   ElectricityEffectPosition: {fileID: 6972176862947461984}

@@ -61,7 +61,7 @@ public class UIManager : MonoBehaviour
     public VoidEventChannelSO GameEnds;
     public VoidEventChannelSO BossFightEvent;
     public VoidEventChannelSO StartNextWaveEvent;
-  
+
     public FVEventSO ScoreUIUpdateEvent;
 
     private GameObject tempObj;
@@ -110,7 +110,7 @@ public class UIManager : MonoBehaviour
         ElectricSwatterPowerUp.OnEventRaised += SwatterUI;
         UpgradePowerUps.OnEventRaised += UpgradeUI;
         BossFightEvent.OnEventRaised += BossFight;
-       
+
 
         GameStartButton.WhenSelect.AddListener(StartGameLoopTrigger);
         FrogStartButton.WhenSelect.AddListener(FrogStart);
@@ -128,8 +128,8 @@ public class UIManager : MonoBehaviour
 
     private void QuitGame()
     {
-#if UNITY_EDITOR 
-       EditorApplication.isPlaying = false;
+#if UNITY_EDITOR
+        EditorApplication.isPlaying = false;
 #endif
         Application.Quit();
     }
@@ -166,13 +166,12 @@ public class UIManager : MonoBehaviour
         // ScoreText.text = "Score : " + settings.score.ToString();
     }
 
- 
     public void FailedPanel(bool state, int kills, int currentIndex)
     {
         // show failure panel
-            FailurePanel.SetActive(state);
-            FailText.text = kills + " / " + settings.LevelGoals[currentIndex];
-            FaceCamera(FailurePanel);     
+        FailurePanel.SetActive(state);
+        FailText.text = kills + " / " + settings.LevelGoals[currentIndex];
+        FaceCamera(FailurePanel);
     }
 
     #region UI QUICK START

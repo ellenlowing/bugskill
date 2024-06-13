@@ -13,6 +13,7 @@ public class BasePowerUpBehavior : MonoBehaviour
         ACTIVE // in use + grabbed
     }
 
+    public bool IsStoreItem = false;
     public float MaxPowerCapacity = 1;
     public float PowerCapacity = 1; // [0-1]: indicate battery power of swatter or liquid capacity of spray
     public float UsePowerRate = 0.001f;
@@ -80,9 +81,12 @@ public class BasePowerUpBehavior : MonoBehaviour
     public virtual void EnterActiveState() { }
     public virtual void UpdateActiveState()
     {
-        if (PowerCapacity >= 0)
+        if (!IsStoreItem)
         {
-            PowerCapacity -= UsePowerRate;
+            if (PowerCapacity >= 0)
+            {
+                PowerCapacity -= UsePowerRate;
+            }
         }
     }
 

@@ -175,7 +175,7 @@ public class UIManager : MonoBehaviour
     {
         // show failure panel
         FailurePanel.SetActive(state);
-        FailText.text = kills + " / " + settings.LevelGoals[currentIndex];
+        FailText.text = "you killed " + kills + " flies and made " + settings.Cash + " cash";
         FaceCamera(FailurePanel);
     }
 

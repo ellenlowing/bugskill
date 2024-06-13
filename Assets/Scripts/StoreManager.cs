@@ -29,6 +29,7 @@ public class StoreManager : MonoBehaviour
     private GameObject template;
     private TextMeshProUGUI[] TextMeshes;
     private Transform ObjectColid;
+    private List<GameObject> shopItems = new List<GameObject>();
 
     private void OnEnable()
     {
@@ -81,12 +82,18 @@ public class StoreManager : MonoBehaviour
             TextMeshes[1].text = items[i].Name;
 
             ObjectColid = template.transform.GetChild(1);
-            Instantiate(items[i].ItemPrefab, ObjectColid);
+            GameObject item = Instantiate(items[i].ItemPrefab, ObjectColid);
+            shopItems.Add(item);
         }
     }
 
     public void HideStore()
     {
+        foreach (GameObject item in shopItems)
+        {
+            Destroy(item);
+        }
+        shopItems = new List<GameObject>();
         StoreUI.SetActive(false);
     }
 }

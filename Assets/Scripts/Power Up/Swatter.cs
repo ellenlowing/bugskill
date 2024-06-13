@@ -145,7 +145,7 @@ namespace Power_Up
             {
                 HitSoundPlayer.Play();
 
-               
+
                 other.transform.SetParent(SwatterPosition);
 
                 // Instantiate shock effect on fly
@@ -153,7 +153,7 @@ namespace Power_Up
                     Instantiate(HitEffect, other.transform.position, Quaternion.identity);
                 hitEffectInstance.Play();
                 Destroy(hitEffectInstance.gameObject, hitEffectInstance.main.duration);
-                if(other.gameObject.transform.localScale == Vector3.one)
+                if (other.gameObject.transform.localScale == Vector3.one)
                 {
                     settings.Cash += (int)SCOREFACTOR.SLIM;
                     totalCash += (int)SCOREFACTOR.SLIM;

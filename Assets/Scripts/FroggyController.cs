@@ -135,6 +135,7 @@ public class FroggyController : BasePowerUpBehavior
 
     public override void UpdateActiveState()
     {
+        base.UpdateActiveState();
 
         // Check if active hand is pinching
         if (FroggyActiveHand.IsTracked)

@@ -349,6 +349,7 @@ public partial class GameManager : MonoBehaviour
         settings.Cash = 0;
         //initialTime = 0;
         UIManager.Instance.FailedPanel(false, 0, 0);
+        UIManager.Instance.UpdateLevel();
 
     }
 

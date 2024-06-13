@@ -4,6 +4,8 @@ using System.Data;
 using UnityEngine;
 using UnityEngine.XR;
 using System.Linq;
+using Oculus.Interaction;
+using Oculus.Interaction.Input;
 
 public class FroggyController : BasePowerUpBehavior
 {
@@ -94,10 +96,13 @@ public class FroggyController : BasePowerUpBehavior
     {
         base.Start();
         Initialize();
+        PointableEventWrapper.WhenSelect.AddListener(OnGrabbableSelect);
+        PointableEventWrapper.WhenUnselect.AddListener(OnGrabbableUnselect);
     }
 
     new void Update()
     {
+        base.Update();
     }
 
     public override void EnterIdleState()
@@ -127,9 +132,19 @@ public class FroggyController : BasePowerUpBehavior
 
     public override void UpdateActiveState()
     {
-        // Get the hand data
-        UpdateHandData(_leftHandData);
-        UpdateHandData(_rightHandData);
+
+        // Check if active hand is pinching
+        if (FroggyActiveHand.IsTracked)
+        {
+            bool isPinching = FroggyActiveHand.GetFingerIsPinching(OVRHand.HandFinger.Index);
+
+            if (isPinching)
+            // && (Time.time - FroggyLastTriggeredTime) > CooldownTime)
+            {
+                TriggerPress();
+                FroggyLastTriggeredTime = Time.time;
+            }
+        }
 
         RaycastHit[] hits = Physics.SphereCastAll(transform.position, SphereCastRadius, -transform.right, SphereCastDistance, FlyLayerMask);
 
@@ -228,6 +243,28 @@ public class FroggyController : BasePowerUpBehavior
         //stop croaking while not in hand
         audioSource.mute = true;
     }
+
+    private void OnGrabbableSelect(PointerEvent arg0)
+    {
+        HandRef handData = (HandRef)arg0.Data;
+        Handedness handedness = handData.Handedness;
+        if (handedness == Handedness.Right)
+        {
+            FroggyActiveHand = RightHand.GetComponent<OVRHand>();
+        }
+        else
+        {
+            FroggyActiveHand = LeftHand.GetComponent<OVRHand>();
+        }
+        EnterState(PowerUpState.ACTIVE);
+    }
+
+    private void OnGrabbableUnselect(PointerEvent arg0)
+    {
+        FroggyActiveHand = null;
+        EnterState(PowerUpState.IDLE);
+    }
+
 
     void TriggerPress()
     {

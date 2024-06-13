@@ -213,20 +213,6 @@ public class FroggyController : BasePowerUpBehavior
         }
     }
 
-    void UpdateHandData(HandData handData)
-    {
-        if (handData.Hand.IsTracked)
-        {
-            handData.IsIndexFingerPinching = handData.Hand.GetFingerIsPinching(OVRHand.HandFinger.Index);
-
-            if (handData.IsIndexFingerPinching && (Time.time - FroggyLastTriggeredTime) > CooldownTime)
-            {
-                TriggerPress();
-                FroggyLastTriggeredTime = Time.time;
-            }
-        }
-    }
-
     void ShowAllRenderers()
     {
         foreach (var renderer in GetComponentsInChildren<Renderer>())
@@ -317,11 +303,8 @@ public class FroggyController : BasePowerUpBehavior
         }
         FroggyActive = false;
         FrogTongueTransform.localScale = inScale;
-        // FroggyActiveHand = null;
-        // transform.parent = null;
 
         yield return new WaitForSeconds(0.2f);
-        // HideAllRenderers();
     }
 
     private void StartMunching()
@@ -344,7 +327,6 @@ public class FroggyController : BasePowerUpBehavior
     {
         if (other.tag == "Fly")
         {
-
             other.GetComponentInChildren<FlyMovement>().enabled = false;
             other.GetComponentInChildren<Outline>().enabled = false;
             other.GetComponentInChildren<Animator>().speed = 0;
@@ -362,7 +344,7 @@ public class FroggyController : BasePowerUpBehavior
                 settings.Cash += (int)SCOREFACTOR.FAT;
                 totalCash += (int)SCOREFACTOR.FAT;
             }
-            Destroy(other.gameObject, 0.2f);
+            Destroy(other.gameObject, 0.5f);
             settings.Cash += (int)SCOREFACTOR.FROG;
             totalCash += (int)SCOREFACTOR.FROG;
             UIManager.Instance.IncrementKill(other.transform.position, totalCash);

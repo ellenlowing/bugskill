@@ -253,7 +253,7 @@ public partial class GameManager : MonoBehaviour
         animator.speed = settings.divFactor / settings.durationOfWave[waveIndex];
         animator.Play("Animation", 0, 0);
         GameLoopRoutine = StartCoroutine(SpawnFlyAtRandomPosition());
-
+        StoreManager.Instance.HideStore();
     }
 
 
@@ -314,24 +314,25 @@ public partial class GameManager : MonoBehaviour
     // check game start to determine powerup
     private void WhatPowerUp(int waveIndex)
     {
-        switch (waveIndex)
-        {
-            case (int)POWERUP.FROG:
-                FrogPowerUp.RaiseEvent();
-                break;
-            case (int)POWERUP.SPRAY:
-                SprayPowerUp.RaiseEvent();
-                break;
-            case (int)POWERUP.SWATTER:
-                ElectricSwatterPowerUp.RaiseEvent();
-                break;
-            case (int)POWERUP.UPGRADE:
-                UpgradePowerUps.RaiseEvent();
-                break;
-            case (int)POWERUP.BOSS:
-                BossFightEvent.RaiseEvent();
-                break;
-        }
+        StoreManager.Instance.ShowStore(3);
+        // switch (waveIndex)
+        // {
+        //     case (int)POWERUP.FROG:
+        //         FrogPowerUp.RaiseEvent();
+        //         break;
+        //     case (int)POWERUP.SPRAY:
+        //         SprayPowerUp.RaiseEvent();
+        //         break;
+        //     case (int)POWERUP.SWATTER:
+        //         ElectricSwatterPowerUp.RaiseEvent();
+        //         break;
+        //     case (int)POWERUP.UPGRADE:
+        //         UpgradePowerUps.RaiseEvent();
+        //         break;
+        //     case (int)POWERUP.BOSS:
+        //         BossFightEvent.RaiseEvent();
+        //         break;
+        // }
     }
 
 

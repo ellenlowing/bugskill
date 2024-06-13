@@ -292,6 +292,7 @@ public class UIManager : MonoBehaviour
     {
         Debug.Log("Start Button clicked");
         Destroy(GameStartUI, quickStart);
+        UpdateLevel();
         GameBegins.RaiseEvent();
     }
 

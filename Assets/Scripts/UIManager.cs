@@ -216,12 +216,12 @@ public class UIManager : MonoBehaviour
     {
         FrogUIObj.SetActive(true);
         FaceCamera(FrogUIObj);
-        FroggyController.Activate();
+        // FroggyController.Activate();
     }
 
     public void SwatterUI()
     {
-        FroggyController.Deactivate();
+        // FroggyController.Deactivate();
         SwatterUIObj.SetActive(true);
         FaceCamera(SwatterUIObj);
         Swatter.SetActive(true);

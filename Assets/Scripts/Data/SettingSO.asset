@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 345cf1bedd32c9f4483a79373f5c4bc1, type: 3}
   m_Name: SettingSO
   m_EditorClassIdentifier: 
-  score: 0
+  score: 25
   scoreMulFactor: 1
-  numberOfKills: 0
+  numberOfKills: 25
   skillScoreValue: 100
   Cash: 0
   flies:

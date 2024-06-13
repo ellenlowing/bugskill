@@ -283,9 +283,9 @@ public class UIManager : MonoBehaviour
 
     public void UpdateLevel()
     {
-        LevelNumberText.text = settings.waveIndex.ToString();
+        int level = settings.waveIndex + 1;
+        LevelNumberText.text = level.ToString();
         LevelGoalText.text = settings.LevelGoals[settings.waveIndex].ToString();
-        // LevelProgressUI.SetActive(true);
     }
 
     public void StartGameLoopTrigger()

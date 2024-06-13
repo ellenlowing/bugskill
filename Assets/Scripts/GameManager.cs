@@ -47,6 +47,11 @@ public partial class GameManager : MonoBehaviour
     [Tooltip("Failed Level Event")]
     public InteractableUnityEventWrapper GameRestartEvent;
 
+    [Header("Hands")]
+    public GameObject LeftHand;
+    public GameObject RightHand;
+    public GameObject LeftHandRenderer;
+    public GameObject RightHandRenderer;
 
     private int waveIndex = 0;
     private bool canSpawn = true;
@@ -71,6 +76,7 @@ public partial class GameManager : MonoBehaviour
         }
 
         settings.waveIndex = 0;
+        settings.flies = new List<GameObject>();
         FlySpawnPositions = new List<MRUKAnchor>();
     }
 
@@ -79,11 +85,13 @@ public partial class GameManager : MonoBehaviour
         // check references
         UIM = GetComponent<UIManager>();
         settings.numberOfKills = 0;
-        GameRestartEvent.WhenSelect.AddListener(RestartGameLoop);   
-       
+        GameRestartEvent.WhenSelect.AddListener(RestartGameLoop);
+
         Assert.IsNotNull(UIM, "UIManager Reference Missing");
 
-        GetWindowOrDoorFrames(MRUK.Instance.GetCurrentRoom());
+        HourGlass.SetActive(false);
+
+        // GetWindowOrDoorFrames(MRUK.Instance.GetCurrentRoom());
     }
 
     void Update()
@@ -98,7 +106,7 @@ public partial class GameManager : MonoBehaviour
 
     }
 
-  
+
     private void TrackTimer()
     {
         if (moveToNextWave)
@@ -111,6 +119,7 @@ public partial class GameManager : MonoBehaviour
                     Destroy(obj);
                 }
                 settings.flies.Clear();
+                settings.flies = new List<GameObject>();
 
                 // waveIndex++;
                 // update wave index across gameplay
@@ -205,7 +214,7 @@ public partial class GameManager : MonoBehaviour
                     settings.waveIndex = waveIndex;
                     moveToNextWave = false;
                     canSpawn = true;
-                  
+
                     LocalKills = settings.numberOfKills - LocalKills;
                     LocalCash = settings.Cash - LocalCash;
 
@@ -249,13 +258,14 @@ public partial class GameManager : MonoBehaviour
         animator.speed = settings.divFactor / settings.durationOfWave[waveIndex];
         animator.Play("Animation", 0, 0);
         GameLoopRoutine = StartCoroutine(SpawnFlyAtRandomPosition());
+        StoreManager.Instance.HideStore();
     }
 
 
     // check state of progression 
     private void CanProgress(int waveIndex)
     {
-        switch(waveIndex)
+        switch (waveIndex)
         {
             case 0:
                 CheckGoal(waveIndex);
@@ -285,11 +295,11 @@ public partial class GameManager : MonoBehaviour
         //    canSpawn = false;
         //    waveIndex = 0;
         //    runningIndex = waveIndex;     
-            
+
         //    StopCoroutine(GameLoopRoutine);
         //}
 
-        if(!(LocalCash >= settings.LevelGoals[waveI]))
+        if (!(LocalCash >= settings.LevelGoals[waveI]))
         {
             UIManager.Instance.FailedPanel(true, LocalCash, waveIndex);
             canSpawn = false;
@@ -309,24 +319,25 @@ public partial class GameManager : MonoBehaviour
     // check game start to determine powerup
     private void WhatPowerUp(int waveIndex)
     {
-        switch (waveIndex)
-        {
-            case (int)POWERUP.FROG:
-                FrogPowerUp.RaiseEvent();
-                break;
-            case (int)POWERUP.SPRAY:
-                SprayPowerUp.RaiseEvent();
-                break;
-            case (int)POWERUP.SWATTER:
-                ElectricSwatterPowerUp.RaiseEvent();
-                break;
-            case (int)POWERUP.UPGRADE:
-                UpgradePowerUps.RaiseEvent();
-                break;
-            case (int)POWERUP.BOSS:
-                BossFightEvent.RaiseEvent();
-                break;
-        }
+        StoreManager.Instance.ShowStore();
+        // switch (waveIndex)
+        // {
+        //     case (int)POWERUP.FROG:
+        //         FrogPowerUp.RaiseEvent();
+        //         break;
+        //     case (int)POWERUP.SPRAY:
+        //         SprayPowerUp.RaiseEvent();
+        //         break;
+        //     case (int)POWERUP.SWATTER:
+        //         ElectricSwatterPowerUp.RaiseEvent();
+        //         break;
+        //     case (int)POWERUP.UPGRADE:
+        //         UpgradePowerUps.RaiseEvent();
+        //         break;
+        //     case (int)POWERUP.BOSS:
+        //         BossFightEvent.RaiseEvent();
+        //         break;
+        // }
     }
 
 
@@ -336,14 +347,15 @@ public partial class GameManager : MonoBehaviour
         canSpawn = true;
         animator.Play("Animation", 0, 0);
         //animator.speed = settings.divFactor / settings.durationOfWave[0];
-        
-        GameLoopRoutine = StartCoroutine(SpawnFlyAtRandomPosition());     
+
+        GameLoopRoutine = StartCoroutine(SpawnFlyAtRandomPosition());
         waveIndex = 0;
         settings.numberOfKills = 0;
         settings.Cash = 0;
         //initialTime = 0;
         UIManager.Instance.FailedPanel(false, 0, 0);
-        
+        UIManager.Instance.UpdateLevel();
+
     }
 
     // this event has been removed from the MRUK event call 
@@ -369,12 +381,13 @@ public partial class GameManager : MonoBehaviour
                      doneOnce = true;
                  } */
 
-            } else 
+            }
+            else
             {
                 if (anchor.HasLabel("CEILING") || anchor.HasLabel("FLOOR") || anchor.HasLabel("WALL_FACE"))
                 {
                     FlySpawnPositions.Add(anchor);
-                }                
+                }
             }
 
             // place hourglass on table
@@ -382,7 +395,8 @@ public partial class GameManager : MonoBehaviour
             {
                 if (!doneOnce)
                 {
-                    HourGlass.transform.position = anchor.transform.position + new Vector3(0f, 0.3f, 0f);
+                    HourGlass.transform.position = anchor.transform.position;
+                    HourGlass.transform.forward = anchor.transform.right;
                     doneOnce = true;
                 }
             }
@@ -392,7 +406,9 @@ public partial class GameManager : MonoBehaviour
                 {
                     if (!doneOnce)
                     {
-                        HourGlass.transform.position = anchor.transform.position + new Vector3(0f, 0.3f, 0f);
+                        HourGlass.transform.position = anchor.transform.position;
+                        HourGlass.transform.forward = anchor.transform.up;
+
                         doneOnce = true;
                     }
                 }

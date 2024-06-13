@@ -12,12 +12,102 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 345cf1bedd32c9f4483a79373f5c4bc1, type: 3}
   m_Name: SettingSO
   m_EditorClassIdentifier: 
-  score: 0
+  score: 25
   scoreMulFactor: 1
-  numberOfKills: 0
+  numberOfKills: 25
   skillScoreValue: 100
   Cash: 0
-  flies: []
+  flies:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   eyeSpiralSpeed: 220
   flyIntelLevels:
   - {fileID: 11400000, guid: 94c1c6d1603a36147af3eee62718f46c, type: 2}
@@ -27,8 +117,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 2cb2a157148019742a5339d058893360, type: 2}
   waveWaitTime: 9999
   waveIndex: 1
-  durationOfWave: 0a0000001e0000001e0000001e0000001e0000001e000000
+  durationOfWave: 0f0000000f0000000f0000000f0000001e0000001e000000
   fliesInWave: 1e00000014000000190000001e0000002800000001000000
-  LevelGoals: c8000000c8000000c8000000c8000000c8000000
+  LevelGoals: 0a0000000b0000000c0000000d0000000e000000
   divFactor: 3
   distanceFromCamera: 0.8

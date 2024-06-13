@@ -13,6 +13,8 @@ public class BasePowerUpBehavior : MonoBehaviour
         ACTIVE // in use + grabbed
     }
 
+    public bool IsStoreItem = false;
+    public StoreItemSO StoreItemData;
     public float MaxPowerCapacity = 1;
     public float PowerCapacity = 1; // [0-1]: indicate battery power of swatter or liquid capacity of spray
     public float UsePowerRate = 0.001f;
@@ -20,14 +22,14 @@ public class BasePowerUpBehavior : MonoBehaviour
     public PowerUpState CurrentState;
     public PointableUnityEventWrapper PointableEventWrapper;
 
-    [SerializeField] private GameObject _leftHandRenderer;
-    [SerializeField] private GameObject _rightHandRenderer;
-
     public void Start()
     {
         EnterState(PowerUpState.IDLE);
+
         PointableEventWrapper.WhenHover.AddListener(OnHover);
         PointableEventWrapper.WhenUnhover.AddListener(OnUnhover);
+        PointableEventWrapper.WhenSelect.AddListener(OnSelect);
+        PointableEventWrapper.WhenUnselect.AddListener(OnUnselect);
     }
 
     public void Update()
@@ -80,9 +82,12 @@ public class BasePowerUpBehavior : MonoBehaviour
     public virtual void EnterActiveState() { }
     public virtual void UpdateActiveState()
     {
-        if (PowerCapacity >= 0)
+        if (!IsStoreItem)
         {
-            PowerCapacity -= UsePowerRate;
+            if (PowerCapacity >= 0)
+            {
+                PowerCapacity -= UsePowerRate;
+            }
         }
     }
 
@@ -104,11 +109,16 @@ public class BasePowerUpBehavior : MonoBehaviour
         Handedness handedness = handData.Handedness;
         if (handedness == Handedness.Right)
         {
-            _rightHandRenderer.SetActive(true);
+            GameManager.Instance.RightHandRenderer.SetActive(true);
         }
         else
         {
-            _leftHandRenderer.SetActive(true);
+            GameManager.Instance.LeftHandRenderer.SetActive(true);
+        }
+
+        if (IsStoreItem)
+        {
+            ShowItemData(arg0);
         }
     }
 
@@ -118,12 +128,42 @@ public class BasePowerUpBehavior : MonoBehaviour
         Handedness handedness = handData.Handedness;
         if (handedness == Handedness.Right)
         {
-            _rightHandRenderer.SetActive(false);
+            GameManager.Instance.RightHandRenderer.SetActive(false);
         }
         else
         {
-            _leftHandRenderer.SetActive(false);
+            GameManager.Instance.LeftHandRenderer.SetActive(false);
         }
+
+        if (IsStoreItem)
+        {
+            StoreManager.Instance.GlobalDescription.text = "";
+            StoreManager.Instance.GlobalCashAmount.text = "";
+            StoreManager.Instance.GlobalName.text = "";
+        }
+    }
+
+    public void OnSelect(PointerEvent arg0)
+    {
+        if (IsStoreItem)
+        {
+            StoreManager.Instance.SetActivePowerUp(this);
+        }
+    }
+
+    public void OnUnselect(PointerEvent arg0)
+    {
+        if (IsStoreItem)
+        {
+            StoreManager.Instance.SetActivePowerUp(null);
+        }
+    }
+
+    public void ShowItemData(PointerEvent arg0)
+    {
+        StoreManager.Instance.GlobalName.text = StoreItemData.Name;
+        StoreManager.Instance.GlobalDescription.text = StoreItemData.Description;
+        StoreManager.Instance.GlobalCashAmount.text = StoreItemData.Price.ToString();
     }
 
 }

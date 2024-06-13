@@ -28,6 +28,10 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject UIScoreObj;
     [SerializeField] private GameObject FailurePanel;
     [SerializeField] private TextMeshProUGUI FailText;
+    [SerializeField] private GameObject LevelProgressUI;
+    [SerializeField] private TextMeshProUGUI WalletText;
+    [SerializeField] private TextMeshProUGUI LevelGoalText;
+    [SerializeField] private TextMeshProUGUI LevelNumberText;
 
     [Header("Buttons")]
     [Space(20)]
@@ -111,6 +115,7 @@ public class UIManager : MonoBehaviour
         UpgradePowerUps.OnEventRaised += UpgradeUI;
         BossFightEvent.OnEventRaised += BossFight;
 
+        StartNextWaveEvent.OnEventRaised += UpdateLevel;
 
         GameStartButton.WhenSelect.AddListener(StartGameLoopTrigger);
         FrogStartButton.WhenSelect.AddListener(FrogStart);
@@ -170,7 +175,7 @@ public class UIManager : MonoBehaviour
     {
         // show failure panel
         FailurePanel.SetActive(state);
-        FailText.text = kills + " / " + settings.LevelGoals[currentIndex];
+        FailText.text = "you killed " + kills + " flies and made " + settings.Cash + " cash";
         FaceCamera(FailurePanel);
     }
 
@@ -211,12 +216,12 @@ public class UIManager : MonoBehaviour
     {
         FrogUIObj.SetActive(true);
         FaceCamera(FrogUIObj);
-        FroggyController.Activate();
+        // FroggyController.Activate();
     }
 
     public void SwatterUI()
     {
-        FroggyController.Deactivate();
+        // FroggyController.Deactivate();
         SwatterUIObj.SetActive(true);
         FaceCamera(SwatterUIObj);
         Swatter.SetActive(true);
@@ -271,13 +276,23 @@ public class UIManager : MonoBehaviour
         tempText = UIScoreObj.GetComponentInChildren<TextMeshProUGUI>();
         tempText.text = cashAmount.ToString();
         tempObj = Instantiate(UIScoreObj, position, Quaternion.identity);
+        WalletText.text = settings.Cash.ToString();
         FaceCamera(tempObj);
         Destroy(tempObj, 1f);
     }
 
+    public void UpdateLevel()
+    {
+        int level = settings.waveIndex + 1;
+        LevelNumberText.text = level.ToString();
+        LevelGoalText.text = settings.LevelGoals[settings.waveIndex].ToString();
+    }
+
     public void StartGameLoopTrigger()
     {
+        Debug.Log("Start Button clicked");
         Destroy(GameStartUI, quickStart);
+        UpdateLevel();
         GameBegins.RaiseEvent();
     }
 
@@ -286,6 +301,7 @@ public class UIManager : MonoBehaviour
         if (obj != null)
         {
             obj.transform.position = Camera.main.transform.position + Camera.main.transform.forward * settings.distanceFromCamera;
+            obj.transform.position = new Vector3(obj.transform.position.x, Camera.main.transform.position.y, obj.transform.position.z);
             obj.transform.forward = Camera.main.transform.forward;
             obj.transform.eulerAngles = new Vector3(0, obj.transform.eulerAngles.y, obj.transform.eulerAngles.z);
         }

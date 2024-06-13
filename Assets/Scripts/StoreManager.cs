@@ -6,26 +6,35 @@ using UnityEngine.UI;
 
 public class StoreManager : MonoBehaviour
 {
+    public static StoreManager Instance;
     [SerializeField] private List<StoreItemSO> items;
     [SerializeField] private SettingSO settings;
 
-    [Header("UI ")]
+    [Header("UI")]
     [SerializeField] private GameObject StoreUI;
-    [SerializeField] private GameObject ItemTemplate;
-    [SerializeField] private Transform GridAnchor;
 
     [Header("Shared UI")]
-    [SerializeField] private TextMeshProUGUI GlobalDescription;
-    [SerializeField] private TextMeshProUGUI GlobalCashAmount;
-
+    [SerializeField] public TextMeshProUGUI GlobalName;
+    [SerializeField] public TextMeshProUGUI GlobalDescription;
+    [SerializeField] public TextMeshProUGUI GlobalCashAmount;
 
     [Header("Buttons")]
     [SerializeField] private InteractableUnityEventWrapper PurchaseBtn;
     [SerializeField] private InteractableUnityEventWrapper NextWaveBtn;
 
-    private GameObject template;
-    private TextMeshProUGUI[] TextMeshes;
-    private Transform ObjectColid;
+    [Header("Events")]
+    public VoidEventChannelSO StartNextWaveEvent;
+
+    [Header("Power Up")]
+    public GameObject Froggy;
+    public GameObject InsecticideSpray;
+    public GameObject ElectricSwatter;
+    public List<GameObject> BoughtItems = new List<GameObject>();
+
+    public List<GameObject> ShopItems;
+
+    private BasePowerUpBehavior _selectedPowerUp;
+
 
     private void OnEnable()
     {
@@ -33,43 +42,82 @@ public class StoreManager : MonoBehaviour
         NextWaveBtn.WhenSelect.AddListener(NextWave);
     }
 
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(this);
+        }
+        else
+        {
+            Instance = this;
+        }
+    }
+
     private void Start()
     {
-        ShowStore(3);
+        foreach (var item in ShopItems)
+        {
+            item.SetActive(false);
+        }
     }
 
     private void Purchase()
     {
-        Debug.Log("[Testing] Purchase Triggered");
+        if (_selectedPowerUp != null)
+        {
+            var shopItemName = _selectedPowerUp.StoreItemData.Name;
+            settings.Cash -= _selectedPowerUp.StoreItemData.Price;
+
+            switch (shopItemName)
+            {
+                case "Froggy":
+                    BoughtItems.Add(Froggy);
+                    break;
+                case "Insecticide Spray":
+                    BoughtItems.Add(InsecticideSpray);
+                    break;
+                case "Electric Swatter":
+                    BoughtItems.Add(ElectricSwatter);
+                    break;
+            }
+
+            GameObject powerupItem = _selectedPowerUp.GetComponentInParent<Grabbable>().gameObject;
+            powerupItem.SetActive(false);
+
+            _selectedPowerUp = null;
+
+        }
     }
 
     private void NextWave()
     {
         Debug.Log("[Testing] Next Wave Triggered");
+        StartNextWaveEvent.RaiseEvent();
+        foreach (var item in BoughtItems)
+        {
+            item.SetActive(true);
+        }
+        BoughtItems = new List<GameObject>();
     }
 
-    private void ShowStore(int itemCount)
+    public void ShowStore()
     {
         StoreUI.SetActive(true);
-
-        GlobalDescription.text = items[0].Description;
-        GlobalCashAmount.text = settings.Cash.ToString();
-
-        for(int i = 0; i < itemCount; i++)
+        UIManager.Instance.FaceCamera(StoreUI);
+        foreach (var item in ShopItems)
         {
-            template = Instantiate(ItemTemplate, GridAnchor);
-            TextMeshes = template.GetComponentsInChildren<TextMeshProUGUI>();
-
-            TextMeshes[0].text = items[i].Price.ToString();
-            TextMeshes[1].text = items[i].Name;
-
-            ObjectColid = template.transform.GetChild(1);
-            Instantiate(items[i].ItemPrefab, ObjectColid);
+            item.SetActive(true);
         }
     }
 
-    private void HideStore()
+    public void HideStore()
     {
-        StoreUI.SetActive(false); 
+        StoreUI.SetActive(false);
+    }
+
+    public void SetActivePowerUp(BasePowerUpBehavior powerUp)
+    {
+        _selectedPowerUp = powerUp;
     }
 }

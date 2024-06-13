@@ -36,7 +36,7 @@ namespace Power_Up
 
         private void Awake()
         {
-            if (ForDebugging) IsHeld = true;
+            // if (ForDebugging) IsHeld = true;
         }
 
         new void Start()
@@ -145,7 +145,7 @@ namespace Power_Up
             {
                 HitSoundPlayer.Play();
 
-               
+
                 other.transform.SetParent(SwatterPosition);
 
                 // Instantiate shock effect on fly
@@ -153,7 +153,7 @@ namespace Power_Up
                     Instantiate(HitEffect, other.transform.position, Quaternion.identity);
                 hitEffectInstance.Play();
                 Destroy(hitEffectInstance.gameObject, hitEffectInstance.main.duration);
-                if(other.gameObject.transform.localScale == Vector3.one)
+                if (other.gameObject.transform.localScale == Vector3.one)
                 {
                     settings.Cash += (int)SCOREFACTOR.SLIM;
                     totalCash += (int)SCOREFACTOR.SLIM;
@@ -201,33 +201,33 @@ namespace Power_Up
             }
         }
 
-        [Header("Debugging")]
-        public bool ForDebugging = false;
-        public TMP_Text isHeldText;
-        public TMP_Text currentStateText;
-        public TMP_Text powerCapacityText;
-        public TMP_Text batteryEffectsText;
-        public TMP_Text chargedText;
+        // [Header("Debugging")]
+        // public bool ForDebugging = false;
+        // public TMP_Text isHeldText;
+        // public TMP_Text currentStateText;
+        // public TMP_Text powerCapacityText;
+        // public TMP_Text batteryEffectsText;
+        // public TMP_Text chargedText;
 
-        public void DebugLogMessage(string message)
-        {
-            Debug.Log($"{message}");
-        }
-        private void FixedUpdate()
-        {
-            UpdateDebugText();
-        }
+        // public void DebugLogMessage(string message)
+        // {
+        //     Debug.Log($"{message}");
+        // }
+        // private void FixedUpdate()
+        // {
+        //     UpdateDebugText();
+        // }
 
-        private void UpdateDebugText()
-        {
-            isHeldText.text = $"{IsHeld}";
-            currentStateText.text = $"{CurrentState}";
-            powerCapacityText.text = $"{PowerCapacity}";
-            if (BatteryLevelSoundPlayer.clip != null)
-            {
-                batteryEffectsText.text = $"{BatteryLevelSoundPlayer.clip.name}";
-            }
-        }
+        // private void UpdateDebugText()
+        // {
+        //     isHeldText.text = $"{IsHeld}";
+        //     currentStateText.text = $"{CurrentState}";
+        //     powerCapacityText.text = $"{PowerCapacity}";
+        //     if (BatteryLevelSoundPlayer.clip != null)
+        //     {
+        //         batteryEffectsText.text = $"{BatteryLevelSoundPlayer.clip.name}";
+        //     }
+        // }
     }
 }
 

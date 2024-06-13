@@ -83,6 +83,8 @@ public partial class GameManager : MonoBehaviour
 
         Assert.IsNotNull(UIM, "UIManager Reference Missing");
 
+        HourGlass.SetActive(false);
+
         // GetWindowOrDoorFrames(MRUK.Instance.GetCurrentRoom());
     }
 

@@ -388,7 +388,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _canvasRenderTexture: {fileID: 6788383813864668855}
   _meshRenderer: {fileID: 990138460809912071}
-  _renderingMode: 100
+  _renderingMode: 2
   _useAlphaToMask: 1
   _alphaCutoutThreshold: 0.5
   _canvasMesh: {fileID: 2995762081154067659}
@@ -498,7 +498,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4333255487671271785
 Transform:
   m_ObjectHideFlags: 0
@@ -889,7 +889,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3844651733630471638}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -898,10 +898,10 @@ RectTransform:
   - {fileID: 2293474273304935224}
   m_Father: {fileID: 6359751951033170658}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 218.1, y: -103.94499}
+  m_SizeDelta: {x: 404.2, y: 175.88998}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2694719922201634042
 MonoBehaviour:
@@ -918,7 +918,7 @@ MonoBehaviour:
   m_Padding:
     m_Left: 16
     m_Right: 16
-    m_Top: 8
+    m_Top: 16
     m_Bottom: 16
   m_ChildAlignment: 1
   m_Spacing: 8
@@ -973,7 +973,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 454.4, y: 0}
+  m_SizeDelta: {x: 436.2, y: 207.88998}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &2097138052502467385
 Canvas:
@@ -1340,10 +1340,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 4849910351393634831}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 202.1, y: -92.95}
+  m_SizeDelta: {x: 0.01, y: 17.88}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8256121851704395785
 CanvasRenderer:
@@ -1476,10 +1476,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 4849910351393634831}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 202.1, y: -46.004997}
+  m_SizeDelta: {x: 269.4, y: 60.01}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4956096858779769320
 CanvasRenderer:
@@ -1591,8 +1591,8 @@ GameObject:
   - component: {fileID: 3961938777857200143}
   - component: {fileID: 251852323769078187}
   - component: {fileID: 5556903186883473861}
-  m_Layer: 0
-  m_Name: Button
+  m_Layer: 5
+  m_Name: Game Start Btn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1613,10 +1613,10 @@ RectTransform:
   - {fileID: 3546365385912292797}
   m_Father: {fileID: 4849910351393634831}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 202.1, y: -134.88998}
+  m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6058033781135475786
 CanvasRenderer:
@@ -1699,7 +1699,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 3961938777857200143}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+        m_MethodName: StartGameLoopTrigger
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &5556903186883473861
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1765,7 +1777,7 @@ GameObject:
   - component: {fileID: 3546365385912292797}
   - component: {fileID: 1142700876824028394}
   - component: {fileID: 3414928765903768882}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}

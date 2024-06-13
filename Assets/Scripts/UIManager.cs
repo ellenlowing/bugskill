@@ -117,7 +117,7 @@ public class UIManager : MonoBehaviour
 
         StartNextWaveEvent.OnEventRaised += UpdateLevel;
 
-        // GameStartButton.WhenSelect.AddListener(StartGameLoopTrigger);
+        GameStartButton.WhenSelect.AddListener(StartGameLoopTrigger);
         FrogStartButton.WhenSelect.AddListener(FrogStart);
         SprayStartButton.WhenSelect.AddListener(SprayStart);
         SwatterStartButton.WhenSelect.AddListener(SwatterStart);
@@ -285,7 +285,7 @@ public class UIManager : MonoBehaviour
     {
         LevelNumberText.text = settings.waveIndex.ToString();
         LevelGoalText.text = settings.LevelGoals[settings.waveIndex].ToString();
-        LevelProgressUI.SetActive(true);
+        // LevelProgressUI.SetActive(true);
     }
 
     public void StartGameLoopTrigger()

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9db9b9d6e23bd4c498873e373b2aa62f, type: 3}
   m_Name: SwatterStoreItem
   m_EditorClassIdentifier: 
-  ItemPrefab: {fileID: 4966731797903484835, guid: 94f702bcfd5d6a54d95d416b3f8db2ac, type: 3}
-  Price: 500
-  Name: Swatter Item
-  Description: Just another descriiptionf for the swatter
+  ItemPrefab: {fileID: 2991904239131300368, guid: cf9b54e7873904dabbe3b87d6f87696e, type: 3}
+  Price: 10
+  Name: Electric Swatter
+  Description: Wave the electric swatter to kill flies in air!

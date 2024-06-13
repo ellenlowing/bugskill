@@ -47,6 +47,11 @@ public partial class GameManager : MonoBehaviour
     [Tooltip("Failed Level Event")]
     public InteractableUnityEventWrapper GameRestartEvent;
 
+    [Header("Hands")]
+    public GameObject LeftHand;
+    public GameObject RightHand;
+    public GameObject LeftHandRenderer;
+    public GameObject RightHandRenderer;
 
     private int waveIndex = 0;
     private bool canSpawn = true;
@@ -314,7 +319,7 @@ public partial class GameManager : MonoBehaviour
     // check game start to determine powerup
     private void WhatPowerUp(int waveIndex)
     {
-        StoreManager.Instance.ShowStore(3);
+        StoreManager.Instance.ShowStore();
         // switch (waveIndex)
         // {
         //     case (int)POWERUP.FROG:

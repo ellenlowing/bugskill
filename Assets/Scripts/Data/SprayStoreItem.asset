@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9db9b9d6e23bd4c498873e373b2aa62f, type: 3}
   m_Name: SprayStoreItem
   m_EditorClassIdentifier: 
-  ItemPrefab: {fileID: 4966731797903484835, guid: f5782855252f6e2468aae67b90e8838e, type: 3}
-  Price: 700
-  Name: Spray
-  Description: Description for spray item
+  ItemPrefab: {fileID: 4966731797903484835, guid: da32208d73d30b545b20e7799a311e2b, type: 3}
+  Price: 10
+  Name: Insecticide Spray
+  Description: Spray at fly to slow them down!

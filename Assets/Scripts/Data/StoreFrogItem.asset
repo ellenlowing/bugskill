@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9db9b9d6e23bd4c498873e373b2aa62f, type: 3}
   m_Name: StoreFrogItem
   m_EditorClassIdentifier: 
-  ItemPrefab: {fileID: 4966731797903484835, guid: da32208d73d30b545b20e7799a311e2b, type: 3}
-  Price: 300
-  Name: Frog Item
-  Description: Just a frog Item
+  ItemPrefab: {fileID: 3358396685065003162, guid: 5b709086755b74cd7856211270f75868, type: 3}
+  Price: 10
+  Name: Froggy
+  Description: Aim at a fly and pinch to feed it to froggy!

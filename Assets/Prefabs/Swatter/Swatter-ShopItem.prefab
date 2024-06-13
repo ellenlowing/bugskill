@@ -850,7 +850,7 @@ GameObject:
   - component: {fileID: 4732227119909391817}
   - component: {fileID: 7844762176497630490}
   m_Layer: 0
-  m_Name: Swatter
+  m_Name: Swatter-ShopItem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -906,7 +906,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7c915bbec3beb44c9691f88ef0a5868, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsStoreItem: 0
+  IsStoreItem: 1
   MaxPowerCapacity: 1
   PowerCapacity: 1
   UsePowerRate: 0.001

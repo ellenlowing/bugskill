@@ -11472,9 +11472,6 @@ MonoBehaviour:
   _twoGrabTransformer: {fileID: 0}
   _targetTransform: {fileID: 0}
   _maxGrabPoints: 1
-  _rigidbody: {fileID: 0}
-  _kinematicWhileSelected: 1
-  _throwWhenUnselected: 1
 --- !u!1 &4773604716455956449
 GameObject:
   m_ObjectHideFlags: 0
@@ -11555,6 +11552,7 @@ GameObject:
   - component: {fileID: 9086552225119096171}
   - component: {fileID: 3058933051594973775}
   - component: {fileID: 9076259476010793511}
+  - component: {fileID: 1849253694863722305}
   m_Layer: 0
   m_Name: MainSprayBottle
   m_TagString: Untagged
@@ -11635,9 +11633,6 @@ MonoBehaviour:
   _twoGrabTransformer: {fileID: 0}
   _targetTransform: {fileID: 0}
   _maxGrabPoints: 1
-  _rigidbody: {fileID: 0}
-  _kinematicWhileSelected: 1
-  _throwWhenUnselected: 1
 --- !u!114 &9076259476010793511
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11782,6 +11777,40 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &1849253694863722305
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4908276517906548500}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f8f6e9e6f3e114b9bf9a57c2160615, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _pointable: {fileID: 3058933051594973775}
+  _whenRelease:
+    m_PersistentCalls:
+      m_Calls: []
+  _whenHover:
+    m_PersistentCalls:
+      m_Calls: []
+  _whenUnhover:
+    m_PersistentCalls:
+      m_Calls: []
+  _whenSelect:
+    m_PersistentCalls:
+      m_Calls: []
+  _whenUnselect:
+    m_PersistentCalls:
+      m_Calls: []
+  _whenMove:
+    m_PersistentCalls:
+      m_Calls: []
+  _whenCancel:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &5091346700343452137
 GameObject:
   m_ObjectHideFlags: 0
@@ -13098,12 +13127,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61f0307d2ee5bdb4899e2b2aa4f12134, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsStoreItem: 0
   MaxPowerCapacity: 1
   PowerCapacity: 1
   UsePowerRate: 0.001
   ChargePowerRate: 0.05
   CurrentState: 0
-  PointableEventWrapper: {fileID: 0}
+  PointableEventWrapper: {fileID: 1849253694863722305}
   _leftHandRenderer: {fileID: 0}
   _rightHandRenderer: {fileID: 0}
   m_MaxDistance: 0.5

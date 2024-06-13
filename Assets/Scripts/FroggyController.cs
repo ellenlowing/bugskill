@@ -34,8 +34,6 @@ public class FroggyController : BasePowerUpBehavior
             }
         }
     }
-
-    public static FroggyController Instance;
     public bool IsActive = false;
 
     [Header("Settings Data")]
@@ -55,8 +53,6 @@ public class FroggyController : BasePowerUpBehavior
 
     [Header("Hands")]
     public OVRHand FroggyActiveHand = null;
-    public GameObject LeftHand;
-    public GameObject RightHand;
     public Vector3 FroggyPositionOffset;
     public Vector3 FroggyRotationOffset;
 
@@ -76,24 +72,10 @@ public class FroggyController : BasePowerUpBehavior
     public AudioClip croakClip;
     public AudioClip slurpClip;
 
-    private HandData _leftHandData;
-    private HandData _rightHandData;
     private Vector3 _originalFrogTongueScale;
     private Collider _hitFlyCollider = null;
     private bool _successFly = false;
     private bool _initialized = false;
-
-    void Awake()
-    {
-        if (Instance != null && Instance != this)
-        {
-            Destroy(this);
-        }
-        else
-        {
-            Instance = this;
-        }
-    }
 
     new void Start()
     {
@@ -198,8 +180,6 @@ public class FroggyController : BasePowerUpBehavior
         {
             FrogTongueTransform.localScale = new Vector3(1, 0.1f, 1);
             _originalFrogTongueScale = FrogTongueTransform.localScale;
-            _leftHandData = new HandData(LeftHand.GetComponent<OVRHand>(), LeftHand.GetComponent<OVRSkeleton>());
-            _rightHandData = new HandData(RightHand.GetComponent<OVRHand>(), RightHand.GetComponent<OVRSkeleton>());
             audioSource = gameObject.GetComponent<AudioSource>();
             audioSource.clip = croakClip;
             audioSource.spatialBlend = 1f;
@@ -240,11 +220,11 @@ public class FroggyController : BasePowerUpBehavior
         Handedness handedness = handData.Handedness;
         if (handedness == Handedness.Right)
         {
-            FroggyActiveHand = RightHand.GetComponent<OVRHand>();
+            FroggyActiveHand = GameManager.Instance.RightHand.GetComponent<OVRHand>();
         }
         else
         {
-            FroggyActiveHand = LeftHand.GetComponent<OVRHand>();
+            FroggyActiveHand = GameManager.Instance.LeftHand.GetComponent<OVRHand>();
         }
         EnterState(PowerUpState.ACTIVE);
     }

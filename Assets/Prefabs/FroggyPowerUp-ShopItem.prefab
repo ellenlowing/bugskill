@@ -259,7 +259,7 @@ GameObject:
   - component: {fileID: 7763834862141276138}
   - component: {fileID: 8057031389750113802}
   m_Layer: 0
-  m_Name: FroggyPowerUp
+  m_Name: FroggyPowerUp-ShopItem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -295,7 +295,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 008ce57f6c6444a1b8f550a8283ac0fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsStoreItem: 0
+  IsStoreItem: 1
   MaxPowerCapacity: 1
   PowerCapacity: 1
   UsePowerRate: 0.001

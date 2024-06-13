@@ -29,7 +29,8 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject FailurePanel;
     [SerializeField] private TextMeshProUGUI FailText;
     [SerializeField] private GameObject LevelProgressUI;
-    [SerializeField] private TextMeshProUGUI WalletText;
+    public TextMeshProUGUI WalletText;
+    public TextMeshProUGUI ShopWalletText;
     [SerializeField] private TextMeshProUGUI LevelGoalText;
     [SerializeField] private TextMeshProUGUI LevelNumberText;
 
@@ -44,7 +45,6 @@ public class UIManager : MonoBehaviour
 
     [Header("Power Up")]
     [Space(20)]
-    [SerializeField] private FroggyController FroggyController;
     [SerializeField] private GameObject Swatter;
 
     private float TimeChange = 0.1f;
@@ -216,15 +216,12 @@ public class UIManager : MonoBehaviour
     {
         FrogUIObj.SetActive(true);
         FaceCamera(FrogUIObj);
-        // FroggyController.Activate();
     }
 
     public void SwatterUI()
     {
-        // FroggyController.Deactivate();
         SwatterUIObj.SetActive(true);
         FaceCamera(SwatterUIObj);
-        Swatter.SetActive(true);
     }
 
     public void UpgradeUI()
@@ -276,9 +273,24 @@ public class UIManager : MonoBehaviour
         tempText = UIScoreObj.GetComponentInChildren<TextMeshProUGUI>();
         tempText.text = cashAmount.ToString();
         tempObj = Instantiate(UIScoreObj, position, Quaternion.identity);
-        WalletText.text = settings.Cash.ToString();
+        UpdateCashUI();
         FaceCamera(tempObj);
         Destroy(tempObj, 1f);
+    }
+
+    public void AddTextPopUp(string text, Vector3 position)
+    {
+        tempText = UIScoreObj.GetComponentInChildren<TextMeshProUGUI>();
+        tempText.text = text;
+        tempObj = Instantiate(UIScoreObj, position, Quaternion.identity);
+        FaceCamera(tempObj);
+        Destroy(tempObj, 1f);
+    }
+
+    public void UpdateCashUI()
+    {
+        WalletText.text = settings.Cash.ToString();
+        ShopWalletText.text = settings.Cash.ToString();
     }
 
     public void UpdateLevel()

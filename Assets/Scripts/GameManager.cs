@@ -188,7 +188,6 @@ public partial class GameManager : MonoBehaviour
                             fly = Instantiate(FlyPrefab, randomPosition, Quaternion.identity, FlyParentAnchor);
                         }
 
-
                         fly.transform.up = randomAnchor.transform.forward;
                         fly.transform.rotation = fly.transform.rotation * Quaternion.Euler(0, Random.Range(0, 360f), 0);
 
@@ -210,15 +209,17 @@ public partial class GameManager : MonoBehaviour
                 // play theme wave wait sound
                 if (settings.flies.Count == 0)
                 {
+                    LocalKills = settings.numberOfKills - LocalKills;
+                    LocalCash = settings.Cash - LocalCash;
+
+                    HourGlass.SetActive(false);
+                    CanProgress(waveIndex);
+
                     waveIndex++;
                     settings.waveIndex = waveIndex;
                     moveToNextWave = false;
                     canSpawn = true;
 
-                    LocalKills = settings.numberOfKills - LocalKills;
-                    LocalCash = settings.Cash - LocalCash;
-
-                    CanProgress(waveIndex);
                     animator.speed = 1f;
 
                     if (animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1)
@@ -285,11 +286,16 @@ public partial class GameManager : MonoBehaviour
 
     private void CheckGoal(int waveI)
     {
+        // Debug.Log("Checking Goal");
+        // Debug.Log("Cash: " + settings.Cash);
+        // Debug.Log("Level Goal: " + settings.LevelGoals[waveI]);
+        // Debug.Log("Wave Index: " + waveI);
         if (!(settings.Cash >= settings.LevelGoals[waveI]))
         {
             UIManager.Instance.FailedPanel(true, LocalCash, waveIndex);
             canSpawn = false;
             waveIndex = 0;
+            settings.waveIndex = 0;
             runningIndex = waveIndex;
 
             StopCoroutine(GameLoopRoutine);
@@ -315,12 +321,13 @@ public partial class GameManager : MonoBehaviour
 
         GameLoopRoutine = StartCoroutine(SpawnFlyAtRandomPosition());
         waveIndex = 0;
+        settings.waveIndex = 0;
         settings.numberOfKills = 0;
         settings.Cash = 0;
         //initialTime = 0;
         UIManager.Instance.FailedPanel(false, 0, 0);
         UIManager.Instance.UpdateLevel();
-
+        UIManager.Instance.UpdateCashUI();
     }
 
     // this event has been removed from the MRUK event call 

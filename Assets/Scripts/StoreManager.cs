@@ -74,6 +74,7 @@ public class StoreManager : MonoBehaviour
         {
             var shopItemName = _selectedPowerUp.StoreItemData.Name;
             settings.Cash -= _selectedPowerUp.StoreItemData.Price;
+            UIManager.Instance.UpdateCashUI();
 
             switch (shopItemName)
             {
@@ -90,6 +91,8 @@ public class StoreManager : MonoBehaviour
 
             GameObject powerupItem = _selectedPowerUp.GetComponentInParent<Grabbable>().gameObject;
             powerupItem.SetActive(false);
+
+            UIManager.Instance.AddTextPopUp(shopItemName + " Purchased!", powerupItem.transform.position);
 
             _selectedPowerUp = null;
         }

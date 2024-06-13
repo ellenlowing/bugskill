@@ -9,7 +9,7 @@ public class StoreManager : MonoBehaviour
     [SerializeField] private List<StoreItemSO> items;
     [SerializeField] private SettingSO settings;
 
-    [Header("UI ")]
+    [Header("UI")]
     [SerializeField] private GameObject StoreUI;
     [SerializeField] private GameObject ItemTemplate;
     [SerializeField] private Transform GridAnchor;
@@ -36,6 +36,7 @@ public class StoreManager : MonoBehaviour
     private void Start()
     {
         ShowStore(3);
+        UIManager.Instance.FaceCamera(StoreUI);
     }
 
     private void Purchase()
@@ -55,7 +56,7 @@ public class StoreManager : MonoBehaviour
         GlobalDescription.text = items[0].Description;
         GlobalCashAmount.text = settings.Cash.ToString();
 
-        for(int i = 0; i < itemCount; i++)
+        for (int i = 0; i < itemCount; i++)
         {
             template = Instantiate(ItemTemplate, GridAnchor);
             TextMeshes = template.GetComponentsInChildren<TextMeshProUGUI>();
@@ -70,6 +71,6 @@ public class StoreManager : MonoBehaviour
 
     private void HideStore()
     {
-        StoreUI.SetActive(false); 
+        StoreUI.SetActive(false);
     }
 }

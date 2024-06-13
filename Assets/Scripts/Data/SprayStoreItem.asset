@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: SprayStoreItem
   m_EditorClassIdentifier: 
   ItemPrefab: {fileID: 4966731797903484835, guid: da32208d73d30b545b20e7799a311e2b, type: 3}
-  Price: 10
+  Price: 200
   Name: Insecticide Spray
   Description: Spray at fly to slow them down!
+  LocalPosition: {x: 0, y: 0, z: 0}
+  LocalRotation: {x: 0, y: 0, z: 0, w: 1}

@@ -12,11 +12,14 @@ public class StoreManager : MonoBehaviour
 
     [Header("UI")]
     [SerializeField] private GameObject StoreUI;
+    [SerializeField] private GameObject PopupTextObj;
 
     [Header("Shared UI")]
     [SerializeField] public TextMeshProUGUI GlobalName;
     [SerializeField] public TextMeshProUGUI GlobalDescription;
     [SerializeField] public TextMeshProUGUI GlobalCashAmount;
+    public GameObject ShopItemDataUI;
+    public GameObject PurchaseBtnUI;
 
     [Header("Buttons")]
     [SerializeField] private InteractableUnityEventWrapper PurchaseBtn;
@@ -72,29 +75,38 @@ public class StoreManager : MonoBehaviour
     {
         if (_selectedPowerUp != null)
         {
-            var shopItemName = _selectedPowerUp.StoreItemData.Name;
-            settings.Cash -= _selectedPowerUp.StoreItemData.Price;
-            UIManager.Instance.UpdateCashUI();
-
-            switch (shopItemName)
+            var shopItemPrice = _selectedPowerUp.StoreItemData.Price;
+            if (settings.Cash < shopItemPrice)
             {
-                case "Froggy":
-                    BoughtItems.Add(Froggy);
-                    break;
-                case "Insecticide Spray":
-                    BoughtItems.Add(InsecticideSpray);
-                    break;
-                case "Electric Swatter":
-                    BoughtItems.Add(ElectricSwatter);
-                    break;
+                AddTextPopUp("Not Enough Cash!", _selectedPowerUp.transform.position);
+            }
+            else
+            {
+                var shopItemName = _selectedPowerUp.StoreItemData.Name;
+                settings.Cash -= _selectedPowerUp.StoreItemData.Price;
+                UIManager.Instance.UpdateCashUI();
+
+                switch (shopItemName)
+                {
+                    case "Froggy":
+                        BoughtItems.Add(Froggy);
+                        break;
+                    case "Insecticide Spray":
+                        BoughtItems.Add(InsecticideSpray);
+                        break;
+                    case "Electric Swatter":
+                        BoughtItems.Add(ElectricSwatter);
+                        break;
+                }
+
+                GameObject powerupItem = _selectedPowerUp.GetComponentInParent<Grabbable>().gameObject;
+                powerupItem.SetActive(false);
+
+                AddTextPopUp(shopItemName + " Purchased!", powerupItem.transform.position);
+
+                _selectedPowerUp = null;
             }
 
-            GameObject powerupItem = _selectedPowerUp.GetComponentInParent<Grabbable>().gameObject;
-            powerupItem.SetActive(false);
-
-            UIManager.Instance.AddTextPopUp(shopItemName + " Purchased!", powerupItem.transform.position);
-
-            _selectedPowerUp = null;
         }
     }
 
@@ -120,7 +132,7 @@ public class StoreManager : MonoBehaviour
         }
 
         StoreUI.SetActive(true);
-        UIManager.Instance.FaceCamera(StoreUI);
+        UIManager.Instance.FaceCamera(StoreUI, -0.3f);
         foreach (var item in ShopItems)
         {
             item.SetActive(true);
@@ -137,5 +149,30 @@ public class StoreManager : MonoBehaviour
     public void SetActivePowerUp(BasePowerUpBehavior powerUp)
     {
         _selectedPowerUp = powerUp;
+        if (powerUp == null)
+        {
+            PurchaseBtnUI.SetActive(false);
+        }
+        else
+        {
+            PurchaseBtnUI.SetActive(true);
+        }
+    }
+
+    public void HideAllPowerUps()
+    {
+        foreach (var item in PowerUpItems)
+        {
+            item.SetActive(false);
+        }
+    }
+
+    public void AddTextPopUp(string text, Vector3 position)
+    {
+        TextMeshProUGUI tempText = PopupTextObj.GetComponentInChildren<TextMeshProUGUI>();
+        tempText.text = text;
+        GameObject tempObj = Instantiate(PopupTextObj, position, Quaternion.identity);
+        UIManager.Instance.FaceCamera(tempObj);
+        Destroy(tempObj, 1f);
     }
 }

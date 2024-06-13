@@ -328,6 +328,7 @@ public partial class GameManager : MonoBehaviour
         UIManager.Instance.FailedPanel(false, 0, 0);
         UIManager.Instance.UpdateLevel();
         UIManager.Instance.UpdateCashUI();
+        StoreManager.Instance.HideAllPowerUps();
     }
 
     // this event has been removed from the MRUK event call 
@@ -372,19 +373,26 @@ public partial class GameManager : MonoBehaviour
                     doneOnce = true;
                 }
             }
-            else
-            {
-                if (anchor.HasLabel("FLOOR"))
-                {
-                    if (!doneOnce)
-                    {
-                        HourGlass.transform.position = anchor.transform.position;
-                        HourGlass.transform.forward = anchor.transform.up;
+            // else
+            // {
+            //     if (anchor.HasLabel("FLOOR"))
+            //     {
+            //         if (!doneOnce)
+            //         {
+            //             HourGlass.transform.position = anchor.transform.position;
+            //             HourGlass.transform.forward = anchor.transform.up;
 
-                        doneOnce = true;
-                    }
-                }
-            }
+            //             doneOnce = true;
+            //         }
+            //     }
+            // }
+        }
+
+        if (!doneOnce)
+        {
+            var wall = room.GetKeyWall(out Vector2 wallScale);
+            HourGlass.transform.position = wall.transform.position - new Vector3(0, wallScale.y / 2, 0);
+            HourGlass.transform.forward = -wall.transform.forward;
         }
     }
 }

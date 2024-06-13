@@ -2857,7 +2857,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3613868102660323786, guid: c2e00db6d2dfa42ac8d821db8d493a44, type: 3}
       propertyPath: SceneSettings.RoomIndex
-      value: -1
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 3613868102660323786, guid: c2e00db6d2dfa42ac8d821db8d493a44, type: 3}
       propertyPath: SceneSettings.DataSource
@@ -2869,7 +2869,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3613868102660323786, guid: c2e00db6d2dfa42ac8d821db8d493a44, type: 3}
       propertyPath: SceneLoadedEvent.m_PersistentCalls.m_Calls.Array.size
-      value: 5
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3613868102660323786, guid: c2e00db6d2dfa42ac8d821db8d493a44, type: 3}
       propertyPath: RoomCreatedEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
@@ -5399,9 +5399,12 @@ MonoBehaviour:
   - {fileID: 11400000, guid: fc227df3124f7b94eb428fc63ab535ad, type: 2}
   settings: {fileID: 11400000, guid: 415f7b1141256224db7c3c8720566774, type: 2}
   StoreUI: {fileID: 2375270128856768485}
+  PopupTextObj: {fileID: 6082352034369301065, guid: 7f31f79308105443f8b0a1f4cb6bdfdc, type: 3}
   GlobalName: {fileID: 519488274}
   GlobalDescription: {fileID: 646988969265161865}
   GlobalCashAmount: {fileID: 1293099588}
+  ShopItemDataUI: {fileID: 2028997170}
+  PurchaseBtnUI: {fileID: 9094096361958416363}
   PurchaseBtn: {fileID: 6045326905814598286}
   NextWaveBtn: {fileID: 933218964715691231}
   StartNextWaveEvent: {fileID: 11400000, guid: 16826ff85b57ded42a9461c318dd55c3, type: 2}
@@ -6064,7 +6067,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 312.60004, y: 43.999977}
+  m_AnchoredPosition: {x: 322, y: 43.999977}
   m_SizeDelta: {x: 80, y: 30.9}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &765381070
@@ -9080,15 +9083,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2488721232276297010, guid: 4a1a4d3d65f354255946dbdf2c1d592c, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.008
+      value: 0.004
       objectReference: {fileID: 0}
     - target: {fileID: 2488721232276297010, guid: 4a1a4d3d65f354255946dbdf2c1d592c, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.008
+      value: 0.004
       objectReference: {fileID: 0}
     - target: {fileID: 2488721232276297010, guid: 4a1a4d3d65f354255946dbdf2c1d592c, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.008
+      value: 0.004
       objectReference: {fileID: 0}
     - target: {fileID: 4376122200081391356, guid: 4a1a4d3d65f354255946dbdf2c1d592c, type: 3}
       propertyPath: m_text
@@ -9217,13 +9220,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 2127979526699292469, guid: 4a1a4d3d65f354255946dbdf2c1d592c, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 0}
-    - targetCorrespondingSourceObject: {fileID: 3148497053570253838, guid: 4a1a4d3d65f354255946dbdf2c1d592c, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 0}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4a1a4d3d65f354255946dbdf2c1d592c, type: 3}
 --- !u!114 &1324841159 stripped
 MonoBehaviour:
@@ -10015,8 +10012,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.6, y: 0.6, z: 0.6}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 738638578}
   - {fileID: 7114770129407655934}
@@ -13410,7 +13407,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2028997171
 RectTransform:
   m_ObjectHideFlags: 0
@@ -14802,7 +14799,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 211.6, y: -182.3}
+  m_AnchoredPosition: {x: 221, y: -182.3}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!33 &485851003886131933
@@ -14855,7 +14852,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Wave the electric swatter to kill flies in air!
+  m_text: 'Grab a Power Up Item and Try it On! '
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 17731f012e9684fd79d04b029f1e6634, type: 2}
   m_sharedMaterial: {fileID: -8107851052388498266, guid: 17731f012e9684fd79d04b029f1e6634, type: 2}
@@ -15326,7 +15323,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 211.6, y: -225.3}
+  m_AnchoredPosition: {x: 220.99998, y: -225.29999}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1710920977689729409
@@ -16170,6 +16167,30 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1519360679829470328, guid: b350bf8e4ce2d4aaba2857925d75117b, type: 3}
+      propertyPath: _width
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1519360679829470328, guid: b350bf8e4ce2d4aaba2857925d75117b, type: 3}
+      propertyPath: _height
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1519360679829470328, guid: b350bf8e4ce2d4aaba2857925d75117b, type: 3}
+      propertyPath: _radiusTopLeft
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1519360679829470328, guid: b350bf8e4ce2d4aaba2857925d75117b, type: 3}
+      propertyPath: _radiusTopRight
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1519360679829470328, guid: b350bf8e4ce2d4aaba2857925d75117b, type: 3}
+      propertyPath: _radiusBottomLeft
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1519360679829470328, guid: b350bf8e4ce2d4aaba2857925d75117b, type: 3}
+      propertyPath: _radiusBottomRight
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1562124181481839229, guid: b350bf8e4ce2d4aaba2857925d75117b, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -16229,6 +16250,26 @@ PrefabInstance:
     - target: {fileID: 2867114446846849725, guid: b350bf8e4ce2d4aaba2857925d75117b, type: 3}
       propertyPath: m_Name
       value: Game Start UI (Poke)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2936734813853178578, guid: b350bf8e4ce2d4aaba2857925d75117b, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 6946639927238050209, guid: b350bf8e4ce2d4aaba2857925d75117b, type: 3}
+      propertyPath: m_fontSize
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 6946639927238050209, guid: b350bf8e4ce2d4aaba2857925d75117b, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 8529554522656234263, guid: b350bf8e4ce2d4aaba2857925d75117b, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8529554522656234263, guid: b350bf8e4ce2d4aaba2857925d75117b, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.7
       objectReference: {fileID: 0}
     - target: {fileID: 8688043303869423973, guid: b350bf8e4ce2d4aaba2857925d75117b, type: 3}
       propertyPath: m_LocalScale.x
@@ -16878,7 +16919,7 @@ Transform:
   m_GameObject: {fileID: 7722288490509723073}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.211, z: 0.44}
+  m_LocalPosition: {x: 0, y: 0.211, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -17511,7 +17552,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

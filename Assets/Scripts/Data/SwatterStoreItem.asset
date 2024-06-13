@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: SwatterStoreItem
   m_EditorClassIdentifier: 
   ItemPrefab: {fileID: 2991904239131300368, guid: cf9b54e7873904dabbe3b87d6f87696e, type: 3}
-  Price: 10
+  Price: 900
   Name: Electric Swatter
   Description: Wave the electric swatter to kill flies in air!
+  LocalPosition: {x: 0, y: 0, z: 0}
+  LocalRotation: {x: 0, y: 0, z: 0, w: 1}

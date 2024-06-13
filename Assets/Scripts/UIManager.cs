@@ -128,7 +128,7 @@ public class UIManager : MonoBehaviour
 
     private void UpdateStarterMenu()
     {
-        FaceCamera(GameStartUI);
+        FaceCamera(GameStartUI, -0.15f);
     }
 
     private void QuitGame()
@@ -175,7 +175,7 @@ public class UIManager : MonoBehaviour
     {
         // show failure panel
         FailurePanel.SetActive(state);
-        FailText.text = "you killed " + settings.numberOfKills + " flies and made " + settings.Cash + " cash";
+        FailText.text = "you killed " + settings.numberOfKills + " flies and made " + settings.Cash + " dollars...";
         FaceCamera(FailurePanel);
     }
 
@@ -278,15 +278,6 @@ public class UIManager : MonoBehaviour
         Destroy(tempObj, 1f);
     }
 
-    public void AddTextPopUp(string text, Vector3 position)
-    {
-        tempText = UIScoreObj.GetComponentInChildren<TextMeshProUGUI>();
-        tempText.text = text;
-        tempObj = Instantiate(UIScoreObj, position, Quaternion.identity);
-        FaceCamera(tempObj);
-        Destroy(tempObj, 1f);
-    }
-
     public void UpdateCashUI()
     {
         WalletText.text = settings.Cash.ToString();
@@ -308,12 +299,12 @@ public class UIManager : MonoBehaviour
         GameBegins.RaiseEvent();
     }
 
-    public void FaceCamera(GameObject obj)
+    public void FaceCamera(GameObject obj, float yOffset = 0f)
     {
         if (obj != null)
         {
             obj.transform.position = Camera.main.transform.position + Camera.main.transform.forward * settings.distanceFromCamera;
-            obj.transform.position = new Vector3(obj.transform.position.x, Camera.main.transform.position.y, obj.transform.position.z);
+            obj.transform.position = new Vector3(obj.transform.position.x, Camera.main.transform.position.y + yOffset, obj.transform.position.z);
             obj.transform.forward = Camera.main.transform.forward;
             obj.transform.eulerAngles = new Vector3(0, obj.transform.eulerAngles.y, obj.transform.eulerAngles.z);
         }

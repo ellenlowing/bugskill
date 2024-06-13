@@ -124,6 +124,7 @@ public class BasePowerUpBehavior : MonoBehaviour
         if (IsStoreItem)
         {
             ShowItemData(arg0);
+            StoreManager.Instance.ShopItemDataUI.SetActive(true);
         }
     }
 
@@ -142,9 +143,10 @@ public class BasePowerUpBehavior : MonoBehaviour
 
         if (IsStoreItem)
         {
-            StoreManager.Instance.GlobalDescription.text = "";
+            StoreManager.Instance.GlobalDescription.text = "Grab a Power Up Item and Try it On!";
             StoreManager.Instance.GlobalCashAmount.text = "";
             StoreManager.Instance.GlobalName.text = "";
+            StoreManager.Instance.ShopItemDataUI.SetActive(false);
         }
     }
 

@@ -32,9 +32,9 @@ public class StoreManager : MonoBehaviour
     public List<GameObject> BoughtItems = new List<GameObject>();
 
     public List<GameObject> ShopItems;
+    public List<GameObject> PowerUpItems;
 
     private BasePowerUpBehavior _selectedPowerUp;
-
 
     private void OnEnable()
     {
@@ -59,7 +59,13 @@ public class StoreManager : MonoBehaviour
         foreach (var item in ShopItems)
         {
             item.SetActive(false);
+            item.GetComponentInChildren<BasePowerUpBehavior>().StoreItemData.LocalPosition = item.transform.localPosition;
+            item.GetComponentInChildren<BasePowerUpBehavior>().StoreItemData.LocalRotation = item.transform.localRotation;
         }
+
+        PowerUpItems.Add(Froggy);
+        PowerUpItems.Add(InsecticideSpray);
+        PowerUpItems.Add(ElectricSwatter);
     }
 
     private void Purchase()
@@ -86,7 +92,6 @@ public class StoreManager : MonoBehaviour
             powerupItem.SetActive(false);
 
             _selectedPowerUp = null;
-
         }
     }
 
@@ -97,17 +102,27 @@ public class StoreManager : MonoBehaviour
         foreach (var item in BoughtItems)
         {
             item.SetActive(true);
+            UIManager.Instance.FaceCamera(item);
+            item.GetComponentInChildren<BasePowerUpBehavior>().ResetPowerUp();
         }
         BoughtItems = new List<GameObject>();
     }
 
     public void ShowStore()
     {
+        // Disable all power up items at the end of each wave !! TODO NOT WORKING
+        foreach (var item in PowerUpItems)
+        {
+            item.SetActive(false);
+        }
+
         StoreUI.SetActive(true);
         UIManager.Instance.FaceCamera(StoreUI);
         foreach (var item in ShopItems)
         {
             item.SetActive(true);
+            item.transform.localPosition = item.GetComponentInChildren<BasePowerUpBehavior>().StoreItemData.LocalPosition;
+            item.transform.localRotation = item.GetComponentInChildren<BasePowerUpBehavior>().StoreItemData.LocalRotation;
         }
     }
 

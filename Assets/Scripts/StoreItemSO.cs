@@ -8,5 +8,7 @@ public class StoreItemSO : ScriptableObject
     public GameObject ItemPrefab;
     public int Price = 0;
     public string Name = "ItemName";
-    public string Description = "Nothing";    
+    public string Description = "Nothing";
+    public Vector3 LocalPosition = Vector3.zero;
+    public Quaternion LocalRotation = Quaternion.identity;
 }

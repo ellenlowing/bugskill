@@ -117,8 +117,6 @@ public class FroggyController : BasePowerUpBehavior
 
     public override void UpdateActiveState()
     {
-        base.UpdateActiveState();
-
         // Check if active hand is pinching
         if (FroggyActiveHand.IsTracked)
         {
@@ -284,7 +282,13 @@ public class FroggyController : BasePowerUpBehavior
         }
         FroggyActive = false;
         FrogTongueTransform.localScale = inScale;
-
+        if (!IsStoreItem)
+        {
+            if (PowerCapacity >= 0)
+            {
+                PowerCapacity -= UsePowerRate;
+            }
+        }
         yield return new WaitForSeconds(0.2f);
     }
 

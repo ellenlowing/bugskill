@@ -59,7 +59,7 @@ public class SprayFlyDetection : BasePowerUpBehavior
         {
             if (other.CompareTag("Fly"))
             {
-               
+
                 if (other.TryGetComponent<SlowDown>(out SlowDown slowDown))
                 {
                     slowDown.SlowDownFly();
@@ -82,20 +82,13 @@ public class SprayFlyDetection : BasePowerUpBehavior
                 settings.numberOfKills += 1;
                 UIManager.Instance.IncrementKill(other.transform.position, totalCash);
                 totalCash = 0;
-
             }
         }
-     
     }
-
-
-  
 
     void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
-
-
         if (m_HitDetect)
         {
 

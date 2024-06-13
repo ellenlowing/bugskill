@@ -91,6 +91,11 @@ public class BasePowerUpBehavior : MonoBehaviour
         }
     }
 
+    public void ResetPowerUp()
+    {
+        PowerCapacity = MaxPowerCapacity;
+    }
+
     public void Charge()
     {
         if (PowerCapacity < MaxPowerCapacity)

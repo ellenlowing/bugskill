@@ -219,7 +219,6 @@ public partial class GameManager : MonoBehaviour
                     LocalCash = settings.Cash - LocalCash;
 
                     CanProgress(waveIndex);
-                    WhatPowerUp(waveIndex);
                     animator.speed = 1f;
 
                     if (animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1)
@@ -261,7 +260,6 @@ public partial class GameManager : MonoBehaviour
         StoreManager.Instance.HideStore();
     }
 
-
     // check state of progression 
     private void CanProgress(int waveIndex)
     {
@@ -285,21 +283,9 @@ public partial class GameManager : MonoBehaviour
         }
     }
 
-
-
     private void CheckGoal(int waveI)
     {
-        //if (!(LocalKills >= settings.LevelGoals[waveI]))
-        //{
-        //    UIManager.Instance.FailedPanel(true, LocalKills, waveIndex);
-        //    canSpawn = false;
-        //    waveIndex = 0;
-        //    runningIndex = waveIndex;     
-
-        //    StopCoroutine(GameLoopRoutine);
-        //}
-
-        if (!(LocalCash >= settings.LevelGoals[waveI]))
+        if (!(settings.Cash >= settings.LevelGoals[waveI]))
         {
             UIManager.Instance.FailedPanel(true, LocalCash, waveIndex);
             canSpawn = false;
@@ -308,6 +294,10 @@ public partial class GameManager : MonoBehaviour
 
             StopCoroutine(GameLoopRoutine);
         }
+        else
+        {
+            StoreManager.Instance.ShowStore();
+        }
     }
 
     private void StartGameLoop()
@@ -315,31 +305,6 @@ public partial class GameManager : MonoBehaviour
         // SceneManager.LoadScene(SceneManager.GetActiveScene().name); 
         GameLoopRoutine = StartCoroutine(SpawnFlyAtRandomPosition());
     }
-
-    // check game start to determine powerup
-    private void WhatPowerUp(int waveIndex)
-    {
-        StoreManager.Instance.ShowStore();
-        // switch (waveIndex)
-        // {
-        //     case (int)POWERUP.FROG:
-        //         FrogPowerUp.RaiseEvent();
-        //         break;
-        //     case (int)POWERUP.SPRAY:
-        //         SprayPowerUp.RaiseEvent();
-        //         break;
-        //     case (int)POWERUP.SWATTER:
-        //         ElectricSwatterPowerUp.RaiseEvent();
-        //         break;
-        //     case (int)POWERUP.UPGRADE:
-        //         UpgradePowerUps.RaiseEvent();
-        //         break;
-        //     case (int)POWERUP.BOSS:
-        //         BossFightEvent.RaiseEvent();
-        //         break;
-        // }
-    }
-
 
     public void RestartGameLoop()
     {

@@ -16,6 +16,8 @@ public class SlowDown : MonoBehaviour
     private float currentSpeed = 0.0f;
     private float InitialTime = 0.0f;
 
+    private int totalCash = 0;
+
     private void Start()
     {
         flyMovements = GetComponentInParent<FlyMovement>();
@@ -47,6 +49,24 @@ public class SlowDown : MonoBehaviour
         yield return new WaitForSeconds(time);
         GameObject obj = Instantiate(DeadFly, transform.position, Quaternion.Euler(Random.Range(0, 360), Random.Range(0, 360), Random.Range(0, 360)));
         obj.transform.localScale = this.transform.localScale;
+
+
+        if (transform.gameObject.transform.localScale == Vector3.one)
+        {
+            settings.Cash += (int)SCOREFACTOR.SLIM;
+            totalCash += (int)SCOREFACTOR.SLIM;
+        }
+        else
+        {
+            settings.Cash += (int)SCOREFACTOR.FAT;
+            totalCash += (int)SCOREFACTOR.FAT;
+        }
+
+        settings.Cash += (int)SCOREFACTOR.SWATTER;
+        totalCash += (int)SCOREFACTOR.SWATTER;
+        settings.numberOfKills += 1;
+        UIManager.Instance.IncrementKill(transform.position, totalCash);
+        totalCash = 0;
     } 
 
 

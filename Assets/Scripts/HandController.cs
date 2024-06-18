@@ -1,6 +1,7 @@
 
 using Meta.WitAi;
 using Oculus.Interaction.PoseDetection.Debug;
+using Oculus.Interaction.Input;
 using System.Collections;
 using System.Collections.Generic;
 using System.Dynamic;
@@ -13,6 +14,7 @@ public class HandController : MonoBehaviour
     public GameObject HandSplat;
     public float BloodSplatTimeout = 2f;
     public FroggyController FroggyController;
+    // public OVRSkeleton HandSkeleton;
 
     [Header("Events")]
     [Space(20)]
@@ -29,7 +31,15 @@ public class HandController : MonoBehaviour
 
     void Start()
     {
-
+        // if (HandSkeleton)
+        // {
+        //     foreach (var capsule in HandSkeleton.Capsules)
+        //     {
+        //         capsule.CapsuleCollider.isTrigger = true;
+        //         capsule.CapsuleRigidbody.isKinematic = true;
+        //         capsule.CapsuleCollider.gameObject.tag = "Hands";
+        //     }
+        // }
     }
 
     void Update()
@@ -42,7 +52,6 @@ public class HandController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-
         if (other.gameObject.layer == 6)
         {
             isTouchingLandingSurface = true;
@@ -104,8 +113,6 @@ public class HandController : MonoBehaviour
                 {
                     var splatter = Instantiate(splatterPrefab, touchedFlyTransform.position, Quaternion.identity);
                     splatter.transform.up = touchedFlyTransform.up;
-
-
                     CashSlimFly();
                     settings.Cash += (int)SCOREFACTOR.SLAP;
                     totalCash += (int)SCOREFACTOR.SLAP;
@@ -120,7 +127,6 @@ public class HandController : MonoBehaviour
 
                     if (IsRightHand)
                     {
-
                         CashSlimFly();
                         settings.Cash += (int)SCOREFACTOR.CLAP;
                         totalCash += (int)SCOREFACTOR.CLAP;

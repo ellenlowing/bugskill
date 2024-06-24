@@ -110,6 +110,7 @@ public class FlyMovement : MonoBehaviour
         isMoving = false;
         isResting = true;
         transform.up = targetNormal;  // Align the fly's 'up' with the surface normal
+        transform.position = targetPosition + 0.01f * targetNormal;  // Snap the fly to the target position
         transform.rotation = transform.rotation * Quaternion.Euler(0, Random.Range(0, 360f), 0);
         yield return new WaitForSeconds(Random.Range(flyBehaviour.minRestDuration, flyBehaviour.maxRestDuration));
         isResting = false;

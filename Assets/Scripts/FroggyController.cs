@@ -139,7 +139,11 @@ public class FroggyController : BasePowerUpBehavior
             {
                 if (hit.collider != null)
                 {
-                    hit.collider.GetComponentInChildren<Outline>().enabled = false;
+                    var outline = hit.collider.GetComponentInChildren<Outline>();
+                    if (outline != null)
+                    {
+                        outline.enabled = false;
+                    }
                 }
             }
         }
@@ -147,7 +151,11 @@ public class FroggyController : BasePowerUpBehavior
         // Enable outline for all current hits
         foreach (var hit in hits)
         {
-            hit.collider.GetComponentInChildren<Outline>().enabled = true;
+            var outline = hit.collider.GetComponentInChildren<Outline>();
+            if (outline != null)
+            {
+                outline.enabled = true;
+            }
         }
 
         _previousHits = hits;
@@ -313,7 +321,11 @@ public class FroggyController : BasePowerUpBehavior
         if (other.tag == "Fly")
         {
             other.GetComponentInChildren<FlyMovement>().enabled = false;
-            other.GetComponentInChildren<Outline>().enabled = false;
+            var outline = other.GetComponentInChildren<Outline>();
+            if (outline != null)
+            {
+                Destroy(outline);
+            }
             other.GetComponentInChildren<Animator>().speed = 0;
             other.transform.parent = TongueTipObjectTransform;
             other.transform.position = GetRandomPointWithinBounds(TongueTipObjectTransform.gameObject);

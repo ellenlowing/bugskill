@@ -113,6 +113,7 @@ public class HandController : MonoBehaviour
                 {
                     var splatter = Instantiate(splatterPrefab, touchedFlyTransform.position, Quaternion.identity);
                     splatter.transform.up = touchedFlyTransform.up;
+                    splatter.transform.parent = GameManager.Instance.BloodSplatContainer;
                     CashSlimFly();
                     settings.Cash += (int)SCOREFACTOR.SLAP;
                     totalCash += (int)SCOREFACTOR.SLAP;
@@ -137,7 +138,11 @@ public class HandController : MonoBehaviour
 
                 if (touchedFlyTransform.gameObject.TryGetComponent<FlyAudioSource>(out var buzzSource))
                 {
-                    var audioSource = splatterPrefab.AddComponent<AudioSource>();
+                    var audioSource = splatterPrefab.GetComponent<AudioSource>();
+                    if (audioSource == null)
+                    {
+                        audioSource = splatterPrefab.AddComponent<AudioSource>();
+                    }
                     audioSource.clip = buzzSource.flySplatClip;
                     audioSource.pitch = Random.Range(0.1f, 2.0f);
                     audioSource.spatialBlend = 1f;
@@ -145,7 +150,11 @@ public class HandController : MonoBehaviour
                     audioSource.loop = false;
                     audioSource.spatialize = true;
                     audioSource.playOnAwake = true;
-                    var metaAudio = splatterPrefab.AddComponent<MetaXRAudioSource>();
+                    var metaAudio = splatterPrefab.GetComponent<MetaXRAudioSource>();
+                    if (metaAudio == null)
+                    {
+                        metaAudio = splatterPrefab.AddComponent<MetaXRAudioSource>();
+                    }
                     metaAudio.EnableSpatialization = true;
                     audioSource.Play();
                 }

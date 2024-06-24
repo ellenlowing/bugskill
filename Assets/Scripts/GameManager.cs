@@ -25,6 +25,7 @@ public partial class GameManager : MonoBehaviour
     public Animator animator;
     public GameObject HourGlass;
     public GameObject Portal;
+    public Transform BloodSplatContainer;
 
     [Header("Game Events")]
     [Space(20)]
@@ -212,6 +213,11 @@ public partial class GameManager : MonoBehaviour
                     LocalKills = settings.numberOfKills - LocalKills;
                     LocalCash = settings.Cash - LocalCash;
 
+                    for (int i = BloodSplatContainer.childCount - 1; i >= 0; i--)
+                    {
+                        Destroy(BloodSplatContainer.GetChild(i).gameObject);
+                    }
+
                     HourGlass.SetActive(false);
                     CanProgress(waveIndex);
 
@@ -369,7 +375,7 @@ public partial class GameManager : MonoBehaviour
                 if (!doneOnce)
                 {
                     HourGlass.transform.position = anchor.transform.position;
-                    HourGlass.transform.forward = anchor.transform.right;
+                    HourGlass.transform.forward = -anchor.transform.right;
                     doneOnce = true;
                 }
             }

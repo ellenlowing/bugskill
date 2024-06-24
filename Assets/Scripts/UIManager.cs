@@ -12,19 +12,10 @@ public class UIManager : MonoBehaviour
 {
     public static UIManager Instance;
     public SettingSO settings;
-    public GameObject UIObject;
-    public Image TimerSprite;
-    public TextMeshProUGUI KillText;
-    public bool RunTimer = false;
 
     [Header("UI Objects")]
     [Space(20)]
     [SerializeField] private GameObject GameStartUI;
-    [SerializeField] private GameObject FrogUIObj;
-    [SerializeField] private GameObject SprayUIObj;
-    [SerializeField] private GameObject UpgradeUIObj;
-    [SerializeField] private GameObject SwatterUIObj;
-    [SerializeField] private GameObject BossfightUI;
     [SerializeField] private GameObject UIScoreObj;
     [SerializeField] private GameObject FailurePanel;
     [SerializeField] private TextMeshProUGUI FailText;
@@ -37,15 +28,7 @@ public class UIManager : MonoBehaviour
     [Header("Buttons")]
     [Space(20)]
     [SerializeField] private InteractableUnityEventWrapper GameStartButton;
-    [SerializeField] private InteractableUnityEventWrapper FrogStartButton;
-    [SerializeField] private InteractableUnityEventWrapper SprayStartButton;
-    [SerializeField] private InteractableUnityEventWrapper SwatterStartButton;
     [SerializeField] private InteractableUnityEventWrapper GameExitButton;
-
-
-    [Header("Power Up")]
-    [Space(20)]
-    [SerializeField] private GameObject Swatter;
 
     private float TimeChange = 0.1f;
     private float quickStart = 0.5f;
@@ -74,11 +57,6 @@ public class UIManager : MonoBehaviour
     private void IsNotNull()
     {
         Assert.IsNotNull(GameStartUI, "UI not Assigned");
-        Assert.IsNotNull(FrogUIObj, "UI not Assigned");
-        Assert.IsNotNull(SprayUIObj, "UI not Assigned");
-        Assert.IsNotNull(UpgradeUIObj, "UI not Assigned");
-        Assert.IsNotNull(SwatterUIObj, "UI not Assigned");
-
         Assert.IsNotNull(GameBegins, "Event not Assigned");
         Assert.IsNotNull(FrogPowerUp, "Event not Assigned");
         Assert.IsNotNull(SprayPowerUp, "Event not Assigned");
@@ -109,18 +87,10 @@ public class UIManager : MonoBehaviour
         IsNotNull();
         // subscribe to all events
         GameEnds.OnEventRaised += KillUpdate;
-        FrogPowerUp.OnEventRaised += FrogUI;
-        SprayPowerUp.OnEventRaised += SprayUI;
-        ElectricSwatterPowerUp.OnEventRaised += SwatterUI;
-        UpgradePowerUps.OnEventRaised += UpgradeUI;
-        BossFightEvent.OnEventRaised += BossFight;
 
         StartNextWaveEvent.OnEventRaised += UpdateLevel;
 
         GameStartButton.WhenSelect.AddListener(StartGameLoopTrigger);
-        FrogStartButton.WhenSelect.AddListener(FrogStart);
-        SprayStartButton.WhenSelect.AddListener(SprayStart);
-        SwatterStartButton.WhenSelect.AddListener(SwatterStart);
         GameExitButton.WhenSelect.AddListener(QuitGame);
 
         Invoke(nameof(UpdateStarterMenu), 1.5f);
@@ -146,24 +116,7 @@ public class UIManager : MonoBehaviour
 
     public void Update()
     {
-        if (RunTimer)
-        {
-            UpdateTimer();
 
-            if (TimeChange > settings.waveWaitTime)
-            {
-                RunTimer = false;
-                TimeChange = 0;
-            }
-
-            TimeChange += Time.deltaTime;
-        }
-    }
-
-    public void UpdateTimer()
-    {
-        // TimerText.text = Mathf.RoundToInt(TimeChange) + "/" + Mathf.RoundToInt(settings.waveTimeToComplete);
-        // TimerSprite.fillAmount = TimeChange / settings.waveTimeToComplete;
     }
 
     public void ScoreUpdate()
@@ -179,71 +132,6 @@ public class UIManager : MonoBehaviour
         FaceCamera(FailurePanel);
     }
 
-    #region UI QUICK START
-    private void FrogStart()
-    {
-        DestroyPanel(FrogUIObj, quickStart);
-        StartNextWaveEvent.RaiseEvent();
-    }
-
-    private void SprayStart()
-    {
-        Destroy(SprayUIObj, quickStart);
-        StartNextWaveEvent.RaiseEvent();
-    }
-
-    private void SwatterStart()
-    {
-        Destroy(SwatterUIObj, quickStart);
-        StartNextWaveEvent.RaiseEvent();
-    }
-
-    private void UpgradeStart()
-    {
-        Destroy(UpgradeUIObj, quickStart);
-        StartNextWaveEvent.RaiseEvent();
-    }
-
-    private void BossStart()
-    {
-        //Destroy(BossFightStartBtn, quickStart);
-        StartNextWaveEvent.RaiseEvent();
-    }
-    #endregion  
-
-    #region  UI POPUP
-    public void FrogUI()
-    {
-        FrogUIObj.SetActive(true);
-        FaceCamera(FrogUIObj);
-    }
-
-    public void SwatterUI()
-    {
-        SwatterUIObj.SetActive(true);
-        FaceCamera(SwatterUIObj);
-    }
-
-    public void UpgradeUI()
-    {
-        UpgradeUIObj.SetActive(true);
-        FaceCamera(UpgradeUIObj);
-    }
-
-    public void SprayUI()
-    {
-        SwatterUIObj.SetActive(false);
-        SprayUIObj.SetActive(true);
-        FaceCamera(SprayUIObj);
-    }
-
-    public void BossFight()
-    {
-        BossfightUI.SetActive(true);
-        FaceCamera(BossfightUI);
-    }
-    #endregion
-
     public void DestroyPanel(GameObject obj, float waitTime)
     {
         if (obj != null)
@@ -254,18 +142,7 @@ public class UIManager : MonoBehaviour
 
     public void KillUpdate()
     {
-        UIObject.SetActive(true);
-        // set position to forward vector of center eye with match height
-        FaceCamera(UIObject);
-
-        if (settings.numberOfKills == 1)
-        {
-            KillText.text = "you killed " + "<color=red>" + settings.numberOfKills + "</color>" + " fly...";
-        }
-        else
-        {
-            KillText.text = "you killed " + "<color=red>" + settings.numberOfKills + "</color>" + " flies...";
-        }
+        Debug.Log("Game ends from KillUpdate");
     }
 
     public void UpdateScore(float cashAmount, Vector3 position)

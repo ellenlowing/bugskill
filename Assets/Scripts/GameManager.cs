@@ -19,12 +19,9 @@ public partial class GameManager : MonoBehaviour
     public GameObject FlyPrefab;
     public SettingSO settings;
     public List<GameObject> BloodSplatterPrefabs;
-    public GameObject splatterParticle;
     public Transform FlyParentAnchor;
-    public UIManager UIM;
     public Animator animator;
     public GameObject HourGlass;
-    public GameObject Portal;
     public Transform BloodSplatContainer;
 
     [Header("Game Events")]
@@ -83,16 +80,10 @@ public partial class GameManager : MonoBehaviour
 
     void Start()
     {
-        // check references
-        UIM = GetComponent<UIManager>();
         settings.numberOfKills = 0;
         GameRestartEvent.WhenSelect.AddListener(RestartGameLoop);
 
-        Assert.IsNotNull(UIM, "UIManager Reference Missing");
-
         HourGlass.SetActive(false);
-
-        // GetWindowOrDoorFrames(MRUK.Instance.GetCurrentRoom());
     }
 
     void Update()
@@ -232,14 +223,7 @@ public partial class GameManager : MonoBehaviour
                     {
                         animator.speed = 0;
                     }
-                    // enable hour glass here
-                    // set the animation speed to scale with div factor
-                    // HourGlass.SetActive(true);
-                    // animator.speed = settings.divFactor / settings.waveWaitTime;
-                    // animator.speed = 0.02f;
-                    // animator.speed = 0;
                     yield return new WaitForSeconds(settings.waveWaitTime);
-                    // HourGlass.SetActive(false);
                 }
 
                 // 1 second frame checks
@@ -292,10 +276,6 @@ public partial class GameManager : MonoBehaviour
 
     private void CheckGoal(int waveI)
     {
-        // Debug.Log("Checking Goal");
-        // Debug.Log("Cash: " + settings.Cash);
-        // Debug.Log("Level Goal: " + settings.LevelGoals[waveI]);
-        // Debug.Log("Wave Index: " + waveI);
         if (!(settings.Cash >= settings.LevelGoals[waveI]))
         {
             UIManager.Instance.FailedPanel(true, LocalCash, waveIndex);
@@ -354,12 +334,6 @@ public partial class GameManager : MonoBehaviour
             if (anchor.HasLabel("WINDOW_FRAME") || anchor.HasLabel("DOOR_FRAME"))
             {
                 FlySpawnPositions.Add(anchor);
-                /*if (!doneOnce)
-                 {
-                     Instantiate(Portal, anchor.transform.position, Portal.transform.rotation);
-                     doneOnce = true;
-                 } */
-
             }
             else
             {
@@ -379,19 +353,18 @@ public partial class GameManager : MonoBehaviour
                     doneOnce = true;
                 }
             }
-            // else
-            // {
-            //     if (anchor.HasLabel("FLOOR"))
-            //     {
-            //         if (!doneOnce)
-            //         {
-            //             HourGlass.transform.position = anchor.transform.position;
-            //             HourGlass.transform.forward = anchor.transform.up;
-
-            //             doneOnce = true;
-            //         }
-            //     }
-            // }
+            else
+            {
+                if (anchor.HasLabel("FLOOR"))
+                {
+                    if (!doneOnce)
+                    {
+                        HourGlass.transform.position = anchor.transform.position;
+                        HourGlass.transform.forward = anchor.transform.up;
+                        doneOnce = true;
+                    }
+                }
+            }
         }
 
         if (!doneOnce)

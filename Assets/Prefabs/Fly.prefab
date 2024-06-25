@@ -276,7 +276,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb8863dbb824349b8bd7d6449768ca8e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canLand: 16383
+  canLand: 49151
   settings: {fileID: 11400000, guid: 415f7b1141256224db7c3c8720566774, type: 2}
   isResting: 0
   speed: 1

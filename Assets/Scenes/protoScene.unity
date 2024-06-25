@@ -191,6 +191,10 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8833455020896083640, guid: 0d1e25132d9984c9ea998e3992cdadad, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 4fc48cc1092d04cc8a2e6b1df6517ba3, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3071,6 +3075,10 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3614046464503687564, guid: 21282a9663a7f4df0b165f6c5533d8cd, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 29be36f4de8584bd2955e47065835a50, type: 2}
     - target: {fileID: 6949516455442263442, guid: 21282a9663a7f4df0b165f6c5533d8cd, type: 3}
       propertyPath: m_Name
       value: Splat 2
@@ -3434,9 +3442,7 @@ MonoBehaviour:
   - {fileID: 3576745075615365910, guid: 9b969da0b79e9494c987b92eac7e259f, type: 3}
   - {fileID: 7564351992964049981, guid: 07dd33865b8e0448d803890db407bf6d, type: 3}
   - {fileID: 8404636662083356861, guid: a438042a375794a26ade24f47db6944e, type: 3}
-  splatterParticle: {fileID: 6239871663085426012, guid: 9a364c12fcc6002409b9a29355f3d1d3, type: 3}
   FlyParentAnchor: {fileID: 652486518}
-  UIM: {fileID: 730595230}
   animator: {fileID: 738638577}
   HourGlass: {fileID: 1409376069}
   BloodSplatContainer: {fileID: 66880576}
@@ -3562,6 +3568,14 @@ PrefabInstance:
       propertyPath: m_AABB.m_Extent.z
       value: 359.44446
       objectReference: {fileID: 0}
+    - target: {fileID: -3678688437210019070, guid: fac0a33f3667ca642895251e039037d7, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 05f558eb593c3427890af17616c7ea2c, type: 2}
+    - target: {fileID: -3669373209300958974, guid: fac0a33f3667ca642895251e039037d7, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 66149266f6c4943a4a819d5fcc436cfc, type: 2}
     - target: {fileID: -1626880296917031099, guid: fac0a33f3667ca642895251e039037d7, type: 3}
       propertyPath: m_DirtyAABB
       value: 0
@@ -3582,6 +3596,22 @@ PrefabInstance:
       propertyPath: m_AABB.m_Extent.z
       value: 359.44446
       objectReference: {fileID: 0}
+    - target: {fileID: -1626880296917031099, guid: fac0a33f3667ca642895251e039037d7, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: d6817195070f64ba9a102966f0700209, type: 2}
+    - target: {fileID: 363730378320476549, guid: fac0a33f3667ca642895251e039037d7, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 26790c5506aba42d2b75947e5f2feb5e, type: 2}
+    - target: {fileID: 4072533493436087335, guid: fac0a33f3667ca642895251e039037d7, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 413a39a2001424b3ab7214d1ebc7e082, type: 2}
+    - target: {fileID: 6313428210735692844, guid: fac0a33f3667ca642895251e039037d7, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 6927cc7bf93414d56b80d89fd946852f, type: 2}
     - target: {fileID: 8128668236925612103, guid: fac0a33f3667ca642895251e039037d7, type: 3}
       propertyPath: m_Name
       value: HourGlass
@@ -3644,6 +3674,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8897093224900880590, guid: fac0a33f3667ca642895251e039037d7, type: 3}
       propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9023661845117347907, guid: fac0a33f3667ca642895251e039037d7, type: 3}
+      propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -9846,6 +9880,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3034579000909810395, guid: 07189f4709b1d4c34b859fa0b2060293, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 2100000, guid: 56cd3fefa06a14c6e95214e85f424dcd, type: 2}
     - target: {fileID: 3056740074227995216, guid: 07189f4709b1d4c34b859fa0b2060293, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -10277,6 +10315,10 @@ PrefabInstance:
       propertyPath: m_fontSizeBase
       value: 40
       objectReference: {fileID: 0}
+    - target: {fileID: 7892014700384819598, guid: b350bf8e4ce2d4aaba2857925d75117b, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 2100000, guid: 56cd3fefa06a14c6e95214e85f424dcd, type: 2}
     - target: {fileID: 8529554522656234263, guid: b350bf8e4ce2d4aaba2857925d75117b, type: 3}
       propertyPath: m_LocalScale.x
       value: 3

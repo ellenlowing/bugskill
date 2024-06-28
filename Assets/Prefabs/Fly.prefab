@@ -5408,6 +5408,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: TNT Hat
       objectReference: {fileID: 0}
+    - target: {fileID: -6689036041284674117, guid: c8cd68aba1b4443a3ad60698e7ea364a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: -5119120925735471609, guid: c8cd68aba1b4443a3ad60698e7ea364a, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 

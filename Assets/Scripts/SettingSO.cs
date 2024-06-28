@@ -28,7 +28,7 @@ public class SettingSO : ScriptableObject
     public int[] durationOfWave = { 60, 120, 200, 300 };
     public int[] fliesInWave = { 5, 10, 20, 40 };
     public int[] LevelGoals = { 2, 2, 2, 2 };
-
+    public float[] TakeoffChances = { 0.1f, 0.2f, 0.3f, 0.4f };
 
     [Header("HourGlass")]
     public float divFactor = 2.7f;

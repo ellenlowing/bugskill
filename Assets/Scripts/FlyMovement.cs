@@ -39,9 +39,17 @@ public class FlyMovement : MonoBehaviour
         }
 
         // If moving and reached target position, rest 
-        if (isMoving && Vector3.Distance(transform.position, targetPosition) < 0.08f)
+        if (!needNewTarget && isMoving && Vector3.Distance(transform.position, targetPosition) < 0.08f)
         {
-            StartCoroutine(Rest());
+            if (Random.Range(0, 1f) < settings.TakeoffChances[settings.waveIndex])
+            {
+                needNewTarget = true;
+                Debug.Log("Take off");
+            }
+            else
+            {
+                StartCoroutine(Rest());
+            }
         }
     }
 
@@ -64,7 +72,6 @@ public class FlyMovement : MonoBehaviour
 
             // Generate random position on any surface that is not facing down 
             // + position is not too close to anchor's edge 
-
             if (currentRoom.GenerateRandomPositionOnSurface(MRUK.SurfaceType.FACING_UP | MRUK.SurfaceType.VERTICAL, flyBehaviour.distanceToEdges, labelFilter, out Vector3 position, out Vector3 normal))
             {
                 CheckValidPosition(position, normal);
@@ -80,15 +87,15 @@ public class FlyMovement : MonoBehaviour
         if (!Physics.Raycast(transform.position, direction, Vector3.Distance(transform.position, position)))
         {
             // If the player can reach the position
-            if (IsPositionAccessible(position, normal))
-            {
-                targetPosition = position;
-                targetNormal = normal;
-                needNewTarget = false;
-            }
+            // if (IsPositionAccessible(position, normal))
+            // {
+            targetPosition = position;
+            targetNormal = normal;
+            needNewTarget = false;
+            Debug.Log("New target position");
+            // }
         }
     }
-
 
     // Check if the position is sufficiently distant from other scene anchors
     private bool IsPositionAccessible(Vector3 position, Vector3 normal)
@@ -97,16 +104,12 @@ public class FlyMovement : MonoBehaviour
         Vector3 start = position + normal * flyBehaviour.radius;
 
         // Use Physics.SphereCast to check for collisions within the radius along a very short distance
-        if (Physics.SphereCast(start, flyBehaviour.radius, normal, out RaycastHit hit, flyBehaviour.checkDistance))
-        {
-            return false;  // There is an object within the buffer zone
-        }
-        return true;  // No objects found within the buffer zone, position is accessible
+        return Physics.SphereCast(start, flyBehaviour.radius, normal, out RaycastHit hit, flyBehaviour.checkDistance);
     }
-
 
     private IEnumerator Rest()
     {
+        Debug.Log("resting");
         isMoving = false;
         isResting = true;
         transform.up = targetNormal;  // Align the fly's 'up' with the surface normal
@@ -115,6 +118,23 @@ public class FlyMovement : MonoBehaviour
         yield return new WaitForSeconds(Random.Range(flyBehaviour.minRestDuration, flyBehaviour.maxRestDuration));
         isResting = false;
         needNewTarget = true;  // Need new target position after resting 
+    }
+
+    private Vector3 GenerateOppositeDirection()
+    {
+        // Get the wall's surface normal
+        Vector3 wallNormal = targetNormal;
+
+        // Generate a random direction
+        Vector3 randomDirection = Random.insideUnitSphere.normalized;
+
+        // Calculate a direction somewhat opposite to the wall's normal
+        Vector3 oppositeDirection = wallNormal + randomDirection * 0.5f;
+
+        // Normalize the direction
+        oppositeDirection.Normalize();
+
+        return oppositeDirection;
     }
 
     private void OnDrawGizmos()

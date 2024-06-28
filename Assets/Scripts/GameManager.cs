@@ -137,6 +137,7 @@ public partial class GameManager : MonoBehaviour
     {
         if (FlySpawnPositions.Count == 0)
         {
+            StartGame();
             Debug.LogWarning("Fly Spawn Positions Were Zero");
             yield break;
         }

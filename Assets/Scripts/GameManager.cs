@@ -55,7 +55,6 @@ public partial class GameManager : MonoBehaviour
     private bool canSpawn = true;
     private bool moveToNextWave = false;
     private float initialTime = 0;
-    private GameObject fly;
     private Coroutine GameLoopRoutine;
 
     private int runningIndex = 0;
@@ -150,7 +149,7 @@ public partial class GameManager : MonoBehaviour
                 if (waveIndex == settings.fliesInWave.Length)
                 {
                     // call completion here with ui score update
-                    Debug.LogWarning("Wave Index Same as Number of Flies in Wave");
+                    Debug.LogWarning("Wave Index Same as the Length of Flies in Wave");
                     GameEnds.RaiseEvent();
                     yield break;
                 }
@@ -160,7 +159,7 @@ public partial class GameManager : MonoBehaviour
                 // before next wave, wait for certain amount of time
                 if (canSpawn)
                 {
-                    for (int i = runningIndex; i < settings.fliesInWave[waveIndex]; i++)
+                    for (int i = 0; i < settings.fliesInWave[waveIndex]; i++)
                     {
                         int randomIndex = Random.Range(0, FlySpawnPositions.Count);
                         MRUKAnchor randomAnchor = FlySpawnPositions[randomIndex];
@@ -171,16 +170,7 @@ public partial class GameManager : MonoBehaviour
                             randomPosition += new Vector3(Random.Range(-size.x / 2, size.x / 2), size.y / 2, 0);
                         }
 
-                        if (settings.fliesInWave[waveIndex] == 1)
-                        {
-                            fly = Instantiate(FlyPrefab, randomPosition, Quaternion.identity, FlyParentAnchor);
-                            fly.transform.localScale = new Vector3(4, 4, 4);
-                        }
-                        else
-                        {
-                            fly = Instantiate(FlyPrefab, randomPosition, Quaternion.identity, FlyParentAnchor);
-                        }
-
+                        GameObject fly = Instantiate(FlyPrefab, randomPosition, Quaternion.identity, FlyParentAnchor);
                         fly.transform.up = randomAnchor.transform.forward;
                         fly.transform.rotation = fly.transform.rotation * Quaternion.Euler(0, Random.Range(0, 360f), 0);
 
@@ -324,7 +314,6 @@ public partial class GameManager : MonoBehaviour
         GetWindowOrDoorFrames(MRUK.Instance.GetCurrentRoom());
     }
 
-    // 
     bool doneOnce = false;
 
     public void GetWindowOrDoorFrames(MRUKRoom room)

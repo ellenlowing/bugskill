@@ -11,7 +11,6 @@ using UnityEngine.UI;
 public class UIManager : MonoBehaviour
 {
     public static UIManager Instance;
-    public SettingSO settings;
 
     [Header("UI Objects")]
     [Space(20)]
@@ -48,11 +47,11 @@ public class UIManager : MonoBehaviour
     public VoidEventChannelSO GameEnds;
     public VoidEventChannelSO BossFightEvent;
     public VoidEventChannelSO StartNextWaveEvent;
-
     public FVEventSO ScoreUIUpdateEvent;
 
     private GameObject tempObj;
     private TextMeshProUGUI tempText;
+    private SettingSO settings;
 
     private void IsNotNull()
     {
@@ -85,6 +84,9 @@ public class UIManager : MonoBehaviour
     private void Start()
     {
         IsNotNull();
+
+        settings = GameManager.Instance.settings;
+
         // subscribe to all events
         GameEnds.OnEventRaised += KillUpdate;
 

@@ -10,7 +10,6 @@ using UnityEngine;
 public class HandController : MonoBehaviour
 {
     public bool IsRightHand;
-    public SettingSO settings;
     public GameObject HandSplat;
     public float BloodSplatTimeout = 2f;
     public FroggyController FroggyController;
@@ -28,18 +27,11 @@ public class HandController : MonoBehaviour
     float BloodSplatTimer = 0;
 
     private int totalCash = 0;
+    private SettingSO settings;
 
     void Start()
     {
-        // if (HandSkeleton)
-        // {
-        //     foreach (var capsule in HandSkeleton.Capsules)
-        //     {
-        //         capsule.CapsuleCollider.isTrigger = true;
-        //         capsule.CapsuleRigidbody.isKinematic = true;
-        //         capsule.CapsuleCollider.gameObject.tag = "Hands";
-        //     }
-        // }
+        settings = GameManager.Instance.settings;
     }
 
     void Update()

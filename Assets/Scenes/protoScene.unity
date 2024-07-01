@@ -456,7 +456,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2296141232796561049, guid: cee191920b8eb41b0960b1082a393a3e, type: 3}
       propertyPath: hideMesh
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2296141232796561049, guid: cee191920b8eb41b0960b1082a393a3e, type: 3}
       propertyPath: Colliders
@@ -610,7 +610,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IsRightHand: 0
-  settings: {fileID: 11400000, guid: 415f7b1141256224db7c3c8720566774, type: 2}
   HandSplat: {fileID: 676907612}
   BloodSplatTimeout: 2
   FroggyController: {fileID: 1835700973}
@@ -1828,7 +1827,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3613868102660323786, guid: c2e00db6d2dfa42ac8d821db8d493a44, type: 3}
       propertyPath: SceneLoadedEvent.m_PersistentCalls.m_Calls.Array.size
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3613868102660323786, guid: c2e00db6d2dfa42ac8d821db8d493a44, type: 3}
       propertyPath: RoomCreatedEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
@@ -3432,9 +3431,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7dadf323ef39c4970938a763c458b614, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FlySpawnPositions: []
-  FlyPrefab: {fileID: 708182128869486111, guid: 75d14416f534f4b11aec372b6307c3bb, type: 3}
+  animator: {fileID: 738638577}
+  HourGlass: {fileID: 1409376069}
+  EffectMesh: {fileID: 1874991646}
   settings: {fileID: 11400000, guid: 415f7b1141256224db7c3c8720566774, type: 2}
+  TestMode: 0
+  gameSettings: {fileID: 11400000, guid: 415f7b1141256224db7c3c8720566774, type: 2}
+  testSettings: {fileID: 11400000, guid: 7fba20d623e134514b2a2fceb7441d80, type: 2}
+  FlyPrefab: {fileID: 708182128869486111, guid: 75d14416f534f4b11aec372b6307c3bb, type: 3}
+  FlyParentAnchor: {fileID: 652486518}
   BloodSplatterPrefabs:
   - {fileID: 1038763753378116429, guid: 49c79d619d82a4d4ebb6014bc86c59e5, type: 3}
   - {fileID: 6949516455442263442, guid: 21282a9663a7f4df0b165f6c5533d8cd, type: 3}
@@ -3442,10 +3447,9 @@ MonoBehaviour:
   - {fileID: 3576745075615365910, guid: 9b969da0b79e9494c987b92eac7e259f, type: 3}
   - {fileID: 7564351992964049981, guid: 07dd33865b8e0448d803890db407bf6d, type: 3}
   - {fileID: 8404636662083356861, guid: a438042a375794a26ade24f47db6944e, type: 3}
-  FlyParentAnchor: {fileID: 652486518}
-  animator: {fileID: 738638577}
-  HourGlass: {fileID: 1409376069}
   BloodSplatContainer: {fileID: 66880576}
+  SpawnAnchorLabels: 100
+  TNTFlyPrefab: {fileID: 708182128869486111, guid: 6d53a31eeb0594f1d87267cbea8d037d, type: 3}
   GameBegins: {fileID: 11400000, guid: e1f9e8cd7ed35bb4f933dfe252aff86d, type: 2}
   FrogPowerUp: {fileID: 11400000, guid: d77f5a68065e545499e35851c0ded3e1, type: 2}
   SprayPowerUp: {fileID: 11400000, guid: e4a38373fc5699847ad7d4c59e987ae5, type: 2}
@@ -3471,7 +3475,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 681fad8638607044c87cf25d4b5b224d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  settings: {fileID: 11400000, guid: 415f7b1141256224db7c3c8720566774, type: 2}
   GameStartUI: {fileID: 524281947490072907}
   UIScoreObj: {fileID: 6082352034369301065, guid: dc884c7a4bd4c53488cce74ceb7e5413, type: 3}
   FailurePanel: {fileID: 1324841160}
@@ -3508,7 +3511,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 704502336c3eb464cbe1ecc34f913eaf, type: 2}
   - {fileID: 11400000, guid: 1c6c05410cf7aa54dae3915e235abcb9, type: 2}
   - {fileID: 11400000, guid: fc227df3124f7b94eb428fc63ab535ad, type: 2}
-  settings: {fileID: 11400000, guid: 415f7b1141256224db7c3c8720566774, type: 2}
   StoreUI: {fileID: 2375270128856768485}
   PopupTextObj: {fileID: 6082352034369301065, guid: 7f31f79308105443f8b0a1f4cb6bdfdc, type: 3}
   GlobalName: {fileID: 519488274}
@@ -4130,7 +4132,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IsRightHand: 1
-  settings: {fileID: 11400000, guid: 415f7b1141256224db7c3c8720566774, type: 2}
   HandSplat: {fileID: 13004061}
   BloodSplatTimeout: 2
   FroggyController: {fileID: 1835700973}

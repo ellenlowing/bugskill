@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 345cf1bedd32c9f4483a79373f5c4bc1, type: 3}
-  m_Name: SettingSO
+  m_Name: TestSettingsSO
   m_EditorClassIdentifier: 
   score: 25
   scoreMulFactor: 1
@@ -27,10 +27,10 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 2cb2a157148019742a5339d058893360, type: 2}
   waveWaitTime: 9999
   waveIndex: 0
-  durationOfWave: 1e0000001e0000001e0000001e0000001e000000
+  durationOfWave: 0300000003000000030000000300000003000000
   fliesInWave: 0a0000000f00000014000000190000001e000000
   tntFliesInWave: 0100000002000000030000000400000004000000
-  LevelGoals: c8000000900100005802000020030000e8030000
+  LevelGoals: 0000000000000000000000000000000000000000
   TakeoffChances:
   - 0.1
   - 0.2

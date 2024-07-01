@@ -8,6 +8,7 @@ using UnityEngine.Events;
 using UnityEditor;
 using System.Dynamic;
 using Oculus.Interaction;
+using Unity.VisualScripting;
 
 // kills set to zero on start
 // cash still running , will reset somewhere safe
@@ -15,17 +16,25 @@ using Oculus.Interaction;
 public partial class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
-    public List<MRUKAnchor> FlySpawnPositions;
-    public GameObject FlyPrefab;
-    public SettingSO settings;
-    public List<GameObject> BloodSplatterPrefabs;
-    public Transform FlyParentAnchor;
     public Animator animator;
     public GameObject HourGlass;
+    public EffectMesh EffectMesh;
+
+    [Header("Game Settings")]
+    public SettingSO settings;
+    public bool TestMode;
+    [SerializeField] private SettingSO gameSettings;
+    [SerializeField] private SettingSO testSettings;
+
+    [Header("Flies")]
+    public GameObject FlyPrefab;
+    public Transform FlyParentAnchor;
+    public List<GameObject> BloodSplatterPrefabs;
     public Transform BloodSplatContainer;
+    public MRUKAnchor.SceneLabels SpawnAnchorLabels;
+    public GameObject TNTFlyPrefab;
 
     [Header("Game Events")]
-    [Space(20)]
     [Tooltip("Subscribe to run before first game wave")]
     public VoidEventChannelSO GameBegins;
     [Tooltip("Subscribe to activate FrogPowerUp panels and tutorials during cooldown time after a wave")]
@@ -72,9 +81,17 @@ public partial class GameManager : MonoBehaviour
             Instance = this;
         }
 
+        if (TestMode)
+        {
+            settings = testSettings;
+        }
+        else
+        {
+            settings = gameSettings;
+        }
+
         settings.waveIndex = 0;
         settings.flies = new List<GameObject>();
-        FlySpawnPositions = new List<MRUKAnchor>();
     }
 
     void Start()
@@ -83,6 +100,10 @@ public partial class GameManager : MonoBehaviour
         GameRestartEvent.WhenSelect.AddListener(RestartGameLoop);
 
         HourGlass.SetActive(false);
+
+#if UNITY_EDITOR
+        EffectMesh.HideMesh = false;
+#endif
     }
 
     void Update()
@@ -134,93 +155,89 @@ public partial class GameManager : MonoBehaviour
 
     IEnumerator SpawnFlyAtRandomPosition()
     {
-        if (FlySpawnPositions.Count == 0)
-        {
-            StartGame();
-            Debug.LogWarning("Fly Spawn Positions Were Zero");
-            yield break;
-        }
-
         while (true)
         {
-            if (FlySpawnPositions.Count > 0)
+            if (waveIndex == settings.fliesInWave.Length)
             {
+                // call completion here with ui score update
+                Debug.LogWarning("Wave Index Same as the Length of Flies in Wave");
+                GameEnds.RaiseEvent();
+                yield break;
+            }
 
-                if (waveIndex == settings.fliesInWave.Length)
-                {
-                    // call completion here with ui score update
-                    Debug.LogWarning("Wave Index Same as the Length of Flies in Wave");
-                    GameEnds.RaiseEvent();
-                    yield break;
-                }
+            // loop here with wave count which changes
+            // destroy all current flies before next wave
+            // before next wave, wait for certain amount of time
+            if (canSpawn)
+            {
+                MRUKRoom currentRoom = MRUK.Instance.GetCurrentRoom();
+                var labelFilter = LabelFilter.FromEnum(SpawnAnchorLabels);
 
-                // loop here with wave count which changes
-                // destroy all current flies before next wave
-                // before next wave, wait for certain amount of time
-                if (canSpawn)
+                if (currentRoom != null)
                 {
                     for (int i = 0; i < settings.fliesInWave[waveIndex]; i++)
                     {
-                        int randomIndex = Random.Range(0, FlySpawnPositions.Count);
-                        MRUKAnchor randomAnchor = FlySpawnPositions[randomIndex];
-                        Vector3 randomPosition = randomAnchor.GetAnchorCenter();
-                        if (randomAnchor.PlaneRect.HasValue)
+                        if (currentRoom.GenerateRandomPositionOnSurface(MRUK.SurfaceType.VERTICAL, 0.01f, labelFilter, out Vector3 position, out Vector3 normal))
                         {
-                            Vector2 size = randomAnchor.PlaneRect.Value.size;
-                            randomPosition += new Vector3(Random.Range(-size.x / 2, size.x / 2), size.y / 2, 0);
+                            GameObject fly = Instantiate(FlyPrefab, position, Quaternion.identity, FlyParentAnchor);
+                            fly.transform.up = normal;
+                            fly.transform.rotation = fly.transform.rotation * Quaternion.Euler(0, Random.Range(0, 360f), 0);
+                            settings.flies.Add(fly);
                         }
-
-                        GameObject fly = Instantiate(FlyPrefab, randomPosition, Quaternion.identity, FlyParentAnchor);
-                        fly.transform.up = randomAnchor.transform.forward;
-                        fly.transform.rotation = fly.transform.rotation * Quaternion.Euler(0, Random.Range(0, 360f), 0);
-
-                        // keep reference to all spawned flies
-                        // spawn wave number through loop which uses settings factor
-                        settings.flies.Add(fly);
-
                     }
-                    canSpawn = false;
-                    moveToNextWave = true;
 
-                    // enable and set timescale for loading based on time anticapated per wave
-                    HourGlass.SetActive(true);
-                    animator.speed = settings.divFactor / settings.durationOfWave[waveIndex];
+                    for (int i = 0; i < settings.tntFliesInWave[waveIndex]; i++)
+                    {
+                        if (currentRoom.GenerateRandomPositionOnSurface(MRUK.SurfaceType.VERTICAL, 0.01f, labelFilter, out Vector3 position, out Vector3 normal))
+                        {
+                            GameObject fly = Instantiate(TNTFlyPrefab, position, Quaternion.identity, FlyParentAnchor);
+                            fly.transform.up = normal;
+                            fly.transform.rotation = fly.transform.rotation * Quaternion.Euler(0, Random.Range(0, 360f), 0);
+                            settings.flies.Add(fly);
+                        }
+                    }
                 }
 
-                // check if all flies are killed
-                // move to next wave count
-                // play theme wave wait sound
-                if (settings.flies.Count == 0)
-                {
-                    LocalKills = settings.numberOfKills - LocalKills;
-                    LocalCash = settings.Cash - LocalCash;
+                canSpawn = false;
+                moveToNextWave = true;
 
-                    for (int i = BloodSplatContainer.childCount - 1; i >= 0; i--)
-                    {
-                        Destroy(BloodSplatContainer.GetChild(i).gameObject);
-                    }
-
-                    HourGlass.SetActive(false);
-                    CanProgress(waveIndex);
-
-                    waveIndex++;
-                    settings.waveIndex = waveIndex;
-                    moveToNextWave = false;
-                    canSpawn = true;
-
-                    animator.speed = 1f;
-
-                    if (animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1)
-                    {
-                        animator.speed = 0;
-                    }
-                    yield return new WaitForSeconds(settings.waveWaitTime);
-                }
-
-                // 1 second frame checks
-                yield return null;
-                // yield return new WaitForSeconds(Random.Range(settings.flySpawnIntervalMin, settings.flySpawnIntervalMax));
+                // enable and set timescale for loading based on time anticapated per wave
+                HourGlass.SetActive(true);
+                animator.speed = settings.divFactor / settings.durationOfWave[waveIndex];
             }
+
+            // check if all flies are killed
+            // move to next wave count
+            // play theme wave wait sound
+            if (settings.flies.Count == 0)
+            {
+                LocalKills = settings.numberOfKills - LocalKills;
+                LocalCash = settings.Cash - LocalCash;
+
+                for (int i = BloodSplatContainer.childCount - 1; i >= 0; i--)
+                {
+                    Destroy(BloodSplatContainer.GetChild(i).gameObject);
+                }
+
+                HourGlass.SetActive(false);
+                CanProgress(waveIndex);
+
+                waveIndex++;
+                settings.waveIndex = waveIndex;
+                moveToNextWave = false;
+                canSpawn = true;
+
+                animator.speed = 1f;
+
+                if (animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1)
+                {
+                    animator.speed = 0;
+                }
+                yield return new WaitForSeconds(settings.waveWaitTime);
+            }
+
+            yield return null;
+
         }
     }
 
@@ -308,31 +325,12 @@ public partial class GameManager : MonoBehaviour
         StoreManager.Instance.HideAllPowerUps();
     }
 
-    // this event has been removed from the MRUK event call 
-    public void StartGame()
-    {
-        GetWindowOrDoorFrames(MRUK.Instance.GetCurrentRoom());
-    }
-
     bool doneOnce = false;
 
     public void GetWindowOrDoorFrames(MRUKRoom room)
     {
         foreach (var anchor in room.Anchors)
         {
-            // handling only door and window points
-            if (anchor.HasLabel("WINDOW_FRAME") || anchor.HasLabel("DOOR_FRAME"))
-            {
-                FlySpawnPositions.Add(anchor);
-            }
-            else
-            {
-                if (anchor.HasLabel("CEILING") || anchor.HasLabel("FLOOR") || anchor.HasLabel("WALL_FACE"))
-                {
-                    FlySpawnPositions.Add(anchor);
-                }
-            }
-
             // place hourglass on table
             if (anchor.HasLabel("TABLE"))
             {

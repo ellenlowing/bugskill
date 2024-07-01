@@ -8,7 +8,6 @@ public class StoreManager : MonoBehaviour
 {
     public static StoreManager Instance;
     [SerializeField] private List<StoreItemSO> items;
-    [SerializeField] private SettingSO settings;
 
     [Header("UI")]
     [SerializeField] private GameObject StoreUI;
@@ -38,6 +37,7 @@ public class StoreManager : MonoBehaviour
     public List<GameObject> PowerUpItems;
 
     private BasePowerUpBehavior _selectedPowerUp;
+    private SettingSO settings;
 
     private void OnEnable()
     {
@@ -59,6 +59,8 @@ public class StoreManager : MonoBehaviour
 
     private void Start()
     {
+        settings = GameManager.Instance.settings;
+
         foreach (var item in ShopItems)
         {
             item.SetActive(false);

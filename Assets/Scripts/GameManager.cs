@@ -327,8 +327,9 @@ public partial class GameManager : MonoBehaviour
 
     bool doneOnce = false;
 
-    public void GetWindowOrDoorFrames(MRUKRoom room)
+    public void PlaceHourglass()
     {
+        MRUKRoom room = MRUK.Instance.GetCurrentRoom();
         foreach (var anchor in room.Anchors)
         {
             // place hourglass on table

@@ -16,9 +16,12 @@ using Unity.VisualScripting;
 public partial class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
+    public EffectMesh EffectMesh;
+
+    [Header("Scene Objects")]
     public Animator animator;
     public GameObject HourGlass;
-    public EffectMesh EffectMesh;
+    public GameObject LevelPanel;
 
     [Header("Game Settings")]
     public SettingSO settings;
@@ -69,6 +72,7 @@ public partial class GameManager : MonoBehaviour
     private int runningIndex = 0;
     private int LocalKills = 0;
     private int LocalCash = 0;
+    private bool doneOnce = false;
 
     void Awake()
     {
@@ -100,6 +104,7 @@ public partial class GameManager : MonoBehaviour
         GameRestartEvent.WhenSelect.AddListener(RestartGameLoop);
 
         HourGlass.SetActive(false);
+        LevelPanel.SetActive(false);
 
 #if UNITY_EDITOR
         EffectMesh.HideMesh = false;
@@ -114,6 +119,11 @@ public partial class GameManager : MonoBehaviour
         if (OVRInput.GetDown(OVRInput.Button.Four))
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            PlaceLevelPanel();
         }
 
     }
@@ -190,6 +200,7 @@ public partial class GameManager : MonoBehaviour
 
                 // enable and set timescale for loading based on time anticapated per wave
                 HourGlass.SetActive(true);
+                LevelPanel.SetActive(true);
                 animator.speed = settings.divFactor / settings.durationOfWave[waveIndex];
             }
 
@@ -207,6 +218,7 @@ public partial class GameManager : MonoBehaviour
                 }
 
                 HourGlass.SetActive(false);
+                LevelPanel.SetActive(false);
                 CanProgress(waveIndex);
 
                 waveIndex++;
@@ -305,14 +317,22 @@ public partial class GameManager : MonoBehaviour
         settings.waveIndex = 0;
         settings.numberOfKills = 0;
         settings.Cash = 0;
-        //initialTime = 0;
         UIManager.Instance.FailedPanel(false, 0, 0);
         UIManager.Instance.UpdateLevel();
         UIManager.Instance.UpdateCashUI();
         StoreManager.Instance.HideAllPowerUps();
     }
 
-    bool doneOnce = false;
+    public void PlaceLevelPanel()
+    {
+        MRUKRoom room = MRUK.Instance.GetCurrentRoom();
+        if (room != null)
+        {
+            var wall = room.GetKeyWall(out Vector2 wallScale);
+            LevelPanel.transform.position = wall.transform.position + new Vector3(0, wallScale.y / 2, 0);
+            LevelPanel.transform.forward = -wall.transform.forward;
+        }
+    }
 
     public void PlaceHourglass()
     {

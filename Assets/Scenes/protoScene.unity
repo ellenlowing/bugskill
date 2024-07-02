@@ -1833,7 +1833,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3613868102660323786, guid: c2e00db6d2dfa42ac8d821db8d493a44, type: 3}
       propertyPath: SceneLoadedEvent.m_PersistentCalls.m_Calls.Array.size
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 3613868102660323786, guid: c2e00db6d2dfa42ac8d821db8d493a44, type: 3}
       propertyPath: RoomCreatedEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
@@ -1853,7 +1853,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3613868102660323786, guid: c2e00db6d2dfa42ac8d821db8d493a44, type: 3}
       propertyPath: SceneLoadedEvent.m_PersistentCalls.m_Calls.Array.data[3].m_Mode
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3613868102660323786, guid: c2e00db6d2dfa42ac8d821db8d493a44, type: 3}
       propertyPath: SceneLoadedEvent.m_PersistentCalls.m_Calls.Array.data[4].m_Mode
@@ -1878,7 +1878,7 @@ PrefabInstance:
     - target: {fileID: 3613868102660323786, guid: c2e00db6d2dfa42ac8d821db8d493a44, type: 3}
       propertyPath: SceneLoadedEvent.m_PersistentCalls.m_Calls.Array.data[3].m_Target
       value: 
-      objectReference: {fileID: 730595230}
+      objectReference: {fileID: 730595229}
     - target: {fileID: 3613868102660323786, guid: c2e00db6d2dfa42ac8d821db8d493a44, type: 3}
       propertyPath: SceneLoadedEvent.m_PersistentCalls.m_Calls.Array.data[4].m_Target
       value: 
@@ -1925,7 +1925,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3613868102660323786, guid: c2e00db6d2dfa42ac8d821db8d493a44, type: 3}
       propertyPath: SceneLoadedEvent.m_PersistentCalls.m_Calls.Array.data[3].m_MethodName
-      value: FaceCamera
+      value: PlaceLevelPanel
       objectReference: {fileID: 0}
     - target: {fileID: 3613868102660323786, guid: c2e00db6d2dfa42ac8d821db8d493a44, type: 3}
       propertyPath: SceneLoadedEvent.m_PersistentCalls.m_Calls.Array.data[4].m_MethodName
@@ -1949,7 +1949,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3613868102660323786, guid: c2e00db6d2dfa42ac8d821db8d493a44, type: 3}
       propertyPath: SceneLoadedEvent.m_PersistentCalls.m_Calls.Array.data[3].m_TargetAssemblyTypeName
-      value: UIManager, Assembly-CSharp
+      value: GameManager, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 3613868102660323786, guid: c2e00db6d2dfa42ac8d821db8d493a44, type: 3}
       propertyPath: SceneLoadedEvent.m_PersistentCalls.m_Calls.Array.data[4].m_TargetAssemblyTypeName
@@ -1958,7 +1958,7 @@ PrefabInstance:
     - target: {fileID: 3613868102660323786, guid: c2e00db6d2dfa42ac8d821db8d493a44, type: 3}
       propertyPath: SceneLoadedEvent.m_PersistentCalls.m_Calls.Array.data[3].m_Arguments.m_ObjectArgument
       value: 
-      objectReference: {fileID: 524281947490072907}
+      objectReference: {fileID: 0}
     - target: {fileID: 3613868102660323786, guid: c2e00db6d2dfa42ac8d821db8d493a44, type: 3}
       propertyPath: SceneLoadedEvent.m_PersistentCalls.m_Calls.Array.data[4].m_Arguments.m_ObjectArgument
       value: 
@@ -1981,7 +1981,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3613868102660323786, guid: c2e00db6d2dfa42ac8d821db8d493a44, type: 3}
       propertyPath: SceneLoadedEvent.m_PersistentCalls.m_Calls.Array.data[3].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.GameObject, UnityEngine
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 3613868102660323786, guid: c2e00db6d2dfa42ac8d821db8d493a44, type: 3}
       propertyPath: SceneLoadedEvent.m_PersistentCalls.m_Calls.Array.data[4].m_Arguments.m_ObjectArgumentAssemblyTypeName
@@ -3451,9 +3451,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7dadf323ef39c4970938a763c458b614, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animator: {fileID: 738638577}
-  HourGlass: {fileID: 1409376069}
   EffectMesh: {fileID: 1874991646}
+  animator: {fileID: 738638577}
+  HourGlass: {fileID: 1072865635}
+  LevelPanel: {fileID: 7114770129407655930}
   settings: {fileID: 11400000, guid: 415f7b1141256224db7c3c8720566774, type: 2}
   TestMode: 0
   gameSettings: {fileID: 11400000, guid: 415f7b1141256224db7c3c8720566774, type: 2}
@@ -4476,6 +4477,11 @@ Transform:
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2991904239131300368, guid: cf9b54e7873904dabbe3b87d6f87696e, type: 3}
   m_PrefabInstance: {fileID: 1522813223}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1072865635 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8128668236925612103, guid: fac0a33f3667ca642895251e039037d7, type: 3}
+  m_PrefabInstance: {fileID: 738638575}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1136028086
 GameObject:
@@ -9360,6 +9366,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1458152569}
     - target: {fileID: 8103863654310763284, guid: a39955e44dae65146a01bfa1cf124b5f, type: 3}
+      propertyPath: TNTExplosion
+      value: 
+      objectReference: {fileID: 1816584845}
+    - target: {fileID: 8103863654310763284, guid: a39955e44dae65146a01bfa1cf124b5f, type: 3}
       propertyPath: currentStateText
       value: 
       objectReference: {fileID: 675572507}
@@ -10123,15 +10133,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1856494452278602621, guid: 07189f4709b1d4c34b859fa0b2060293, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.0045
+      value: 0.006
       objectReference: {fileID: 0}
     - target: {fileID: 1856494452278602621, guid: 07189f4709b1d4c34b859fa0b2060293, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.0045
+      value: 0.006
       objectReference: {fileID: 0}
     - target: {fileID: 1856494452278602621, guid: 07189f4709b1d4c34b859fa0b2060293, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.0045
+      value: 0.006
       objectReference: {fileID: 0}
     - target: {fileID: 1856494452278602621, guid: 07189f4709b1d4c34b859fa0b2060293, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -10139,7 +10149,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1856494452278602621, guid: 07189f4709b1d4c34b859fa0b2060293, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0.311
+      value: -0.561
       objectReference: {fileID: 0}
     - target: {fileID: 1882788071412691151, guid: 07189f4709b1d4c34b859fa0b2060293, type: 3}
       propertyPath: m_Color.a

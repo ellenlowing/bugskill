@@ -29,6 +29,8 @@ namespace Power_Up
         [Header("Recharge Settings")]
         public float RechargeDelay = 5.0f; // Time it takes to start recharging after depletion
 
+        public ParticleSystem TNTExplosion;
+
         // [Header("Activate Button")]
         // public SwatterActivateButton ActivateButton;
 
@@ -41,6 +43,7 @@ namespace Power_Up
 
         new void Start()
         {
+            settings = GameManager.Instance.settings;
             base.Start();
             PointableEventWrapper.WhenSelect.AddListener(OnGrabbableSelect);
             PointableEventWrapper.WhenUnselect.AddListener(OnGrabbableUnselect);
@@ -141,26 +144,43 @@ namespace Power_Up
 
         private void OnTriggerEnter(Collider other)
         {
-            if (other.gameObject.CompareTag("Fly") && CurrentState == PowerUpState.ACTIVE)
+            if (CurrentState == PowerUpState.ACTIVE)
             {
-                HitSoundPlayer.Play();
+                if (other.gameObject.CompareTag("Fly"))
+                {
+                    HitSoundPlayer.Play();
 
 
-                other.transform.SetParent(SwatterPosition);
+                    other.transform.SetParent(SwatterPosition);
 
-                // Instantiate shock effect on fly
-                ParticleSystem hitEffectInstance =
-                    Instantiate(HitEffect, other.transform.position, Quaternion.identity);
-                hitEffectInstance.Play();
-                Destroy(hitEffectInstance.gameObject, hitEffectInstance.main.duration);
+                    // Instantiate shock effect on fly
+                    ParticleSystem hitEffectInstance =
+                        Instantiate(HitEffect, other.transform.position, Quaternion.identity);
+                    hitEffectInstance.Play();
+                    Destroy(hitEffectInstance.gameObject, hitEffectInstance.main.duration);
 
-                settings.Cash += (int)SCOREFACTOR.SWATTER;
-                totalCash += (int)SCOREFACTOR.SWATTER;
-                UIManager.Instance.IncrementKill(other.transform.position, totalCash);
-                totalCash = 0;
-                // Destroy fly after delay 
-                Destroy(other.gameObject, destroyFlyDelay);
+                    settings.Cash += (int)SCOREFACTOR.SWATTER;
+                    totalCash += (int)SCOREFACTOR.SWATTER;
+                    UIManager.Instance.IncrementKill(other.transform.position, totalCash);
+                    totalCash = 0;
+                    // Destroy fly after delay 
+                    Destroy(other.gameObject, destroyFlyDelay);
+                }
+                else if (other.gameObject.tag == "TNT")
+                {
+                    TNTExplosion.transform.position = other.transform.position;
+                    TNTExplosion.Stop();
+                    TNTExplosion.Play();
+                    TNTExplosion.gameObject.GetComponent<AudioSource>().Play();
+                    Destroy(other.gameObject);
+
+                    foreach (GameObject fly in settings.flies)
+                    {
+                        fly.GetComponent<FlyMovement>().GoInsane();
+                    }
+                }
             }
+
         }
 
         private void OnGrabbableSelect(PointerEvent arg0)

@@ -29,8 +29,6 @@ namespace Power_Up
         [Header("Recharge Settings")]
         public float RechargeDelay = 5.0f; // Time it takes to start recharging after depletion
 
-        public ParticleSystem TNTExplosion;
-
         // [Header("Activate Button")]
         // public SwatterActivateButton ActivateButton;
 
@@ -144,13 +142,16 @@ namespace Power_Up
 
         private void OnTriggerEnter(Collider other)
         {
+            if (GameManager.Instance.IsTNTTriggered)
+            {
+                return;
+            }
+
             if (CurrentState == PowerUpState.ACTIVE)
             {
                 if (other.gameObject.CompareTag("Fly"))
                 {
                     HitSoundPlayer.Play();
-
-
                     other.transform.SetParent(SwatterPosition);
 
                     // Instantiate shock effect on fly
@@ -168,16 +169,7 @@ namespace Power_Up
                 }
                 else if (other.gameObject.tag == "TNT")
                 {
-                    TNTExplosion.transform.position = other.transform.position;
-                    TNTExplosion.Stop();
-                    TNTExplosion.Play();
-                    TNTExplosion.gameObject.GetComponent<AudioSource>().Play();
-                    Destroy(other.gameObject);
-
-                    foreach (GameObject fly in settings.flies)
-                    {
-                        fly.GetComponent<FlyMovement>().GoInsane();
-                    }
+                    GameManager.Instance.TriggerTNT(other.transform.position, other.gameObject);
                 }
             }
 

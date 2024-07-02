@@ -137,7 +137,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4924775928377932549, guid: 0d1e25132d9984c9ea998e3992cdadad, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7990456346235167908, guid: 0d1e25132d9984c9ea998e3992cdadad, type: 3}
       propertyPath: m_LocalScale.x
@@ -615,7 +615,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsRightHand: 0
   HandSplat: {fileID: 676907612}
-  TNTExplosion: {fileID: 1816584845}
   BloodSplatTimeout: 2
   FroggyController: {fileID: 1835700973}
   BloodSplatParticles: {fileID: 3387161656658716193}
@@ -3095,7 +3094,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6949516455442263442, guid: 21282a9663a7f4df0b165f6c5533d8cd, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3471,6 +3470,7 @@ MonoBehaviour:
   BloodSplatContainer: {fileID: 66880576}
   SpawnAnchorLabels: 100
   TNTFlyPrefab: {fileID: 708182128869486111, guid: 6d53a31eeb0594f1d87267cbea8d037d, type: 3}
+  TNTExplosion: {fileID: 1816584845}
   GameBegins: {fileID: 11400000, guid: e1f9e8cd7ed35bb4f933dfe252aff86d, type: 2}
   FrogPowerUp: {fileID: 11400000, guid: d77f5a68065e545499e35851c0ded3e1, type: 2}
   SprayPowerUp: {fileID: 11400000, guid: e4a38373fc5699847ad7d4c59e987ae5, type: 2}
@@ -3557,8 +3557,16 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 1409376070}
+    m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -5919265813508830380, guid: fac0a33f3667ca642895251e039037d7, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 716
+      objectReference: {fileID: 0}
+    - target: {fileID: -5919265813508830380, guid: fac0a33f3667ca642895251e039037d7, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0
+      objectReference: {fileID: 0}
     - target: {fileID: -5644133064174452605, guid: fac0a33f3667ca642895251e039037d7, type: 3}
       propertyPath: m_Controller
       value: 
@@ -3645,27 +3653,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8897093224900880590, guid: fac0a33f3667ca642895251e039037d7, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.0004
+      value: 0.0005
       objectReference: {fileID: 0}
     - target: {fileID: 8897093224900880590, guid: fac0a33f3667ca642895251e039037d7, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.0004
+      value: 0.0005
       objectReference: {fileID: 0}
     - target: {fileID: 8897093224900880590, guid: fac0a33f3667ca642895251e039037d7, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.0004
+      value: 0.0005
       objectReference: {fileID: 0}
     - target: {fileID: 8897093224900880590, guid: fac0a33f3667ca642895251e039037d7, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.9927023
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8897093224900880590, guid: fac0a33f3667ca642895251e039037d7, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.3
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8897093224900880590, guid: fac0a33f3667ca642895251e039037d7, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.01640516
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8897093224900880590, guid: fac0a33f3667ca642895251e039037d7, type: 3}
       propertyPath: m_LocalRotation.w
@@ -3711,11 +3719,6 @@ PrefabInstance:
 --- !u!95 &738638577 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: -5644133064174452605, guid: fac0a33f3667ca642895251e039037d7, type: 3}
-  m_PrefabInstance: {fileID: 738638575}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &738638578 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 8897093224900880590, guid: fac0a33f3667ca642895251e039037d7, type: 3}
   m_PrefabInstance: {fileID: 738638575}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &740637894
@@ -4154,7 +4157,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsRightHand: 1
   HandSplat: {fileID: 13004061}
-  TNTExplosion: {fileID: 1816584845}
   BloodSplatTimeout: 2
   FroggyController: {fileID: 1835700973}
   BloodSplatParticles: {fileID: 3387161656658716193}
@@ -5644,9 +5646,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.6, y: 0.6, z: 0.6}
   m_ConstrainProportionsScale: 1
-  m_Children:
-  - {fileID: 738638578}
-  - {fileID: 7114770129407655934}
+  m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1414895416
@@ -10125,7 +10125,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 1409376070}
+    m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1504856841840377807, guid: 07189f4709b1d4c34b859fa0b2060293, type: 3}
       propertyPath: m_Name
@@ -10286,6 +10286,18 @@ PrefabInstance:
     - target: {fileID: 5637948626384746126, guid: 07189f4709b1d4c34b859fa0b2060293, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7230650791708970620, guid: 07189f4709b1d4c34b859fa0b2060293, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7230650791708970620, guid: 07189f4709b1d4c34b859fa0b2060293, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7230650791708970620, guid: 07189f4709b1d4c34b859fa0b2060293, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.6
       objectReference: {fileID: 0}
     - target: {fileID: 7230650791708970620, guid: 07189f4709b1d4c34b859fa0b2060293, type: 3}
       propertyPath: m_LocalPosition.x
@@ -11768,11 +11780,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1504856841840377807, guid: 07189f4709b1d4c34b859fa0b2060293, type: 3}
   m_PrefabInstance: {fileID: 2443870073695183625}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &7114770129407655934 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 7230650791708970620, guid: 07189f4709b1d4c34b859fa0b2060293, type: 3}
-  m_PrefabInstance: {fileID: 2443870073695183625}
-  m_PrefabAsset: {fileID: 0}
 --- !u!23 &7251590116303627952
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -12168,6 +12175,8 @@ SceneRoots:
   - {fileID: 1640130260}
   - {fileID: 66880576}
   - {fileID: 1233351077}
+  - {fileID: 2443870073695183625}
+  - {fileID: 738638575}
   - {fileID: 1409376070}
   - {fileID: 3897806537967314089}
   - {fileID: 1324841158}

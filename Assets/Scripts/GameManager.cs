@@ -35,7 +35,12 @@ public partial class GameManager : MonoBehaviour
     public List<GameObject> BloodSplatterPrefabs;
     public Transform BloodSplatContainer;
     public MRUKAnchor.SceneLabels SpawnAnchorLabels;
+
+    [Header("TNT Stuff")]
     public GameObject TNTFlyPrefab;
+    public ParticleSystem TNTExplosion;
+    public bool IsTNTTriggered = false;
+    public float TNTEffectTimeout = 5f;
 
     [Header("Game Events")]
     [Tooltip("Subscribe to run before first game wave")]
@@ -321,6 +326,29 @@ public partial class GameManager : MonoBehaviour
         UIManager.Instance.UpdateLevel();
         UIManager.Instance.UpdateCashUI();
         StoreManager.Instance.HideAllPowerUps();
+    }
+
+    public void TriggerTNT(Vector3 position, GameObject itemToDestroy)
+    {
+        StartCoroutine(TriggerTNTCoroutine(position, itemToDestroy));
+
+        foreach (GameObject fly in settings.flies)
+        {
+            fly.GetComponent<FlyMovement>().GoInsane();
+        }
+    }
+
+    IEnumerator TriggerTNTCoroutine(Vector3 position, GameObject itemToDestroy)
+    {
+        IsTNTTriggered = true;
+        TNTExplosion.transform.position = position;
+        TNTExplosion.Stop();
+        TNTExplosion.Play();
+        TNTExplosion.gameObject.GetComponent<AudioSource>().Play();
+        Destroy(itemToDestroy);
+
+        yield return new WaitForSeconds(TNTEffectTimeout);
+        IsTNTTriggered = false;
     }
 
     public void PlaceLevelPanel()

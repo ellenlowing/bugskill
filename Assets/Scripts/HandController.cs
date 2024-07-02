@@ -11,7 +11,6 @@ public class HandController : MonoBehaviour
 {
     public bool IsRightHand;
     public GameObject HandSplat;
-    public ParticleSystem TNTExplosion;
     public float BloodSplatTimeout = 2f;
     public FroggyController FroggyController;
     public ParticleSystem BloodSplatParticles;
@@ -37,10 +36,10 @@ public class HandController : MonoBehaviour
 
     void Update()
     {
-        // if (Time.time - BloodSplatTimer > BloodSplatTimeout)
-        // {
-        //     HandSplat.SetActive(false);
-        // }
+        if (Time.time - BloodSplatTimer > BloodSplatTimeout)
+        {
+            HandSplat.SetActive(false);
+        }
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
@@ -53,6 +52,11 @@ public class HandController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        if (GameManager.Instance.IsTNTTriggered)
+        {
+            return;
+        }
+
         if (other.gameObject.layer == 6)
         {
             isTouchingLandingSurface = true;
@@ -80,16 +84,7 @@ public class HandController : MonoBehaviour
         }
         else if (other.gameObject.tag == "TNT")
         {
-            TNTExplosion.transform.position = other.transform.position;
-            TNTExplosion.Stop();
-            TNTExplosion.Play();
-            TNTExplosion.gameObject.GetComponent<AudioSource>().Play();
-            Destroy(other.gameObject);
-
-            foreach (GameObject fly in settings.flies)
-            {
-                fly.GetComponent<FlyMovement>().GoInsane();
-            }
+            GameManager.Instance.TriggerTNT(other.transform.position, other.gameObject);
         }
     }
 
@@ -133,8 +128,8 @@ public class HandController : MonoBehaviour
                 }
                 else if (isTouchingOtherHand)
                 {
-                    // HandSplat.SetActive(true);
-                    // BloodSplatTimer = Time.time;
+                    HandSplat.SetActive(true);
+                    BloodSplatTimer = Time.time;
 
                     if (IsRightHand)
                     {

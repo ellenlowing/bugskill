@@ -32,9 +32,17 @@ public class FlyMovement : MonoBehaviour
 
     private void Update()
     {
-        if (needNewTarget)
+
+        int tries = 0;
+        while (needNewTarget)
         {
             FindNewPosition();
+
+            tries++;
+            if (tries > 10)
+            {
+                break;
+            }
         }
 
         // If not resting and has a target position, move to target position
@@ -69,7 +77,7 @@ public class FlyMovement : MonoBehaviour
         isInsane = true;
         restDuration = 0f;
         takeoffChance = 1f;
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(GameManager.Instance.TNTEffectTimeout);
         speed = Random.Range(flyBehaviour.minSpeed, flyBehaviour.maxSpeed);
         isInsane = false;
         restDuration = Random.Range(flyBehaviour.minRestDuration, flyBehaviour.maxRestDuration);

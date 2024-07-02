@@ -61,7 +61,6 @@ public class FroggyController : BasePowerUpBehavior
     public float SphereCastDistance = 4f;
     public LayerMask FlyLayerMask;
     private RaycastHit[] _previousHits;
-    public ParticleSystem TNTExplosion;
 
     [Header("Cooldown")]
     public float CooldownTime = 3f;
@@ -135,32 +134,35 @@ public class FroggyController : BasePowerUpBehavior
         RaycastHit[] hits = Physics.SphereCastAll(transform.position, SphereCastRadius, -transform.right, SphereCastDistance, FlyLayerMask);
 
         // Disable outline for hits that are no longer in the current hits
-        foreach (var hit in _previousHits)
+        if (!GameManager.Instance.IsTNTTriggered)
         {
-            if (!hits.Contains(hit))
+            foreach (var hit in _previousHits)
             {
-                if (hit.collider != null)
+                if (!hits.Contains(hit))
                 {
-                    var outline = hit.collider.GetComponentInChildren<Outline>();
-                    if (outline != null)
+                    if (hit.collider != null)
                     {
-                        outline.enabled = false;
+                        var outline = hit.collider.GetComponentInChildren<Outline>();
+                        if (outline != null)
+                        {
+                            outline.enabled = false;
+                        }
                     }
                 }
             }
-        }
 
-        // Enable outline for all current hits
-        foreach (var hit in hits)
-        {
-            var outline = hit.collider.GetComponentInChildren<Outline>();
-            if (outline != null)
+            // Enable outline for all current hits
+            foreach (var hit in hits)
             {
-                outline.enabled = true;
+                var outline = hit.collider.GetComponentInChildren<Outline>();
+                if (outline != null)
+                {
+                    outline.enabled = true;
+                }
             }
-        }
 
-        _previousHits = hits;
+            _previousHits = hits;
+        }
 
         // Sync tongue tip gameobject with extended tongue
         TongueTipObjectTransform.position = TongueTipTargetTransform.position;
@@ -320,6 +322,11 @@ public class FroggyController : BasePowerUpBehavior
 
     private void OnTriggerEnter(Collider other)
     {
+        if (GameManager.Instance.IsTNTTriggered)
+        {
+            return;
+        }
+
         if (other.tag == "Fly")
         {
             other.GetComponentInChildren<FlyMovement>().enabled = false;
@@ -341,16 +348,7 @@ public class FroggyController : BasePowerUpBehavior
         }
         else if (other.gameObject.tag == "TNT")
         {
-            TNTExplosion.transform.position = other.transform.position;
-            TNTExplosion.Stop();
-            TNTExplosion.Play();
-            TNTExplosion.gameObject.GetComponent<AudioSource>().Play();
-            Destroy(other.gameObject);
-
-            foreach (GameObject fly in settings.flies)
-            {
-                fly.GetComponent<FlyMovement>().GoInsane();
-            }
+            GameManager.Instance.TriggerTNT(other.transform.position, other.gameObject);
         }
     }
 

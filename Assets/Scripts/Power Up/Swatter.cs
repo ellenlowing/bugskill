@@ -153,16 +153,6 @@ namespace Power_Up
                     Instantiate(HitEffect, other.transform.position, Quaternion.identity);
                 hitEffectInstance.Play();
                 Destroy(hitEffectInstance.gameObject, hitEffectInstance.main.duration);
-                if (other.gameObject.transform.localScale == Vector3.one)
-                {
-                    settings.Cash += (int)SCOREFACTOR.SLIM;
-                    totalCash += (int)SCOREFACTOR.SLIM;
-                }
-                else
-                {
-                    settings.Cash += (int)SCOREFACTOR.FAT;
-                    totalCash += (int)SCOREFACTOR.FAT;
-                }
 
                 settings.Cash += (int)SCOREFACTOR.SWATTER;
                 totalCash += (int)SCOREFACTOR.SWATTER;

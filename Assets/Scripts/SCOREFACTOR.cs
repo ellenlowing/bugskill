@@ -6,6 +6,4 @@ public enum SCOREFACTOR : int
     CLAP = 50,
     SWATTER = 100,
     FROG = 70,
-    FAT = 10,
-    SLIM = 20,
 }

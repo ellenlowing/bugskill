@@ -126,7 +126,6 @@ public class HandController : MonoBehaviour
                     var splatter = Instantiate(splatterPrefab, touchedFlyTransform.position, Quaternion.identity);
                     splatter.transform.up = touchedFlyTransform.up;
                     splatter.transform.parent = GameManager.Instance.BloodSplatContainer;
-                    CashSlimFly();
                     settings.Cash += (int)SCOREFACTOR.SLAP;
                     totalCash += (int)SCOREFACTOR.SLAP;
                     UIManager.Instance.IncrementKill(touchedFlyTransform.position, totalCash);
@@ -143,7 +142,6 @@ public class HandController : MonoBehaviour
                         BloodSplatParticles.Stop();
                         BloodSplatParticles.Play();
                         BloodSplatParticles.gameObject.GetComponent<AudioSource>().Play();
-                        CashSlimFly();
                         settings.Cash += (int)SCOREFACTOR.CLAP;
                         totalCash += (int)SCOREFACTOR.CLAP;
                         UIManager.Instance.IncrementKill(touchedFlyTransform.position, totalCash);
@@ -182,19 +180,5 @@ public class HandController : MonoBehaviour
             }
         }
         yield return null;
-    }
-
-    private void CashSlimFly()
-    {
-        if (touchedFlyTransform.localScale == new Vector3(1f, 1f, 1f))
-        {
-            settings.Cash += (int)SCOREFACTOR.SLIM;
-            totalCash += (int)SCOREFACTOR.SLIM;
-        }
-        else
-        {
-            settings.Cash += (int)SCOREFACTOR.FAT;
-            totalCash += (int)SCOREFACTOR.FAT;
-        }
     }
 }

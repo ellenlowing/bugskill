@@ -333,16 +333,6 @@ public class FroggyController : BasePowerUpBehavior
             other.transform.position = GetRandomPointWithinBounds(TongueTipObjectTransform.gameObject);
             other.transform.localScale = other.transform.localScale * 0.5f;
 
-            if (other.gameObject.transform.localScale == Vector3.one)
-            {
-                settings.Cash += (int)SCOREFACTOR.SLIM;
-                totalCash += (int)SCOREFACTOR.SLIM;
-            }
-            else
-            {
-                settings.Cash += (int)SCOREFACTOR.FAT;
-                totalCash += (int)SCOREFACTOR.FAT;
-            }
             Destroy(other.gameObject, 0.5f);
             settings.Cash += (int)SCOREFACTOR.FROG;
             totalCash += (int)SCOREFACTOR.FROG;

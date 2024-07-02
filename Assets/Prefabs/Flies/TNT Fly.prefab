@@ -243,7 +243,7 @@ GameObject:
   - component: {fileID: 8809435430099479294}
   m_Layer: 7
   m_Name: TNT Fly
-  m_TagString: Fly
+  m_TagString: TNT
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

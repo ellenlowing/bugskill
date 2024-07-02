@@ -14,15 +14,20 @@ public class FlyMovement : MonoBehaviour
     private Vector3 targetNormal;
     private bool needNewTarget = true;
     private bool isMoving = false;
+    public bool isInsane = false;
 
-    [HideInInspector]
     public float speed;
-    private FlySO flyBehaviour;
+    private float takeoffChance;
+    private float restDuration;
+    public FlySO flyBehaviour;
 
     private void Start()
     {
+        settings = GameManager.Instance.settings;
         flyBehaviour = settings.flyIntelLevels[settings.waveIndex];
-        speed = flyBehaviour.speed;
+        speed = Random.Range(flyBehaviour.minSpeed, flyBehaviour.maxSpeed);
+        takeoffChance = settings.TakeoffChances[settings.waveIndex];
+        restDuration = Random.Range(flyBehaviour.minRestDuration, flyBehaviour.maxRestDuration);
     }
 
     private void Update()
@@ -41,16 +46,34 @@ public class FlyMovement : MonoBehaviour
         // If moving and reached target position, rest 
         if (!needNewTarget && isMoving && Vector3.Distance(transform.position, targetPosition) < 0.08f)
         {
-            if (Random.Range(0, 1f) < settings.TakeoffChances[settings.waveIndex])
+            if (Random.Range(0, 1f) < takeoffChance || isInsane)
             {
                 needNewTarget = true;
-                Debug.Log("Take off");
             }
             else
             {
                 StartCoroutine(Rest());
             }
         }
+    }
+
+    public void GoInsane()
+    {
+        StartCoroutine(GoInsaneCoroutine());
+    }
+
+    IEnumerator GoInsaneCoroutine()
+    {
+        needNewTarget = true;
+        speed = flyBehaviour.insaneSpeed;
+        isInsane = true;
+        restDuration = 0f;
+        takeoffChance = 1f;
+        yield return new WaitForSeconds(5f);
+        speed = Random.Range(flyBehaviour.minSpeed, flyBehaviour.maxSpeed);
+        isInsane = false;
+        restDuration = Random.Range(flyBehaviour.minRestDuration, flyBehaviour.maxRestDuration);
+        takeoffChance = settings.TakeoffChances[settings.waveIndex];
     }
 
     private void MoveTowardsTargetPosition()
@@ -115,7 +138,18 @@ public class FlyMovement : MonoBehaviour
         transform.up = targetNormal;  // Align the fly's 'up' with the surface normal
         transform.position = targetPosition + 0.01f * targetNormal;  // Snap the fly to the target position
         transform.rotation = transform.rotation * Quaternion.Euler(0, Random.Range(0, 360f), 0);
-        yield return new WaitForSeconds(Random.Range(flyBehaviour.minRestDuration, flyBehaviour.maxRestDuration));
+        // yield return new WaitForSeconds(restDuration);
+
+        float timer = Time.time;
+        while ((Time.time - timer) < restDuration)
+        {
+            if (isInsane)
+            {
+                break;
+            }
+            yield return null;
+        }
+
         isResting = false;
         needNewTarget = true;  // Need new target position after resting 
     }

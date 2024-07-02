@@ -20,6 +20,7 @@ public class SlowDown : MonoBehaviour
 
     private void Start()
     {
+        settings = GameManager.Instance.settings;
         flyMovements = GetComponentInParent<FlyMovement>();
         Assert.IsNotNull(flyMovements, "Flymovements not assigned");
         Assert.IsNotNull(NormalEyeMesh, "Fly Mesh not Assigned");
@@ -38,7 +39,7 @@ public class SlowDown : MonoBehaviour
         CircularEyeMesh[1].transform.gameObject.GetComponent<EyeSpiral>().canRotate = circular;
     }
 
-    public void DropFly (float DropTime)
+    public void DropFly(float DropTime)
     {
         Destroy(this, DropTime);
         StartCoroutine(DropAsap(DropTime));
@@ -67,7 +68,7 @@ public class SlowDown : MonoBehaviour
         settings.numberOfKills += 1;
         UIManager.Instance.IncrementKill(transform.position, totalCash);
         totalCash = 0;
-    } 
+    }
 
 
     public void SlowDownFly()

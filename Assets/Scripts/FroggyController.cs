@@ -61,6 +61,7 @@ public class FroggyController : BasePowerUpBehavior
     public float SphereCastDistance = 4f;
     public LayerMask FlyLayerMask;
     private RaycastHit[] _previousHits;
+    public ParticleSystem TNTExplosion;
 
     [Header("Cooldown")]
     public float CooldownTime = 3f;
@@ -79,6 +80,7 @@ public class FroggyController : BasePowerUpBehavior
 
     new void Start()
     {
+        settings = GameManager.Instance.settings;
         base.Start();
         Initialize();
         PointableEventWrapper.WhenSelect.AddListener(OnGrabbableSelect);
@@ -346,6 +348,19 @@ public class FroggyController : BasePowerUpBehavior
             totalCash += (int)SCOREFACTOR.FROG;
             UIManager.Instance.IncrementKill(other.transform.position, totalCash);
             totalCash = 0;
+        }
+        else if (other.gameObject.tag == "TNT")
+        {
+            TNTExplosion.transform.position = other.transform.position;
+            TNTExplosion.Stop();
+            TNTExplosion.Play();
+            TNTExplosion.gameObject.GetComponent<AudioSource>().Play();
+            Destroy(other.gameObject);
+
+            foreach (GameObject fly in settings.flies)
+            {
+                fly.GetComponent<FlyMovement>().GoInsane();
+            }
         }
     }
 

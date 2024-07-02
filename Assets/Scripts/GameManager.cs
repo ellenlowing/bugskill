@@ -132,21 +132,6 @@ public partial class GameManager : MonoBehaviour
                 }
                 settings.flies.Clear();
                 settings.flies = new List<GameObject>();
-
-                // waveIndex++;
-                // update wave index across gameplay
-
-
-                // moveToNextWave = false;
-                // canSpawn = true;
-                // enable hour glass here
-                // set the animation speed to scale with div factor
-                // HourGlass.SetActive(true);
-
-                // animator.speed = settings.divFactor / settings.waveWaitTime;
-                // animator.speed = 0.02f;
-                // HourGlass.SetActive(false);
-
                 initialTime = 0;
             }
             initialTime += Time.deltaTime;
@@ -172,6 +157,8 @@ public partial class GameManager : MonoBehaviour
             {
                 MRUKRoom currentRoom = MRUK.Instance.GetCurrentRoom();
                 var labelFilter = LabelFilter.FromEnum(SpawnAnchorLabels);
+
+                Debug.Log("Current wave index " + waveIndex);
 
                 if (currentRoom != null)
                 {

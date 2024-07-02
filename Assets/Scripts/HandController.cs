@@ -11,9 +11,10 @@ public class HandController : MonoBehaviour
 {
     public bool IsRightHand;
     public GameObject HandSplat;
+    public ParticleSystem TNTExplosion;
     public float BloodSplatTimeout = 2f;
     public FroggyController FroggyController;
-    // public OVRSkeleton HandSkeleton;
+    public ParticleSystem BloodSplatParticles;
 
     [Header("Events")]
     [Space(20)]
@@ -36,9 +37,17 @@ public class HandController : MonoBehaviour
 
     void Update()
     {
-        if (Time.time - BloodSplatTimer > BloodSplatTimeout)
+        // if (Time.time - BloodSplatTimer > BloodSplatTimeout)
+        // {
+        //     HandSplat.SetActive(false);
+        // }
+
+        if (Input.GetKeyDown(KeyCode.Space))
         {
-            HandSplat.SetActive(false);
+            foreach (GameObject fly in settings.flies)
+            {
+                fly.GetComponent<FlyMovement>().GoInsane();
+            }
         }
     }
 
@@ -69,7 +78,19 @@ public class HandController : MonoBehaviour
                 }
             }
         }
+        else if (other.gameObject.tag == "TNT")
+        {
+            TNTExplosion.transform.position = other.transform.position;
+            TNTExplosion.Stop();
+            TNTExplosion.Play();
+            TNTExplosion.gameObject.GetComponent<AudioSource>().Play();
+            Destroy(other.gameObject);
 
+            foreach (GameObject fly in settings.flies)
+            {
+                fly.GetComponent<FlyMovement>().GoInsane();
+            }
+        }
     }
 
     private void OnTriggerExit(Collider other)
@@ -89,7 +110,6 @@ public class HandController : MonoBehaviour
             touchedFlyTransform = null;
         }
     }
-
 
     IEnumerator CheckFlyHit()
     {
@@ -111,15 +131,18 @@ public class HandController : MonoBehaviour
                     totalCash += (int)SCOREFACTOR.SLAP;
                     UIManager.Instance.IncrementKill(touchedFlyTransform.position, totalCash);
                     totalCash = 0;
-                    Debug.Log("Instantiating splatter on wall");
                 }
                 else if (isTouchingOtherHand)
                 {
-                    HandSplat.SetActive(true);
-                    BloodSplatTimer = Time.time;
+                    // HandSplat.SetActive(true);
+                    // BloodSplatTimer = Time.time;
 
                     if (IsRightHand)
                     {
+                        BloodSplatParticles.transform.position = touchedFlyTransform.position;
+                        BloodSplatParticles.Stop();
+                        BloodSplatParticles.Play();
+                        BloodSplatParticles.gameObject.GetComponent<AudioSource>().Play();
                         CashSlimFly();
                         settings.Cash += (int)SCOREFACTOR.CLAP;
                         totalCash += (int)SCOREFACTOR.CLAP;

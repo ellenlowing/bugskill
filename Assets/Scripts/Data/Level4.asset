@@ -19,6 +19,7 @@ MonoBehaviour:
   speed: 4
   flySlowDownTime: 8
   flySlowDownSpeed: 0.5
+  insaneSpeed: 14
   rotationSpeed: 10
   distanceToEdges: 0.2
   checkDistance: 0.15

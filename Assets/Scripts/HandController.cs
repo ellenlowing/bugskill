@@ -125,6 +125,16 @@ public class HandController : MonoBehaviour
                     totalCash += (int)SCOREFACTOR.SLAP;
                     UIManager.Instance.IncrementKill(touchedFlyTransform.position, totalCash);
                     totalCash = 0;
+
+                    var audioSource = splatter.GetComponent<AudioSource>();
+                    if (audioSource == null)
+                    {
+                        audioSource = splatter.AddComponent<AudioSource>();
+                        Debug.Log("NO AUDIO CLIP FOUND IN SPLATTER PREFAB");
+                    }
+                    audioSource.pitch = Random.Range(0.1f, 1.5f);
+                    audioSource.Stop();
+                    audioSource.Play();
                 }
                 else if (isTouchingOtherHand)
                 {
@@ -144,28 +154,6 @@ public class HandController : MonoBehaviour
                     }
                 }
 
-                if (touchedFlyTransform.gameObject.TryGetComponent<FlyAudioSource>(out var buzzSource))
-                {
-                    var audioSource = splatterPrefab.GetComponent<AudioSource>();
-                    if (audioSource == null)
-                    {
-                        audioSource = splatterPrefab.AddComponent<AudioSource>();
-                    }
-                    audioSource.clip = buzzSource.flySplatClip;
-                    audioSource.pitch = Random.Range(0.1f, 2.0f);
-                    audioSource.spatialBlend = 1f;
-                    audioSource.volume = 1f;
-                    audioSource.loop = false;
-                    audioSource.spatialize = true;
-                    audioSource.playOnAwake = true;
-                    var metaAudio = splatterPrefab.GetComponent<MetaXRAudioSource>();
-                    if (metaAudio == null)
-                    {
-                        metaAudio = splatterPrefab.AddComponent<MetaXRAudioSource>();
-                    }
-                    metaAudio.EnableSpatialization = true;
-                    audioSource.Play();
-                }
 
                 Destroy(touchedFlyTransform.gameObject);
 

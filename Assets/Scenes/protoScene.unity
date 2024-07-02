@@ -3471,6 +3471,8 @@ MonoBehaviour:
   SpawnAnchorLabels: 100
   TNTFlyPrefab: {fileID: 708182128869486111, guid: 6d53a31eeb0594f1d87267cbea8d037d, type: 3}
   TNTExplosion: {fileID: 1816584845}
+  IsTNTTriggered: 0
+  TNTEffectTimeout: 5
   GameBegins: {fileID: 11400000, guid: e1f9e8cd7ed35bb4f933dfe252aff86d, type: 2}
   FrogPowerUp: {fileID: 11400000, guid: d77f5a68065e545499e35851c0ded3e1, type: 2}
   SprayPowerUp: {fileID: 11400000, guid: e4a38373fc5699847ad7d4c59e987ae5, type: 2}

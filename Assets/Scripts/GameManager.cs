@@ -71,8 +71,10 @@ public partial class GameManager : MonoBehaviour
     private int waveIndex = 0;
     private bool canSpawn = true;
     private bool moveToNextWave = false;
+    private bool isStoreActive = false;
     private float initialTime = 0;
     private Coroutine GameLoopRoutine;
+    private bool roundFinished = false;
 
     private int runningIndex = 0;
     private int LocalKills = 0;
@@ -148,8 +150,13 @@ public partial class GameManager : MonoBehaviour
                 settings.flies.Clear();
                 settings.flies = new List<GameObject>();
                 initialTime = 0;
+                roundFinished = true;
             }
-            initialTime += Time.deltaTime;
+
+            if (!isStoreActive)
+            {
+                initialTime += Time.deltaTime;
+            }
         }
     }
 
@@ -212,8 +219,9 @@ public partial class GameManager : MonoBehaviour
             // check if all flies are killed
             // move to next wave count
             // play theme wave wait sound
-            if (settings.flies.Count == 0)
+            if (roundFinished)
             {
+                roundFinished = false;
                 LocalKills = settings.numberOfKills - LocalKills;
                 LocalCash = settings.Cash - LocalCash;
 
@@ -229,7 +237,7 @@ public partial class GameManager : MonoBehaviour
                 waveIndex++;
                 settings.waveIndex = waveIndex;
                 moveToNextWave = false;
-                canSpawn = true;
+                // canSpawn = true;
 
                 animator.speed = 1f;
 
@@ -261,6 +269,7 @@ public partial class GameManager : MonoBehaviour
         animator.Play("Animation", 0, 0);
         GameLoopRoutine = StartCoroutine(SpawnFlyAtRandomPosition());
         StoreManager.Instance.HideStore();
+        isStoreActive = false;
     }
 
     // check state of progression 
@@ -288,6 +297,7 @@ public partial class GameManager : MonoBehaviour
 
     private void CheckGoal(int waveI)
     {
+        Debug.Log("CHECK: " + settings.Cash + " " + settings.LevelGoals[waveI] + " " + waveI);
         if (!(settings.Cash >= settings.LevelGoals[waveI]))
         {
             UIManager.Instance.FailedPanel(true, LocalCash, waveIndex);
@@ -301,6 +311,8 @@ public partial class GameManager : MonoBehaviour
         else
         {
             StoreManager.Instance.ShowStore();
+            isStoreActive = true;
+            canSpawn = false;
         }
     }
 

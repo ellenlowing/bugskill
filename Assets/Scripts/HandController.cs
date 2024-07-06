@@ -115,16 +115,21 @@ public class HandController : MonoBehaviour
             if (isTouchingLandingSurface || isTouchingOtherHand)
             {
                 GameObject splatterPrefab = GameManager.Instance.BloodSplatterPrefabs[Random.Range(0, GameManager.Instance.BloodSplatterPrefabs.Count)];
+                bool isTouchingMC = touchedFlyTransform.gameObject.name == "MC Fly";
 
                 if (isTouchingLandingSurface)
                 {
                     var splatter = Instantiate(splatterPrefab, touchedFlyTransform.position, Quaternion.identity);
                     splatter.transform.up = touchedFlyTransform.up;
                     splatter.transform.parent = GameManager.Instance.BloodSplatContainer;
-                    settings.Cash += (int)SCOREFACTOR.SLAP;
-                    totalCash += (int)SCOREFACTOR.SLAP;
-                    UIManager.Instance.IncrementKill(touchedFlyTransform.position, totalCash);
-                    totalCash = 0;
+
+                    if (!isTouchingMC)
+                    {
+                        settings.Cash += (int)SCOREFACTOR.SLAP;
+                        totalCash += (int)SCOREFACTOR.SLAP;
+                        UIManager.Instance.IncrementKill(touchedFlyTransform.position, totalCash);
+                        totalCash = 0;
+                    }
 
                     var audioSource = splatter.GetComponent<AudioSource>();
                     if (audioSource == null)
@@ -147,15 +152,23 @@ public class HandController : MonoBehaviour
                         BloodSplatParticles.Stop();
                         BloodSplatParticles.Play();
                         BloodSplatParticles.gameObject.GetComponent<AudioSource>().Play();
-                        settings.Cash += (int)SCOREFACTOR.CLAP;
-                        totalCash += (int)SCOREFACTOR.CLAP;
-                        UIManager.Instance.IncrementKill(touchedFlyTransform.position, totalCash);
-                        totalCash = 0;
+                        if (!isTouchingMC)
+                        {
+                            settings.Cash += (int)SCOREFACTOR.CLAP;
+                            totalCash += (int)SCOREFACTOR.CLAP;
+                            UIManager.Instance.IncrementKill(touchedFlyTransform.position, totalCash);
+                            totalCash = 0;
+                        }
                     }
                 }
 
+                if (isTouchingMC)
+                {
+                    UIManager.Instance.StartGameLoopTrigger();
+                }
 
                 Destroy(touchedFlyTransform.gameObject);
+
 
                 isTouchingFly = false;
                 isTouchingLandingSurface = false;

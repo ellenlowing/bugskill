@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: StoreFrogItem
   m_EditorClassIdentifier: 
   ItemPrefab: {fileID: 3358396685065003162, guid: 5b709086755b74cd7856211270f75868, type: 3}
-  Price: 600
+  Price: 50
   Name: Froggy
   Description: Aim at a fly and pinch to feed it to froggy!
-  LocalPosition: {x: 0, y: 0, z: 0}
-  LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  LocalPosition: {x: 0, y: 0.263, z: 0}
+  LocalRotation: {x: 0, y: 0.45352402, z: -0, w: -0.89124405}

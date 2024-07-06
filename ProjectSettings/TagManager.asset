@@ -12,6 +12,7 @@ TagManager:
   - SamplesInfoPanel
   - Thumb
   - TNT
+  - MC
   layers:
   - Default
   - TransparentFX

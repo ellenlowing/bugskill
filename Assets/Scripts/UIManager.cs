@@ -101,6 +101,7 @@ public class UIManager : MonoBehaviour
     private void UpdateStarterMenu()
     {
         FaceCamera(GameStartUI, -0.15f);
+        GameStartUI.transform.forward = -Camera.main.transform.forward;
     }
 
     private void QuitGame()

@@ -1,0 +1,11 @@
+Model Information:
+* title:	Glasses_Monocle
+* source:	https://sketchfab.com/3d-models/glasses-monocle-0be551e0be7d4989986a2c9fa4d13e63
+* author:	xenera (https://sketchfab.com/xenera)
+
+Model License:
+* license type:	CC-BY-NC-ND-4.0 (http://creativecommons.org/licenses/by-nc-nd/4.0/)
+* requirements:	Author must be credited. No commercial use. Modified versions can not be distributed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Glasses_Monocle" (https://sketchfab.com/3d-models/glasses-monocle-0be551e0be7d4989986a2c9fa4d13e63) by xenera (https://sketchfab.com/xenera) licensed under CC-BY-NC-ND-4.0 (http://creativecommons.org/licenses/by-nc-nd/4.0/)

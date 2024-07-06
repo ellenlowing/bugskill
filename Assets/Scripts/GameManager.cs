@@ -10,9 +10,6 @@ using System.Dynamic;
 using Oculus.Interaction;
 using Unity.VisualScripting;
 
-// kills set to zero on start
-// cash still running , will reset somewhere safe
-
 public partial class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
@@ -69,14 +66,6 @@ public partial class GameManager : MonoBehaviour
     public GameObject RightHandRenderer;
 
     private int waveIndex = 0;
-    private bool canSpawn = true;
-    private bool moveToNextWave = false;
-    private bool isStoreActive = false;
-    private float initialTime = 0;
-    private Coroutine GameLoopRoutine;
-    private bool roundFinished = false;
-
-    private int runningIndex = 0;
     private int LocalKills = 0;
     private int LocalCash = 0;
     private bool doneOnce = false;
@@ -120,9 +109,6 @@ public partial class GameManager : MonoBehaviour
 
     void Update()
     {
-        TrackTimer();
-
-        // restarting for quick testing on deployment
         if (OVRInput.GetDown(OVRInput.Button.Four))
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
@@ -132,125 +118,81 @@ public partial class GameManager : MonoBehaviour
         {
             PlaceLevelPanel();
         }
-
     }
 
-
-    private void TrackTimer()
+    void InitializeRound()
     {
-        if (moveToNextWave)
+        MRUKRoom currentRoom = MRUK.Instance.GetCurrentRoom();
+        var labelFilter = LabelFilter.FromEnum(SpawnAnchorLabels);
+
+        if (currentRoom != null)
         {
-            if (initialTime > settings.durationOfWave[waveIndex])
+            for (int i = 0; i < settings.fliesInWave[waveIndex]; i++)
             {
-                // empty all fly list
-                foreach (var obj in settings.flies)
+                if (currentRoom.GenerateRandomPositionOnSurface(MRUK.SurfaceType.VERTICAL, 0.01f, labelFilter, out Vector3 position, out Vector3 normal))
                 {
-                    Destroy(obj);
+                    GameObject fly = Instantiate(FlyPrefab, position, Quaternion.identity, FlyParentAnchor);
+                    fly.transform.up = normal;
+                    fly.transform.rotation = fly.transform.rotation * Quaternion.Euler(0, Random.Range(0, 360f), 0);
+                    settings.flies.Add(fly);
                 }
-                settings.flies.Clear();
-                settings.flies = new List<GameObject>();
-                initialTime = 0;
-                roundFinished = true;
             }
 
-            if (!isStoreActive)
+            for (int i = 0; i < settings.tntFliesInWave[waveIndex]; i++)
             {
-                initialTime += Time.deltaTime;
+                if (currentRoom.GenerateRandomPositionOnSurface(MRUK.SurfaceType.VERTICAL, 0.01f, labelFilter, out Vector3 position, out Vector3 normal))
+                {
+                    GameObject fly = Instantiate(TNTFlyPrefab, position, Quaternion.identity, FlyParentAnchor);
+                    fly.transform.up = normal;
+                    fly.transform.rotation = fly.transform.rotation * Quaternion.Euler(0, Random.Range(0, 360f), 0);
+                    settings.flies.Add(fly);
+                }
             }
+        }
+
+        HourGlass.SetActive(true);
+        LevelPanel.SetActive(true);
+        animator.speed = settings.divFactor / settings.durationOfWave[waveIndex];
+
+        StartCoroutine(SetTimer(settings.durationOfWave[waveIndex]));
+    }
+
+    void HandleRoundEnd()
+    {
+        foreach (var obj in settings.flies)
+        {
+            Destroy(obj);
+        }
+        settings.flies.Clear();
+        settings.flies = new List<GameObject>();
+
+        LocalKills = settings.numberOfKills - LocalKills;
+        LocalCash = settings.Cash - LocalCash;
+
+        for (int i = BloodSplatContainer.childCount - 1; i >= 0; i--)
+        {
+            Destroy(BloodSplatContainer.GetChild(i).gameObject);
+        }
+
+        HourGlass.SetActive(false);
+        LevelPanel.SetActive(false);
+        CheckGoal(waveIndex);
+
+        waveIndex++;
+        settings.waveIndex = waveIndex;
+
+        animator.speed = 1f;
+
+        if (animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1)
+        {
+            animator.speed = 0;
         }
     }
 
-    IEnumerator SpawnFlyAtRandomPosition()
+    IEnumerator SetTimer(float time)
     {
-        while (true)
-        {
-            if (waveIndex == settings.fliesInWave.Length)
-            {
-                // call completion here with ui score update
-                Debug.LogWarning("Wave Index Same as the Length of Flies in Wave");
-                GameEnds.RaiseEvent();
-                yield break;
-            }
-
-            // loop here with wave count which changes
-            // destroy all current flies before next wave
-            // before next wave, wait for certain amount of time
-            if (canSpawn)
-            {
-                MRUKRoom currentRoom = MRUK.Instance.GetCurrentRoom();
-                var labelFilter = LabelFilter.FromEnum(SpawnAnchorLabels);
-
-                Debug.Log("Current wave index " + waveIndex);
-
-                if (currentRoom != null)
-                {
-                    for (int i = 0; i < settings.fliesInWave[waveIndex]; i++)
-                    {
-                        if (currentRoom.GenerateRandomPositionOnSurface(MRUK.SurfaceType.VERTICAL, 0.01f, labelFilter, out Vector3 position, out Vector3 normal))
-                        {
-                            GameObject fly = Instantiate(FlyPrefab, position, Quaternion.identity, FlyParentAnchor);
-                            fly.transform.up = normal;
-                            fly.transform.rotation = fly.transform.rotation * Quaternion.Euler(0, Random.Range(0, 360f), 0);
-                            settings.flies.Add(fly);
-                        }
-                    }
-
-                    for (int i = 0; i < settings.tntFliesInWave[waveIndex]; i++)
-                    {
-                        if (currentRoom.GenerateRandomPositionOnSurface(MRUK.SurfaceType.VERTICAL, 0.01f, labelFilter, out Vector3 position, out Vector3 normal))
-                        {
-                            GameObject fly = Instantiate(TNTFlyPrefab, position, Quaternion.identity, FlyParentAnchor);
-                            fly.transform.up = normal;
-                            fly.transform.rotation = fly.transform.rotation * Quaternion.Euler(0, Random.Range(0, 360f), 0);
-                            settings.flies.Add(fly);
-                        }
-                    }
-                }
-
-                canSpawn = false;
-                moveToNextWave = true;
-
-                // enable and set timescale for loading based on time anticapated per wave
-                HourGlass.SetActive(true);
-                LevelPanel.SetActive(true);
-                animator.speed = settings.divFactor / settings.durationOfWave[waveIndex];
-            }
-
-            // check if all flies are killed
-            // move to next wave count
-            // play theme wave wait sound
-            if (roundFinished)
-            {
-                roundFinished = false;
-                LocalKills = settings.numberOfKills - LocalKills;
-                LocalCash = settings.Cash - LocalCash;
-
-                for (int i = BloodSplatContainer.childCount - 1; i >= 0; i--)
-                {
-                    Destroy(BloodSplatContainer.GetChild(i).gameObject);
-                }
-
-                HourGlass.SetActive(false);
-                LevelPanel.SetActive(false);
-                CanProgress(waveIndex);
-
-                waveIndex++;
-                settings.waveIndex = waveIndex;
-                moveToNextWave = false;
-                // canSpawn = true;
-
-                animator.speed = 1f;
-
-                if (animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1)
-                {
-                    animator.speed = 0;
-                }
-                yield return new WaitForSeconds(settings.waveWaitTime);
-            }
-
-            yield return null;
-
-        }
+        yield return new WaitForSeconds(time);
+        HandleRoundEnd();
     }
 
     private void OnEnable()
@@ -259,40 +201,12 @@ public partial class GameManager : MonoBehaviour
         GameBegins.OnEventRaised += StartGameLoop;
     }
 
-    // force next wave to start
     public void StartNextWave()
     {
-        StopCoroutine(GameLoopRoutine);
-        runningIndex = waveIndex;
-        canSpawn = true;
         animator.speed = settings.divFactor / settings.durationOfWave[waveIndex];
         animator.Play("Animation", 0, 0);
-        GameLoopRoutine = StartCoroutine(SpawnFlyAtRandomPosition());
+        InitializeRound();
         StoreManager.Instance.HideStore();
-        isStoreActive = false;
-    }
-
-    // check state of progression 
-    private void CanProgress(int waveIndex)
-    {
-        switch (waveIndex)
-        {
-            case 0:
-                CheckGoal(waveIndex);
-                break;
-            case 1:
-                CheckGoal(waveIndex);
-                break;
-            case 2:
-                CheckGoal(waveIndex);
-                break;
-            case 3:
-                CheckGoal(waveIndex);
-                break;
-            case 4:
-                CheckGoal(waveIndex);
-                break;
-        }
     }
 
     private void CheckGoal(int waveI)
@@ -301,35 +215,26 @@ public partial class GameManager : MonoBehaviour
         if (!(settings.Cash >= settings.LevelGoals[waveI]))
         {
             UIManager.Instance.FailedPanel(true, LocalCash, waveIndex);
-            canSpawn = false;
             waveIndex = 0;
             settings.waveIndex = 0;
-            runningIndex = waveIndex;
-
-            StopCoroutine(GameLoopRoutine);
         }
         else
         {
             StoreManager.Instance.ShowStore();
-            isStoreActive = true;
-            canSpawn = false;
         }
     }
 
     private void StartGameLoop()
     {
-        // SceneManager.LoadScene(SceneManager.GetActiveScene().name); 
-        GameLoopRoutine = StartCoroutine(SpawnFlyAtRandomPosition());
+        InitializeRound();
     }
 
     public void RestartGameLoop()
     {
         settings.flies.Clear();
-        canSpawn = true;
         animator.Play("Animation", 0, 0);
-        //animator.speed = settings.divFactor / settings.durationOfWave[0];
 
-        GameLoopRoutine = StartCoroutine(SpawnFlyAtRandomPosition());
+        InitializeRound();
         waveIndex = 0;
         settings.waveIndex = 0;
         settings.numberOfKills = 0;

@@ -123,7 +123,7 @@ public partial class GameManager : MonoBehaviour
     void InitializeRound()
     {
         MRUKRoom currentRoom = MRUK.Instance.GetCurrentRoom();
-        var labelFilter = LabelFilter.FromEnum(SpawnAnchorLabels);
+        var labelFilter = LabelFilter.Included(SpawnAnchorLabels);
 
         if (currentRoom != null)
         {
@@ -285,7 +285,7 @@ public partial class GameManager : MonoBehaviour
         foreach (var anchor in room.Anchors)
         {
             // place hourglass on table
-            if (anchor.HasLabel("TABLE"))
+            if (anchor.HasAnyLabel(MRUKAnchor.SceneLabels.TABLE))
             {
                 if (!doneOnce)
                 {
@@ -296,7 +296,7 @@ public partial class GameManager : MonoBehaviour
             }
             else
             {
-                if (anchor.HasLabel("FLOOR"))
+                if (anchor.HasAnyLabel(MRUKAnchor.SceneLabels.FLOOR))
                 {
                     if (!doneOnce)
                     {

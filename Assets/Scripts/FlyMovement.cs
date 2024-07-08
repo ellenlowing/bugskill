@@ -99,7 +99,7 @@ public class FlyMovement : MonoBehaviour
         if (currentRoom != null)
         {
             // Anchor labels that fly can land on (chosen in editor) 
-            var labelFilter = LabelFilter.FromEnum(canLand);
+            var labelFilter = LabelFilter.Included(canLand);
 
             // Generate random position on any surface that is not facing down 
             // + position is not too close to anchor's edge 

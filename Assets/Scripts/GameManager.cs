@@ -65,7 +65,6 @@ public partial class GameManager : MonoBehaviour
     public GameObject LeftHandRenderer;
     public GameObject RightHandRenderer;
 
-    private int waveIndex = 0;
     private int LocalKills = 0;
     private int LocalCash = 0;
     private bool doneOnce = false;
@@ -127,7 +126,7 @@ public partial class GameManager : MonoBehaviour
 
         if (currentRoom != null)
         {
-            for (int i = 0; i < settings.fliesInWave[waveIndex]; i++)
+            for (int i = 0; i < settings.fliesInWave[settings.waveIndex]; i++)
             {
                 if (currentRoom.GenerateRandomPositionOnSurface(MRUK.SurfaceType.VERTICAL, 0.01f, labelFilter, out Vector3 position, out Vector3 normal))
                 {
@@ -138,7 +137,7 @@ public partial class GameManager : MonoBehaviour
                 }
             }
 
-            for (int i = 0; i < settings.tntFliesInWave[waveIndex]; i++)
+            for (int i = 0; i < settings.tntFliesInWave[settings.waveIndex]; i++)
             {
                 if (currentRoom.GenerateRandomPositionOnSurface(MRUK.SurfaceType.VERTICAL, 0.01f, labelFilter, out Vector3 position, out Vector3 normal))
                 {
@@ -152,9 +151,9 @@ public partial class GameManager : MonoBehaviour
 
         HourGlass.SetActive(true);
         LevelPanel.SetActive(true);
-        animator.speed = settings.divFactor / settings.durationOfWave[waveIndex];
+        animator.speed = settings.divFactor / settings.durationOfWave[settings.waveIndex];
 
-        StartCoroutine(SetTimer(settings.durationOfWave[waveIndex]));
+        StartCoroutine(SetTimer(settings.durationOfWave[settings.waveIndex]));
     }
 
     void HandleRoundEnd()
@@ -176,10 +175,9 @@ public partial class GameManager : MonoBehaviour
 
         HourGlass.SetActive(false);
         LevelPanel.SetActive(false);
-        CheckGoal(waveIndex);
+        CheckGoal(settings.waveIndex);
 
-        waveIndex++;
-        settings.waveIndex = waveIndex;
+        settings.waveIndex = settings.waveIndex + 1;
 
         animator.speed = 1f;
 
@@ -203,7 +201,7 @@ public partial class GameManager : MonoBehaviour
 
     public void StartNextWave()
     {
-        animator.speed = settings.divFactor / settings.durationOfWave[waveIndex];
+        animator.speed = settings.divFactor / settings.durationOfWave[settings.waveIndex];
         animator.Play("Animation", 0, 0);
         InitializeRound();
         StoreManager.Instance.HideStore();
@@ -214,8 +212,7 @@ public partial class GameManager : MonoBehaviour
         Debug.Log("CHECK: " + settings.Cash + " " + settings.LevelGoals[waveI] + " " + waveI);
         if (!(settings.Cash >= settings.LevelGoals[waveI]))
         {
-            UIManager.Instance.FailedPanel(true, LocalCash, waveIndex);
-            waveIndex = 0;
+            UIManager.Instance.FailedPanel(true, LocalCash, settings.waveIndex);
             settings.waveIndex = 0;
         }
         else
@@ -235,7 +232,6 @@ public partial class GameManager : MonoBehaviour
         animator.Play("Animation", 0, 0);
 
         InitializeRound();
-        waveIndex = 0;
         settings.waveIndex = 0;
         settings.numberOfKills = 0;
         settings.Cash = 0;

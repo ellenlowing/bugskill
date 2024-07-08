@@ -3526,7 +3526,7 @@ MonoBehaviour:
   HourGlass: {fileID: 1072865635}
   LevelPanel: {fileID: 7114770129407655930}
   settings: {fileID: 11400000, guid: 415f7b1141256224db7c3c8720566774, type: 2}
-  TestMode: 0
+  TestMode: 1
   gameSettings: {fileID: 11400000, guid: 415f7b1141256224db7c3c8720566774, type: 2}
   testSettings: {fileID: 11400000, guid: 7fba20d623e134514b2a2fceb7441d80, type: 2}
   FlyPrefab: {fileID: 708182128869486111, guid: 75d14416f534f4b11aec372b6307c3bb, type: 3}

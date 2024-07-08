@@ -16,7 +16,6 @@ public class HandController : MonoBehaviour
     public ParticleSystem BloodSplatParticles;
 
     [Header("Events")]
-    [Space(20)]
     [SerializeField] private FVEventSO ScoreUpdateEvent;
 
     bool isTouchingLandingSurface = false;
@@ -167,8 +166,8 @@ public class HandController : MonoBehaviour
                     UIManager.Instance.StartGameLoopTrigger();
                 }
 
+                settings.flies.Remove(touchedFlyTransform.gameObject);
                 Destroy(touchedFlyTransform.gameObject);
-
 
                 isTouchingFly = false;
                 isTouchingLandingSurface = false;

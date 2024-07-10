@@ -36,17 +36,12 @@ namespace Power_Up
 
         private void Awake()
         {
-            // if (ForDebugging) IsHeld = true;
         }
 
         new void Start()
         {
             settings = GameManager.Instance.settings;
             base.Start();
-            PointableEventWrapper.WhenSelect.AddListener(OnGrabbableSelect);
-            PointableEventWrapper.WhenUnselect.AddListener(OnGrabbableUnselect);
-            // ActivateButton.WhenActivated.AddListener(OnButtonActivated);
-            // ActivateButton.WhenDeactivated.AddListener(OnButtonDeactivated);
         }
 
         new void Update()
@@ -76,12 +71,6 @@ namespace Power_Up
 
         public override void UpdateInactiveState()
         {
-            // base.UpdateInactiveState();
-            // Charge();
-            // if (PowerCapacity >= MaxPowerCapacity)
-            // {
-            //     ToggleEffects(false, RechargeSoundClip); // May need to adjust timing that ElectricityEffect and Active sound effect begin relative to recharge sound effect  
-            // }
         }
 
         public override void EnterActiveState()
@@ -93,7 +82,7 @@ namespace Power_Up
         {
             base.UpdateActiveState();
 
-            if (PowerCapacity < 0)
+            if (PowerCapacity <= 0)
             {
                 EnterState(PowerUpState.INACTIVE);
                 Debug.Log("Power capacity is less than 0");
@@ -175,61 +164,6 @@ namespace Power_Up
 
         }
 
-        private void OnGrabbableSelect(PointerEvent arg0)
-        {
-            IsHeld = true;
-            EnterState(PowerUpState.ACTIVE);
-        }
-
-        private void OnGrabbableUnselect(PointerEvent arg0)
-        {
-            IsHeld = false;
-            EnterState(PowerUpState.IDLE);
-        }
-
-        private void OnButtonActivated()
-        {
-            if (PowerCapacity > 0 && IsHeld)
-            {
-                EnterState(PowerUpState.ACTIVE);
-            }
-        }
-
-        private void OnButtonDeactivated()
-        {
-            if (IsHeld)
-            {
-                EnterState(PowerUpState.INACTIVE);
-            }
-        }
-
-        // [Header("Debugging")]
-        // public bool ForDebugging = false;
-        // public TMP_Text isHeldText;
-        // public TMP_Text currentStateText;
-        // public TMP_Text powerCapacityText;
-        // public TMP_Text batteryEffectsText;
-        // public TMP_Text chargedText;
-
-        // public void DebugLogMessage(string message)
-        // {
-        //     Debug.Log($"{message}");
-        // }
-        // private void FixedUpdate()
-        // {
-        //     UpdateDebugText();
-        // }
-
-        // private void UpdateDebugText()
-        // {
-        //     isHeldText.text = $"{IsHeld}";
-        //     currentStateText.text = $"{CurrentState}";
-        //     powerCapacityText.text = $"{PowerCapacity}";
-        //     if (BatteryLevelSoundPlayer.clip != null)
-        //     {
-        //         batteryEffectsText.text = $"{BatteryLevelSoundPlayer.clip.name}";
-        //     }
-        // }
     }
 }
 

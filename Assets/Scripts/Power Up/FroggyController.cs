@@ -52,7 +52,6 @@ public class FroggyController : BasePowerUpBehavior
     public float MaxDistanceToGrab = 0.02f;
 
     [Header("Hands")]
-    public OVRHand FroggyActiveHand = null;
     public Vector3 FroggyPositionOffset;
     public Vector3 FroggyRotationOffset;
 
@@ -82,8 +81,6 @@ public class FroggyController : BasePowerUpBehavior
         settings = GameManager.Instance.settings;
         base.Start();
         Initialize();
-        PointableEventWrapper.WhenSelect.AddListener(OnGrabbableSelect);
-        PointableEventWrapper.WhenUnselect.AddListener(OnGrabbableUnselect);
     }
 
     new void Update()
@@ -113,23 +110,16 @@ public class FroggyController : BasePowerUpBehavior
 
     public override void EnterActiveState()
     {
-        transform.parent = FroggyActiveHand.gameObject.transform;
     }
 
     public override void UpdateActiveState()
     {
-        if (!StoreManager.Instance.IsStoreActive && PowerCapacity <= 0)
-        {
-            PowerCapacity = 0;
-            FroggyActiveHand = null;
-            transform.parent = null;
-            // TODO dissolve and then destroy object
-        }
+        base.UpdateActiveState();
 
         // Check if active hand is pinching
-        if (FroggyActiveHand.IsTracked)
+        if (ActiveHand.IsTracked)
         {
-            bool isPinching = FroggyActiveHand.GetFingerIsPinching(OVRHand.HandFinger.Index);
+            bool isPinching = ActiveHand.GetFingerIsPinching(OVRHand.HandFinger.Index);
 
             if (isPinching)
             // && (Time.time - FroggyLastTriggeredTime) > CooldownTime)
@@ -206,7 +196,7 @@ public class FroggyController : BasePowerUpBehavior
             audioSource.playOnAwake = false;
             var metaAudio = gameObject.AddComponent<MetaXRAudioSource>();
             metaAudio.EnableSpatialization = true;
-            // HideAllRenderers();
+
             _initialized = true;
             _previousHits = new RaycastHit[0];
         }
@@ -232,30 +222,10 @@ public class FroggyController : BasePowerUpBehavior
         audioSource.mute = true;
     }
 
-    private void OnGrabbableSelect(PointerEvent arg0)
-    {
-        HandRef handData = (HandRef)arg0.Data;
-        Handedness handedness = handData.Handedness;
-        if (handedness == Handedness.Right)
-        {
-            FroggyActiveHand = GameManager.Instance.RightHand.GetComponent<OVRHand>();
-        }
-        else
-        {
-            FroggyActiveHand = GameManager.Instance.LeftHand.GetComponent<OVRHand>();
-        }
-        EnterState(PowerUpState.ACTIVE);
-    }
-
-    private void OnGrabbableUnselect(PointerEvent arg0)
-    {
-        // FroggyActiveHand = null;
-        // EnterState(PowerUpState.IDLE);
-    }
 
     void TriggerPress()
     {
-        if (FroggyActiveHand != null && !FroggyActive)
+        if (ActiveHand != null && !FroggyActive)
         {
 
             if (_previousHits.Length > 0)

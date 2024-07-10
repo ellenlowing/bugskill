@@ -95,7 +95,7 @@ public class StoreManager : MonoBehaviour
     {
         foreach (var item in BoughtItems)
         {
-            Destroy(item);
+            if (item != null) Destroy(item);
         }
         BoughtItems = new List<GameObject>();
 

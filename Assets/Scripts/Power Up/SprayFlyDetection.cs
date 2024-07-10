@@ -26,6 +26,16 @@ public class SprayFlyDetection : BasePowerUpBehavior
     //private float maxTime = 2.0f;
     //private float runningTime = 0.0f;
 
+    new void Start()
+    {
+        base.Start();
+    }
+
+    new void Update()
+    {
+        base.Update();
+    }
+
     public void CheckSteamOut()
     {
         isStreaming = true;
@@ -53,6 +63,11 @@ public class SprayFlyDetection : BasePowerUpBehavior
         //runningTime += Time.deltaTime;
     }
 
+    public override void UpdateActiveState()
+    {
+        base.UpdateActiveState();
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (isStreaming)
@@ -66,7 +81,7 @@ public class SprayFlyDetection : BasePowerUpBehavior
                     slowDown.DropFly(2.0f);
                 };
 
-            
+
             }
         }
     }

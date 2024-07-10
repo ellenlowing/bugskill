@@ -13,6 +13,7 @@ public class BasePowerUpBehavior : MonoBehaviour
         ACTIVE // in use + grabbed
     }
 
+    public OVRHand ActiveHand = null;
     public StoreItemSO StoreItemData;
     public float MaxPowerCapacity = 1;
     public float PowerCapacity = 1; // [0-1]: indicate battery power of swatter or liquid capacity of spray
@@ -29,6 +30,8 @@ public class BasePowerUpBehavior : MonoBehaviour
         PointableEventWrapper.WhenUnhover.AddListener(OnUnhover);
         PointableEventWrapper.WhenSelect.AddListener(OnSelect);
         PointableEventWrapper.WhenUnselect.AddListener(OnUnselect);
+        PointableEventWrapper.WhenSelect.AddListener(OnGrabbableSelect);
+        PointableEventWrapper.WhenUnselect.AddListener(OnGrabbableUnselect);
     }
 
     public void Update()
@@ -81,12 +84,12 @@ public class BasePowerUpBehavior : MonoBehaviour
     public virtual void EnterActiveState() { }
     public virtual void UpdateActiveState()
     {
-        if (!StoreManager.Instance.IsStoreActive)
+        if (!StoreManager.Instance.IsStoreActive && PowerCapacity <= 0)
         {
-            if (PowerCapacity >= 0)
-            {
-                PowerCapacity -= UsePowerRate;
-            }
+            PowerCapacity = 0;
+            ActiveHand = null;
+            transform.parent = null;
+            // TODO dissolve and then destroy object
         }
     }
 
@@ -149,6 +152,7 @@ public class BasePowerUpBehavior : MonoBehaviour
         }
     }
 
+    // TODO change selection method
     public void OnSelect(PointerEvent arg0)
     {
         if (StoreManager.Instance.IsStoreActive)
@@ -163,6 +167,28 @@ public class BasePowerUpBehavior : MonoBehaviour
         {
             StoreManager.Instance.SetActivePowerUp(null);
         }
+    }
+
+    private void OnGrabbableSelect(PointerEvent arg0)
+    {
+        HandRef handData = (HandRef)arg0.Data;
+        Handedness handedness = handData.Handedness;
+        if (handedness == Handedness.Right)
+        {
+            ActiveHand = GameManager.Instance.RightHand.GetComponent<OVRHand>();
+        }
+        else
+        {
+            ActiveHand = GameManager.Instance.LeftHand.GetComponent<OVRHand>();
+        }
+        transform.parent = ActiveHand.gameObject.transform;
+        EnterState(PowerUpState.ACTIVE);
+    }
+
+    private void OnGrabbableUnselect(PointerEvent arg0)
+    {
+        // ActiveHand = null;
+        // EnterState(PowerUpState.IDLE);
     }
 
     public void ShowItemData(PointerEvent arg0)

@@ -75,7 +75,7 @@ public class HandController : MonoBehaviour
             // slow mid air if only fly is touched
             if (!isTouchingLandingSurface && !isTouchingOtherHand)
             {
-                if (!FroggyController.IsActive || (FroggyController.IsActive && FroggyController.FroggyActiveHand == null))
+                if (!FroggyController.IsActive || (FroggyController.IsActive && FroggyController.ActiveHand == null))
                 {
                     other.GetComponent<SlowDown>().SlowDownFly();
                 }

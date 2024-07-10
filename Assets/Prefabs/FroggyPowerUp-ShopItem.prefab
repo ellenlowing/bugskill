@@ -274,7 +274,7 @@ Transform:
   m_GameObject: {fileID: 3358396685065003162}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.913, y: 0.987, z: 0.343}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -295,15 +295,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 008ce57f6c6444a1b8f550a8283ac0fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsStoreItem: 1
+  StoreItemData: {fileID: 11400000, guid: 1c6c05410cf7aa54dae3915e235abcb9, type: 2}
   MaxPowerCapacity: 1
   PowerCapacity: 1
-  UsePowerRate: 0.001
+  UsePowerRate: 0.5
   ChargePowerRate: 0.05
   CurrentState: 0
   PointableEventWrapper: {fileID: 8057031389750113802}
-  _leftHandRenderer: {fileID: 0}
-  _rightHandRenderer: {fileID: 0}
   IsActive: 1
   settings: {fileID: 11400000, guid: 415f7b1141256224db7c3c8720566774, type: 2}
   FrogTongueTransform: {fileID: 1945965563668049310}
@@ -317,8 +315,6 @@ MonoBehaviour:
   MaxDistanceToActivateFroggy: 0.03
   MaxDistanceToGrab: 0.02
   FroggyActiveHand: {fileID: 0}
-  LeftHand: {fileID: 0}
-  RightHand: {fileID: 0}
   FroggyPositionOffset: {x: -0.07, y: -0.03, z: 0}
   FroggyRotationOffset: {x: 0, y: 0, z: 60}
   SphereCastRadius: 0.15
@@ -474,6 +470,9 @@ MonoBehaviour:
   _twoGrabTransformer: {fileID: 0}
   _targetTransform: {fileID: 0}
   _maxGrabPoints: -1
+  _rigidbody: {fileID: 0}
+  _kinematicWhileSelected: 1
+  _throwWhenUnselected: 1
 --- !u!114 &8057031389750113802
 MonoBehaviour:
   m_ObjectHideFlags: 0

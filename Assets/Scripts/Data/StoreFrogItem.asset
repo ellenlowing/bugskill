@@ -12,9 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9db9b9d6e23bd4c498873e373b2aa62f, type: 3}
   m_Name: StoreFrogItem
   m_EditorClassIdentifier: 
-  ItemPrefab: {fileID: 3358396685065003162, guid: 5b709086755b74cd7856211270f75868, type: 3}
   Price: 50
   Name: Froggy
   Description: Aim at a fly and pinch to feed it to froggy!
   LocalPosition: {x: 0, y: 0.263, z: 0}
-  LocalRotation: {x: 0, y: 0.45352402, z: -0, w: -0.89124405}
+  LocalEulerAngles: {x: 0, y: 306.06, z: 0}

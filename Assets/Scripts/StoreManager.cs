@@ -7,7 +7,6 @@ using UnityEngine.UI;
 public class StoreManager : MonoBehaviour
 {
     public static StoreManager Instance;
-    [SerializeField] private List<StoreItemSO> items;
 
     [Header("UI")]
     [SerializeField] private GameObject StoreUI;
@@ -28,13 +27,11 @@ public class StoreManager : MonoBehaviour
     public VoidEventChannelSO StartNextWaveEvent;
 
     [Header("Power Up")]
-    public GameObject Froggy;
-    public GameObject InsecticideSpray;
-    public GameObject ElectricSwatter;
+    public List<GameObject> ShopItems;
     public List<GameObject> BoughtItems = new List<GameObject>();
 
-    public List<GameObject> ShopItems;
-    public List<GameObject> PowerUpItems;
+    public bool IsStoreActive = false;
+    public Transform ShopItemsParent;
 
     private BasePowerUpBehavior _selectedPowerUp;
     private SettingSO settings;
@@ -60,17 +57,6 @@ public class StoreManager : MonoBehaviour
     private void Start()
     {
         settings = GameManager.Instance.settings;
-
-        foreach (var item in ShopItems)
-        {
-            item.SetActive(false);
-            item.GetComponentInChildren<BasePowerUpBehavior>().StoreItemData.LocalPosition = item.transform.localPosition;
-            item.GetComponentInChildren<BasePowerUpBehavior>().StoreItemData.LocalRotation = item.transform.localRotation;
-        }
-
-        PowerUpItems.Add(Froggy);
-        PowerUpItems.Add(InsecticideSpray);
-        PowerUpItems.Add(ElectricSwatter);
     }
 
     private void Purchase()
@@ -88,21 +74,8 @@ public class StoreManager : MonoBehaviour
                 settings.Cash -= _selectedPowerUp.StoreItemData.Price;
                 UIManager.Instance.UpdateCashUI();
 
-                switch (shopItemName)
-                {
-                    case "Froggy":
-                        BoughtItems.Add(Froggy);
-                        break;
-                    case "Insecticide Spray":
-                        BoughtItems.Add(InsecticideSpray);
-                        break;
-                    case "Electric Swatter":
-                        BoughtItems.Add(ElectricSwatter);
-                        break;
-                }
-
                 GameObject powerupItem = _selectedPowerUp.GetComponentInParent<Grabbable>().gameObject;
-                powerupItem.SetActive(false);
+                // powerupItem.SetActive(false);
 
                 AddTextPopUp(shopItemName + " Purchased!", powerupItem.transform.position);
 
@@ -116,35 +89,36 @@ public class StoreManager : MonoBehaviour
     {
         Debug.Log("[Testing] Next Wave Triggered");
         StartNextWaveEvent.RaiseEvent();
-        foreach (var item in BoughtItems)
-        {
-            item.SetActive(true);
-            UIManager.Instance.FaceCamera(item);
-            item.GetComponentInChildren<BasePowerUpBehavior>().ResetPowerUp();
-        }
-        BoughtItems = new List<GameObject>();
     }
 
     public void ShowStore()
     {
-        // Disable all power up items at the end of each wave !! TODO NOT WORKING
-        foreach (var item in PowerUpItems)
+        foreach (var item in BoughtItems)
         {
-            item.SetActive(false);
+            Destroy(item);
+        }
+        BoughtItems = new List<GameObject>();
+
+        IsStoreActive = true;
+
+        for (int i = 0; i < ShopItemsParent.childCount; i++)
+        {
+            Destroy(ShopItemsParent.GetChild(i).gameObject);
         }
 
         StoreUI.SetActive(true);
         UIManager.Instance.FaceCamera(StoreUI, -0.3f);
         foreach (var item in ShopItems)
         {
-            item.SetActive(true);
-            item.transform.localPosition = item.GetComponentInChildren<BasePowerUpBehavior>().StoreItemData.LocalPosition;
-            item.transform.localRotation = item.GetComponentInChildren<BasePowerUpBehavior>().StoreItemData.LocalRotation;
+            var powerup = Instantiate(item, ShopItemsParent);
+            powerup.transform.localPosition = item.GetComponentInChildren<BasePowerUpBehavior>().StoreItemData.LocalPosition;
+            powerup.transform.localEulerAngles = item.GetComponentInChildren<BasePowerUpBehavior>().StoreItemData.LocalEulerAngles;
         }
     }
 
     public void HideStore()
     {
+        IsStoreActive = false;
         StoreUI.SetActive(false);
     }
 
@@ -163,10 +137,6 @@ public class StoreManager : MonoBehaviour
 
     public void HideAllPowerUps()
     {
-        foreach (var item in PowerUpItems)
-        {
-            item.SetActive(false);
-        }
     }
 
     public void AddTextPopUp(string text, Vector3 position)

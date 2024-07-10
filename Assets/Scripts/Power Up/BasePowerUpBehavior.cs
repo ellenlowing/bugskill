@@ -13,7 +13,6 @@ public class BasePowerUpBehavior : MonoBehaviour
         ACTIVE // in use + grabbed
     }
 
-    public bool IsStoreItem = false;
     public StoreItemSO StoreItemData;
     public float MaxPowerCapacity = 1;
     public float PowerCapacity = 1; // [0-1]: indicate battery power of swatter or liquid capacity of spray
@@ -82,7 +81,7 @@ public class BasePowerUpBehavior : MonoBehaviour
     public virtual void EnterActiveState() { }
     public virtual void UpdateActiveState()
     {
-        if (!IsStoreItem)
+        if (!StoreManager.Instance.IsStoreActive)
         {
             if (PowerCapacity >= 0)
             {
@@ -121,7 +120,7 @@ public class BasePowerUpBehavior : MonoBehaviour
             GameManager.Instance.LeftHandRenderer.SetActive(true);
         }
 
-        if (IsStoreItem)
+        if (StoreManager.Instance.IsStoreActive)
         {
             ShowItemData(arg0);
             StoreManager.Instance.ShopItemDataUI.SetActive(true);
@@ -141,7 +140,7 @@ public class BasePowerUpBehavior : MonoBehaviour
             GameManager.Instance.LeftHandRenderer.SetActive(false);
         }
 
-        if (IsStoreItem)
+        if (StoreManager.Instance.IsStoreActive)
         {
             StoreManager.Instance.GlobalDescription.text = "Grab a Power Up Item and Try it On!";
             StoreManager.Instance.GlobalCashAmount.text = "";
@@ -152,7 +151,7 @@ public class BasePowerUpBehavior : MonoBehaviour
 
     public void OnSelect(PointerEvent arg0)
     {
-        if (IsStoreItem)
+        if (StoreManager.Instance.IsStoreActive)
         {
             StoreManager.Instance.SetActivePowerUp(this);
         }
@@ -160,7 +159,7 @@ public class BasePowerUpBehavior : MonoBehaviour
 
     public void OnUnselect(PointerEvent arg0)
     {
-        if (IsStoreItem)
+        if (StoreManager.Instance.IsStoreActive)
         {
             StoreManager.Instance.SetActivePowerUp(null);
         }

@@ -248,8 +248,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 277104026520122632}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.99, z: 0.342}
+  m_LocalRotation: {x: 0, y: -0.73880833, z: 0, w: 0.6739157}
+  m_LocalPosition: {x: -0.548, y: 0.352, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -313,6 +313,9 @@ MonoBehaviour:
   _twoGrabTransformer: {fileID: 0}
   _targetTransform: {fileID: 0}
   _maxGrabPoints: 1
+  _rigidbody: {fileID: 0}
+  _kinematicWhileSelected: 1
+  _throwWhenUnselected: 1
 --- !u!114 &997740562905669579
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -469,7 +472,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2f8f6e9e6f3e114b9bf9a57c2160615, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _pointable: {fileID: 0}
+  _pointable: {fileID: 2864603787972711163}
   _whenRelease:
     m_PersistentCalls:
       m_Calls: []
@@ -5754,6 +5757,9 @@ MonoBehaviour:
   _twoGrabTransformer: {fileID: 0}
   _targetTransform: {fileID: 0}
   _maxGrabPoints: 1
+  _rigidbody: {fileID: 0}
+  _kinematicWhileSelected: 1
+  _throwWhenUnselected: 1
 --- !u!1 &1808865838397451394
 GameObject:
   m_ObjectHideFlags: 0
@@ -5799,14 +5805,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61f0307d2ee5bdb4899e2b2aa4f12134, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsStoreItem: 1
   StoreItemData: {fileID: 11400000, guid: 704502336c3eb464cbe1ecc34f913eaf, type: 2}
   MaxPowerCapacity: 1
   PowerCapacity: 1
   UsePowerRate: 0.001
   ChargePowerRate: 0.05
   CurrentState: 0
-  PointableEventWrapper: {fileID: 0}
+  PointableEventWrapper: {fileID: 8841960606914761911}
   m_MaxDistance: 0.5
   ScaleFactor: 0
   TimeBtwChecks: 1

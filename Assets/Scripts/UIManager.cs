@@ -90,6 +90,7 @@ public class UIManager : MonoBehaviour
         // subscribe to all events
         GameEnds.OnEventRaised += KillUpdate;
 
+        GameBegins.OnEventRaised += UpdateLevel;
         StartNextWaveEvent.OnEventRaised += UpdateLevel;
 
         GameStartButton.WhenSelect.AddListener(StartGameLoopTrigger);
@@ -175,7 +176,6 @@ public class UIManager : MonoBehaviour
     {
         Debug.Log("Start Button clicked");
         Destroy(GameStartUI, quickStart);
-        UpdateLevel();
         GameBegins.RaiseEvent();
     }
 

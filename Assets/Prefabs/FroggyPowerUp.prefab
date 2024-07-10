@@ -259,7 +259,7 @@ GameObject:
   - component: {fileID: 7763834862141276138}
   - component: {fileID: 8057031389750113802}
   m_Layer: 0
-  m_Name: FroggyPowerUp-ShopItem
+  m_Name: FroggyPowerUp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

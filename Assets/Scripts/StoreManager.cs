@@ -75,7 +75,7 @@ public class StoreManager : MonoBehaviour
                 UIManager.Instance.UpdateCashUI();
 
                 GameObject powerupItem = _selectedPowerUp.GetComponentInParent<Grabbable>().gameObject;
-                // powerupItem.SetActive(false);
+                BoughtItems.Add(powerupItem);
 
                 AddTextPopUp(shopItemName + " Purchased!", powerupItem.transform.position);
 

@@ -118,9 +118,8 @@ public class FroggyController : BasePowerUpBehavior
 
     public override void UpdateActiveState()
     {
-        if (!StoreManager.Instance.IsStoreActive && PowerCapacity < 0)
+        if (!StoreManager.Instance.IsStoreActive && PowerCapacity <= 0)
         {
-            EnterState(PowerUpState.IDLE);
             PowerCapacity = 0;
             FroggyActiveHand = null;
             transform.parent = null;
@@ -305,7 +304,7 @@ public class FroggyController : BasePowerUpBehavior
         FrogTongueTransform.localScale = inScale;
         if (!StoreManager.Instance.IsStoreActive)
         {
-            if (PowerCapacity >= 0)
+            if (PowerCapacity > 0)
             {
                 PowerCapacity -= UsePowerRate;
             }

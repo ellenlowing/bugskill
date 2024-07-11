@@ -864,7 +864,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2991904239131300368}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: -0.026316563, z: 0, w: 0.99965364}
+  m_LocalRotation: {x: 0, y: 0.02631638, z: 0, w: -0.9996537}
   m_LocalPosition: {x: 0.14789653, y: 0.92999995, z: 0.43513155}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -894,6 +894,9 @@ MonoBehaviour:
   _twoGrabTransformer: {fileID: 0}
   _targetTransform: {fileID: 0}
   _maxGrabPoints: -1
+  _rigidbody: {fileID: 0}
+  _kinematicWhileSelected: 1
+  _throwWhenUnselected: 1
 --- !u!114 &8103863654310763284
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -906,15 +909,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7c915bbec3beb44c9691f88ef0a5868, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsStoreItem: 0
+  StoreItemData: {fileID: 11400000, guid: fc227df3124f7b94eb428fc63ab535ad, type: 2}
   MaxPowerCapacity: 1
   PowerCapacity: 1
   UsePowerRate: 0.001
   ChargePowerRate: 0.05
   CurrentState: 0
   PointableEventWrapper: {fileID: 2796636168851972562}
-  _leftHandRenderer: {fileID: 0}
-  _rightHandRenderer: {fileID: 0}
   settings: {fileID: 11400000, guid: 415f7b1141256224db7c3c8720566774, type: 2}
   ElectricityEffect: {fileID: 9027514048236820043, guid: effb650189dc5714e9e9801b1cfb3991, type: 3}
   HitEffect: {fileID: 1141330259687333425, guid: 6718dc24203da53468af9ada8fef7d6d, type: 3}
@@ -927,12 +928,6 @@ MonoBehaviour:
   RechargeSoundClip: {fileID: 8300000, guid: 56227355334454a669691eddf1801cb9, type: 3}
   DepletedSoundClip: {fileID: 8300000, guid: 6dbfbc610e2d9c3449bda691c28f3a3b, type: 3}
   RechargeDelay: 5
-  ForDebugging: 0
-  isHeldText: {fileID: 0}
-  currentStateText: {fileID: 0}
-  powerCapacityText: {fileID: 0}
-  batteryEffectsText: {fileID: 0}
-  chargedText: {fileID: 0}
 --- !u!114 &2796636168851972562
 MonoBehaviour:
   m_ObjectHideFlags: 0

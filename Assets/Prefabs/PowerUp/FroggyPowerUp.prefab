@@ -295,13 +295,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 008ce57f6c6444a1b8f550a8283ac0fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ActiveHand: {fileID: 0}
   StoreItemData: {fileID: 11400000, guid: 1c6c05410cf7aa54dae3915e235abcb9, type: 2}
+  CurrentState: 0
+  PointableEventWrapper: {fileID: 8057031389750113802}
   MaxPowerCapacity: 1
   PowerCapacity: 1
   UsePowerRate: 0.5
   ChargePowerRate: 0.05
-  CurrentState: 0
-  PointableEventWrapper: {fileID: 8057031389750113802}
+  DissolvePairs:
+  - MeshRenderer: {fileID: 9133103878314276152}
+    Material: {fileID: 2100000, guid: e89cb2d8e9c2a42fb8f0a6ff72704dcf, type: 2}
+  - MeshRenderer: {fileID: 7503999041056008068}
+    Material: {fileID: 2100000, guid: 6df504ae7c9004a8888c0a1c4a33cfe0, type: 2}
+  - MeshRenderer: {fileID: 3457044653084947479}
+    Material: {fileID: 2100000, guid: 76d7b1604494c449887dad4714ee3cdd, type: 2}
+  - MeshRenderer: {fileID: 3363194672769496012}
+    Material: {fileID: 2100000, guid: e7bdcf7a932a94dcfa892a293f88590f, type: 2}
   IsActive: 1
   settings: {fileID: 11400000, guid: 415f7b1141256224db7c3c8720566774, type: 2}
   FrogTongueTransform: {fileID: 1945965563668049310}
@@ -314,7 +324,6 @@ MonoBehaviour:
   TongueTipTargetTransform: {fileID: 4234322154700803935}
   MaxDistanceToActivateFroggy: 0.03
   MaxDistanceToGrab: 0.02
-  FroggyActiveHand: {fileID: 0}
   FroggyPositionOffset: {x: -0.07, y: -0.03, z: 0}
   FroggyRotationOffset: {x: 0, y: 0, z: 60}
   SphereCastRadius: 0.15
@@ -1237,6 +1246,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: Kermit 3D Model
       objectReference: {fileID: 0}
+    - target: {fileID: -1051974284806790476, guid: ff30bcc36d017409498f2afddab89db5, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -1051974284806790476, guid: ff30bcc36d017409498f2afddab89db5, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 76d7b1604494c449887dad4714ee3cdd, type: 2}
+    - target: {fileID: 2314864137405883291, guid: ff30bcc36d017409498f2afddab89db5, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2314864137405883291, guid: ff30bcc36d017409498f2afddab89db5, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2440382498671335211, guid: ff30bcc36d017409498f2afddab89db5, type: 3}
+    - target: {fileID: 2314864137405883291, guid: ff30bcc36d017409498f2afddab89db5, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2440382498671335211, guid: ff30bcc36d017409498f2afddab89db5, type: 3}
     - target: {fileID: 2774220344278030320, guid: ff30bcc36d017409498f2afddab89db5, type: 3}
       propertyPath: m_LocalScale.x
       value: 3.333333
@@ -1289,6 +1318,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: -90
       objectReference: {fileID: 0}
+    - target: {fileID: 8399173787259800738, guid: ff30bcc36d017409498f2afddab89db5, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1297,5 +1330,25 @@ PrefabInstance:
 --- !u!4 &2979674126623326332 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2774220344278030320, guid: ff30bcc36d017409498f2afddab89db5, type: 3}
+  m_PrefabInstance: {fileID: 1142207178838693772}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &3363194672769496012 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -6812370787337657280, guid: ff30bcc36d017409498f2afddab89db5, type: 3}
+  m_PrefabInstance: {fileID: 1142207178838693772}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &3457044653084947479 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 2314864137405883291, guid: ff30bcc36d017409498f2afddab89db5, type: 3}
+  m_PrefabInstance: {fileID: 1142207178838693772}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &7503999041056008068 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -1730965286970511352, guid: ff30bcc36d017409498f2afddab89db5, type: 3}
+  m_PrefabInstance: {fileID: 1142207178838693772}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &9133103878314276152 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -1051974284806790476, guid: ff30bcc36d017409498f2afddab89db5, type: 3}
   m_PrefabInstance: {fileID: 1142207178838693772}
   m_PrefabAsset: {fileID: 0}

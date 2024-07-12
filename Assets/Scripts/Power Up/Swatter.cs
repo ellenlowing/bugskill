@@ -61,12 +61,6 @@ namespace Power_Up
 
         public override void EnterInactiveState()
         {
-            // TODO do dissolve effect
-            if (PowerCapacity <= 0)
-            {
-                PowerCapacity = 0;
-                ToggleEffects(false, DepletedSoundClip);
-            }
         }
 
         public override void UpdateInactiveState()
@@ -82,24 +76,32 @@ namespace Power_Up
         {
             base.UpdateActiveState();
 
-            if (PowerCapacity <= 0)
+            if (!StoreManager.Instance.IsStoreActive)
             {
-                EnterState(PowerUpState.INACTIVE);
-                Debug.Log("Power capacity is less than 0");
+                if (PowerCapacity > 0)
+                {
+                    PowerCapacity -= UsePowerRate;
+                }
             }
+        }
+
+        public override void Dissolve()
+        {
+            ToggleEffects(false, DepletedSoundClip);
+            base.Dissolve();
         }
 
         // Change and play particle and sound effects 
         private void ToggleEffects(bool active, AudioClip clip)
         {
-            if (clip != null)
-            {
-                Debug.Log($"ToggleEffects({active}, {clip.name})");
-            }
-            else
-            {
-                Debug.Log($"ToggleEffects({active}");
-            }
+            // if (clip != null)
+            // {
+            //     Debug.Log($"ToggleEffects({active}, {clip.name})");
+            // }
+            // else
+            // {
+            //     Debug.Log($"ToggleEffects({active}");
+            // }
 
             if (active)
             {

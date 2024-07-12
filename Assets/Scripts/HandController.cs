@@ -12,7 +12,6 @@ public class HandController : MonoBehaviour
     public bool IsRightHand;
     public GameObject HandSplat;
     public float BloodSplatTimeout = 2f;
-    public FroggyController FroggyController;
     public ParticleSystem BloodSplatParticles;
 
     [Header("Events")]
@@ -75,7 +74,7 @@ public class HandController : MonoBehaviour
             // slow mid air if only fly is touched
             if (!isTouchingLandingSurface && !isTouchingOtherHand)
             {
-                if (!FroggyController.IsActive || (FroggyController.IsActive && FroggyController.ActiveHand == null))
+                if (!FroggyController.Instance.IsActive || (FroggyController.Instance.IsActive && FroggyController.Instance.ActiveHand == null))
                 {
                     other.GetComponent<SlowDown>().SlowDownFly();
                 }
@@ -161,7 +160,7 @@ public class HandController : MonoBehaviour
                     }
                 }
 
-                if (isTouchingMC)
+                if (IsRightHand && isTouchingMC)
                 {
                     UIManager.Instance.StartGameLoopTrigger();
                 }

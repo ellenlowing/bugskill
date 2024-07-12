@@ -13,14 +13,25 @@ public class BasePowerUpBehavior : MonoBehaviour
         ACTIVE // in use + grabbed
     }
 
+    [System.Serializable]
+    public class MeshMatPair
+    {
+        public MeshRenderer MeshRenderer;
+        public Material Material;
+    }
+
     public OVRHand ActiveHand = null;
     public StoreItemSO StoreItemData;
+    public PowerUpState CurrentState;
+    public PointableUnityEventWrapper PointableEventWrapper;
+
+    [Header("Power Capacity Settings")]
     public float MaxPowerCapacity = 1;
     public float PowerCapacity = 1; // [0-1]: indicate battery power of swatter or liquid capacity of spray
     public float UsePowerRate = 0.001f;
     public float ChargePowerRate = 0.05f;
-    public PowerUpState CurrentState;
-    public PointableUnityEventWrapper PointableEventWrapper;
+    public float DissolveDuration = 1f;
+    public List<MeshMatPair> DissolvePairs;
 
     public void Start()
     {
@@ -37,6 +48,11 @@ public class BasePowerUpBehavior : MonoBehaviour
     public void Update()
     {
         UpdateState();
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            Dissolve();
+        }
     }
 
     public void EnterState(PowerUpState state)
@@ -89,7 +105,7 @@ public class BasePowerUpBehavior : MonoBehaviour
             PowerCapacity = 0;
             ActiveHand = null;
             transform.parent = null;
-            // TODO dissolve and then destroy object
+            Dissolve();
         }
     }
 
@@ -107,6 +123,35 @@ public class BasePowerUpBehavior : MonoBehaviour
         else
         {
             PowerCapacity = MaxPowerCapacity;
+        }
+    }
+
+    public virtual void Dissolve()
+    {
+        foreach (var pair in DissolvePairs)
+        {
+            if (pair.Material != null)
+            {
+                StartCoroutine(DissolveSingleMesh(pair.MeshRenderer, pair.Material, DissolveDuration));
+            }
+            else
+            {
+                pair.MeshRenderer.gameObject.SetActive(false);
+            }
+        }
+
+        Destroy(gameObject, DissolveDuration);
+    }
+
+    IEnumerator DissolveSingleMesh(MeshRenderer mesh, Material mat, float duration)
+    {
+        float t = 0;
+        while (t < duration)
+        {
+            mat.SetFloat("_Cutoff", Mathf.Lerp(0, 1, t / duration));
+            mesh.material = mat;
+            t += Time.deltaTime;
+            yield return null;
         }
     }
 

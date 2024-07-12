@@ -34,6 +34,7 @@ public class FroggyController : BasePowerUpBehavior
             }
         }
     }
+    public static FroggyController Instance;
     public bool IsActive = false;
 
     [Header("Settings Data")]
@@ -75,6 +76,19 @@ public class FroggyController : BasePowerUpBehavior
     private Collider _hitFlyCollider = null;
     private bool _successFly = false;
     private bool _initialized = false;
+
+
+    void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(this);
+        }
+        else
+        {
+            Instance = this;
+        }
+    }
 
     new void Start()
     {
@@ -165,11 +179,6 @@ public class FroggyController : BasePowerUpBehavior
         // Sync tongue tip gameobject with extended tongue
         TongueTipObjectTransform.position = TongueTipTargetTransform.position;
         TongueTipObjectTransform.rotation = TongueTipTargetTransform.rotation;
-
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            TriggerPress();
-        }
     }
 
     public void Activate()
@@ -221,7 +230,6 @@ public class FroggyController : BasePowerUpBehavior
         //stop croaking while not in hand
         audioSource.mute = true;
     }
-
 
     void TriggerPress()
     {

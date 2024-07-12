@@ -864,7 +864,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2991904239131300368}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0.02631638, z: 0, w: -0.9996537}
+  m_LocalRotation: {x: 0, y: -0.026316563, z: 0, w: 0.99965364}
   m_LocalPosition: {x: 0.14789653, y: 0.92999995, z: 0.43513155}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -909,13 +909,44 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7c915bbec3beb44c9691f88ef0a5868, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ActiveHand: {fileID: 0}
   StoreItemData: {fileID: 11400000, guid: fc227df3124f7b94eb428fc63ab535ad, type: 2}
+  CurrentState: 0
+  PointableEventWrapper: {fileID: 2796636168851972562}
   MaxPowerCapacity: 1
   PowerCapacity: 1
   UsePowerRate: 0.001
   ChargePowerRate: 0.05
-  CurrentState: 0
-  PointableEventWrapper: {fileID: 2796636168851972562}
+  DissolveDuration: 2
+  DissolvePairs:
+  - MeshRenderer: {fileID: 1182374509557272238}
+    Material: {fileID: 2100000, guid: 20e0f1ebbc6694cddbe685d4fbc8c2bf, type: 2}
+  - MeshRenderer: {fileID: 5180956477396533589}
+    Material: {fileID: 2100000, guid: 11aec6d15add24af4b2e9ec9141c9b0e, type: 2}
+  - MeshRenderer: {fileID: 3938977094092935165}
+    Material: {fileID: 2100000, guid: 48eb48c1af38e434286329646f8e05e8, type: 2}
+  - MeshRenderer: {fileID: 3257504955747504506}
+    Material: {fileID: 2100000, guid: 48eb48c1af38e434286329646f8e05e8, type: 2}
+  - MeshRenderer: {fileID: 1944674255935464299}
+    Material: {fileID: 2100000, guid: 8fbd0b32705f747f9987d4f534172d1d, type: 2}
+  - MeshRenderer: {fileID: 4300526947817414949}
+    Material: {fileID: 2100000, guid: df679098c9d194ec68dcb101b756a71f, type: 2}
+  - MeshRenderer: {fileID: 855572890666496701}
+    Material: {fileID: 2100000, guid: 48eb48c1af38e434286329646f8e05e8, type: 2}
+  - MeshRenderer: {fileID: 7740084286030697689}
+    Material: {fileID: 2100000, guid: 48eb48c1af38e434286329646f8e05e8, type: 2}
+  - MeshRenderer: {fileID: 2722671433802977923}
+    Material: {fileID: 2100000, guid: e9080078d9a844112834e019a7294527, type: 2}
+  - MeshRenderer: {fileID: 5392075059564060553}
+    Material: {fileID: 2100000, guid: 48eb48c1af38e434286329646f8e05e8, type: 2}
+  - MeshRenderer: {fileID: 5702596280916075574}
+    Material: {fileID: 2100000, guid: 48eb48c1af38e434286329646f8e05e8, type: 2}
+  - MeshRenderer: {fileID: 8423472227042208723}
+    Material: {fileID: 2100000, guid: 48eb48c1af38e434286329646f8e05e8, type: 2}
+  - MeshRenderer: {fileID: 4709956537002044438}
+    Material: {fileID: 0}
+  - MeshRenderer: {fileID: 1944674255935464299}
+    Material: {fileID: 0}
   settings: {fileID: 11400000, guid: 415f7b1141256224db7c3c8720566774, type: 2}
   ElectricityEffect: {fileID: 9027514048236820043, guid: effb650189dc5714e9e9801b1cfb3991, type: 3}
   HitEffect: {fileID: 1141330259687333425, guid: 6718dc24203da53468af9ada8fef7d6d, type: 3}

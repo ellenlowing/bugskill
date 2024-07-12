@@ -47,6 +47,11 @@ namespace Power_Up
         new void Update()
         {
             base.Update();
+
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                Dissolve();
+            }
         }
 
         public override void EnterIdleState()
@@ -80,6 +85,7 @@ namespace Power_Up
             {
                 if (PowerCapacity > 0)
                 {
+                    Debug.Log("PowerCapacity: " + PowerCapacity);
                     PowerCapacity -= UsePowerRate;
                 }
             }
@@ -87,6 +93,7 @@ namespace Power_Up
 
         public override void Dissolve()
         {
+            electricityEffectInstance.Stop();
             ToggleEffects(false, DepletedSoundClip);
             base.Dissolve();
         }
@@ -163,9 +170,7 @@ namespace Power_Up
                     GameManager.Instance.TriggerTNT(other.transform.position, other.gameObject);
                 }
             }
-
         }
-
     }
 }
 

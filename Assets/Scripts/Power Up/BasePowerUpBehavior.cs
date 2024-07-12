@@ -49,10 +49,6 @@ public class BasePowerUpBehavior : MonoBehaviour
     {
         UpdateState();
 
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            Dissolve();
-        }
     }
 
     public void EnterState(PowerUpState state)
@@ -128,6 +124,9 @@ public class BasePowerUpBehavior : MonoBehaviour
 
     public virtual void Dissolve()
     {
+        GameManager.Instance.RightHandRenderer.SetActive(false);
+        GameManager.Instance.LeftHandRenderer.SetActive(false);
+
         foreach (var pair in DissolvePairs)
         {
             if (pair.Material != null)

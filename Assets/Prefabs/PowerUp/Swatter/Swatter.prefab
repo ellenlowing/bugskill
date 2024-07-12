@@ -915,7 +915,7 @@ MonoBehaviour:
   PointableEventWrapper: {fileID: 2796636168851972562}
   MaxPowerCapacity: 1
   PowerCapacity: 1
-  UsePowerRate: 0.001
+  UsePowerRate: 0.1
   ChargePowerRate: 0.05
   DissolveDuration: 2
   DissolvePairs:
@@ -946,6 +946,8 @@ MonoBehaviour:
   - MeshRenderer: {fileID: 4709956537002044438}
     Material: {fileID: 0}
   - MeshRenderer: {fileID: 1944674255935464299}
+    Material: {fileID: 0}
+  - MeshRenderer: {fileID: 3645019134322829577}
     Material: {fileID: 0}
   settings: {fileID: 11400000, guid: 415f7b1141256224db7c3c8720566774, type: 2}
   ElectricityEffect: {fileID: 9027514048236820043, guid: effb650189dc5714e9e9801b1cfb3991, type: 3}

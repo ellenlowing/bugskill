@@ -29,8 +29,6 @@ public class UIManager : MonoBehaviour
     [SerializeField] private InteractableUnityEventWrapper GameStartButton;
     [SerializeField] private InteractableUnityEventWrapper GameExitButton;
 
-    private float TimeChange = 0.1f;
-    private float quickStart = 0.5f;
     [Header("Events")]
     [Space(20)]
     [Tooltip("Subscribe to run before first game wave")]
@@ -175,7 +173,6 @@ public class UIManager : MonoBehaviour
     public void StartGameLoopTrigger()
     {
         Debug.Log("Start Button clicked");
-        Destroy(GameStartUI, quickStart);
         GameBegins.RaiseEvent();
     }
 

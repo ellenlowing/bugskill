@@ -124,6 +124,8 @@ public class BasePowerUpBehavior : MonoBehaviour
 
     public virtual void Dissolve()
     {
+        EnterState(PowerUpState.INACTIVE);
+
         GameManager.Instance.RightHandRenderer.SetActive(false);
         GameManager.Instance.LeftHandRenderer.SetActive(false);
 

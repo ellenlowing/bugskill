@@ -4368,6 +4368,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: FroggyPowerUp-ShopItem
       objectReference: {fileID: 0}
+    - target: {fileID: 3457044653084947479, guid: 5b709086755b74cd7856211270f75868, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2440382498671335211, guid: ff30bcc36d017409498f2afddab89db5, type: 3}
     - target: {fileID: 6124115074205923799, guid: 5b709086755b74cd7856211270f75868, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -5154,10 +5158,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1414895417}
     m_Modifications:
+    - target: {fileID: 2722671433802977923, guid: cf9b54e7873904dabbe3b87d6f87696e, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 82474a49347bdbf41947cdacebdb1070, type: 2}
     - target: {fileID: 2991904239131300368, guid: cf9b54e7873904dabbe3b87d6f87696e, type: 3}
       propertyPath: m_Name
       value: Swatter-ShopItem
       objectReference: {fileID: 0}
+    - target: {fileID: 5180956477396533589, guid: cf9b54e7873904dabbe3b87d6f87696e, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: c9e5fb389af7f3c4d8775e56d6fe8371, type: 2}
     - target: {fileID: 6734971544782742302, guid: cf9b54e7873904dabbe3b87d6f87696e, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.534

@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: 4
-  m_Shader: {fileID: -6465566751694194690, guid: e02b1556cd71041dfb9c0db1563c814e, type: 3}
+  m_Shader: {fileID: 4800000, guid: 8842c84d9ff79e24abe4295f91ae4a7a, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -77,13 +77,13 @@ Material:
     - _BUILTIN_QueueOffset: 0
     - _BumpScale: 1
     - _Cull: 0
-    - _Cutoff: 3.51
+    - _Cutoff: 0.9932597
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
     - _EdgeWidth: 0.116
     - _Edge_Width: 0.05
     - _GlossMapScale: 1
-    - _Glossiness: 0.5
+    - _Glossiness: 0
     - _GlossyReflections: 1
     - _Metallic: 0
     - _Mode: 0

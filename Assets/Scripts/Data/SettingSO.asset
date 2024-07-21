@@ -38,4 +38,4 @@ MonoBehaviour:
   - 0.4
   - 0.5
   divFactor: 3
-  distanceFromCamera: 0.8
+  distanceFromCamera: 0.5

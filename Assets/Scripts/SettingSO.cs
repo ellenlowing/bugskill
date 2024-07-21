@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-
 [CreateAssetMenu(fileName = "SettingSO")]
 public class SettingSO : ScriptableObject
 {

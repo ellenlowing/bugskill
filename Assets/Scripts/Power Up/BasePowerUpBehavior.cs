@@ -49,6 +49,12 @@ public class BasePowerUpBehavior : MonoBehaviour
     {
         UpdateState();
 
+#if UNITY_EDITOR
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            Dissolve();
+        }
+#endif
     }
 
     public void EnterState(PowerUpState state)
@@ -233,8 +239,11 @@ public class BasePowerUpBehavior : MonoBehaviour
 
     private void OnGrabbableUnselect(PointerEvent arg0)
     {
-        // ActiveHand = null;
-        // EnterState(PowerUpState.IDLE);
+        // if (StoreManager.Instance.IsStoreActive)
+        // {
+        //     ActiveHand = null;
+        //     EnterState(PowerUpState.IDLE);
+        // }
     }
 
     public void ShowItemData(PointerEvent arg0)

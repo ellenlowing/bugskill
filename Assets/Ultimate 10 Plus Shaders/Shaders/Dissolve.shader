@@ -40,6 +40,10 @@ Shader "Ultimate 10+ Shaders/Dissolve"
         _Cutoff ("Cut off", Range(0, 1)) = 0.25
         _EdgeWidth ("Edge Width", Range(0, 1)) = 0.05
         [HDR] _EdgeColor ("Edge Color", Color) = (1,1,1,1)
+
+        _BumpMap ("Normal Map", 2D) = "bump" {}
+        _Metallic ("Metallic", Range(0,1)) = 0.5
+        _Glossiness ("Smoothness", Range(0,1)) = 0.5
         
         [Enum(UnityEngine.Rendering.CullMode)] _Cull ("Cull", Float) = 2
     }
@@ -61,6 +65,7 @@ Shader "Ultimate 10+ Shaders/Dissolve"
 
         sampler2D _MainTex;
         sampler2D _NoiseTex;
+        sampler2D _BumpMap;
 
         half _Cutoff;
         half _EdgeWidth;
@@ -68,10 +73,14 @@ Shader "Ultimate 10+ Shaders/Dissolve"
         fixed4 _Color;
         fixed4 _EdgeColor;
 
+        half _Metallic;
+        half _Glossiness;
+
         struct Input
         {
             float2 uv_MainTex;
             float2 uv_NoiseTex;
+            float2 uv_BumpMap;
         };
 
         // Add instancing support for this shader. You need to check 'Enable Instancing' on materials that use the shader.
@@ -93,6 +102,10 @@ Shader "Ultimate 10+ Shaders/Dissolve"
 
             clip(noisePixel.r >= _Cutoff ? 1 : -1);
             o.Emission = noisePixel.r >= (_Cutoff * (_EdgeWidth + 1.0)) ? 0 : _EdgeColor;
+
+            o.Normal = UnpackNormal(tex2D(_BumpMap, IN.uv_BumpMap));
+            o.Metallic = _Metallic;
+            o.Smoothness = _Glossiness;
         }
         ENDCG
     }

@@ -48,13 +48,6 @@ namespace Power_Up
         {
             base.Update();
 
-
-#if UNITY_EDITOR
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                Dissolve();
-            }
-#endif
         }
 
         public override void EnterIdleState()
@@ -96,7 +89,10 @@ namespace Power_Up
 
         public override void Dissolve()
         {
-            Destroy(electricityEffectInstance.gameObject);
+            if (electricityEffectInstance != null)
+            {
+                Destroy(electricityEffectInstance.gameObject);
+            }
             ToggleEffects(false, DepletedSoundClip);
             base.Dissolve();
         }

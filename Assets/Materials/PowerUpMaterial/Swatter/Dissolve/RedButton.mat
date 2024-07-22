@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: SmallElements
+  m_Name: RedButton
   m_Shader: {fileID: 4800000, guid: 8842c84d9ff79e24abe4295f91ae4a7a, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -67,15 +67,15 @@ Material:
     m_Floats:
     - _BumpScale: 1
     - _Cull: 2
-    - _Cutoff: 0.9932597
+    - _Cutoff: 0.55787736
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
     - _EdgeWidth: 0.12
     - _EnvironmentDepthBias: 0
     - _GlossMapScale: 1
-    - _Glossiness: 0.5
+    - _Glossiness: 0.494
     - _GlossyReflections: 1
-    - _Metallic: 0
+    - _Metallic: 0.375
     - _Mode: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.02
@@ -85,7 +85,7 @@ Material:
     - _UVSec: 0
     - _ZWrite: 1
     m_Colors:
-    - _Color: {r: 1, g: 0.90960455, b: 0, a: 1}
+    - _Color: {r: 1, g: 0.017699117, b: 0, a: 1}
     - _EdgeColor: {r: 0, g: 2.4723806, b: 4.5947933, a: 1}
-    - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _EmissionColor: {r: 0.8584906, g: 0.008942611, b: 0, a: 1}
   m_BuildTextureStacks: []

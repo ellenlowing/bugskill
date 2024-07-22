@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Spray : BasePowerUpBehavior
+public class SprayPowerUp : BasePowerUpBehavior
 {
     private SettingSO settings;
 
@@ -40,5 +40,17 @@ public class Spray : BasePowerUpBehavior
     public override void UpdateActiveState()
     {
         base.UpdateActiveState();
+    }
+
+    public void UsePowerCapacity()
+    {
+        if (!StoreManager.Instance.IsStoreActive)
+        {
+            if (PowerCapacity > 0)
+            {
+                PowerCapacity -= UsePowerRate;
+                Debug.Log(PowerCapacity);
+            }
+        }
     }
 }

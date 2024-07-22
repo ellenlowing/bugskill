@@ -18,9 +18,6 @@ public class SprayParticle : MonoBehaviour
 
     void OnParticleCollision(GameObject other)
     {
-        Rigidbody rb = other.GetComponent<Rigidbody>();
-        Debug.Log(other.name);
-
         if (other.TryGetComponent<SlowDown>(out SlowDown slowDown))
         {
             slowDown.SlowDownFly();

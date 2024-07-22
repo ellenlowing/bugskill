@@ -36,9 +36,7 @@ public class FroggyController : BasePowerUpBehavior
     }
     public static FroggyController Instance;
     public bool IsActive = false;
-
-    [Header("Settings Data")]
-    [SerializeField] private SettingSO settings;
+    private SettingSO settings;
 
     [Header("Tongue")]
     public Transform FrogTongueTransform;

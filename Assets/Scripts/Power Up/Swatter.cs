@@ -29,9 +29,6 @@ namespace Power_Up
         [Header("Recharge Settings")]
         public float RechargeDelay = 5.0f; // Time it takes to start recharging after depletion
 
-        // [Header("Activate Button")]
-        // public SwatterActivateButton ActivateButton;
-
         private ParticleSystem electricityEffectInstance;
 
         private void Awake()

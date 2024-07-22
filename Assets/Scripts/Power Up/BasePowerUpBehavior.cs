@@ -50,7 +50,7 @@ public class BasePowerUpBehavior : MonoBehaviour
         UpdateState();
 
 #if UNITY_EDITOR
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.LeftShift))
         {
             Dissolve();
         }

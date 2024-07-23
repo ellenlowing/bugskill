@@ -14,10 +14,32 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   score: 25
   scoreMulFactor: 1
-  numberOfKills: 0
+  numberOfKills: 29
   skillScoreValue: 100
   Cash: 0
-  flies: []
+  flies:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   eyeSpiralSpeed: 220
   flyIntelLevels:
   - {fileID: 11400000, guid: 94c1c6d1603a36147af3eee62718f46c, type: 2}

@@ -90,12 +90,13 @@ public partial class GameManager : MonoBehaviour
         }
 
         settings.waveIndex = 0;
+        settings.numberOfKills = 0;
+        settings.Cash = 0;
         settings.flies = new List<GameObject>();
     }
 
     void Start()
     {
-        settings.numberOfKills = 0;
         GameRestartEvent.WhenSelect.AddListener(RestartGameLoop);
 
         HourGlass.SetActive(false);
@@ -133,6 +134,7 @@ public partial class GameManager : MonoBehaviour
                     GameObject fly = Instantiate(FlyPrefab, position, Quaternion.identity, FlyParentAnchor);
                     fly.transform.up = normal;
                     fly.transform.rotation = fly.transform.rotation * Quaternion.Euler(0, Random.Range(0, 360f), 0);
+                    fly.name = "Fly " + i.ToString();
                     settings.flies.Add(fly);
                 }
             }
@@ -144,6 +146,7 @@ public partial class GameManager : MonoBehaviour
                     GameObject fly = Instantiate(TNTFlyPrefab, position, Quaternion.identity, FlyParentAnchor);
                     fly.transform.up = normal;
                     fly.transform.rotation = fly.transform.rotation * Quaternion.Euler(0, Random.Range(0, 360f), 0);
+                    fly.name = "TNT Fly " + i.ToString();
                     settings.flies.Add(fly);
                 }
             }

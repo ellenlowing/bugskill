@@ -292,7 +292,7 @@ MonoBehaviour:
   PointableEventWrapper: {fileID: 5670062738024195284}
   MaxPowerCapacity: 1
   PowerCapacity: 1
-  UsePowerRate: 0.05
+  UsePowerRate: 0.005
   ChargePowerRate: 0.05
   DissolveDuration: 2
   DissolvePairs:

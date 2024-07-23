@@ -2,8 +2,8 @@
 public enum SCOREFACTOR : int
 {
     SLAP = 30,
-    SPRAY = 200,
+    SPRAY = 60,
     CLAP = 50,
-    SWATTER = 100,
+    SWATTER = 70,
     FROG = 70,
 }

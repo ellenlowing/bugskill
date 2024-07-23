@@ -113,17 +113,10 @@ public class UIManager : MonoBehaviour
 
     private void OnDisable()
     {
-        // settings.waveTimeToComplete = 10.0f;
     }
 
     public void Update()
     {
-
-    }
-
-    public void ScoreUpdate()
-    {
-        // ScoreText.text = "Score : " + settings.score.ToString();
     }
 
     public void FailedPanel(bool state, int kills, int currentIndex)
@@ -153,7 +146,10 @@ public class UIManager : MonoBehaviour
         tempText.text = cashAmount.ToString();
         tempObj = Instantiate(UIScoreObj, position, Quaternion.identity);
         UpdateCashUI();
-        FaceCamera(tempObj);
+        // FaceCamera(tempObj);
+        tempObj.transform.forward = Camera.main.transform.forward;
+        tempObj.transform.eulerAngles = new Vector3(0, tempObj.transform.eulerAngles.y, tempObj.transform.eulerAngles.z);
+
         Destroy(tempObj, 1f);
     }
 

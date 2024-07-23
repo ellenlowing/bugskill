@@ -20,6 +20,7 @@ public class FlyMovement : MonoBehaviour
     private float takeoffChance;
     private float restDuration;
     public FlySO flyBehaviour;
+    private SlowDown slowDown;
 
     private void Start()
     {
@@ -28,10 +29,12 @@ public class FlyMovement : MonoBehaviour
         speed = Random.Range(flyBehaviour.minSpeed, flyBehaviour.maxSpeed);
         takeoffChance = settings.TakeoffChances[settings.waveIndex];
         restDuration = Random.Range(flyBehaviour.minRestDuration, flyBehaviour.maxRestDuration);
+        slowDown = GetComponent<SlowDown>();
     }
 
     private void Update()
     {
+        if (slowDown.IsSlowed) return;
 
         int tries = 0;
         while (needNewTarget)

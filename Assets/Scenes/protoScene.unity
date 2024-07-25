@@ -3086,6 +3086,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canLand: 16383
+  LandingLayerName: Landing
 --- !u!114 &730595229
 MonoBehaviour:
   m_ObjectHideFlags: 0

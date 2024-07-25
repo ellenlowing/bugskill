@@ -73,7 +73,7 @@ public class BaseFlyBehavior : MonoBehaviour
 #if UNITY_EDITOR
         if (Input.GetKeyDown(KeyCode.DownArrow))
         {
-            SlowDown();
+            EnterState(FlyState.DYING);
         }
 #endif
     }
@@ -254,7 +254,7 @@ public class BaseFlyBehavior : MonoBehaviour
         switch (CurrentState)
         {
             case FlyState.DYING:
-                if (other.gameObject.layer == 6)
+                if (other.gameObject.layer == LayerMask.NameToLayer(GameManager.Instance.LandingLayerName))
                 {
                     foreach (ContactPoint contact in other.contacts)
                     {

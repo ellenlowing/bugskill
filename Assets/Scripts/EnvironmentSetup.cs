@@ -35,13 +35,14 @@ public class EnvironmentSetup : MonoBehaviour
         {
             foreach (var anchor in currentRoom.Anchors)
             {
-                var labelFilter = LabelFilter.FromEnum(canLand);
-                if (labelFilter.PassesFilter(anchor.AnchorLabels))
+                var labelFilter = LabelFilter.Included(canLand);
+
+                if (labelFilter.PassesFilter(anchor.Label))
                 {
-                    anchor.gameObject.layer = 6;
+                    anchor.gameObject.layer = LayerMask.NameToLayer(GameManager.Instance.LandingLayerName);
                     foreach (Transform child in anchor.transform)
                     {
-                        child.gameObject.layer = 6;
+                        child.gameObject.layer = LayerMask.NameToLayer(GameManager.Instance.LandingLayerName);
                     }
                 }
             }

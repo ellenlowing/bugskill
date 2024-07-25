@@ -20,7 +20,6 @@ public class HandController : MonoBehaviour
     bool isTouchingLandingSurface = false;
     bool isTouchingOtherHand = false;
     bool isTouchingFly = false;
-    Transform touchedWallTransform = null;
     Transform touchedFlyTransform = null;
     float BloodSplatTimer = 0;
 
@@ -47,10 +46,9 @@ public class HandController : MonoBehaviour
             return;
         }
 
-        if (other.gameObject.layer == 6)
+        if (other.gameObject.layer == LayerMask.NameToLayer(GameManager.Instance.LandingLayerName))
         {
             isTouchingLandingSurface = true;
-            touchedWallTransform = other.transform;
 
             StartCoroutine(CheckFlyHit());
         }
@@ -80,10 +78,9 @@ public class HandController : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.layer == 6)
+        if (other.gameObject.layer == LayerMask.NameToLayer(GameManager.Instance.LandingLayerName))
         {
             isTouchingLandingSurface = false;
-            touchedWallTransform = null;
         }
         else if (other.gameObject.tag == "Hands")
         {
@@ -162,7 +159,6 @@ public class HandController : MonoBehaviour
 
                 isTouchingFly = false;
                 isTouchingLandingSurface = false;
-                touchedWallTransform = null;
             }
         }
         yield return null;

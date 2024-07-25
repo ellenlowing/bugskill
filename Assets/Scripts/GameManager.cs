@@ -25,6 +25,7 @@ public partial class GameManager : MonoBehaviour
     public bool TestMode;
     [SerializeField] private SettingSO gameSettings;
     [SerializeField] private SettingSO testSettings;
+    public string LandingLayerName = "Landing";
 
     [Header("Flies")]
     public GameObject FlyPrefab;

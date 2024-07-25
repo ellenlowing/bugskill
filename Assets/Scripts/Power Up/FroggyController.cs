@@ -313,7 +313,7 @@ public class FroggyController : BasePowerUpBehavior
 
         if (other.tag == "Fly")
         {
-            other.GetComponentInChildren<FlyMovement>().enabled = false;
+            other.GetComponentInChildren<BaseFlyBehavior>().enabled = false;
             var outline = other.GetComponentInChildren<Outline>();
             if (outline != null)
             {

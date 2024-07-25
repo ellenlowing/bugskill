@@ -38,14 +38,6 @@ public class HandController : MonoBehaviour
         {
             HandSplat.SetActive(false);
         }
-
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            foreach (GameObject fly in settings.flies)
-            {
-                fly.GetComponent<FlyMovement>().GoInsane();
-            }
-        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -76,7 +68,7 @@ public class HandController : MonoBehaviour
             {
                 if (!FroggyController.Instance.IsActive || (FroggyController.Instance.IsActive && FroggyController.Instance.ActiveHand == null))
                 {
-                    other.GetComponent<SlowDown>().SlowDownFly();
+                    other.GetComponent<BaseFlyBehavior>().SlowDown();
                 }
             }
         }

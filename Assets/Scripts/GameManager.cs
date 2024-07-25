@@ -248,10 +248,10 @@ public partial class GameManager : MonoBehaviour
     {
         StartCoroutine(TriggerTNTCoroutine(position, itemToDestroy));
 
-        foreach (GameObject fly in settings.flies)
-        {
-            fly.GetComponent<FlyMovement>().GoInsane();
-        }
+        // foreach (GameObject fly in settings.flies)
+        // {
+        //     fly.GetComponent<FlyMovement>().GoInsane();
+        // }
     }
 
     IEnumerator TriggerTNTCoroutine(Vector3 position, GameObject itemToDestroy)

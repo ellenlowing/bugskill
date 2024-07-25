@@ -301,8 +301,9 @@ MonoBehaviour:
   PointableEventWrapper: {fileID: 8057031389750113802}
   MaxPowerCapacity: 1
   PowerCapacity: 1
-  UsePowerRate: 0.5
+  UsePowerRate: 0.05
   ChargePowerRate: 0.05
+  DissolveDuration: 1
   DissolvePairs:
   - MeshRenderer: {fileID: 9133103878314276152}
     Material: {fileID: 2100000, guid: e89cb2d8e9c2a42fb8f0a6ff72704dcf, type: 2}
@@ -313,7 +314,6 @@ MonoBehaviour:
   - MeshRenderer: {fileID: 3363194672769496012}
     Material: {fileID: 2100000, guid: e7bdcf7a932a94dcfa892a293f88590f, type: 2}
   IsActive: 1
-  settings: {fileID: 11400000, guid: 415f7b1141256224db7c3c8720566774, type: 2}
   FrogTongueTransform: {fileID: 1945965563668049310}
   GrabSpeed: 4
   ReturnSpeed: 4

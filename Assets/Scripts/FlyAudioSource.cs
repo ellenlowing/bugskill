@@ -7,12 +7,11 @@ public class FlyAudioSource : MonoBehaviour
     public List<AudioClip> flyMovingClip;
     public List<AudioClip> flyDizzyClip;
     public AudioClip flySplatClip;
-    private FlyMovement flyMove;
     public float minVelocity = 0.1f;
     private AudioSource audioSource;
     private int idx = 0;
+    private BaseFlyBehavior flyBehavior;
 
-    // Start is called before the first frame update
     void Start()
     {
         idx = Random.Range(0, flyMovingClip.Count);
@@ -27,10 +26,16 @@ public class FlyAudioSource : MonoBehaviour
         audioSource.loop = true;
         audioSource.spatialize = true;
         audioSource.playOnAwake = true;
-        flyMove = gameObject.GetComponent<FlyMovement>();
         var metaAudio = gameObject.AddComponent<MetaXRAudioSource>();
         metaAudio.EnableSpatialization = true;
         audioSource.Play();
+
+        flyBehavior = GetComponent<BaseFlyBehavior>();
+    }
+
+    void Update()
+    {
+        audioSource.mute = flyBehavior.CurrentState == BaseFlyBehavior.FlyState.RESTING;
     }
 
     public void DizzyClip()
@@ -38,19 +43,6 @@ public class FlyAudioSource : MonoBehaviour
         audioSource.loop = false;
         audioSource.clip = flyDizzyClip[idx > 1 ? 1 : 0];
         audioSource.Play();
-
-        // StartCoroutine(PlayDizzyCoroutine());
-    }
-
-    IEnumerator PlayDizzyCoroutine()
-    {
-        audioSource.loop = false;
-        audioSource.clip = flyDizzyClip[idx > 1 ? 1 : 0];
-        audioSource.Play();
-
-        yield return new WaitForSeconds(0.8f);
-
-        audioSource.Stop();
     }
 
     public void MoveClip()
@@ -60,9 +52,4 @@ public class FlyAudioSource : MonoBehaviour
         audioSource.Play();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        audioSource.mute = flyMove.isResting;
-    }
 }

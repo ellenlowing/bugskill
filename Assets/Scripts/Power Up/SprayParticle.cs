@@ -8,15 +8,15 @@ public class SprayParticle : MonoBehaviour
 
     void OnParticleCollision(GameObject other)
     {
-        if (other.TryGetComponent<SlowDown>(out SlowDown slowDown))
+        if (other.TryGetComponent<BaseFlyBehavior>(out BaseFlyBehavior fly))
         {
-            if (!slowDown.IsSlowed)
+            if (!fly.IsSlowed)
             {
-                slowDown.SlowDownFly();
+                fly.SlowDown();
             }
             else
             {
-                slowDown.DropFly();
+                fly.EnterState(BaseFlyBehavior.FlyState.DYING);
             }
 
         };

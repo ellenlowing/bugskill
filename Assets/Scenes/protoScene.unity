@@ -3086,7 +3086,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canLand: 16383
-  LandingLayerName: Landing
 --- !u!114 &730595229
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3107,6 +3106,7 @@ MonoBehaviour:
   TestMode: 0
   gameSettings: {fileID: 11400000, guid: 415f7b1141256224db7c3c8720566774, type: 2}
   testSettings: {fileID: 11400000, guid: 7fba20d623e134514b2a2fceb7441d80, type: 2}
+  LandingLayerName: Landing
   FlyPrefab: {fileID: 708182128869486111, guid: 75d14416f534f4b11aec372b6307c3bb, type: 3}
   FlyParentAnchor: {fileID: 652486518}
   BloodSplatterPrefabs:

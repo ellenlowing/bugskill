@@ -136,11 +136,6 @@ namespace Power_Up
 
         private void OnTriggerEnter(Collider other)
         {
-            if (GameManager.Instance.IsTNTTriggered)
-            {
-                return;
-            }
-
             if (CurrentState == PowerUpState.ACTIVE)
             {
                 if (other.gameObject.CompareTag("Fly"))

@@ -143,36 +143,32 @@ public class FroggyController : BasePowerUpBehavior
 
         RaycastHit[] hits = Physics.SphereCastAll(transform.position, SphereCastRadius, -transform.right, SphereCastDistance, FlyLayerMask);
 
-        // Disable outline for hits that are no longer in the current hits
-        if (!GameManager.Instance.IsTNTTriggered)
+        foreach (var hit in _previousHits)
         {
-            foreach (var hit in _previousHits)
+            if (!hits.Contains(hit))
             {
-                if (!hits.Contains(hit))
+                if (hit.collider != null)
                 {
-                    if (hit.collider != null)
+                    var outline = hit.collider.GetComponentInChildren<Outline>();
+                    if (outline != null)
                     {
-                        var outline = hit.collider.GetComponentInChildren<Outline>();
-                        if (outline != null)
-                        {
-                            outline.enabled = false;
-                        }
+                        outline.enabled = false;
                     }
                 }
             }
-
-            // Enable outline for all current hits
-            foreach (var hit in hits)
-            {
-                var outline = hit.collider.GetComponentInChildren<Outline>();
-                if (outline != null)
-                {
-                    outline.enabled = true;
-                }
-            }
-
-            _previousHits = hits;
         }
+
+        // Enable outline for all current hits
+        foreach (var hit in hits)
+        {
+            var outline = hit.collider.GetComponentInChildren<Outline>();
+            if (outline != null)
+            {
+                outline.enabled = true;
+            }
+        }
+
+        _previousHits = hits;
 
         // Sync tongue tip gameobject with extended tongue
         TongueTipObjectTransform.position = TongueTipTargetTransform.position;
@@ -306,11 +302,6 @@ public class FroggyController : BasePowerUpBehavior
 
     private void OnTriggerEnter(Collider other)
     {
-        if (GameManager.Instance.IsTNTTriggered)
-        {
-            return;
-        }
-
         if (other.tag == "Fly")
         {
             other.GetComponentInChildren<BaseFlyBehavior>().enabled = false;

@@ -14,10 +14,44 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   score: 25
   scoreMulFactor: 1
-  numberOfKills: 29
+  numberOfKills: 8
   skillScoreValue: 100
-  Cash: 0
+  Cash: 240
   flies:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
@@ -51,7 +85,7 @@ MonoBehaviour:
   waveIndex: 0
   durationOfWave: 1e0000001e0000001e0000001e0000001e000000
   fliesInWave: 0a0000000f00000014000000190000001e000000
-  tntFliesInWave: 0100000002000000030000000400000004000000
+  tntFliesInWave: 0400000004000000040000000400000004000000
   LevelGoals: 640000002c010000260200005203000014050000
   TakeoffChances:
   - 0.1

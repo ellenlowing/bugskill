@@ -33,12 +33,14 @@ public partial class GameManager : MonoBehaviour
     public List<GameObject> BloodSplatterPrefabs;
     public Transform BloodSplatContainer;
     public MRUKAnchor.SceneLabels SpawnAnchorLabels;
+    public LayerMask FlyLayerMask;
 
     [Header("TNT Stuff")]
     public GameObject TNTFlyPrefab;
     public ParticleSystem TNTExplosion;
-    public bool IsTNTTriggered = false;
     public float TNTEffectTimeout = 5f;
+    public float TNTExplosionRadius = 1.5f;
+    private Stack<GameObject> TNTFlies = new Stack<GameObject>();
 
     [Header("Game Events")]
     [Tooltip("Subscribe to run before first game wave")]
@@ -110,15 +112,17 @@ public partial class GameManager : MonoBehaviour
 
     void Update()
     {
-        if (OVRInput.GetDown(OVRInput.Button.Four))
-        {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        }
 
+#if UNITY_EDITOR
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            PlaceLevelPanel();
+            var TNTFly = TNTFlies.Pop();
+            if (TNTFly != null)
+            {
+                TriggerTNT(TNTFly.transform.position, TNTFly);
+            }
         }
+#endif
     }
 
     void InitializeRound()
@@ -140,6 +144,7 @@ public partial class GameManager : MonoBehaviour
                 }
             }
 
+            TNTFlies.Clear();
             for (int i = 0; i < settings.tntFliesInWave[settings.waveIndex]; i++)
             {
                 if (currentRoom.GenerateRandomPositionOnSurface(MRUK.SurfaceType.VERTICAL, 0.01f, labelFilter, out Vector3 position, out Vector3 normal))
@@ -149,6 +154,8 @@ public partial class GameManager : MonoBehaviour
                     fly.transform.rotation = fly.transform.rotation * Quaternion.Euler(0, Random.Range(0, 360f), 0);
                     fly.name = "TNT Fly " + i.ToString();
                     settings.flies.Add(fly);
+
+                    TNTFlies.Push(fly);
                 }
             }
         }
@@ -245,27 +252,27 @@ public partial class GameManager : MonoBehaviour
         StoreManager.Instance.HideAllPowerUps();
     }
 
-    public void TriggerTNT(Vector3 position, GameObject itemToDestroy)
+    public void TriggerTNT(Vector3 position, GameObject tntFly)
     {
-        StartCoroutine(TriggerTNTCoroutine(position, itemToDestroy));
-
-        // foreach (GameObject fly in settings.flies)
-        // {
-        //     fly.GetComponent<FlyMovement>().GoInsane();
-        // }
-    }
-
-    IEnumerator TriggerTNTCoroutine(Vector3 position, GameObject itemToDestroy)
-    {
-        IsTNTTriggered = true;
         TNTExplosion.transform.position = position;
         TNTExplosion.Stop();
         TNTExplosion.Play();
         TNTExplosion.gameObject.GetComponent<AudioSource>().Play();
-        Destroy(itemToDestroy);
+        Destroy(tntFly);
 
-        yield return new WaitForSeconds(TNTEffectTimeout);
-        IsTNTTriggered = false;
+        Collider[] hitFlies = Physics.OverlapSphere(position, TNTExplosionRadius, FlyLayerMask);
+        int totalCash = 0;
+        foreach (var fly in hitFlies)
+        {
+            if (fly.GetComponent<BaseFlyBehavior>().Type == BaseFlyBehavior.FlyType.REGULAR)
+            {
+                totalCash += (int)SCOREFACTOR.TNT;
+                UIManager.Instance.IncrementKill(fly.transform.position, (int)SCOREFACTOR.TNT);
+                Destroy(fly.gameObject);
+            }
+        }
+        settings.Cash += totalCash;
+        UIManager.Instance.UpdateCashUI();
     }
 
     public void PlaceLevelPanel()
@@ -313,6 +320,18 @@ public partial class GameManager : MonoBehaviour
             var wall = room.GetKeyWall(out Vector2 wallScale);
             HourGlass.transform.position = wall.transform.position - new Vector3(0, wallScale.y / 2, 0);
             HourGlass.transform.forward = -wall.transform.forward;
+        }
+    }
+
+    void OnDrawGizmos()
+    {
+        foreach (var fly in TNTFlies)
+        {
+            if (fly != null)
+            {
+                Gizmos.color = Color.red;
+                Gizmos.DrawWireSphere(fly.transform.position, TNTExplosionRadius);
+            }
         }
     }
 }

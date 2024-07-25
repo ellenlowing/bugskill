@@ -41,11 +41,6 @@ public class HandController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (GameManager.Instance.IsTNTTriggered)
-        {
-            return;
-        }
-
         if (other.gameObject.layer == LayerMask.NameToLayer(GameManager.Instance.LandingLayerName))
         {
             isTouchingLandingSurface = true;

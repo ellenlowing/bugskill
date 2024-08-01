@@ -57,6 +57,7 @@ public class StoreManager : MonoBehaviour
     private void Start()
     {
         settings = GameManager.Instance.settings;
+        StoreUI.SetActive(false);
     }
 
     private void Purchase()

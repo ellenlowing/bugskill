@@ -73,15 +73,7 @@ namespace Power_Up
         public override void UpdateActiveState()
         {
             base.UpdateActiveState();
-
-            if (!StoreManager.Instance.IsStoreActive)
-            {
-                if (PowerCapacity > 0)
-                {
-                    Debug.Log("PowerCapacity: " + PowerCapacity);
-                    PowerCapacity -= UsePowerRate;
-                }
-            }
+            UsePowerCapacity();
         }
 
         public override void Dissolve()

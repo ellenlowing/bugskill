@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Oculus.Interaction;
 using Oculus.Interaction.Input;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BasePowerUpBehavior : MonoBehaviour
 {
@@ -29,12 +30,13 @@ public class BasePowerUpBehavior : MonoBehaviour
     public float MaxPowerCapacity = 1;
     public float PowerCapacity = 1; // [0-1]: indicate battery power of swatter or liquid capacity of spray
     public float UsePowerRate = 0.001f;
-    public float ChargePowerRate = 0.05f;
     public float DissolveDuration = 1f;
     public List<MeshMatPair> DissolvePairs;
+    public Slider PowerCapacitySlider;
 
     public void Start()
     {
+        ResetPowerUp();
         EnterState(PowerUpState.IDLE);
 
         PointableEventWrapper.WhenHover.AddListener(OnHover);
@@ -111,21 +113,10 @@ public class BasePowerUpBehavior : MonoBehaviour
         }
     }
 
-    public void ResetPowerUp()
+    public virtual void ResetPowerUp()
     {
         PowerCapacity = MaxPowerCapacity;
-    }
-
-    public void Charge()
-    {
-        if (PowerCapacity < MaxPowerCapacity)
-        {
-            PowerCapacity += ChargePowerRate;
-        }
-        else
-        {
-            PowerCapacity = MaxPowerCapacity;
-        }
+        PowerCapacitySlider.value = PowerCapacity;
     }
 
     public virtual void Dissolve()
@@ -251,6 +242,18 @@ public class BasePowerUpBehavior : MonoBehaviour
         StoreManager.Instance.GlobalName.text = StoreItemData.Name;
         StoreManager.Instance.GlobalDescription.text = StoreItemData.Description;
         StoreManager.Instance.GlobalCashAmount.text = StoreItemData.Price.ToString();
+    }
+
+    public void UsePowerCapacity()
+    {
+        if (!StoreManager.Instance.IsStoreActive)
+        {
+            if (PowerCapacity > 0)
+            {
+                PowerCapacity -= UsePowerRate;
+                PowerCapacitySlider.value = PowerCapacity;
+            }
+        }
     }
 
 }

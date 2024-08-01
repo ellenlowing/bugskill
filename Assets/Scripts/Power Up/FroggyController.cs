@@ -34,7 +34,6 @@ public class FroggyController : BasePowerUpBehavior
             }
         }
     }
-    public static FroggyController Instance;
     public bool IsActive = false;
     private SettingSO settings;
 
@@ -74,19 +73,7 @@ public class FroggyController : BasePowerUpBehavior
     private Collider _hitFlyCollider = null;
     private bool _successFly = false;
     private bool _initialized = false;
-
-
-    void Awake()
-    {
-        if (Instance != null && Instance != this)
-        {
-            Destroy(this);
-        }
-        else
-        {
-            Instance = this;
-        }
-    }
+    private int totalCash = 0;
 
     new void Start()
     {
@@ -98,6 +85,13 @@ public class FroggyController : BasePowerUpBehavior
     new void Update()
     {
         base.Update();
+
+#if UNITY_EDITOR
+        if (Input.GetKeyDown(KeyCode.RightShift))
+        {
+            TriggerPress();
+        }
+#endif
     }
 
     public override void EnterIdleState()
@@ -274,13 +268,7 @@ public class FroggyController : BasePowerUpBehavior
         }
         FroggyActive = false;
         FrogTongueTransform.localScale = inScale;
-        if (!StoreManager.Instance.IsStoreActive)
-        {
-            if (PowerCapacity > 0)
-            {
-                PowerCapacity -= UsePowerRate;
-            }
-        }
+        UsePowerCapacity();
         yield return new WaitForSeconds(0.2f);
     }
 
@@ -297,8 +285,6 @@ public class FroggyController : BasePowerUpBehavior
         // audioSource.loop = true;
         audioSource.Play();
     }
-
-    private int totalCash = 0;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -325,6 +311,12 @@ public class FroggyController : BasePowerUpBehavior
         {
             GameManager.Instance.TriggerTNT(other.transform.position, other.gameObject);
         }
+    }
+
+    public override void ResetPowerUp()
+    {
+        base.ResetPowerUp();
+        FrogTongueTransform.localScale = _originalFrogTongueScale;
     }
 
     private float map(float x, float in_min, float in_max, float out_min, float out_max)

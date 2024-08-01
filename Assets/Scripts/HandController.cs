@@ -56,13 +56,13 @@ public class HandController : MonoBehaviour
         {
             touchedFlyTransform = other.transform;
 
-            // slow mid air if only fly is touched
+            // slow down if fly is touched by single hand in mid air
             if (!isTouchingLandingSurface && !isTouchingOtherHand)
             {
-                if (!FroggyController.Instance.IsActive || (FroggyController.Instance.IsActive && FroggyController.Instance.ActiveHand == null))
-                {
-                    other.GetComponent<BaseFlyBehavior>().SlowDown();
-                }
+                // if (!FroggyController.Instance.IsActive || (FroggyController.Instance.IsActive && FroggyController.Instance.ActiveHand == null))
+                // {
+                other.GetComponent<BaseFlyBehavior>().SlowDown();
+                // }
             }
         }
         else if (other.gameObject.tag == "TNT")

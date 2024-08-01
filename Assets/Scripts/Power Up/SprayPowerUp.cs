@@ -41,16 +41,4 @@ public class SprayPowerUp : BasePowerUpBehavior
     {
         base.UpdateActiveState();
     }
-
-    public void UsePowerCapacity()
-    {
-        if (!StoreManager.Instance.IsStoreActive)
-        {
-            if (PowerCapacity > 0)
-            {
-                PowerCapacity -= UsePowerRate;
-                Debug.Log(PowerCapacity);
-            }
-        }
-    }
 }

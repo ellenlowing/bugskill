@@ -104,6 +104,11 @@ public class BasePowerUpBehavior : MonoBehaviour
     public virtual void EnterActiveState() { }
     public virtual void UpdateActiveState()
     {
+        if (!PowerCapacitySlider.gameObject.activeSelf && !StoreManager.Instance.IsStoreActive)
+        {
+            PowerCapacitySlider.gameObject.SetActive(true);
+        }
+
         if (!StoreManager.Instance.IsStoreActive && PowerCapacity <= 0)
         {
             PowerCapacity = 0;
@@ -117,11 +122,14 @@ public class BasePowerUpBehavior : MonoBehaviour
     {
         PowerCapacity = MaxPowerCapacity;
         PowerCapacitySlider.value = PowerCapacity;
+        PowerCapacitySlider.gameObject.SetActive(false);
     }
 
     public virtual void Dissolve()
     {
         EnterState(PowerUpState.INACTIVE);
+
+        PowerCapacitySlider.gameObject.SetActive(false);
 
         GameManager.Instance.RightHandRenderer.SetActive(false);
         GameManager.Instance.LeftHandRenderer.SetActive(false);

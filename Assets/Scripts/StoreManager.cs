@@ -28,7 +28,6 @@ public class StoreManager : MonoBehaviour
 
     [Header("Power Up")]
     public List<GameObject> ShopItems;
-    public List<GameObject> BoughtItems = new List<GameObject>();
 
     public bool IsStoreActive = false;
     public Transform ShopItemsParent;
@@ -76,7 +75,6 @@ public class StoreManager : MonoBehaviour
                 UIManager.Instance.UpdateCashUI();
 
                 GameObject powerupItem = _selectedPowerUp.GetComponentInParent<Grabbable>().gameObject;
-                BoughtItems.Add(powerupItem);
 
                 AddTextPopUp(shopItemName + " Purchased!", powerupItem.transform.position);
 
@@ -94,11 +92,12 @@ public class StoreManager : MonoBehaviour
 
     public void ShowStore()
     {
-        foreach (var item in BoughtItems)
+
+        var powerUps = FindObjectsOfType<BasePowerUpBehavior>();
+        foreach (var powerUp in powerUps)
         {
-            if (item != null) Destroy(item);
+            powerUp.Dissolve();
         }
-        BoughtItems = new List<GameObject>();
 
         IsStoreActive = true;
 
@@ -107,14 +106,14 @@ public class StoreManager : MonoBehaviour
             Destroy(ShopItemsParent.GetChild(i).gameObject);
         }
 
-        StoreUI.SetActive(true);
-        UIManager.Instance.FaceCamera(StoreUI, -0.3f);
         foreach (var item in ShopItems)
         {
             var powerup = Instantiate(item, ShopItemsParent);
             powerup.transform.localPosition = item.GetComponentInChildren<BasePowerUpBehavior>().StoreItemData.LocalPosition;
             powerup.transform.localEulerAngles = item.GetComponentInChildren<BasePowerUpBehavior>().StoreItemData.LocalEulerAngles;
         }
+        StoreUI.SetActive(true);
+        UIManager.Instance.FaceCamera(StoreUI, -0.3f);
     }
 
     public void HideStore()

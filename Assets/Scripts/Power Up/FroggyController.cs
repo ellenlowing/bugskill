@@ -34,7 +34,6 @@ public class FroggyController : BasePowerUpBehavior
             }
         }
     }
-    public bool IsActive = false;
     private SettingSO settings;
 
     [Header("Tongue")]
@@ -167,16 +166,6 @@ public class FroggyController : BasePowerUpBehavior
         // Sync tongue tip gameobject with extended tongue
         TongueTipObjectTransform.position = TongueTipTargetTransform.position;
         TongueTipObjectTransform.rotation = TongueTipTargetTransform.rotation;
-    }
-
-    public void Activate()
-    {
-        IsActive = true;
-    }
-
-    public void Deactivate()
-    {
-        IsActive = false;
     }
 
     public void Initialize()

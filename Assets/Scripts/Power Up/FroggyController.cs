@@ -34,7 +34,6 @@ public class FroggyController : BasePowerUpBehavior
             }
         }
     }
-    private SettingSO settings;
 
     [Header("Tongue")]
     public Transform FrogTongueTransform;
@@ -76,7 +75,6 @@ public class FroggyController : BasePowerUpBehavior
 
     new void Start()
     {
-        settings = GameManager.Instance.settings;
         base.Start();
         Initialize();
     }

@@ -4,11 +4,8 @@ using UnityEngine;
 
 public class SprayPowerUp : BasePowerUpBehavior
 {
-    private SettingSO settings;
-
     new void Start()
     {
-        settings = GameManager.Instance.settings;
         base.Start();
     }
 

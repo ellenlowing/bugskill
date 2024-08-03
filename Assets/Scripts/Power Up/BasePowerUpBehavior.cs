@@ -34,8 +34,12 @@ public class BasePowerUpBehavior : MonoBehaviour
     public List<MeshMatPair> DissolvePairs;
     public Slider PowerCapacitySlider;
 
+    [Header("Settings Data")]
+    protected SettingSO settings;
+
     public void Start()
     {
+        settings = GameManager.Instance.settings;
         ResetPowerUp();
         EnterState(PowerUpState.IDLE);
 

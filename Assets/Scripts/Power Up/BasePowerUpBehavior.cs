@@ -43,12 +43,15 @@ public class BasePowerUpBehavior : MonoBehaviour
         ResetPowerUp();
         EnterState(PowerUpState.IDLE);
 
-        PointableEventWrapper.WhenHover.AddListener(OnHover);
-        PointableEventWrapper.WhenUnhover.AddListener(OnUnhover);
-        PointableEventWrapper.WhenSelect.AddListener(OnSelect);
-        PointableEventWrapper.WhenUnselect.AddListener(OnUnselect);
-        PointableEventWrapper.WhenSelect.AddListener(OnGrabbableSelect);
-        PointableEventWrapper.WhenUnselect.AddListener(OnGrabbableUnselect);
+        if (PointableEventWrapper != null)
+        {
+            PointableEventWrapper.WhenHover.AddListener(OnHover);
+            PointableEventWrapper.WhenUnhover.AddListener(OnUnhover);
+            PointableEventWrapper.WhenSelect.AddListener(OnSelect);
+            PointableEventWrapper.WhenUnselect.AddListener(OnUnselect);
+            PointableEventWrapper.WhenSelect.AddListener(OnGrabbableSelect);
+            PointableEventWrapper.WhenUnselect.AddListener(OnGrabbableUnselect);
+        }
     }
 
     public void Update()
@@ -108,9 +111,12 @@ public class BasePowerUpBehavior : MonoBehaviour
     public virtual void EnterActiveState() { }
     public virtual void UpdateActiveState()
     {
-        if (!PowerCapacitySlider.gameObject.activeSelf && !StoreManager.Instance.IsStoreActive)
+        if (PowerCapacitySlider != null)
         {
-            PowerCapacitySlider.gameObject.SetActive(true);
+            if (!PowerCapacitySlider.gameObject.activeSelf && !StoreManager.Instance.IsStoreActive)
+            {
+                PowerCapacitySlider.gameObject.SetActive(true);
+            }
         }
 
         if (!StoreManager.Instance.IsStoreActive && PowerCapacity <= 0)
@@ -125,15 +131,21 @@ public class BasePowerUpBehavior : MonoBehaviour
     public virtual void ResetPowerUp()
     {
         PowerCapacity = MaxPowerCapacity;
-        PowerCapacitySlider.value = PowerCapacity;
-        PowerCapacitySlider.gameObject.SetActive(false);
+        if (PowerCapacitySlider != null)
+        {
+            PowerCapacitySlider.value = PowerCapacity;
+            PowerCapacitySlider.gameObject.SetActive(false);
+        }
     }
 
     public virtual void Dissolve()
     {
         EnterState(PowerUpState.INACTIVE);
 
-        PowerCapacitySlider.gameObject.SetActive(false);
+        if (PowerCapacitySlider != null)
+        {
+            PowerCapacitySlider.gameObject.SetActive(false);
+        }
 
         GameManager.Instance.RightHandRenderer.SetActive(false);
         GameManager.Instance.LeftHandRenderer.SetActive(false);

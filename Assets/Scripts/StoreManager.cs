@@ -92,7 +92,6 @@ public class StoreManager : MonoBehaviour
 
     public void ShowStore()
     {
-
         var powerUps = FindObjectsOfType<BasePowerUpBehavior>();
         foreach (var powerUp in powerUps)
         {

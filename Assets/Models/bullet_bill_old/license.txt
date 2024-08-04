@@ -1,0 +1,11 @@
+Model Information:
+* title:	Bullet Bill (Old)
+* source:	https://sketchfab.com/3d-models/bullet-bill-old-08bf75a0db564ca6967b0d6171c09345
+* author:	Calfan (https://sketchfab.com/Calfan)
+
+Model License:
+* license type:	CC-BY-NC-4.0 (http://creativecommons.org/licenses/by-nc/4.0/)
+* requirements:	Author must be credited. No commercial use.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Bullet Bill (Old)" (https://sketchfab.com/3d-models/bullet-bill-old-08bf75a0db564ca6967b0d6171c09345) by Calfan (https://sketchfab.com/Calfan) licensed under CC-BY-NC-4.0 (http://creativecommons.org/licenses/by-nc/4.0/)

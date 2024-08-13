@@ -10,7 +10,7 @@ showStatusBar = false
 scopes = {
 	"last_search.310DEAF1" = "Spray"
 	"OpenInspectorPreview.310DEAF1" = "0"
-	"currentGroup.310DEAF1" = "scene"
+	"currentGroup.310DEAF1" = "all"
 }
 providers = {
 	packages = {

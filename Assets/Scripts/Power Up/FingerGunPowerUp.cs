@@ -13,6 +13,7 @@ public class FingerGunPowerUp : BasePowerUpBehavior
     public bool IsLeftHand = false;
     public float BulletSpeed = 1f;
     public float FiringRate = 0.5f;
+    public Transform FirePoint;
 
     private OVRSkeleton _handSkeleton;
     private Transform _handIndexTipTransform;
@@ -20,6 +21,8 @@ public class FingerGunPowerUp : BasePowerUpBehavior
     private bool _isFiring = false;
     private float _lastFiringTime = 0f;
     private LayerMask _landingLayerMask;
+    private Vector3 _firePosition;
+    private Vector3 _fireDirection;
 
     new void Start()
     {
@@ -36,36 +39,29 @@ public class FingerGunPowerUp : BasePowerUpBehavior
     {
         base.Update();
 
-        if (ActiveHand.IsTracked)
+        if (ActiveHand.IsTracked != Crosshair.activeSelf)
         {
-            foreach (var b in _handSkeleton.Bones)
-            {
-                if (b.Id == OVRSkeleton.BoneId.Hand_IndexTip)
-                {
-                    _handIndexTipTransform = b.Transform;
-                    break;
-                }
-            }
-        }
-        else
-        {
-            _handIndexTipTransform = null;
+            Crosshair.SetActive(ActiveHand.IsTracked);
         }
 
-        if (_handIndexTipTransform != null && (_isIdle || _isFiring))
+        if (!ActiveHand.IsTracked) return;
+
+        // Update firing position and firing direction
+        _firePosition = FirePoint.position;
+        _fireDirection = FirePoint.right;
+
+        // Update crosshair position
+        if (_firePosition != null && _fireDirection != null && (_isIdle || _isFiring))
         {
-            Vector3 gunDirection = _handIndexTipTransform.right;
-            if (IsLeftHand)
-            {
-                gunDirection = -gunDirection;
-            }
-            if (Physics.Raycast(_handIndexTipTransform.position, gunDirection, out RaycastHit hit, _landingLayerMask))
+            Vector3 gunDirection = _fireDirection;
+            if (Physics.Raycast(_firePosition, gunDirection, out RaycastHit hit, _landingLayerMask))
             {
                 Crosshair.transform.position = hit.point;
                 Crosshair.transform.up = hit.normal;
             }
         }
 
+        // Fire bullet at firing rate
         if (_isFiring && Time.time - _lastFiringTime > FiringRate)
         {
             FireBullet();
@@ -85,21 +81,14 @@ public class FingerGunPowerUp : BasePowerUpBehavior
 
     public void FireBullet()
     {
-        if (_handIndexTipTransform == null)
+        if (_firePosition == null || _fireDirection == null)
         {
             return;
         }
 
-        var bullet = Instantiate(Bullet, _handIndexTipTransform.position, _handIndexTipTransform.rotation);
-        if (IsLeftHand)
-        {
-            bullet.transform.Rotate(-90, 0, 0);
-            bullet.transform.Rotate(0, 180, 0);
-        }
-        else
-        {
-            bullet.transform.Rotate(90, 0, 0);
-        }
+        var bullet = Instantiate(Bullet, _firePosition, Quaternion.identity);
+        bullet.transform.right = _fireDirection;
+
         // GunshotEffect.transform.position = _handIndexTipTransform.position;
         // GunshotEffect.Stop();
         // GunshotEffect.Play();

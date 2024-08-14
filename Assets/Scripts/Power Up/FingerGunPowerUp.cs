@@ -7,7 +7,6 @@ public class FingerGunPowerUp : BasePowerUpBehavior
 {
     public GameObject Bullet;
     public GameObject Crosshair;
-    public ParticleSystem GunshotEffect;
     public SelectorUnityEventWrapper GunIdleEvent;
     public SelectorUnityEventWrapper GunTriggerEvent;
     public bool IsLeftHand = false;
@@ -15,8 +14,6 @@ public class FingerGunPowerUp : BasePowerUpBehavior
     public float FiringRate = 0.5f;
     public Transform FirePoint;
 
-    private OVRSkeleton _handSkeleton;
-    private Transform _handIndexTipTransform;
     private bool _isIdle = false;
     private bool _isFiring = false;
     private float _lastFiringTime = 0f;
@@ -27,7 +24,6 @@ public class FingerGunPowerUp : BasePowerUpBehavior
     new void Start()
     {
         base.Start();
-        _handSkeleton = ActiveHand.GetComponent<OVRSkeleton>();
         GunIdleEvent.WhenSelected.AddListener(() => { _isIdle = true; });
         GunIdleEvent.WhenUnselected.AddListener(() => { _isIdle = false; });
         GunTriggerEvent.WhenSelected.AddListener(TurnOnFiring);
@@ -85,17 +81,6 @@ public class FingerGunPowerUp : BasePowerUpBehavior
         {
             return;
         }
-
-        // var bullet = Instantiate(Bullet, _firePosition, Quaternion.identity);
-        // bullet.transform.right = _fireDirection;
-        // bullet.GetComponent<Rigidbody>().velocity = bullet.transform.right * BulletSpeed;
-
-        // var effect = Instantiate(GunshotEffect.gameObject, _firePosition, Quaternion.identity);
-        // effect.transform.forward = _fireDirection;
-
-        // var ps = effect.GetComponent<ParticleSystem>();
-        // var main = ps.main;
-        // main.stopAction = ParticleSystemStopAction.Destroy;
 
         var projectile = Instantiate(Bullet, _firePosition, Quaternion.identity);
         projectile.transform.forward = _fireDirection;

@@ -107,10 +107,7 @@ public class HandController : MonoBehaviour
 
                     if (!isTouchingMC)
                     {
-                        settings.Cash += (int)SCOREFACTOR.SLAP;
-                        totalCash += (int)SCOREFACTOR.SLAP;
-                        UIManager.Instance.IncrementKill(touchedFlyTransform.position, totalCash);
-                        totalCash = 0;
+                        UIManager.Instance.IncrementKill(touchedFlyTransform.position, (int)SCOREFACTOR.SLAP);
                     }
 
                     var audioSource = splatter.GetComponent<AudioSource>();
@@ -136,10 +133,7 @@ public class HandController : MonoBehaviour
                         BloodSplatParticles.gameObject.GetComponent<AudioSource>().Play();
                         if (!isTouchingMC)
                         {
-                            settings.Cash += (int)SCOREFACTOR.CLAP;
-                            totalCash += (int)SCOREFACTOR.CLAP;
-                            UIManager.Instance.IncrementKill(touchedFlyTransform.position, totalCash);
-                            totalCash = 0;
+                            UIManager.Instance.IncrementKill(touchedFlyTransform.position, (int)SCOREFACTOR.CLAP);
                         }
                     }
                 }

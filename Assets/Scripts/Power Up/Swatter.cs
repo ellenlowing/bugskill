@@ -137,10 +137,7 @@ namespace Power_Up
                     hitEffectInstance.Play();
                     Destroy(hitEffectInstance.gameObject, hitEffectInstance.main.duration);
 
-                    settings.Cash += (int)SCOREFACTOR.SWATTER;
-                    totalCash += (int)SCOREFACTOR.SWATTER;
-                    UIManager.Instance.IncrementKill(other.transform.position, totalCash);
-                    totalCash = 0;
+                    UIManager.Instance.IncrementKill(other.transform.position, (int)SCOREFACTOR.SWATTER);
                     // Destroy fly after delay 
                     Destroy(other.gameObject, destroyFlyDelay);
                 }

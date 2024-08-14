@@ -186,6 +186,7 @@ public class UIManager : MonoBehaviour
     public void IncrementKill(Vector3 pos, int amount)
     {
         settings.numberOfKills += 1;
+        settings.Cash += amount;
         ScoreUIUpdateEvent.RaiseEvent(amount, pos);
     }
 }

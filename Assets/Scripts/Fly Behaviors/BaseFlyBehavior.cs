@@ -182,9 +182,7 @@ public class BaseFlyBehavior : MonoBehaviour
     public virtual void UpdateDyingState() { }
     public virtual void EnterDeadState()
     {
-        settings.Cash += (int)SCOREFACTOR.SPRAY;
-        int totalCash = (int)SCOREFACTOR.SPRAY;
-        UIManager.Instance.IncrementKill(transform.position, totalCash);
+        UIManager.Instance.IncrementKill(transform.position, (int)SCOREFACTOR.SPRAY);
         Destroy(gameObject);
     }
     public virtual void UpdateDeadState() { }

@@ -250,17 +250,14 @@ public partial class GameManager : MonoBehaviour
         Destroy(tntFly);
 
         Collider[] hitFlies = Physics.OverlapSphere(position, TNTExplosionRadius, FlyLayerMask);
-        int totalCash = 0;
         foreach (var fly in hitFlies)
         {
             if (fly.GetComponent<BaseFlyBehavior>().Type == BaseFlyBehavior.FlyType.REGULAR)
             {
-                totalCash += (int)SCOREFACTOR.TNT;
                 UIManager.Instance.IncrementKill(fly.transform.position, (int)SCOREFACTOR.TNT);
                 Destroy(fly.gameObject);
             }
         }
-        settings.Cash += totalCash;
         UIManager.Instance.UpdateCashUI();
     }
 

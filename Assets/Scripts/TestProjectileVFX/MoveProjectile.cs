@@ -11,7 +11,6 @@ public class MoveProjectile : MonoBehaviour
     {
     }
 
-    // Update is called once per frame
     void Update()
     {
         transform.position += transform.forward * speed * Time.deltaTime;
@@ -22,6 +21,12 @@ public class MoveProjectile : MonoBehaviour
         ContactPoint contact = other.contacts[0];
         Quaternion rot = Quaternion.FromToRotation(Vector3.up, contact.normal);
         Vector3 pos = contact.point;
+
+        if (other.gameObject.tag == "Fly")
+        {
+            UIManager.Instance.IncrementKill(transform.position, (int)SCOREFACTOR.FINGERGUN);
+            Destroy(other.gameObject);
+        }
 
         if (hitPrefab != null)
         {

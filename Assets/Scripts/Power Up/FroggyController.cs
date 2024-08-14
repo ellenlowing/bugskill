@@ -288,11 +288,8 @@ public class FroggyController : BasePowerUpBehavior
             other.transform.position = GetRandomPointWithinBounds(TongueTipObjectTransform.gameObject);
             other.transform.localScale = other.transform.localScale * 0.5f;
 
+            UIManager.Instance.IncrementKill(other.transform.position, (int)SCOREFACTOR.FROG);
             Destroy(other.gameObject, 0.5f);
-            settings.Cash += (int)SCOREFACTOR.FROG;
-            totalCash += (int)SCOREFACTOR.FROG;
-            UIManager.Instance.IncrementKill(other.transform.position, totalCash);
-            totalCash = 0;
         }
         else if (other.gameObject.tag == "TNT")
         {

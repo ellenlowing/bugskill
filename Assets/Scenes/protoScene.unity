@@ -1752,7 +1752,7 @@ MonoBehaviour:
   DissolveDuration: 1
   DissolvePairs: []
   PowerCapacitySlider: {fileID: 0}
-  Bullet: {fileID: 8651220854828004604, guid: 334c3733564204eb895fc3cfb2c3ad2a, type: 3}
+  Bullet: {fileID: 8442589857838219787, guid: 3ea6c8a1aa5144d53a2ea695f4163f37, type: 3}
   Crosshair: {fileID: 1306660430}
   GunshotEffect: {fileID: 1641205806122687569, guid: 6e0508d9c15da4f68b74f7cf235632c0, type: 3}
   GunIdleEvent: {fileID: 492915581}
@@ -5272,7 +5272,7 @@ MonoBehaviour:
   DissolveDuration: 1
   DissolvePairs: []
   PowerCapacitySlider: {fileID: 0}
-  Bullet: {fileID: 8651220854828004604, guid: 334c3733564204eb895fc3cfb2c3ad2a, type: 3}
+  Bullet: {fileID: 8442589857838219787, guid: 3ea6c8a1aa5144d53a2ea695f4163f37, type: 3}
   Crosshair: {fileID: 907722519}
   GunshotEffect: {fileID: 1641205806122687569, guid: 6e0508d9c15da4f68b74f7cf235632c0, type: 3}
   GunIdleEvent: {fileID: 1374567661}

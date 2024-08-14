@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3709853112245652391}
   - component: {fileID: 4072892035009404881}
   - component: {fileID: 6355156273145097959}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Projectile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -223,7 +223,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 0.3, b: 0, a: 1}
-      maxColor: {r: 1, g: 0.43333334, b: 0, a: 1}
+      maxColor: {r: 1, g: 0.51452094, b: 0.1462264, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -287,8 +287,8 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 10
-      minScalar: 11
+      scalar: 1
+      minScalar: 1.2
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -340,8 +340,8 @@ ParticleSystem:
     startSizeY:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 10
-      minScalar: 11
+      scalar: 1
+      minScalar: 1.2
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -393,8 +393,8 @@ ParticleSystem:
     startSizeZ:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 10
-      minScalar: 10
+      scalar: 1
+      minScalar: 1.2
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -4840,7 +4840,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5465308503291374890}
   - component: {fileID: 3311648775767450407}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Trail
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4904,11 +4904,11 @@ TrailRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Time: 0.2
+  m_Time: 0.1
   m_PreviewTimeScale: 1
   m_Parameters:
     serializedVersion: 3
-    widthMultiplier: 0.2
+    widthMultiplier: 0.02
     widthCurve:
       serializedVersion: 2
       m_Curve:
@@ -4977,7 +4977,7 @@ GameObject:
   - component: {fileID: 2433712044305006739}
   - component: {fileID: 6089797578800697593}
   - component: {fileID: 7919413790920166037}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Beam
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4995,7 +4995,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 4015987565374731816}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -5188,8 +5188,8 @@ ParticleSystem:
     startColor:
       serializedVersion: 2
       minMaxState: 2
-      minColor: {r: 1, g: 0.3, b: 0, a: 1}
-      maxColor: {r: 1, g: 0.43333334, b: 0, a: 1}
+      minColor: {r: 1, g: 0.67031866, b: 0, a: 1}
+      maxColor: {r: 1, g: 0.9093828, b: 0.2216981, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -5253,7 +5253,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 1
+      scalar: 0.05
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -9808,7 +9808,7 @@ GameObject:
   - component: {fileID: 7614078054942465995}
   - component: {fileID: 8084720828030518492}
   - component: {fileID: 6932985234509138391}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: vfx_Projectile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9825,8 +9825,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.75, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 2433712044305006739}
   - {fileID: 3709853112245652391}
@@ -9845,7 +9845,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be4eec93bb9a748949ffc06c9994b608, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 20
+  speed: 5
   muzzlePrefab: {fileID: 5673625096289739228, guid: 6c0a85ccd2e7a48928050209e42f76cd, type: 3}
   hitPrefab: {fileID: 4616075356882482278, guid: a2193b0a26ebf436693306be3f20c241, type: 3}
 --- !u!54 &8084720828030518492

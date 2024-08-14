@@ -5,27 +5,10 @@ using UnityEngine;
 public class MoveProjectile : MonoBehaviour
 {
     public float speed;
-    public GameObject muzzlePrefab;
     public GameObject hitPrefab;
 
     void Start()
     {
-        if (muzzlePrefab != null)
-        {
-            var muzzle = Instantiate(muzzlePrefab, transform.position, Quaternion.identity);
-            muzzle.transform.forward = gameObject.transform.forward;
-
-            var muzzlePs = muzzle.GetComponent<ParticleSystem>();
-            if (muzzlePs != null)
-            {
-                Destroy(muzzle, muzzlePs.main.duration);
-            }
-            else
-            {
-                var psChild = muzzle.transform.GetChild(0).GetComponent<ParticleSystem>();
-                Destroy(muzzle, psChild.main.duration);
-            }
-        }
     }
 
     // Update is called once per frame

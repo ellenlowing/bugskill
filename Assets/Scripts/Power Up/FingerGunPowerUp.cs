@@ -86,16 +86,19 @@ public class FingerGunPowerUp : BasePowerUpBehavior
             return;
         }
 
-        var bullet = Instantiate(Bullet, _firePosition, Quaternion.identity);
-        bullet.transform.right = _fireDirection;
-        bullet.GetComponent<Rigidbody>().velocity = bullet.transform.right * BulletSpeed;
+        // var bullet = Instantiate(Bullet, _firePosition, Quaternion.identity);
+        // bullet.transform.right = _fireDirection;
+        // bullet.GetComponent<Rigidbody>().velocity = bullet.transform.right * BulletSpeed;
 
-        var effect = Instantiate(GunshotEffect.gameObject, _firePosition, Quaternion.identity);
-        effect.transform.forward = _fireDirection;
+        // var effect = Instantiate(GunshotEffect.gameObject, _firePosition, Quaternion.identity);
+        // effect.transform.forward = _fireDirection;
 
-        var ps = effect.GetComponent<ParticleSystem>();
-        var main = ps.main;
-        main.stopAction = ParticleSystemStopAction.Destroy;
+        // var ps = effect.GetComponent<ParticleSystem>();
+        // var main = ps.main;
+        // main.stopAction = ParticleSystemStopAction.Destroy;
+
+        var projectile = Instantiate(Bullet, _firePosition, Quaternion.identity);
+        projectile.transform.forward = _fireDirection;
 
         _lastFiringTime = Time.time;
     }

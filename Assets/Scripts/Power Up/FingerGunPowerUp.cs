@@ -88,12 +88,14 @@ public class FingerGunPowerUp : BasePowerUpBehavior
 
         var bullet = Instantiate(Bullet, _firePosition, Quaternion.identity);
         bullet.transform.right = _fireDirection;
-
-        // GunshotEffect.transform.position = _handIndexTipTransform.position;
-        // GunshotEffect.Stop();
-        // GunshotEffect.Play();
-
         bullet.GetComponent<Rigidbody>().velocity = bullet.transform.right * BulletSpeed;
+
+        var effect = Instantiate(GunshotEffect.gameObject, _firePosition, Quaternion.identity);
+        effect.transform.forward = _fireDirection;
+
+        var ps = effect.GetComponent<ParticleSystem>();
+        var main = ps.main;
+        main.stopAction = ParticleSystemStopAction.Destroy;
 
         _lastFiringTime = Time.time;
     }

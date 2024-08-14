@@ -112,17 +112,6 @@ public partial class GameManager : MonoBehaviour
 
     void Update()
     {
-
-#if UNITY_EDITOR
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            var TNTFly = TNTFlies.Pop();
-            if (TNTFly != null)
-            {
-                TriggerTNT(TNTFly.transform.position, TNTFly);
-            }
-        }
-#endif
     }
 
     void InitializeRound()

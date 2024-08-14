@@ -1754,7 +1754,7 @@ MonoBehaviour:
   PowerCapacitySlider: {fileID: 0}
   Bullet: {fileID: 8651220854828004604, guid: 334c3733564204eb895fc3cfb2c3ad2a, type: 3}
   Crosshair: {fileID: 1306660430}
-  GunshotEffect: {fileID: 1223334945}
+  GunshotEffect: {fileID: 1641205806122687569, guid: 6e0508d9c15da4f68b74f7cf235632c0, type: 3}
   GunIdleEvent: {fileID: 492915581}
   GunTriggerEvent: {fileID: 18735906}
   IsLeftHand: 0
@@ -1879,11 +1879,6 @@ PrefabInstance:
 --- !u!4 &413147113 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4702343032138574, guid: b46264f9e12caed4cb53e7c2ad64aa54, type: 3}
-  m_PrefabInstance: {fileID: 413147112}
-  m_PrefabAsset: {fileID: 0}
---- !u!198 &413147114 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 198533653044838976, guid: b46264f9e12caed4cb53e7c2ad64aa54, type: 3}
   m_PrefabInstance: {fileID: 413147112}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &418266064
@@ -4642,11 +4637,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4702343032138574, guid: b46264f9e12caed4cb53e7c2ad64aa54, type: 3}
   m_PrefabInstance: {fileID: 1223334943}
   m_PrefabAsset: {fileID: 0}
---- !u!198 &1223334945 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 198533653044838976, guid: b46264f9e12caed4cb53e7c2ad64aa54, type: 3}
-  m_PrefabInstance: {fileID: 1223334943}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1233351076
 GameObject:
   m_ObjectHideFlags: 0
@@ -5174,6 +5164,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: FingerGunIdlePoseLeft
       objectReference: {fileID: 0}
+    - target: {fileID: 3121967828147021418, guid: ad086b198ca8c4a6c824d27c84952c80, type: 3}
+      propertyPath: _hand
+      value: 
+      objectReference: {fileID: 2065752923}
+    - target: {fileID: 3121967828147021418, guid: ad086b198ca8c4a6c824d27c84952c80, type: 3}
+      propertyPath: _fingerFeatureStateProvider
+      value: 
+      objectReference: {fileID: 2065752928}
     - target: {fileID: 6696951871486969270, guid: ad086b198ca8c4a6c824d27c84952c80, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -5276,7 +5274,7 @@ MonoBehaviour:
   PowerCapacitySlider: {fileID: 0}
   Bullet: {fileID: 8651220854828004604, guid: 334c3733564204eb895fc3cfb2c3ad2a, type: 3}
   Crosshair: {fileID: 907722519}
-  GunshotEffect: {fileID: 413147114}
+  GunshotEffect: {fileID: 1641205806122687569, guid: 6e0508d9c15da4f68b74f7cf235632c0, type: 3}
   GunIdleEvent: {fileID: 1374567661}
   GunTriggerEvent: {fileID: 1431274260}
   IsLeftHand: 1

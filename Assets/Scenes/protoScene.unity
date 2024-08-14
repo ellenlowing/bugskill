@@ -1754,12 +1754,11 @@ MonoBehaviour:
   PowerCapacitySlider: {fileID: 0}
   Bullet: {fileID: 8442589857838219787, guid: 3ea6c8a1aa5144d53a2ea695f4163f37, type: 3}
   Crosshair: {fileID: 1306660430}
-  GunshotEffect: {fileID: 1641205806122687569, guid: 6e0508d9c15da4f68b74f7cf235632c0, type: 3}
   GunIdleEvent: {fileID: 492915581}
   GunTriggerEvent: {fileID: 18735906}
   IsLeftHand: 0
   BulletSpeed: 5
-  FiringRate: 0.2
+  FiringRate: 0.5
   FirePoint: {fileID: 1947970874}
 --- !u!4 &335039922
 Transform:
@@ -5274,12 +5273,11 @@ MonoBehaviour:
   PowerCapacitySlider: {fileID: 0}
   Bullet: {fileID: 8442589857838219787, guid: 3ea6c8a1aa5144d53a2ea695f4163f37, type: 3}
   Crosshair: {fileID: 907722519}
-  GunshotEffect: {fileID: 1641205806122687569, guid: 6e0508d9c15da4f68b74f7cf235632c0, type: 3}
   GunIdleEvent: {fileID: 1374567661}
   GunTriggerEvent: {fileID: 1431274260}
   IsLeftHand: 1
   BulletSpeed: 5
-  FiringRate: 0.2
+  FiringRate: 0.5
   FirePoint: {fileID: 1062690308}
 --- !u!4 &1394032741
 Transform:

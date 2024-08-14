@@ -9,6 +9,7 @@ public class MoveProjectile : MonoBehaviour
 
     void Start()
     {
+        Destroy(gameObject, 5f);
     }
 
     void Update()
@@ -42,6 +43,11 @@ public class MoveProjectile : MonoBehaviour
                 Destroy(hit, psChild.main.duration);
             }
         }
+        Destroy(gameObject);
+    }
+
+    void OnCollisionStay(Collision other)
+    {
         Destroy(gameObject);
     }
 }

@@ -95,10 +95,7 @@ public class StoreManager : MonoBehaviour
         var powerUps = FindObjectsOfType<BasePowerUpBehavior>();
         foreach (var powerUp in powerUps)
         {
-            if (powerUp.gameObject.GetComponent<FingerGunPowerUp>() == null)
-            {
-                powerUp.Dissolve();
-            }
+            powerUp.Dissolve();
         }
 
         IsStoreActive = true;

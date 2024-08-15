@@ -1760,6 +1760,9 @@ MonoBehaviour:
   BulletSpeed: 5
   FiringRate: 0.5
   FirePoint: {fileID: 1947970874}
+  CrosshairRaycastLayerMask:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!4 &335039922
 Transform:
   m_ObjectHideFlags: 0
@@ -3227,7 +3230,7 @@ MonoBehaviour:
   HourGlass: {fileID: 1072865635}
   LevelPanel: {fileID: 7114770129407655930}
   settings: {fileID: 11400000, guid: 415f7b1141256224db7c3c8720566774, type: 2}
-  TestMode: 1
+  TestMode: 0
   gameSettings: {fileID: 11400000, guid: 415f7b1141256224db7c3c8720566774, type: 2}
   testSettings: {fileID: 11400000, guid: 7fba20d623e134514b2a2fceb7441d80, type: 2}
   LandingLayerName: Landing
@@ -4077,20 +4080,8 @@ PrefabInstance:
       value: Crosshair_Left
       objectReference: {fileID: 0}
     - target: {fileID: 1913088229479876, guid: d3291f8781d26a04189ab3143fd13128, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4962350404595766, guid: d3291f8781d26a04189ab3143fd13128, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.25
-      objectReference: {fileID: 0}
-    - target: {fileID: 4962350404595766, guid: d3291f8781d26a04189ab3143fd13128, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.25
-      objectReference: {fileID: 0}
-    - target: {fileID: 4962350404595766, guid: d3291f8781d26a04189ab3143fd13128, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 0.25
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 4962350404595766, guid: d3291f8781d26a04189ab3143fd13128, type: 3}
       propertyPath: m_LocalPosition.x
@@ -4132,11 +4123,12 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4962350404595766, guid: d3291f8781d26a04189ab3143fd13128, type: 3}
-      propertyPath: m_ConstrainProportionsScale
-      value: 1
+    - target: {fileID: 5181427150924161674, guid: d3291f8781d26a04189ab3143fd13128, type: 3}
+      propertyPath: m_ExcludeLayers.m_Bits
+      value: 192
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5181427150924161674, guid: d3291f8781d26a04189ab3143fd13128, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -4842,22 +4834,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Crosshair_Right
       objectReference: {fileID: 0}
-    - target: {fileID: 1913088229479876, guid: d3291f8781d26a04189ab3143fd13128, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4962350404595766, guid: d3291f8781d26a04189ab3143fd13128, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.25
-      objectReference: {fileID: 0}
-    - target: {fileID: 4962350404595766, guid: d3291f8781d26a04189ab3143fd13128, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.25
-      objectReference: {fileID: 0}
-    - target: {fileID: 4962350404595766, guid: d3291f8781d26a04189ab3143fd13128, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 0.25
-      objectReference: {fileID: 0}
     - target: {fileID: 4962350404595766, guid: d3291f8781d26a04189ab3143fd13128, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -4897,10 +4873,6 @@ PrefabInstance:
     - target: {fileID: 4962350404595766, guid: d3291f8781d26a04189ab3143fd13128, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4962350404595766, guid: d3291f8781d26a04189ab3143fd13128, type: 3}
-      propertyPath: m_ConstrainProportionsScale
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -5279,6 +5251,9 @@ MonoBehaviour:
   BulletSpeed: 5
   FiringRate: 0.5
   FirePoint: {fileID: 1062690308}
+  CrosshairRaycastLayerMask:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!4 &1394032741
 Transform:
   m_ObjectHideFlags: 0

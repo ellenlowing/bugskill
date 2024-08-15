@@ -17,9 +17,9 @@ public class FingerGunPowerUp : BasePowerUpBehavior
     private bool _isIdle = false;
     private bool _isFiring = false;
     private float _lastFiringTime = 0f;
-    private LayerMask _landingLayerMask;
     private Vector3 _firePosition;
     private Vector3 _fireDirection;
+    private int _crosshairRaycastLayerMaskInt;
 
     new void Start()
     {
@@ -28,7 +28,7 @@ public class FingerGunPowerUp : BasePowerUpBehavior
         GunIdleEvent.WhenUnselected.AddListener(() => { _isIdle = false; });
         GunTriggerEvent.WhenSelected.AddListener(TurnOnFiring);
         GunTriggerEvent.WhenUnselected.AddListener(TurnOffFiring);
-        _landingLayerMask = LayerMask.NameToLayer(GameManager.Instance.LandingLayerName);
+        _crosshairRaycastLayerMaskInt = 1 << LayerMask.NameToLayer(GameManager.Instance.LandingLayerName);
     }
 
     new void Update()
@@ -50,7 +50,14 @@ public class FingerGunPowerUp : BasePowerUpBehavior
         if (_firePosition != null && _fireDirection != null && (_isIdle || _isFiring))
         {
             Vector3 gunDirection = _fireDirection;
-            if (Physics.Raycast(_firePosition, gunDirection, out RaycastHit hit, _landingLayerMask))
+
+            if (Physics.Raycast(
+                origin: _firePosition,
+                direction: gunDirection,
+                hitInfo: out RaycastHit hit,
+                maxDistance: 100f,
+                layerMask: _crosshairRaycastLayerMaskInt)
+            )
             {
                 Crosshair.transform.position = hit.point;
                 Crosshair.transform.up = hit.normal;

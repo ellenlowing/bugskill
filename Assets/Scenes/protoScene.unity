@@ -1164,6 +1164,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1304291808404284544, guid: 3c3e56f35930b43a6943720e083bf1ef, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1304291808404284544, guid: 3c3e56f35930b43a6943720e083bf1ef, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2944844656093022867, guid: 3c3e56f35930b43a6943720e083bf1ef, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2944844656093022867, guid: 3c3e56f35930b43a6943720e083bf1ef, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 425
+      objectReference: {fileID: 0}
+    - target: {fileID: 2944844656093022867, guid: 3c3e56f35930b43a6943720e083bf1ef, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -289
+      objectReference: {fileID: 0}
     - target: {fileID: 5455849151864903232, guid: 3c3e56f35930b43a6943720e083bf1ef, type: 3}
       propertyPath: m_Name
       value: Temp Fingergun Object

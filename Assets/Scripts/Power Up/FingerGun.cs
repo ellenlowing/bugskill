@@ -23,6 +23,7 @@ public class FingerGun : MonoBehaviour
     private Vector3 _firePosition;
     private Vector3 _fireDirection;
     private int _crosshairRaycastLayerMaskInt;
+    private FingerGunPowerUp _corePowerUpBehavior;
 
     void Start()
     {
@@ -35,6 +36,12 @@ public class FingerGun : MonoBehaviour
 
     void Update()
     {
+        if (_corePowerUpBehavior == null)
+        {
+            _corePowerUpBehavior = FindFirstObjectByType<FingerGunPowerUp>();
+            Debug.Log("find core power up behavior for finger gun");
+        }
+
         if (ActiveHand == null) return;
 
         if (ActiveHand.IsTracked != Crosshair.activeSelf)
@@ -95,6 +102,11 @@ public class FingerGun : MonoBehaviour
         projectile.transform.forward = _fireDirection;
 
         _lastFiringTime = Time.time;
+
+        if (_corePowerUpBehavior != null)
+        {
+            _corePowerUpBehavior.UsePowerCapacity();
+        }
     }
 
 }

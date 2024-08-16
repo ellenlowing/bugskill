@@ -50,6 +50,7 @@ public class UIManager : MonoBehaviour
     private GameObject tempObj;
     private TextMeshProUGUI tempText;
     private SettingSO settings;
+    private bool isGameStarted = false;
 
     private void IsNotNull()
     {
@@ -86,7 +87,7 @@ public class UIManager : MonoBehaviour
         settings = GameManager.Instance.settings;
 
         // subscribe to all events
-        GameEnds.OnEventRaised += KillUpdate;
+        GameEnds.OnEventRaised += EndGame;
 
         GameBegins.OnEventRaised += UpdateLevel;
         StartNextWaveEvent.OnEventRaised += UpdateLevel;
@@ -115,10 +116,6 @@ public class UIManager : MonoBehaviour
     {
     }
 
-    public void Update()
-    {
-    }
-
     public void FailedPanel(bool state, int kills, int currentIndex)
     {
         // show failure panel
@@ -133,11 +130,6 @@ public class UIManager : MonoBehaviour
         {
             Destroy(obj, waitTime);
         }
-    }
-
-    public void KillUpdate()
-    {
-        Debug.Log("Game ends from KillUpdate");
     }
 
     public void UpdateScore(float cashAmount, Vector3 position)
@@ -168,8 +160,18 @@ public class UIManager : MonoBehaviour
 
     public void StartGameLoopTrigger()
     {
-        Debug.Log("Start Button clicked");
-        GameBegins.RaiseEvent();
+        if (!isGameStarted)
+        {
+            isGameStarted = true;
+            Debug.Log("Start Button clicked");
+            GameBegins.RaiseEvent();
+        }
+    }
+
+    public void EndGame()
+    {
+        Debug.Log("UI: Game ended");
+        isGameStarted = false;
     }
 
     public void FaceCamera(GameObject obj, float yOffset = 0f)

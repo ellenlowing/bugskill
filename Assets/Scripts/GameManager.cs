@@ -8,6 +8,8 @@ using UnityEngine.Events;
 using UnityEditor;
 using System.Dynamic;
 using Oculus.Interaction;
+using Oculus.Interaction.Input;
+using Oculus.Interaction.PoseDetection;
 using Unity.VisualScripting;
 
 public partial class GameManager : MonoBehaviour
@@ -67,6 +69,10 @@ public partial class GameManager : MonoBehaviour
     public GameObject RightHand;
     public GameObject LeftHandRenderer;
     public GameObject RightHandRenderer;
+
+    [Header("Finger Gun")]
+    public GameObject LeftFingerGun;
+    public GameObject RightFingerGun;
 
     private int LocalKills = 0;
     private int LocalCash = 0;
@@ -214,6 +220,8 @@ public partial class GameManager : MonoBehaviour
         {
             UIManager.Instance.FailedPanel(true, LocalCash, settings.waveIndex);
             settings.waveIndex = 0;
+            GameEnds.RaiseEvent();
+            Debug.Log("Game ends!");
         }
         else
         {

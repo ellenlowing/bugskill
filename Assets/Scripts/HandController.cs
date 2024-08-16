@@ -141,6 +141,7 @@ public class HandController : MonoBehaviour
                 if (IsRightHand && isTouchingMC)
                 {
                     UIManager.Instance.StartGameLoopTrigger();
+                    Debug.Log("MC FLY HIT: starting game loop");
                 }
 
                 settings.flies.Remove(touchedFlyTransform.gameObject);

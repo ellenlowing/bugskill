@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Oculus.Interaction;
+using Oculus.Interaction.Input;
+using Oculus.Interaction.PoseDetection;
 
 public class FingerGun : MonoBehaviour
 {
@@ -13,6 +15,7 @@ public class FingerGun : MonoBehaviour
     public float BulletSpeed = 1f;
     public float FiringRate = 0.5f;
     public Transform FirePoint;
+    public OVRHand ActiveHand;
 
     private bool _isIdle = false;
     private bool _isFiring = false;
@@ -32,12 +35,14 @@ public class FingerGun : MonoBehaviour
 
     void Update()
     {
-        // if (ActiveHand.IsTracked != Crosshair.activeSelf)
-        // {
-        //     Crosshair.SetActive(ActiveHand.IsTracked);
-        // }
+        if (ActiveHand == null) return;
 
-        // if (!ActiveHand.IsTracked) return;
+        if (ActiveHand.IsTracked != Crosshair.activeSelf)
+        {
+            Crosshair.SetActive(ActiveHand.IsTracked);
+        }
+
+        if (!ActiveHand.IsTracked) return;
 
         // Update firing position and firing direction
         _firePosition = FirePoint.position;
@@ -91,4 +96,5 @@ public class FingerGun : MonoBehaviour
 
         _lastFiringTime = Time.time;
     }
+
 }

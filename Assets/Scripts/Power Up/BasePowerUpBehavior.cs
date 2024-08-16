@@ -162,6 +162,8 @@ public class BasePowerUpBehavior : MonoBehaviour
             }
         }
 
+        Debug.Log("Dissolving " + gameObject.name);
+
         Destroy(gameObject, DissolveDuration);
     }
 
@@ -236,7 +238,7 @@ public class BasePowerUpBehavior : MonoBehaviour
         }
     }
 
-    private void OnGrabbableSelect(PointerEvent arg0)
+    public virtual void OnGrabbableSelect(PointerEvent arg0)
     {
         HandRef handData = (HandRef)arg0.Data;
         Handedness handedness = handData.Handedness;
@@ -252,7 +254,7 @@ public class BasePowerUpBehavior : MonoBehaviour
         EnterState(PowerUpState.ACTIVE);
     }
 
-    private void OnGrabbableUnselect(PointerEvent arg0)
+    public void OnGrabbableUnselect(PointerEvent arg0)
     {
         // if (StoreManager.Instance.IsStoreActive)
         // {

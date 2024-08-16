@@ -235,15 +235,15 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2300318445620189431}
-  - component: {fileID: 6558061756533918786}
   - component: {fileID: 1778244852545078343}
   - component: {fileID: 9178032825499093740}
   - component: {fileID: 7207335563215581596}
   - component: {fileID: 4482827973642035594}
-  - component: {fileID: 8809435430099479294}
+  - component: {fileID: 8329739274982515645}
+  - component: {fileID: 1538919462621221765}
   m_Layer: 7
   m_Name: MC Fly
-  m_TagString: MC
+  m_TagString: Fly
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -267,24 +267,6 @@ Transform:
   - {fileID: 4670269889883704113}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6558061756533918786
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 708182128869486111}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bb8863dbb824349b8bd7d6449768ca8e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  canLand: 49151
-  settings: {fileID: 11400000, guid: 415f7b1141256224db7c3c8720566774, type: 2}
-  isResting: 0
-  isInsane: 0
-  speed: 1
-  flyBehaviour: {fileID: 0}
 --- !u!54 &1778244852545078343
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -454,29 +436,39 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &8809435430099479294
+--- !u!114 &8329739274982515645
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 708182128869486111}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 49d387d6bc727e64a95603a09e3fd98a, type: 3}
+  m_Script: {fileID: 11500000, guid: 9ab1c14d9bda043258f26635879c0a18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsSlowed: 0
-  IsDying: 0
-  IsDead: 0
-  settings: {fileID: 11400000, guid: 415f7b1141256224db7c3c8720566774, type: 2}
-  flyMovements: {fileID: 6558061756533918786}
-  NormalEyeMesh:
-  - {fileID: 8161353380878517188}
-  - {fileID: 8161488179538572312}
-  CircularEyeMesh:
-  - {fileID: 8860143217507585408}
-  - {fileID: 5468476972978534699}
+--- !u!95 &1538919462621221765
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 708182128869486111}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 26ffc8619a26148c1aea957bccfbe239, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 1
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &4171755376823053841
 GameObject:
   m_ObjectHideFlags: 0

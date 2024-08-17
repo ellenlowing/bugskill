@@ -21,7 +21,7 @@ public class BasePowerUpBehavior : MonoBehaviour
         public Material Material;
     }
 
-    public OVRHand ActiveHand = null;
+    public OVRHand ActiveOVRHand = null;
     public StoreItemSO StoreItemData;
     public PowerUpState CurrentState;
     public PointableUnityEventWrapper PointableEventWrapper;
@@ -36,6 +36,8 @@ public class BasePowerUpBehavior : MonoBehaviour
 
     [Header("Settings Data")]
     protected SettingSO settings;
+
+    protected bool _isEquipped = false;
 
     public void Start()
     {
@@ -122,7 +124,7 @@ public class BasePowerUpBehavior : MonoBehaviour
         if (!StoreManager.Instance.IsStoreActive && PowerCapacity <= 0)
         {
             PowerCapacity = 0;
-            ActiveHand = null;
+            ActiveOVRHand = null;
             transform.parent = null;
             Dissolve();
         }
@@ -240,17 +242,18 @@ public class BasePowerUpBehavior : MonoBehaviour
 
     public virtual void OnGrabbableSelect(PointerEvent arg0)
     {
+        _isEquipped = true;
         HandRef handData = (HandRef)arg0.Data;
         Handedness handedness = handData.Handedness;
         if (handedness == Handedness.Right)
         {
-            ActiveHand = GameManager.Instance.RightHand.GetComponent<OVRHand>();
+            ActiveOVRHand = GameManager.Instance.RightOVRHand;
         }
         else
         {
-            ActiveHand = GameManager.Instance.LeftHand.GetComponent<OVRHand>();
+            ActiveOVRHand = GameManager.Instance.LeftOVRHand;
         }
-        transform.parent = ActiveHand.gameObject.transform;
+        transform.parent = ActiveOVRHand.gameObject.transform;
         EnterState(PowerUpState.ACTIVE);
     }
 
@@ -258,7 +261,7 @@ public class BasePowerUpBehavior : MonoBehaviour
     {
         // if (StoreManager.Instance.IsStoreActive)
         // {
-        //     ActiveHand = null;
+        //     ActiveOVRHand = null;
         //     EnterState(PowerUpState.IDLE);
         // }
     }

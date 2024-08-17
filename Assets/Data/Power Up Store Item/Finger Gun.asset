@@ -16,5 +16,5 @@ MonoBehaviour:
   Name: Finger Gun
   Description: Enable the Finger Gun gesture and shoot projectiles from the tip of
     your finger
-  LocalPosition: {x: -0.856, y: 0.253, z: 0}
-  LocalEulerAngles: {x: 0, y: -90, z: 0}
+  LocalPosition: {x: -0.311, y: 0.253, z: 0}
+  LocalEulerAngles: {x: 0, y: 0, z: 0}

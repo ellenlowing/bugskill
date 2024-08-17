@@ -15,7 +15,7 @@ public class FingerGun : MonoBehaviour
     public float BulletSpeed = 1f;
     public float FiringRate = 0.5f;
     public Transform FirePoint;
-    public OVRHand ActiveHand;
+    public OVRHand ActiveOVRHand;
 
     private bool _isIdle = false;
     private bool _isFiring = false;
@@ -42,14 +42,14 @@ public class FingerGun : MonoBehaviour
             Debug.Log("find core power up behavior for finger gun");
         }
 
-        if (ActiveHand == null) return;
+        if (ActiveOVRHand == null) return;
 
-        if (ActiveHand.IsTracked != Crosshair.activeSelf)
+        if (ActiveOVRHand.IsTracked != Crosshair.activeSelf)
         {
-            Crosshair.SetActive(ActiveHand.IsTracked);
+            Crosshair.SetActive(ActiveOVRHand.IsTracked);
         }
 
-        if (!ActiveHand.IsTracked) return;
+        if (!ActiveOVRHand.IsTracked) return;
 
         // Update firing position and firing direction
         _firePosition = FirePoint.position;

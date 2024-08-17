@@ -120,9 +120,9 @@ public class FroggyController : BasePowerUpBehavior
         base.UpdateActiveState();
 
         // Check if active hand is pinching
-        if (ActiveHand.IsTracked)
+        if (ActiveOVRHand.IsTracked)
         {
-            bool isPinching = ActiveHand.GetFingerIsPinching(OVRHand.HandFinger.Index);
+            bool isPinching = ActiveOVRHand.GetFingerIsPinching(OVRHand.HandFinger.Index);
 
             if (isPinching)
             // && (Time.time - FroggyLastTriggeredTime) > CooldownTime)
@@ -208,7 +208,7 @@ public class FroggyController : BasePowerUpBehavior
 
     void TriggerPress()
     {
-        if (ActiveHand != null && !FroggyActive)
+        if (ActiveOVRHand != null && !FroggyActive)
         {
 
             if (_previousHits.Length > 0)

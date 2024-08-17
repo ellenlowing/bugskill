@@ -11,6 +11,7 @@ using Oculus.Interaction;
 using Oculus.Interaction.Input;
 using Oculus.Interaction.PoseDetection;
 using Unity.VisualScripting;
+using Oculus.Interaction.Input.Filter;
 
 public partial class GameManager : MonoBehaviour
 {
@@ -65,10 +66,12 @@ public partial class GameManager : MonoBehaviour
     public InteractableUnityEventWrapper GameRestartEvent;
 
     [Header("Hands")]
-    public GameObject LeftHand;
-    public GameObject RightHand;
+    public OVRHand LeftOVRHand;
+    public OVRHand RightOVRHand;
     public GameObject LeftHandRenderer;
     public GameObject RightHandRenderer;
+    public Hand LeftHand;
+    public Hand RightHand;
 
     [Header("Finger Gun")]
     public GameObject LeftFingerGun;

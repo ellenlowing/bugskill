@@ -51,14 +51,12 @@ public class FingerGunPowerUp : BasePowerUpBehavior
         {
             RightFingerGun.SetActive(true);
             LeftFingerGun.SetActive(false);
-            // MoveToWrist(GameManager.Instance.RightHand);
             _activeHand = GameManager.Instance.RightHand;
         }
         else
         {
             LeftFingerGun.SetActive(true);
             RightFingerGun.SetActive(false);
-            // MoveToWrist(GameManager.Instance.LeftHand);
             _activeHand = GameManager.Instance.LeftHand;
         }
 

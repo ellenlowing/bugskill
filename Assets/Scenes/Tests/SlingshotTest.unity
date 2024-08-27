@@ -397,7 +397,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TempBall: {fileID: 1438484908}
-  LaunchForce: 200
+  LaunchForce: 1000
+  raycaster: {fileID: 291099780}
   CurrentState: 0
 --- !u!1 &821477809
 GameObject:

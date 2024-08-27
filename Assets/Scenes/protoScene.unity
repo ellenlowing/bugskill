@@ -3200,13 +3200,14 @@ GameObject:
   - component: {fileID: 733257558}
   - component: {fileID: 733257557}
   - component: {fileID: 733257556}
+  - component: {fileID: 733257560}
   m_Layer: 0
   m_Name: Projectile Visualization
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &733257556
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3225,7 +3226,7 @@ MonoBehaviour:
   _bevel: 4
   _renderQueue: -1
   _renderOffset: {x: 0, y: 0}
-  _radius: 0.05
+  _radius: 0.005
   _gradient:
     serializedVersion: 2
     key0: {r: 1, g: 1, b: 1, a: 0}
@@ -3328,6 +3329,94 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &733257560
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 733257555}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ecf814898e73c44caa1a08f1f1e15cc0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CurrentState: 0
+  V0: 0
+  LaunchDuration: 0
+  LaunchAngle: 0
+  LaunchHeight: 0
+  GroundDirectionNorm: {x: 0, y: 0, z: 0}
+  LaunchPosition: {x: 0, y: 0, z: 0}
+  PointerPose:
+    position: {x: 0, y: 0, z: 0}
+    rotation: {x: 0, y: 0, z: 0, w: 0}
+  RaycasterTint: {r: 1, g: 0, b: 0, a: 1}
+  _tubeRenderer: {fileID: 733257556}
+  _tubeTrailLength: 2
+  _tubeTrailStep: 0.01
+  _prelaunchGradient:
+    serializedVersion: 2
+    key0: {r: 1, g: 1, b: 1, a: 1}
+    key1: {r: 1, g: 1, b: 1, a: 1}
+    key2: {r: 0, g: 0, b: 0, a: 0}
+    key3: {r: 0, g: 0, b: 0, a: 0}
+    key4: {r: 0, g: 0, b: 0, a: 0}
+    key5: {r: 0, g: 0, b: 0, a: 0}
+    key6: {r: 0, g: 0, b: 0, a: 0}
+    key7: {r: 0, g: 0, b: 0, a: 0}
+    ctime0: 0
+    ctime1: 65535
+    ctime2: 0
+    ctime3: 0
+    ctime4: 0
+    ctime5: 0
+    ctime6: 0
+    ctime7: 0
+    atime0: 0
+    atime1: 65535
+    atime2: 0
+    atime3: 0
+    atime4: 0
+    atime5: 0
+    atime6: 0
+    atime7: 0
+    m_Mode: 0
+    m_ColorSpace: -1
+    m_NumColorKeys: 2
+    m_NumAlphaKeys: 2
+  _inlaunchGradient:
+    serializedVersion: 2
+    key0: {r: 1, g: 1, b: 1, a: 1}
+    key1: {r: 1, g: 1, b: 1, a: 1}
+    key2: {r: 0, g: 0, b: 0, a: 0}
+    key3: {r: 0, g: 0, b: 0, a: 0}
+    key4: {r: 0, g: 0, b: 0, a: 0}
+    key5: {r: 0, g: 0, b: 0, a: 0}
+    key6: {r: 0, g: 0, b: 0, a: 0}
+    key7: {r: 0, g: 0, b: 0, a: 0}
+    ctime0: 0
+    ctime1: 65535
+    ctime2: 0
+    ctime3: 0
+    ctime4: 0
+    ctime5: 0
+    ctime6: 0
+    ctime7: 0
+    atime0: 0
+    atime1: 65535
+    atime2: 0
+    atime3: 0
+    atime4: 0
+    atime5: 0
+    atime6: 0
+    atime7: 0
+    m_Mode: 0
+    m_ColorSpace: -1
+    m_NumColorKeys: 2
+    m_NumAlphaKeys: 2
+  _inlaunchTweenType: 0
+  tempTargetPoint: {fileID: 0}
 --- !u!1001 &738638575
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5536,9 +5625,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2390197ade41d4c9eb0dc89b4913a3f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TempBall: {fileID: 1972024212}
-  LaunchForce: 1000
   CurrentState: 0
+  TempBall: {fileID: 1972024212}
+  LaunchForce: 2000
+  raycaster: {fileID: 733257560}
 --- !u!4 &1803555489
 Transform:
   m_ObjectHideFlags: 0
@@ -6238,7 +6328,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
+  m_LocalScale: {x: 0.04, y: 0.04, z: 0.04}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}

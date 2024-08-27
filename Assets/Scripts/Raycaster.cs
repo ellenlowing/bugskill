@@ -12,7 +12,7 @@ public enum RaycastState
 
 public class Raycaster : MonoBehaviour
 {
-    [HideInInspector] public RaycastState CurrentState = RaycastState.Idle;
+    public RaycastState CurrentState = RaycastState.Idle;
     [HideInInspector] public float V0;
     [HideInInspector] public float LaunchDuration;
     [HideInInspector] public float LaunchAngle;
@@ -89,17 +89,17 @@ public class Raycaster : MonoBehaviour
     /// </summary> 
     private void EnterIdleState()
     {
-        _tubeRenderer.Hide();
+        // _tubeRenderer.Hide();
     }
 
     private void UpdateIdleState()
     {
-        _tubeRenderer.Hide();
+        // _tubeRenderer.Hide();
 
-        if (Input.GetKey(KeyCode.Space))
-        {
-            SetState(RaycastState.PreLaunch);
-        }
+        // if (Input.GetKey(KeyCode.Space))
+        // {
+        //     SetState(RaycastState.PreLaunch);
+        // }
     }
 
     /// <summary>
@@ -121,10 +121,10 @@ public class Raycaster : MonoBehaviour
         Vector3[] projectilePositions = ProjectileLibrary.GetProjectilePositions(LaunchPosition, GroundDirectionNorm, V0, LaunchDuration, LaunchAngle);
         DrawProjectile(projectilePositions);
 
-        if (Input.GetKeyUp(KeyCode.Space))
-        {
-            SetState(RaycastState.InLaunch);
-        }
+        // if (Input.GetKeyUp(KeyCode.Space))
+        // {
+        //     SetState(RaycastState.InLaunch);
+        // }
     }
 
     /// <summary>

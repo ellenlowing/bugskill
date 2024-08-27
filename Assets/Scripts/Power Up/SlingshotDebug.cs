@@ -7,6 +7,7 @@ public class SlingshotDebug : MonoBehaviour
 {
     public GameObject TempBall;
     public float LaunchForce = 2f;
+    public Raycaster raycaster;
 
     private OVRHand ovrHand;
     private Hand hand;
@@ -93,6 +94,11 @@ public class SlingshotDebug : MonoBehaviour
             Vector3 mouseWorldPosition = GetMouseWorldPosition();
             _newTempBall.transform.position = mouseWorldPosition;
             _lastIndexFingerTipPose.position = mouseWorldPosition;
+
+            // Draw trajectory
+            Vector3 force = (_pinchDownPosition - mouseWorldPosition) * LaunchForce;
+            Vector3[] trajectoryPoints = GetTrajectoryPoints(force, _tempBallRigidbody, mouseWorldPosition); // should last param be indexFingerTipPose.position?
+            raycaster.DrawProjectile(trajectoryPoints);
         }
         else
         {
@@ -130,5 +136,29 @@ public class SlingshotDebug : MonoBehaviour
         Vector3 mouseWorldPosition = Camera.main.ScreenToWorldPoint(mouseScreenPosition);
 
         return mouseWorldPosition;
+    }
+
+    Vector3[] GetTrajectoryPoints(Vector3 force, Rigidbody rb, Vector3 launchPosition)
+    {
+        List<Vector3> trajectoryPoints = new List<Vector3>();
+        Vector3 velocity = (force / rb.mass) * Time.fixedDeltaTime;
+        float flightDuration = 2 * velocity.y / Physics.gravity.y;
+        float lineSegmentCount = 30;
+        float stepTime = flightDuration / lineSegmentCount;
+
+        for (int i = 0; i < lineSegmentCount; i++)
+        {
+            float stepTimePassed = stepTime * i;
+            Vector3 movementVector = velocity * stepTimePassed - 0.5f * Physics.gravity * stepTimePassed * stepTimePassed;
+            RaycastHit hit;
+            if (Physics.Raycast(launchPosition, -movementVector, out hit, movementVector.magnitude))
+            {
+                Debug.Log("Hit: " + hit.point);
+                break;
+            }
+            trajectoryPoints.Add(launchPosition - movementVector);
+        }
+
+        return trajectoryPoints.ToArray();
     }
 }

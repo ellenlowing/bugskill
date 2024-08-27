@@ -18,6 +18,8 @@ public partial class GameManager : MonoBehaviour
     public static GameManager Instance;
     public EffectMesh EffectMesh;
 
+    public GameObject debugObject;
+
     [Header("Scene Objects")]
     public Animator animator;
     public GameObject HourGlass;
@@ -117,6 +119,8 @@ public partial class GameManager : MonoBehaviour
 #if UNITY_EDITOR
         EffectMesh.HideMesh = false;
 #endif
+
+        UIManager.Instance.FaceCamera(debugObject, -0.3f);
     }
 
     void Update()

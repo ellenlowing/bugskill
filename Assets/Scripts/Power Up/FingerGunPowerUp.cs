@@ -16,14 +16,14 @@ public class FingerGunPowerUp : BasePowerUpBehavior
         base.Start();
         LeftFingerGun = GameManager.Instance.LeftFingerGun;
         RightFingerGun = GameManager.Instance.RightFingerGun;
-        if (LeftFingerGun != null)
-        {
-            LeftFingerGun.GetComponent<FingerGun>().ActiveOVRHand = GameManager.Instance.LeftOVRHand;
-        }
-        if (RightFingerGun != null)
-        {
-            RightFingerGun.GetComponent<FingerGun>().ActiveOVRHand = GameManager.Instance.RightOVRHand;
-        }
+        // if (LeftFingerGun != null)
+        // {
+        //     LeftFingerGun.GetComponent<FingerGun>().ActiveOVRHand = GameManager.Instance.LeftOVRHand;
+        // }
+        // if (RightFingerGun != null)
+        // {
+        //     RightFingerGun.GetComponent<FingerGun>().ActiveOVRHand = GameManager.Instance.RightOVRHand;
+        // }
     }
 
     new void Update()

@@ -7,5 +7,6 @@ public enum SCOREFACTOR : int
     SWATTER = 70,
     FROG = 70,
     TNT = 30,
-    FINGERGUN = 70
+    FINGERGUN = 70,
+    SLINGSHOT = 50
 }

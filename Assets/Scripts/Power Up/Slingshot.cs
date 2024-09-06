@@ -36,6 +36,7 @@ public class Slingshot : MonoBehaviour
         var averageFingerTipPosition = (indexFingerTipPose.position + middleFingerTipPose.position) / 2;
 
         _activeBall = Instantiate(BallPrefab, averageFingerTipPosition, Quaternion.identity);
+        _activeBall.GetComponent<SlingshotBall>().PrimaryHand = PrimaryHand;
     }
 
     public void OnScissorsPoseUnselected()

@@ -1696,6 +1696,39 @@ MonoBehaviour:
       m_RotationOrder: 4
     _animationLength: 0.1
   _spreadAllowance: 5
+--- !u!1 &364210368
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 364210369}
+  m_Layer: 0
+  m_Name: Finger Slingshot Things (Single Hand)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &364210369
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 364210368}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.15738304, y: -0.46052802, z: 2.080198}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1803555489}
+  - {fileID: 1972024216}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &388867156
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3249,7 +3282,7 @@ MonoBehaviour:
   settings: {fileID: 11400000, guid: 415f7b1141256224db7c3c8720566774, type: 2}
   TestMode: 1
   gameSettings: {fileID: 11400000, guid: 415f7b1141256224db7c3c8720566774, type: 2}
-  testSettings: {fileID: 11400000, guid: f17f1c6612d95425a8965738fd836c8a, type: 2}
+  testSettings: {fileID: 11400000, guid: 7fba20d623e134514b2a2fceb7441d80, type: 2}
   LandingLayerName: Landing
   FlyPrefab: {fileID: 708182128869486111, guid: 75d14416f534f4b11aec372b6307c3bb, type: 3}
   FlyParentAnchor: {fileID: 652486518}
@@ -3347,6 +3380,11 @@ MonoBehaviour:
   - {fileID: 5455849151864903232, guid: 3c3e56f35930b43a6943720e083bf1ef, type: 3}
   IsStoreActive: 0
   ShopItemsParent: {fileID: 1414895417}
+--- !u!4 &733257559 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3960878488141208171, guid: 329126b98671a491db2c668a6273e3e4, type: 3}
+  m_PrefabInstance: {fileID: 3526451870307758250}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &733257560 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5727386282306070811, guid: 329126b98671a491db2c668a6273e3e4, type: 3}
@@ -4139,13 +4177,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 856285582}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 396648345}
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1371412118}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &856285584
 MonoBehaviour:
@@ -5016,6 +5054,40 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1371412117
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1371412118}
+  m_Layer: 0
+  m_Name: Finger Slingshot Things (Double Hand)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &1371412118
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1371412117}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 856285583}
+  - {fileID: 1502083611}
+  - {fileID: 733257559}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1400340397
 GameObject:
   m_ObjectHideFlags: 0
@@ -5122,13 +5194,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1502083609}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 819197227}
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1371412118}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1503377494 stripped
 GameObject:
@@ -5737,7 +5809,7 @@ GameObject:
   - component: {fileID: 1803555489}
   - component: {fileID: 1803555488}
   m_Layer: 0
-  m_Name: Test Slingshot
+  m_Name: Finger Slingshot Test (Single Hand)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5767,12 +5839,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1803555487}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.15738304, y: -0.46052802, z: 2.080198}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 364210369}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1816584844
 PrefabInstance:
@@ -6371,7 +6443,7 @@ GameObject:
   - component: {fileID: 1972024213}
   - component: {fileID: 1972024217}
   m_Layer: 0
-  m_Name: Test ball
+  m_Name: Slingshot Ball Test (Single Hand)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6456,12 +6528,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1972024212}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.15738304, y: 0.46052802, z: -2.080198}
   m_LocalScale: {x: 0.04, y: 0.04, z: 0.04}
   m_ConstrainProportionsScale: 1
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 364210369}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &1972024217
 Rigidbody:
@@ -9546,7 +9618,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 0}
+    m_TransformParent: {fileID: 1371412118}
     m_Modifications:
     - target: {fileID: 1261102215393631779, guid: 329126b98671a491db2c668a6273e3e4, type: 3}
       propertyPath: m_Name
@@ -9554,7 +9626,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1261102215393631779, guid: 329126b98671a491db2c668a6273e3e4, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3960878488141208171, guid: 329126b98671a491db2c668a6273e3e4, type: 3}
       propertyPath: m_LocalPosition.x
@@ -9574,15 +9646,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3960878488141208171, guid: 329126b98671a491db2c668a6273e3e4, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 3960878488141208171, guid: 329126b98671a491db2c668a6273e3e4, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 3960878488141208171, guid: 329126b98671a491db2c668a6273e3e4, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 3960878488141208171, guid: 329126b98671a491db2c668a6273e3e4, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -9595,6 +9667,30 @@ PrefabInstance:
     - target: {fileID: 3960878488141208171, guid: 329126b98671a491db2c668a6273e3e4, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5059796184299956075, guid: 329126b98671a491db2c668a6273e3e4, type: 3}
+      propertyPath: _tint.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5059796184299956075, guid: 329126b98671a491db2c668a6273e3e4, type: 3}
+      propertyPath: _tint.g
+      value: 0.97462136
+      objectReference: {fileID: 0}
+    - target: {fileID: 5059796184299956075, guid: 329126b98671a491db2c668a6273e3e4, type: 3}
+      propertyPath: _tint.r
+      value: 0.4481132
+      objectReference: {fileID: 0}
+    - target: {fileID: 5727386282306070811, guid: 329126b98671a491db2c668a6273e3e4, type: 3}
+      propertyPath: RaycasterTint.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5727386282306070811, guid: 329126b98671a491db2c668a6273e3e4, type: 3}
+      propertyPath: RaycasterTint.g
+      value: 0.9764706
+      objectReference: {fileID: 0}
+    - target: {fileID: 5727386282306070811, guid: 329126b98671a491db2c668a6273e3e4, type: 3}
+      propertyPath: RaycasterTint.r
+      value: 0.4509804
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -11528,14 +11624,11 @@ SceneRoots:
   - {fileID: 1816584844}
   - {fileID: 202595825}
   - {fileID: 2042147338}
+  - {fileID: 364210369}
+  - {fileID: 1371412118}
   - {fileID: 1233351077}
   - {fileID: 2443870073695183625}
   - {fileID: 738638575}
   - {fileID: 3897806537967314089}
   - {fileID: 1324841158}
   - {fileID: 3269330350203666269}
-  - {fileID: 3526451870307758250}
-  - {fileID: 1803555489}
-  - {fileID: 1972024216}
-  - {fileID: 856285583}
-  - {fileID: 1502083611}

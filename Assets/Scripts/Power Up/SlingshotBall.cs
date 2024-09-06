@@ -17,16 +17,24 @@ public class SlingshotBall : MonoBehaviour
     public PointableUnityEventWrapper BallPinchEvent;
     public float LaunchForce;
     public Raycaster RaycastVisualizer;
+    public Raycaster IndexFingerLine;
+    public Raycaster MiddleFingerLine;
+    [HideInInspector] public Hand PrimaryHand;
 
+    private HandJointId _indexFingerJoint = HandJointId.HandIndexTip;
+    private HandJointId _middleFingerJoint = HandJointId.HandMiddleTip;
     private Vector3 _pinchDownPosition;
     private Rigidbody _rb;
+    private Pose _indexFingerTipPose;
+    private Pose _middleFingerTipPose;
+    private Vector3 _averageFingerTipPosition;
 
     void Start()
     {
         _rb = GetComponent<Rigidbody>();
         BallPinchEvent.WhenSelect.AddListener(OnSelect);
         BallPinchEvent.WhenUnselect.AddListener(OnUnselect);
-        RaycastVisualizer = FindObjectOfType<Raycaster>();
+        RaycastVisualizer = GameObject.Find("Projectile Visualization").GetComponent<Raycaster>();
     }
 
     void Update()
@@ -92,11 +100,15 @@ public class SlingshotBall : MonoBehaviour
 
     private void UpdateIdleState()
     {
+        UpdateFingerPose();
+
+        transform.position = _averageFingerTipPosition;
+
+        DrawSlingshotLines();
     }
 
     private void EnterPreLaunchState()
     {
-        _pinchDownPosition = transform.position;
     }
 
     private void UpdatePreLaunchState()
@@ -105,6 +117,10 @@ public class SlingshotBall : MonoBehaviour
         Vector3 force = (_pinchDownPosition - transform.position) * LaunchForce;
         Vector3[] trajectoryPoints = GetTrajectoryPoints(force, _rb, transform.position); // should last param be indexFingerTipPose.position?
         RaycastVisualizer.DrawProjectile(trajectoryPoints);
+
+        // Update ball position
+        UpdateFingerPose();
+        DrawSlingshotLines();
     }
 
     private void EnterInLaunchState()
@@ -119,6 +135,27 @@ public class SlingshotBall : MonoBehaviour
     private void UpdateInLaunchState()
     {
         // SetState(SlingshotState.Idle);
+    }
+    void UpdateFingerPose()
+    {
+        PrimaryHand.GetJointPose(_indexFingerJoint, out _indexFingerTipPose);
+        PrimaryHand.GetJointPose(_middleFingerJoint, out _middleFingerTipPose);
+        _averageFingerTipPosition = (_indexFingerTipPose.position + _middleFingerTipPose.position) / 2;
+        _pinchDownPosition = _averageFingerTipPosition;
+    }
+
+    void DrawSlingshotLines()
+    {
+        // IndexFingerLine.positionCount = 2;
+        // IndexFingerLine.SetPositions(new Vector3[] { _indexFingerTipPose.position, transform.position });
+        // MiddleFingerLine.positionCount = 2;
+        // MiddleFingerLine.SetPositions(new Vector3[] { _middleFingerTipPose.position, transform.position });
+
+        var indexFingerLinePoints = SamplePointsAlongLine(_indexFingerTipPose.position, transform.position, 10);
+        var middleFingerLinePoints = SamplePointsAlongLine(_middleFingerTipPose.position, transform.position, 10);
+
+        IndexFingerLine.DrawProjectile(indexFingerLinePoints);
+        MiddleFingerLine.DrawProjectile(middleFingerLinePoints);
     }
 
     Vector3[] GetTrajectoryPoints(Vector3 force, Rigidbody rb, Vector3 launchPosition)
@@ -144,6 +181,30 @@ public class SlingshotBall : MonoBehaviour
         return trajectoryPoints.ToArray();
     }
 
+    public Vector3[] SamplePointsAlongLine(Vector3 start, Vector3 end, int numPoints)
+    {
+        List<Vector3> sampledPoints = new List<Vector3>();
+
+        // Ensure that there are at least 2 points to sample
+        if (numPoints < 2)
+        {
+            Debug.LogWarning("Number of points should be at least 2.");
+            return sampledPoints.ToArray();
+        }
+
+        // Calculate the step size between each point
+        Vector3 step = (end - start) / (numPoints - 1);
+
+        // Generate points along the line
+        for (int i = 0; i < numPoints; i++)
+        {
+            Vector3 point = start + step * i;
+            sampledPoints.Add(point);
+        }
+
+        return sampledPoints.ToArray();
+    }
+
     void OnCollisionEnter(Collision other)
     {
         if (CurrentState == SlingshotState.InLaunch)
@@ -153,6 +214,8 @@ public class SlingshotBall : MonoBehaviour
                 UIManager.Instance.IncrementKill(transform.position, (int)SCOREFACTOR.SLINGSHOT);
                 Destroy(other.gameObject);
             }
+
+            RaycastVisualizer.HideProjectile();
 
             Destroy(gameObject);
         }

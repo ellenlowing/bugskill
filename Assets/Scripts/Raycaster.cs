@@ -145,6 +145,11 @@ public class Raycaster : MonoBehaviour
         Physics.Raycast(transform.position, transform.forward, out RaycastHit);
     }
 
+    public void HideProjectile()
+    {
+        _tubeRenderer.Hide();
+    }
+
     public void DrawProjectile(Vector3[] projectilePositions)
     {
         UpdateProjectilePoints(projectilePositions);

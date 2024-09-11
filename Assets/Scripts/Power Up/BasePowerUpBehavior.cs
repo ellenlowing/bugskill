@@ -22,7 +22,6 @@ public class BasePowerUpBehavior : MonoBehaviour
     }
 
     public OVRHand ActiveOVRHand = null;
-    public StoreItemSO StoreItemData;
     public PowerUpState CurrentState;
     public PointableUnityEventWrapper PointableEventWrapper;
 
@@ -36,6 +35,11 @@ public class BasePowerUpBehavior : MonoBehaviour
 
     [Header("Settings Data")]
     protected SettingSO settings;
+
+    [Header("Shop Item Things")]
+    public StoreItemSO StoreItemData;
+    public GameObject LeftUIContainer;
+    public GameObject RightUIContainer;
 
     protected bool _isEquipped = false;
 
@@ -54,6 +58,9 @@ public class BasePowerUpBehavior : MonoBehaviour
             PointableEventWrapper.WhenSelect.AddListener(OnGrabbableSelect);
             PointableEventWrapper.WhenUnselect.AddListener(OnGrabbableUnselect);
         }
+
+        LeftUIContainer.SetActive(false);
+        RightUIContainer.SetActive(false);
     }
 
     public void Update()
@@ -253,17 +260,28 @@ public class BasePowerUpBehavior : MonoBehaviour
         {
             ActiveOVRHand = GameManager.Instance.LeftOVRHand;
         }
-        transform.parent = ActiveOVRHand.gameObject.transform;
+
+        LeftUIContainer.SetActive(handedness == Handedness.Left && StoreManager.Instance.IsStoreActive);
+        RightUIContainer.SetActive(handedness == Handedness.Right && StoreManager.Instance.IsStoreActive);
+
+        if (!StoreManager.Instance.IsStoreActive)
+        {
+            transform.parent = ActiveOVRHand.gameObject.transform;
+        }
+
         EnterState(PowerUpState.ACTIVE);
     }
 
     public void OnGrabbableUnselect(PointerEvent arg0)
     {
-        // if (StoreManager.Instance.IsStoreActive)
-        // {
-        //     ActiveOVRHand = null;
-        //     EnterState(PowerUpState.IDLE);
-        // }
+        if (StoreManager.Instance.IsStoreActive)
+        {
+            ActiveOVRHand = null;
+            EnterState(PowerUpState.IDLE);
+        }
+
+        LeftUIContainer.SetActive(false);
+        RightUIContainer.SetActive(false);
     }
 
     public void ShowItemData(PointerEvent arg0)

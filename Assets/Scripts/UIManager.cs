@@ -15,6 +15,7 @@ public class UIManager : MonoBehaviour
     [Header("UI Objects")]
     [Space(20)]
     [SerializeField] private GameObject GameStartUI;
+    [SerializeField] private GameObject GameTitle;
     [SerializeField] private GameObject UIScoreObj;
     [SerializeField] private GameObject FailurePanel;
     [SerializeField] private TextMeshProUGUI FailText;
@@ -102,6 +103,8 @@ public class UIManager : MonoBehaviour
     {
         FaceCamera(GameStartUI, -0.15f);
         GameStartUI.transform.forward = -Camera.main.transform.forward;
+
+        FaceCamera(GameTitle, 0.5f);
     }
 
     private void QuitGame()
@@ -174,11 +177,12 @@ public class UIManager : MonoBehaviour
         isGameStarted = false;
     }
 
-    public void FaceCamera(GameObject obj, float yOffset = 0f)
+    public void FaceCamera(GameObject obj, float yOffset = 0f, float distanceFromCamera = -1f)
     {
         if (obj != null)
         {
-            obj.transform.position = Camera.main.transform.position + Camera.main.transform.forward * settings.distanceFromCamera;
+            float distance = distanceFromCamera == -1f ? settings.distanceFromCamera : distanceFromCamera;
+            obj.transform.position = Camera.main.transform.position + Camera.main.transform.forward * distance;
             obj.transform.position = new Vector3(obj.transform.position.x, Camera.main.transform.position.y + yOffset, obj.transform.position.z);
             obj.transform.forward = Camera.main.transform.forward;
             obj.transform.eulerAngles = new Vector3(0, obj.transform.eulerAngles.y, obj.transform.eulerAngles.z);

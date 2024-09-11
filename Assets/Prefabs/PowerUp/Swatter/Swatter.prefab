@@ -2369,7 +2369,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'Wave the swatter around to zap flies!
 
-    Gone after 10 seconds of use.'
+    Lasts 10 seconds - move fast!'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: fe0bcf811033b49989959f1e5e30b665, type: 2}
   m_sharedMaterial: {fileID: 8572475109205535080, guid: fe0bcf811033b49989959f1e5e30b665, type: 2}
@@ -3383,7 +3383,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'Wave the swatter around to zap flies!
 
-    Gone after 10 seconds of use.'
+    Lasts 10 seconds - move fast!'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: fe0bcf811033b49989959f1e5e30b665, type: 2}
   m_sharedMaterial: {fileID: 8572475109205535080, guid: fe0bcf811033b49989959f1e5e30b665, type: 2}

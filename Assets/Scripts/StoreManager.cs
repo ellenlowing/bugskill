@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using Oculus.Interaction;
 using Oculus.Interaction.Input;
 using Oculus.Interaction.PoseDetection;
+using Meta.XR.MRUtilityKit;
 
 public class StoreManager : MonoBehaviour
 {
@@ -41,6 +42,7 @@ public class StoreManager : MonoBehaviour
 
     private BasePowerUpBehavior _selectedPowerUp;
     private SettingSO settings;
+    private int _wallIndex = 0;
 
     private void OnEnable()
     {
@@ -71,7 +73,7 @@ public class StoreManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            OnThumbsUpSelected();
+            PlaceStoreOnWall();
         }
     }
 
@@ -124,17 +126,22 @@ public class StoreManager : MonoBehaviour
         }
 
         // Instantiate shop items
+        List<GameObject> powerupInStock = new List<GameObject>();
         foreach (var item in ShopItems)
         {
             var powerup = Instantiate(item, ShopItemsParent);
-            powerup.transform.localPosition = item.GetComponentInChildren<BasePowerUpBehavior>().StoreItemData.LocalPosition;
             powerup.transform.localEulerAngles = item.GetComponentInChildren<BasePowerUpBehavior>().StoreItemData.LocalEulerAngles;
+            powerupInStock.Add(powerup);
         }
+
+        // Organize shop items in grid
+        GridPlacer.ArrangeInGrid(powerupInStock, ShopItemsParent.position, 0.4f);
 
         UIManager.Instance.UpdateCashUI();
         StoreUI.SetActive(true);
         IsStoreActive = true;
-        UIManager.Instance.FaceCamera(StoreUI, -0.3f);
+
+        PlaceStoreOnWall();
     }
 
     public void HideStore()
@@ -142,6 +149,22 @@ public class StoreManager : MonoBehaviour
         IsStoreActive = false;
         StoreUI.SetActive(false);
         UIManager.Instance.FaceCamera(PowerUpDockingStation.gameObject, -0.3f);
+    }
+
+    public void PlaceStoreOnWall()
+    {
+        MRUKRoom room = MRUK.Instance.GetCurrentRoom();
+        if (room != null)
+        {
+            var wall = room.WallAnchors[_wallIndex];
+            wall = room.GetKeyWall(out Vector2 wallScale);
+            var floor = room.FloorAnchor;
+
+            StoreUI.transform.position = new Vector3(wall.transform.position.x, floor.transform.position.y, wall.transform.position.z);
+            StoreUI.transform.forward = wall.transform.forward;
+
+            _wallIndex = (_wallIndex + 1) % room.WallAnchors.Count;
+        }
     }
 
     public void SetActivePowerUp(BasePowerUpBehavior powerUp)

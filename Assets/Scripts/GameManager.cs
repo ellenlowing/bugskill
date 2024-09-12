@@ -276,6 +276,17 @@ public partial class GameManager : MonoBehaviour
         UIManager.Instance.UpdateCashUI();
     }
 
+    public void PlaceGameObjectOnFloor(GameObject obj)
+    {
+        MRUKRoom room = MRUK.Instance.GetCurrentRoom();
+        if (room != null)
+        {
+            var floor = room.FloorAnchor;
+            obj.transform.position = floor.transform.position;
+            obj.transform.up = floor.transform.forward;
+        }
+    }
+
     public void PlaceLevelPanel()
     {
         MRUKRoom room = MRUK.Instance.GetCurrentRoom();

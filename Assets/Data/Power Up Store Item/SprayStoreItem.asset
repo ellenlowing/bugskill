@@ -16,4 +16,4 @@ MonoBehaviour:
   Name: Insecticide Spray
   Description: Spray at fly to slow them down!
   LocalPosition: {x: -0.548, y: 0.352, z: 0}
-  LocalEulerAngles: {x: 0, y: -95.26, z: 0}
+  LocalEulerAngles: {x: 0, y: 66.8, z: 0}

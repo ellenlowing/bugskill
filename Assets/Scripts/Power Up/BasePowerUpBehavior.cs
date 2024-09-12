@@ -37,6 +37,7 @@ public class BasePowerUpBehavior : MonoBehaviour
     protected SettingSO settings;
 
     [Header("Shop Item Things")]
+    public bool IsSold = false;
     public StoreItemSO StoreItemData;
     public GameObject LeftUIContainer;
     public GameObject RightUIContainer;
@@ -171,8 +172,6 @@ public class BasePowerUpBehavior : MonoBehaviour
             }
         }
 
-        Debug.Log("Dissolving " + gameObject.name);
-
         Destroy(gameObject, DissolveDuration);
     }
 
@@ -266,6 +265,7 @@ public class BasePowerUpBehavior : MonoBehaviour
 
         if (!StoreManager.Instance.IsStoreActive)
         {
+            // This originally remove the power-up item from the store, so it's no longer parented to the store, hence it won't disappear
             transform.parent = ActiveOVRHand.gameObject.transform;
         }
 

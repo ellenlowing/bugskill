@@ -1872,7 +1872,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -4349,7 +4349,6 @@ GameObject:
   - component: {fileID: 2588198049648516420}
   - component: {fileID: 177423408567037460}
   - component: {fileID: 1182374509557272238}
-  - component: {fileID: 2490757420539003024}
   m_Layer: 0
   m_Name: ActivatedButton
   m_TagString: Untagged
@@ -4422,27 +4421,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &2490757420539003024
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7265846166726313955}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.00045649346, y: 0.0011459172, z: 0.0008451316}
-  m_Center: {x: -0.0015988259, y: -0.0000000017471835, z: 0.011968965}
 --- !u!1 &7857249203388665387
 GameObject:
   m_ObjectHideFlags: 0

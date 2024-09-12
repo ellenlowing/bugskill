@@ -84,7 +84,7 @@ public class FroggyController : BasePowerUpBehavior
         base.Update();
 
 #if UNITY_EDITOR
-        if (Input.GetKeyDown(KeyCode.RightShift))
+        if (Input.GetKeyDown(KeyCode.F))
         {
             TriggerPress();
         }

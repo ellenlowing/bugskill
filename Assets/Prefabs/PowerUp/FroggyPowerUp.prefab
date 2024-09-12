@@ -341,7 +341,7 @@ CapsuleCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Radius: 0.5000001
   m_Height: 2
@@ -1057,6 +1057,7 @@ MonoBehaviour:
   - MeshRenderer: {fileID: 2580486843140613540}
     Material: {fileID: 2100000, guid: 1870178e65abd413d8d90e395f59c296, type: 2}
   PowerCapacitySlider: {fileID: 5772684192685102267}
+  IsSold: 0
   StoreItemData: {fileID: 11400000, guid: 1c6c05410cf7aa54dae3915e235abcb9, type: 2}
   LeftUIContainer: {fileID: 3158075852903304416}
   RightUIContainer: {fileID: 1859976840021695941}

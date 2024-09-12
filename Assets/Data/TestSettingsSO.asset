@@ -14,10 +14,42 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   score: 25
   scoreMulFactor: 1
-  numberOfKills: 12
+  numberOfKills: 0
   skillScoreValue: 100
-  Cash: 0
-  flies: []
+  Cash: 3700
+  flies:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   eyeSpiralSpeed: 220
   flyIntelLevels:
   - {fileID: 11400000, guid: 94c1c6d1603a36147af3eee62718f46c, type: 2}
@@ -26,7 +58,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: f5898cf1fcc934a4784ab8ecd71b4934, type: 2}
   - {fileID: 11400000, guid: 2cb2a157148019742a5339d058893360, type: 2}
   waveWaitTime: 9999
-  waveIndex: 2
+  waveIndex: 1
   durationOfWave: 050000000a0000000a0000000a0000000a000000
   fliesInWave: 140000001e0000001e0000002800000028000000
   tntFliesInWave: 0100000002000000030000000400000005000000

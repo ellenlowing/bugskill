@@ -105,7 +105,7 @@ public partial class GameManager : MonoBehaviour
 
         settings.waveIndex = 0;
         settings.numberOfKills = 0;
-        settings.Cash = 0;
+        if (!TestMode) settings.Cash = 0;
         settings.flies = new List<GameObject>();
     }
 
@@ -253,7 +253,7 @@ public partial class GameManager : MonoBehaviour
         UIManager.Instance.FailedPanel(false, 0, 0);
         UIManager.Instance.UpdateLevel();
         UIManager.Instance.UpdateCashUI();
-        StoreManager.Instance.HideAllPowerUps();
+        // StoreManager.Instance.HideAllPowerUps();
     }
 
     public void TriggerTNT(Vector3 position, GameObject tntFly)

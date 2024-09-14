@@ -12,6 +12,9 @@ public class StoreManager : MonoBehaviour
     public static StoreManager Instance;
     public bool IsStoreActive = false;
 
+    [Range(0.1f, 10f)]
+    public float MinDistanceToEdges = 1.5f;
+
     [Header("UI")]
     [SerializeField] private GameObject StoreUI;
     [SerializeField] private GameObject PopupTextObj;
@@ -39,6 +42,7 @@ public class StoreManager : MonoBehaviour
     public ShoppingBasket ShoppingBasket;
     public SelectorUnityEventWrapper ThumbsUpEvent;
     public Transform PowerUpDockingStation;
+    public List<Transform> ShopItemPositions;
 
     private BasePowerUpBehavior _selectedPowerUp;
     private SettingSO settings;
@@ -74,6 +78,7 @@ public class StoreManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             PlaceStoreOnWall();
+            FindOpenSpace();
         }
     }
 
@@ -130,12 +135,25 @@ public class StoreManager : MonoBehaviour
         foreach (var item in ShopItems)
         {
             var powerup = Instantiate(item, ShopItemsParent);
-            powerup.transform.localEulerAngles = item.GetComponentInChildren<BasePowerUpBehavior>().StoreItemData.LocalEulerAngles;
             powerupInStock.Add(powerup);
         }
 
-        // Organize shop items in grid
-        GridPlacer.ArrangeInGrid(powerupInStock, ShopItemsParent.position, 0.4f);
+        // Organize shop items based on list of shop item transforms
+        for (int i = 0; i < ShopItems.Count; i++)
+        {
+            var powerup = powerupInStock[i];
+            powerup.transform.position = ShopItemPositions[i].position;
+
+            Transform rotationTransform = powerup.transform.FindChildRecursive("Rotation");
+            if (rotationTransform != null)
+            {
+                rotationTransform.localEulerAngles = powerup.GetComponentInChildren<BasePowerUpBehavior>().StoreItemData.LocalEulerAngles;
+            }
+            else
+            {
+                powerup.transform.localEulerAngles = powerup.GetComponentInChildren<BasePowerUpBehavior>().StoreItemData.LocalEulerAngles;
+            }
+        }
 
         UIManager.Instance.UpdateCashUI();
         StoreUI.SetActive(true);
@@ -149,6 +167,28 @@ public class StoreManager : MonoBehaviour
         IsStoreActive = false;
         StoreUI.SetActive(false);
         UIManager.Instance.FaceCamera(PowerUpDockingStation.gameObject, -0.3f);
+    }
+
+    public void TestLargestSurface()
+    {
+        MRUKRoom room = MRUK.Instance.GetCurrentRoom();
+        if (room != null)
+        {
+            var largestSurface = room.FindLargestSurface(MRUKAnchor.SceneLabels.FLOOR);
+            Gizmos.DrawCube(largestSurface.transform.position, largestSurface.transform.localScale);
+        }
+    }
+
+    public void FindOpenSpace()
+    {
+        MRUKRoom room = MRUK.Instance.GetCurrentRoom();
+        if (room != null)
+        {
+            room.GenerateRandomPositionOnSurface(MRUK.SurfaceType.FACING_UP | MRUK.SurfaceType.FACING_DOWN | MRUK.SurfaceType.VERTICAL, MinDistanceToEdges, LabelFilter.Included(MRUKAnchor.SceneLabels.FLOOR), out Vector3 position, out Vector3 normal);
+
+            StoreUI.transform.position = position;
+            StoreUI.transform.up = normal;
+        }
     }
 
     public void PlaceStoreOnWall()

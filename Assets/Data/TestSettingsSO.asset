@@ -17,39 +17,7 @@ MonoBehaviour:
   numberOfKills: 0
   skillScoreValue: 100
   Cash: 3700
-  flies:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  flies: []
   eyeSpiralSpeed: 220
   flyIntelLevels:
   - {fileID: 11400000, guid: 94c1c6d1603a36147af3eee62718f46c, type: 2}
@@ -59,7 +27,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 2cb2a157148019742a5339d058893360, type: 2}
   waveWaitTime: 9999
   waveIndex: 1
-  durationOfWave: 050000000a0000000a0000000a0000000a000000
+  durationOfWave: 0200000002000000020000000200000002000000
   fliesInWave: 140000001e0000001e0000002800000028000000
   tntFliesInWave: 0100000002000000030000000400000005000000
   LevelGoals: 0000000000000000000000000000000000000000

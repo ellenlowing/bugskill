@@ -43,10 +43,10 @@ public class StoreManager : MonoBehaviour
     public SelectorUnityEventWrapper ThumbsUpEvent;
     public Transform PowerUpDockingStation;
     public List<Transform> ShopItemPositions;
+    public Transform StorePositionFinder;
 
     private BasePowerUpBehavior _selectedPowerUp;
     private SettingSO settings;
-    private int _wallIndex = 0;
 
     private void OnEnable()
     {
@@ -75,10 +75,11 @@ public class StoreManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape) || OVRInput.GetDown(OVRInput.Button.PrimaryHandTrigger))
         {
-            PlaceStoreOnWall();
-            FindOpenSpace();
+            StorePositionFinder.GetComponent<FindLargestSpawnPositions>().StartSpawnCurrentRoom();
+            PlaceStore();
+            Debug.Log("Finding spawn position");
         }
     }
 
@@ -155,11 +156,30 @@ public class StoreManager : MonoBehaviour
             }
         }
 
+        // Use Store Position Finder to grab spawn location
+        PlaceStore();
+
         UIManager.Instance.UpdateCashUI();
         StoreUI.SetActive(true);
         IsStoreActive = true;
+    }
 
-        PlaceStoreOnWall();
+    public void PlaceStore()
+    {
+        if (StorePositionFinder.childCount > 0)
+        {
+            StoreUI.transform.position = StorePositionFinder.GetChild(StorePositionFinder.childCount - 1).position;
+            MRUKRoom room = MRUK.Instance.GetCurrentRoom();
+            if (room != null)
+            {
+                var floor = room.FloorAnchor;
+                StoreUI.transform.LookAt(floor.transform);
+            }
+        }
+        else
+        {
+            Debug.LogError("Store Position Finder has no children");
+        }
     }
 
     public void HideStore()
@@ -169,43 +189,43 @@ public class StoreManager : MonoBehaviour
         UIManager.Instance.FaceCamera(PowerUpDockingStation.gameObject, -0.3f);
     }
 
-    public void TestLargestSurface()
-    {
-        MRUKRoom room = MRUK.Instance.GetCurrentRoom();
-        if (room != null)
-        {
-            var largestSurface = room.FindLargestSurface(MRUKAnchor.SceneLabels.FLOOR);
-            Gizmos.DrawCube(largestSurface.transform.position, largestSurface.transform.localScale);
-        }
-    }
+    // public void TestLargestSurface()
+    // {
+    //     MRUKRoom room = MRUK.Instance.GetCurrentRoom();
+    //     if (room != null)
+    //     {
+    //         var largestSurface = room.FindLargestSurface(MRUKAnchor.SceneLabels.FLOOR);
+    //         Gizmos.DrawCube(largestSurface.transform.position, largestSurface.transform.localScale);
+    //     }
+    // }
 
-    public void FindOpenSpace()
-    {
-        MRUKRoom room = MRUK.Instance.GetCurrentRoom();
-        if (room != null)
-        {
-            room.GenerateRandomPositionOnSurface(MRUK.SurfaceType.FACING_UP | MRUK.SurfaceType.FACING_DOWN | MRUK.SurfaceType.VERTICAL, MinDistanceToEdges, LabelFilter.Included(MRUKAnchor.SceneLabels.FLOOR), out Vector3 position, out Vector3 normal);
+    // public void FindOpenSpace()
+    // {
+    //     MRUKRoom room = MRUK.Instance.GetCurrentRoom();
+    //     if (room != null)
+    //     {
+    //         room.GenerateRandomPositionOnSurface(MRUK.SurfaceType.FACING_UP | MRUK.SurfaceType.FACING_DOWN | MRUK.SurfaceType.VERTICAL, MinDistanceToEdges, LabelFilter.Included(MRUKAnchor.SceneLabels.FLOOR), out Vector3 position, out Vector3 normal);
 
-            StoreUI.transform.position = position;
-            StoreUI.transform.up = normal;
-        }
-    }
+    //         StoreUI.transform.position = position;
+    //         StoreUI.transform.up = normal;
+    //     }
+    // }
 
-    public void PlaceStoreOnWall()
-    {
-        MRUKRoom room = MRUK.Instance.GetCurrentRoom();
-        if (room != null)
-        {
-            var wall = room.WallAnchors[_wallIndex];
-            wall = room.GetKeyWall(out Vector2 wallScale);
-            var floor = room.FloorAnchor;
+    // public void PlaceStoreOnWall()
+    // {
+    //     MRUKRoom room = MRUK.Instance.GetCurrentRoom();
+    //     if (room != null)
+    //     {
+    //         var wall = room.WallAnchors[_wallIndex];
+    //         wall = room.GetKeyWall(out Vector2 wallScale);
+    //         var floor = room.FloorAnchor;
 
-            StoreUI.transform.position = new Vector3(wall.transform.position.x, floor.transform.position.y, wall.transform.position.z);
-            StoreUI.transform.forward = wall.transform.forward;
+    //         StoreUI.transform.position = new Vector3(wall.transform.position.x, floor.transform.position.y, wall.transform.position.z);
+    //         StoreUI.transform.forward = wall.transform.forward;
 
-            _wallIndex = (_wallIndex + 1) % room.WallAnchors.Count;
-        }
-    }
+    //         _wallIndex = (_wallIndex + 1) % room.WallAnchors.Count;
+    //     }
+    // }
 
     public void SetActivePowerUp(BasePowerUpBehavior powerUp)
     {
@@ -227,6 +247,7 @@ public class StoreManager : MonoBehaviour
         {
             CheckoutBasket();
         }
+        NextWave();
     }
 
     public void CheckoutBasket()

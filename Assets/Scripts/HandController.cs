@@ -41,7 +41,7 @@ public class HandController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.layer == LayerMask.NameToLayer(GameManager.Instance.LandingLayerName))
+        if (other.gameObject.layer == LayerMask.NameToLayer(GameManager.Instance.LandingLayerName) || other.gameObject.layer == LayerMask.NameToLayer(GameManager.Instance.FloorLayerName))
         {
             isTouchingLandingSurface = true;
 
@@ -73,7 +73,7 @@ public class HandController : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.layer == LayerMask.NameToLayer(GameManager.Instance.LandingLayerName))
+        if (other.gameObject.layer == LayerMask.NameToLayer(GameManager.Instance.LandingLayerName) || other.gameObject.layer == LayerMask.NameToLayer(GameManager.Instance.FloorLayerName))
         {
             isTouchingLandingSurface = false;
         }

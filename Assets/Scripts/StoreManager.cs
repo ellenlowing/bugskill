@@ -189,44 +189,6 @@ public class StoreManager : MonoBehaviour
         UIManager.Instance.FaceCamera(PowerUpDockingStation.gameObject, -0.3f);
     }
 
-    // public void TestLargestSurface()
-    // {
-    //     MRUKRoom room = MRUK.Instance.GetCurrentRoom();
-    //     if (room != null)
-    //     {
-    //         var largestSurface = room.FindLargestSurface(MRUKAnchor.SceneLabels.FLOOR);
-    //         Gizmos.DrawCube(largestSurface.transform.position, largestSurface.transform.localScale);
-    //     }
-    // }
-
-    // public void FindOpenSpace()
-    // {
-    //     MRUKRoom room = MRUK.Instance.GetCurrentRoom();
-    //     if (room != null)
-    //     {
-    //         room.GenerateRandomPositionOnSurface(MRUK.SurfaceType.FACING_UP | MRUK.SurfaceType.FACING_DOWN | MRUK.SurfaceType.VERTICAL, MinDistanceToEdges, LabelFilter.Included(MRUKAnchor.SceneLabels.FLOOR), out Vector3 position, out Vector3 normal);
-
-    //         StoreUI.transform.position = position;
-    //         StoreUI.transform.up = normal;
-    //     }
-    // }
-
-    // public void PlaceStoreOnWall()
-    // {
-    //     MRUKRoom room = MRUK.Instance.GetCurrentRoom();
-    //     if (room != null)
-    //     {
-    //         var wall = room.WallAnchors[_wallIndex];
-    //         wall = room.GetKeyWall(out Vector2 wallScale);
-    //         var floor = room.FloorAnchor;
-
-    //         StoreUI.transform.position = new Vector3(wall.transform.position.x, floor.transform.position.y, wall.transform.position.z);
-    //         StoreUI.transform.forward = wall.transform.forward;
-
-    //         _wallIndex = (_wallIndex + 1) % room.WallAnchors.Count;
-    //     }
-    // }
-
     public void SetActivePowerUp(BasePowerUpBehavior powerUp)
     {
         _selectedPowerUp = powerUp;
@@ -247,7 +209,7 @@ public class StoreManager : MonoBehaviour
         {
             CheckoutBasket();
         }
-        NextWave();
+        Invoke(nameof(NextWave), 1.5f);
     }
 
     public void CheckoutBasket()
@@ -270,7 +232,7 @@ public class StoreManager : MonoBehaviour
             Debug.Log("Checking out basket with enough cash");
             settings.Cash -= totalSum;
             UIManager.Instance.UpdateCashUI();
-            AddTextPopUp("Purchased!", ShoppingBasket.transform.position);
+            AddTextPopUp("Purchased " + ShoppingBasket.Items.Count + " items!", ShoppingBasket.transform.position);
 
             // Add to docking station
             int index = 0;

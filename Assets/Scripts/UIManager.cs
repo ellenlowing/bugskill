@@ -166,6 +166,7 @@ public class UIManager : MonoBehaviour
         if (!isGameStarted)
         {
             isGameStarted = true;
+            GameTitle.SetActive(false);
             Debug.Log("Start Button clicked");
             GameBegins.RaiseEvent();
         }

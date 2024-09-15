@@ -31,7 +31,7 @@ public class FingerGun : MonoBehaviour
         GunIdleEvent.WhenUnselected.AddListener(() => { _isIdle = false; });
         GunTriggerEvent.WhenSelected.AddListener(TurnOnFiring);
         GunTriggerEvent.WhenUnselected.AddListener(TurnOffFiring);
-        _crosshairRaycastLayerMaskInt = 1 << LayerMask.NameToLayer(GameManager.Instance.LandingLayerName);
+        _crosshairRaycastLayerMaskInt = (1 << LayerMask.NameToLayer(GameManager.Instance.LandingLayerName)) | (1 << LayerMask.NameToLayer(GameManager.Instance.FloorLayerName));
     }
 
     void Update()

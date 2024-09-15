@@ -28,7 +28,7 @@ public class EnvironmentSetup : MonoBehaviour
         }
     }
 
-    public void AssignLayerToLandingSurfaces()
+    public void AssignAnchorsToLayers()
     {
         MRUKRoom currentRoom = MRUK.Instance.GetCurrentRoom();
         if (currentRoom != null)
@@ -43,6 +43,14 @@ public class EnvironmentSetup : MonoBehaviour
                     foreach (Transform child in anchor.transform)
                     {
                         child.gameObject.layer = LayerMask.NameToLayer(GameManager.Instance.LandingLayerName);
+                    }
+                }
+                else if (anchor.Label == MRUKAnchor.SceneLabels.FLOOR)
+                {
+                    anchor.gameObject.layer = LayerMask.NameToLayer(GameManager.Instance.FloorLayerName);
+                    foreach (Transform child in anchor.transform)
+                    {
+                        child.gameObject.layer = LayerMask.NameToLayer(GameManager.Instance.FloorLayerName);
                     }
                 }
             }

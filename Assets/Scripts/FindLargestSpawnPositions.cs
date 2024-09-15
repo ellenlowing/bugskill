@@ -57,9 +57,6 @@ public class FindLargestSpawnPositions : MonoBehaviour
     [SerializeField, Tooltip("If enabled then the spawn position will be checked to make sure there is no overlap with physics colliders including themselves.")]
     public bool CheckOverlaps = true;
 
-    [SerializeField, Tooltip("Required free space for the object (Set negative to auto-detect using GetPrefabBounds)")]
-    public float OverrideBounds = -1; // default to auto-detect. This value represents the extents of the bounding box
-
     [FormerlySerializedAs("layerMask")]
     [SerializeField, Tooltip("Set the layer(s) for the physics bounding box checks, collisions will be avoided with these layers.")]
     public LayerMask LayerMask = -1;

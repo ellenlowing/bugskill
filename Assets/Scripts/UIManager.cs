@@ -151,7 +151,7 @@ public class UIManager : MonoBehaviour
     public void UpdateCashUI()
     {
         WalletText.text = settings.Cash.ToString();
-        ShopWalletText.text = settings.Cash.ToString();
+        ShopWalletText.text = "$" + settings.Cash.ToString();
     }
 
     public void UpdateLevel()

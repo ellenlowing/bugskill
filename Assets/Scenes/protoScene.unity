@@ -5452,6 +5452,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 3083672133260033673}
   - {fileID: 1242106535}
   m_Father: {fileID: 543450653337195984}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -5796,7 +5797,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1242106535
 Transform:
   m_ObjectHideFlags: 0
@@ -10982,7 +10983,6 @@ Transform:
   m_Children:
   - {fileID: 1650644957}
   - {fileID: 4027378222501493475}
-  - {fileID: 3083672133260033673}
   - {fileID: 4370255330677425813}
   - {fileID: 2103885902437015002}
   - {fileID: 4634140402974967365}
@@ -11259,6 +11259,7 @@ GameObject:
   - component: {fileID: 543450653337195984}
   - component: {fileID: 396587582}
   - component: {fileID: 919132149417660267}
+  - component: {fileID: 919132149417660268}
   m_Layer: 10
   m_Name: Shopping Basket
   m_TagString: Untagged
@@ -11283,12 +11284,33 @@ CapsuleCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Radius: 0.21
   m_Height: 0.55
   m_Direction: 1
   m_Center: {x: 0, y: 0.22, z: 0.00000008940697}
+--- !u!65 &919132149417660268
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 919132149417660266}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.21528533, y: 0.18095505, z: 0.52804387}
+  m_Center: {x: -0.012156025, y: 0.5360742, z: -0.4888758}
 --- !u!4 &929920209502078113
 Transform:
   m_ObjectHideFlags: 0
@@ -11538,7 +11560,7 @@ GameObject:
   - component: {fileID: 3172643933074928355}
   - component: {fileID: 7951986512206782074}
   m_Layer: 0
-  m_Name: box_l3_lp2
+  m_Name: box_l3_lp2 (shopping basket)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12523,12 +12545,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1418538309804919851}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.033583518, y: 0.70630884, z: 0.033583518, w: 0.70630884}
-  m_LocalPosition: {x: 0.00012162063, y: 0.025897121, z: -0.052183237}
-  m_LocalScale: {x: 0.96083933, y: 0.96083933, z: 0.96083933}
-  m_ConstrainProportionsScale: 0
+  m_LocalRotation: {x: -0, y: 0.9988715, z: 0.047494262, w: 0}
+  m_LocalPosition: {x: -0.011832297, y: 0.53997123, z: -0.49421617}
+  m_LocalScale: {x: 9.608397, y: 9.608394, z: 9.608397}
+  m_ConstrainProportionsScale: 1
   m_Children: []
-  m_Father: {fileID: 543450652473981799}
+  m_Father: {fileID: 1145309657}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &3097410420953345019
 Transform:

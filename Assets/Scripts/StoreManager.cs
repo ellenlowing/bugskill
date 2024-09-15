@@ -79,7 +79,6 @@ public class StoreManager : MonoBehaviour
         {
             StorePositionFinder.GetComponent<FindLargestSpawnPositions>().StartSpawnCurrentRoom();
             PlaceStore();
-            Debug.Log("Finding spawn position");
         }
     }
 
@@ -240,14 +239,12 @@ public class StoreManager : MonoBehaviour
             {
                 var powerUp = item.GetComponent<BasePowerUpBehavior>();
                 powerUp.IsSold = true;
-                powerUp.transform.SetParent(PowerUpDockingStation, true);
-                powerUp.transform.localPosition = new Vector3(index * 0.1f, 0, 0);
-                powerUp.transform.localEulerAngles = Vector3.zero;
+                powerUp.gameObject.transform.SetParent(PowerUpDockingStation, true);
+                powerUp.gameObject.transform.localPosition = new Vector3(index * 0.1f, 0, 0);
+                powerUp.gameObject.transform.localEulerAngles = Vector3.zero;
                 index++;
                 Debug.Log("Purchased " + powerUp.StoreItemData.Name);
             }
-
-            ShoppingBasket.Empty();
         }
     }
 

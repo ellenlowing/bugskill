@@ -34,7 +34,7 @@ public class FingerGunPowerUp : BasePowerUpBehavior
         {
             if (_activeHand != null)
             {
-                MoveToWrist(_activeHand);
+                // MoveToWrist(_activeHand);
             }
         }
     }

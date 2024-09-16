@@ -1503,87 +1503,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 187370169}
   m_CullTransparentMesh: 1
---- !u!1001 &190683427
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 732917544878997820, guid: 3c3e56f35930b43a6943720e083bf1ef, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 1.38
-      objectReference: {fileID: 0}
-    - target: {fileID: 732917544878997820, guid: 3c3e56f35930b43a6943720e083bf1ef, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 1.6270001
-      objectReference: {fileID: 0}
-    - target: {fileID: 732917544878997820, guid: 3c3e56f35930b43a6943720e083bf1ef, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 732917544878997820, guid: 3c3e56f35930b43a6943720e083bf1ef, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 732917544878997820, guid: 3c3e56f35930b43a6943720e083bf1ef, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 732917544878997820, guid: 3c3e56f35930b43a6943720e083bf1ef, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 732917544878997820, guid: 3c3e56f35930b43a6943720e083bf1ef, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 732917544878997820, guid: 3c3e56f35930b43a6943720e083bf1ef, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 732917544878997820, guid: 3c3e56f35930b43a6943720e083bf1ef, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 90
-      objectReference: {fileID: 0}
-    - target: {fileID: 732917544878997820, guid: 3c3e56f35930b43a6943720e083bf1ef, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1304291808404284544, guid: 3c3e56f35930b43a6943720e083bf1ef, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1304291808404284544, guid: 3c3e56f35930b43a6943720e083bf1ef, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5455849151864903232, guid: 3c3e56f35930b43a6943720e083bf1ef, type: 3}
-      propertyPath: m_Name
-      value: Temp Fingergun Object
-      objectReference: {fileID: 0}
-    - target: {fileID: 5455849151864903232, guid: 3c3e56f35930b43a6943720e083bf1ef, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 7424935487180953678, guid: 3c3e56f35930b43a6943720e083bf1ef, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 0}
-    - targetCorrespondingSourceObject: {fileID: 3664048536673726785, guid: 3c3e56f35930b43a6943720e083bf1ef, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 0}
-    - targetCorrespondingSourceObject: {fileID: 3148049234440163457, guid: 3c3e56f35930b43a6943720e083bf1ef, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 0}
-    - targetCorrespondingSourceObject: {fileID: 9036387306251702768, guid: 3c3e56f35930b43a6943720e083bf1ef, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 0}
-  m_SourcePrefab: {fileID: 100100000, guid: 3c3e56f35930b43a6943720e083bf1ef, type: 3}
 --- !u!1001 &202595825
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4323,7 +4242,7 @@ MonoBehaviour:
   settings: {fileID: 11400000, guid: 415f7b1141256224db7c3c8720566774, type: 2}
   TestMode: 1
   gameSettings: {fileID: 11400000, guid: 415f7b1141256224db7c3c8720566774, type: 2}
-  testSettings: {fileID: 11400000, guid: f17f1c6612d95425a8965738fd836c8a, type: 2}
+  testSettings: {fileID: 11400000, guid: b60da9f77ff96467e8d8e56b55ad389c, type: 2}
   LandingLayerName: Landing
   FloorLayerName: Floor
   FlyPrefab: {fileID: 708182128869486111, guid: 75d14416f534f4b11aec372b6307c3bb, type: 3}
@@ -16526,7 +16445,6 @@ SceneRoots:
   - {fileID: 3387161656658716191}
   - {fileID: 1816584844}
   - {fileID: 202595825}
-  - {fileID: 190683427}
   - {fileID: 2042147338}
   - {fileID: 364210369}
   - {fileID: 1371412118}

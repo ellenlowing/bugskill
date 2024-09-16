@@ -248,7 +248,6 @@ public class BasePowerUpBehavior : MonoBehaviour
 
     public virtual void OnGrabbableSelect(PointerEvent arg0)
     {
-        _isEquipped = true;
         HandRef handData = (HandRef)arg0.Data;
         Handedness handedness = handData.Handedness;
         if (handedness == Handedness.Right)
@@ -265,7 +264,7 @@ public class BasePowerUpBehavior : MonoBehaviour
 
         if (!StoreManager.Instance.IsStoreActive)
         {
-            // This originally remove the power-up item from the store, so it's no longer parented to the store, hence it won't disappear
+            _isEquipped = true;
             transform.parent = ActiveOVRHand.gameObject.transform;
         }
 

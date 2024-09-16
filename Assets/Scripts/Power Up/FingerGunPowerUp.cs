@@ -16,14 +16,6 @@ public class FingerGunPowerUp : BasePowerUpBehavior
         base.Start();
         LeftFingerGun = GameManager.Instance.LeftFingerGun;
         RightFingerGun = GameManager.Instance.RightFingerGun;
-        // if (LeftFingerGun != null)
-        // {
-        //     LeftFingerGun.GetComponent<FingerGun>().ActiveOVRHand = GameManager.Instance.LeftOVRHand;
-        // }
-        // if (RightFingerGun != null)
-        // {
-        //     RightFingerGun.GetComponent<FingerGun>().ActiveOVRHand = GameManager.Instance.RightOVRHand;
-        // }
     }
 
     new void Update()
@@ -34,7 +26,7 @@ public class FingerGunPowerUp : BasePowerUpBehavior
         {
             if (_activeHand != null)
             {
-                // MoveToWrist(_activeHand);
+                MoveToWrist(_activeHand);
             }
         }
     }
@@ -68,7 +60,7 @@ public class FingerGunPowerUp : BasePowerUpBehavior
         if (handPoseAvailable)
         {
             transform.position = pose.position;
-            transform.rotation = Quaternion.LookRotation(pose.right, pose.up);
+            transform.up = -pose.right;
         }
         else
         {

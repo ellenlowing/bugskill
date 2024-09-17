@@ -6,6 +6,7 @@ using Oculus.Interaction;
 using Oculus.Interaction.Input;
 using Oculus.Interaction.PoseDetection;
 using Meta.XR.MRUtilityKit;
+using UnityEngine.UIElements;
 
 public class StoreManager : MonoBehaviour
 {
@@ -77,8 +78,9 @@ public class StoreManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape) || OVRInput.GetDown(OVRInput.Button.PrimaryHandTrigger))
         {
-            StorePositionFinder.GetComponent<FindLargestSpawnPositions>().StartSpawnCurrentRoom();
-            PlaceStore();
+            CheckoutBasket();
+            // StorePositionFinder.GetComponent<FindLargestSpawnPositions>().StartSpawnCurrentRoom();
+            // PlaceStore();
         }
     }
 
@@ -139,20 +141,12 @@ public class StoreManager : MonoBehaviour
         }
 
         // Organize shop items based on list of shop item transforms
-        for (int i = 0; i < ShopItems.Count; i++)
+        for (int i = 0; i < powerupInStock.Count; i++)
         {
             var powerup = powerupInStock[i];
             powerup.transform.position = ShopItemPositions[i].position;
 
-            Transform rotationTransform = powerup.transform.FindChildRecursive("Rotation");
-            if (rotationTransform != null)
-            {
-                rotationTransform.localEulerAngles = powerup.GetComponentInChildren<BasePowerUpBehavior>().StoreItemData.LocalEulerAngles;
-            }
-            else
-            {
-                powerup.transform.localEulerAngles = powerup.GetComponentInChildren<BasePowerUpBehavior>().StoreItemData.LocalEulerAngles;
-            }
+            RotatePowerUpDisplay(powerup);
         }
 
         // Use Store Position Finder to grab spawn location
@@ -185,6 +179,8 @@ public class StoreManager : MonoBehaviour
     {
         IsStoreActive = false;
         StoreUI.SetActive(false);
+
+        // Place docking station
         UIManager.Instance.FaceCamera(PowerUpDockingStation.gameObject, -0.3f);
     }
 
@@ -240,11 +236,25 @@ public class StoreManager : MonoBehaviour
                 var powerUp = item.GetComponent<BasePowerUpBehavior>();
                 powerUp.IsSold = true;
                 powerUp.gameObject.transform.SetParent(PowerUpDockingStation, true);
-                powerUp.gameObject.transform.localPosition = new Vector3(index * 0.1f, 0, 0);
-                powerUp.gameObject.transform.localEulerAngles = Vector3.zero;
+                powerUp.gameObject.transform.localPosition = new Vector3(index * 0.3f, 0, 0);
+                RotatePowerUpDisplay(powerUp.gameObject);
+
                 index++;
                 Debug.Log("Purchased " + powerUp.StoreItemData.Name);
             }
+        }
+    }
+
+    private void RotatePowerUpDisplay(GameObject powerup)
+    {
+        Transform rotationTransform = powerup.transform.FindChildRecursive("Rotation");
+        if (rotationTransform != null)
+        {
+            rotationTransform.localEulerAngles = powerup.GetComponentInChildren<BasePowerUpBehavior>().StoreItemData.LocalEulerAngles;
+        }
+        else
+        {
+            powerup.transform.localEulerAngles = powerup.GetComponentInChildren<BasePowerUpBehavior>().StoreItemData.LocalEulerAngles;
         }
     }
 

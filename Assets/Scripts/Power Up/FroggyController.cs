@@ -91,30 +91,6 @@ public class FroggyController : BasePowerUpBehavior
 #endif
     }
 
-    public override void EnterIdleState()
-    {
-
-    }
-
-    public override void UpdateIdleState()
-    {
-
-    }
-
-    public override void EnterInactiveState()
-    {
-
-    }
-
-    public override void UpdateInactiveState()
-    {
-
-    }
-
-    public override void EnterActiveState()
-    {
-    }
-
     public override void UpdateActiveState()
     {
         base.UpdateActiveState();

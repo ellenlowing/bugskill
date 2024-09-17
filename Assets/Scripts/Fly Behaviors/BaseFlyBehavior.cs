@@ -252,7 +252,7 @@ public class BaseFlyBehavior : MonoBehaviour
         switch (CurrentState)
         {
             case FlyState.DYING:
-                if (other.gameObject.layer == LayerMask.NameToLayer(GameManager.Instance.FloorLayerName))
+                if (other.gameObject.layer == LayerMask.NameToLayer(GameManager.Instance.FloorLayerName) || other.gameObject.layer == LayerMask.NameToLayer(GameManager.Instance.LandingLayerName))
                 {
                     foreach (ContactPoint contact in other.contacts)
                     {

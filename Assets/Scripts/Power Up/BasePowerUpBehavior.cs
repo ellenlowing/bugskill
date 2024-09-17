@@ -24,6 +24,7 @@ public class BasePowerUpBehavior : MonoBehaviour
     public OVRHand ActiveOVRHand = null;
     public PowerUpState CurrentState;
     public PointableUnityEventWrapper PointableEventWrapper;
+    public ParticleSystem GlowEffect;
 
     [Header("Power Capacity Settings")]
     public float MaxPowerCapacity = 1;
@@ -62,6 +63,8 @@ public class BasePowerUpBehavior : MonoBehaviour
 
         LeftUIContainer.SetActive(false);
         RightUIContainer.SetActive(false);
+
+        GlowEffect.gameObject.SetActive(false);
     }
 
     public void Update()
@@ -115,7 +118,17 @@ public class BasePowerUpBehavior : MonoBehaviour
     }
 
     public virtual void EnterIdleState() { }
-    public virtual void UpdateIdleState() { }
+    public virtual void UpdateIdleState()
+    {
+        if (!GlowEffect.gameObject.activeInHierarchy && !StoreManager.Instance.IsStoreActive)
+        {
+            GlowEffect.gameObject.SetActive(true);
+            GlowEffect.Stop();
+            GlowEffect.Play();
+            Debug.Log(gameObject.name + ": Glow effect started");
+
+        }
+    }
     public virtual void EnterInactiveState() { }
     public virtual void UpdateInactiveState() { }
     public virtual void EnterActiveState() { }
@@ -266,6 +279,7 @@ public class BasePowerUpBehavior : MonoBehaviour
         {
             _isEquipped = true;
             transform.parent = ActiveOVRHand.gameObject.transform;
+            GlowEffect.gameObject.SetActive(false);
         }
 
         EnterState(PowerUpState.ACTIVE);

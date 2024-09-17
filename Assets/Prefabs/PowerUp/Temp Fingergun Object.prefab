@@ -1857,7 +1857,11 @@ MonoBehaviour:
   PowerCapacity: 1
   UsePowerRate: 0.05
   DissolveDuration: 1
-  DissolvePairs: []
+  DissolvePairs:
+  - MeshRenderer: {fileID: 3916335227334637623}
+    Material: {fileID: 2100000, guid: 4d62001ce644546a6aa80fecc83fa342, type: 2}
+  - MeshRenderer: {fileID: 3434928503118004744}
+    Material: {fileID: 2100000, guid: e0140b1c92f834f1aab661878f6c4bde, type: 2}
   PowerCapacitySlider: {fileID: 6831641606652230339}
   IsSold: 0
   StoreItemData: {fileID: 11400000, guid: 2aae9817cc65c408db520b172858e577, type: 2}
@@ -1865,6 +1869,10 @@ MonoBehaviour:
   RightUIContainer: {fileID: 6015928469267008986}
   LeftFingerGun: {fileID: 0}
   RightFingerGun: {fileID: 0}
+  StatusIndicator: {fileID: 8158008584100659356}
+  FingerGunActiveColor: {r: 0.76862746, g: 1, b: 0, a: 1}
+  FingerGunIdleColor: {r: 1, g: 1, b: 0.92156863, a: 1}
+  FingerGunFiringColor: {r: 1, g: 0.78039217, b: 0, a: 1}
 --- !u!1 &6015928469267008986
 GameObject:
   m_ObjectHideFlags: 0

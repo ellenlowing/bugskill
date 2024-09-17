@@ -16,6 +16,8 @@ public class FingerGun : MonoBehaviour
     public float FiringRate = 0.5f;
     public Transform FirePoint;
     public OVRHand ActiveOVRHand;
+    public GameObject StatusIndicator;
+    public Transform WristTransform;
 
     private bool _isIdle = false;
     private bool _isFiring = false;
@@ -27,8 +29,8 @@ public class FingerGun : MonoBehaviour
 
     void Start()
     {
-        GunIdleEvent.WhenSelected.AddListener(() => { _isIdle = true; });
-        GunIdleEvent.WhenUnselected.AddListener(() => { _isIdle = false; });
+        GunIdleEvent.WhenSelected.AddListener(OnGunActive);
+        GunIdleEvent.WhenUnselected.AddListener(OnGunIdle);
         GunTriggerEvent.WhenSelected.AddListener(TurnOnFiring);
         GunTriggerEvent.WhenUnselected.AddListener(TurnOffFiring);
         _crosshairRaycastLayerMaskInt = (1 << LayerMask.NameToLayer(GameManager.Instance.LandingLayerName)) | (1 << LayerMask.NameToLayer(GameManager.Instance.FloorLayerName));
@@ -80,15 +82,29 @@ public class FingerGun : MonoBehaviour
         }
     }
 
+    void OnGunActive()
+    {
+        _isIdle = true;
+        StatusIndicator.GetComponent<MeshRenderer>().material.color = _corePowerUpBehavior.FingerGunActiveColor;
+    }
+
+    void OnGunIdle()
+    {
+        _isIdle = false;
+        StatusIndicator.GetComponent<MeshRenderer>().material.color = _corePowerUpBehavior.FingerGunIdleColor;
+    }
+
     void TurnOnFiring()
     {
         _isFiring = true;
+        StatusIndicator.GetComponent<MeshRenderer>().material.color = _corePowerUpBehavior.FingerGunFiringColor;
     }
 
     void TurnOffFiring()
     {
         _isFiring = false;
         _lastFiringTime = 0f;
+        StatusIndicator.GetComponent<MeshRenderer>().material.color = _corePowerUpBehavior.FingerGunActiveColor;
     }
 
     public void FireBullet()

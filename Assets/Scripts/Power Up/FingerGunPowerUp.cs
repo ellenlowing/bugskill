@@ -9,6 +9,12 @@ public class FingerGunPowerUp : BasePowerUpBehavior
     [HideInInspector] public GameObject LeftFingerGun;
     [HideInInspector] public GameObject RightFingerGun;
 
+    [Header("Status")]
+    public GameObject StatusIndicator;
+    public Color FingerGunActiveColor;
+    public Color FingerGunIdleColor;
+    public Color FingerGunFiringColor;
+
     private Hand _activeHand;
 
     new void Start()
@@ -43,12 +49,14 @@ public class FingerGunPowerUp : BasePowerUpBehavior
         {
             RightFingerGun.SetActive(true);
             LeftFingerGun.SetActive(false);
+            RightFingerGun.GetComponent<FingerGun>().StatusIndicator = StatusIndicator;
             _activeHand = GameManager.Instance.RightHand;
         }
         else
         {
             LeftFingerGun.SetActive(true);
             RightFingerGun.SetActive(false);
+            LeftFingerGun.GetComponent<FingerGun>().StatusIndicator = StatusIndicator;
             _activeHand = GameManager.Instance.LeftHand;
         }
 
@@ -60,7 +68,7 @@ public class FingerGunPowerUp : BasePowerUpBehavior
         if (handPoseAvailable)
         {
             transform.position = pose.position;
-            transform.up = -pose.right;
+            transform.rotation = Quaternion.LookRotation(pose.forward, -pose.right);
         }
         else
         {

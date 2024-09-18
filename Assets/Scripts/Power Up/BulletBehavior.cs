@@ -21,5 +21,9 @@ public class BulletBehavior : MonoBehaviour
         {
             Destroy(other.gameObject);
         }
+        else if (other.gameObject.tag == "TNT")
+        {
+            GameManager.Instance.TriggerTNT(other.transform.position, other.gameObject);
+        }
     }
 }

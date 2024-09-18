@@ -290,9 +290,9 @@ public class BasePowerUpBehavior : MonoBehaviour
         if (StoreManager.Instance.IsStoreActive)
         {
             ActiveOVRHand = null;
-            EnterState(PowerUpState.IDLE);
         }
 
+        EnterState(PowerUpState.IDLE);
         LeftUIContainer.SetActive(false);
         RightUIContainer.SetActive(false);
     }

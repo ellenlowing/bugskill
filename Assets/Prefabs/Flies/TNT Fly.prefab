@@ -178,6 +178,7 @@ MonoBehaviour:
   RestDuration: 0
   TakeoffChance: 0
   LandingSurface: 16383
+  IsSlowed: 0
   normalEyeMesh:
   - {fileID: 8161488179538572312}
   - {fileID: 8161353380878517188}
@@ -210,7 +211,7 @@ Rigidbody:
   m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 3
 --- !u!136 &9178032825499093740
 CapsuleCollider:
   m_ObjectHideFlags: 0

@@ -10,15 +10,21 @@ public class SprayParticle : MonoBehaviour
     {
         if (other.TryGetComponent<BaseFlyBehavior>(out BaseFlyBehavior fly))
         {
-            if (!fly.IsSlowed)
+            if (other.tag == "Fly")
             {
-                fly.SlowDown();
+                if (!fly.IsSlowed)
+                {
+                    fly.SlowDown();
+                }
+                else
+                {
+                    fly.EnterState(BaseFlyBehavior.FlyState.DYING);
+                }
             }
-            else
+            else if (other.tag == "TNT")
             {
-                fly.EnterState(BaseFlyBehavior.FlyState.DYING);
+                GameManager.Instance.TriggerTNT(other.transform.position, other.gameObject);
             }
-
-        };
+        }
     }
 }

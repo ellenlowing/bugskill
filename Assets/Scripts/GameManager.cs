@@ -208,6 +208,7 @@ public partial class GameManager : MonoBehaviour
     {
         StartNextWaveEvent.OnEventRaised += StartNextWave;
         GameBegins.OnEventRaised += StartGameLoop;
+        GameEnds.OnEventRaised += DissolveAllPowerUps;
     }
 
     public void StartNextWave()
@@ -333,6 +334,16 @@ public partial class GameManager : MonoBehaviour
             var wall = room.GetKeyWall(out Vector2 wallScale);
             HourGlass.transform.position = wall.transform.position - new Vector3(0, wallScale.y / 2, 0);
             HourGlass.transform.forward = -wall.transform.forward;
+        }
+    }
+
+    public void DissolveAllPowerUps()
+    {
+        Debug.Log("StoreManager: Dissolving all powerups");
+        var powerUps = FindObjectsOfType<BasePowerUpBehavior>();
+        foreach (var powerUp in powerUps)
+        {
+            powerUp.Dissolve();
         }
     }
 

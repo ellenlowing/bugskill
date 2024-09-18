@@ -76,9 +76,10 @@ public class StoreManager : MonoBehaviour
 
     private void Update()
     {
-        // if (Input.GetKeyDown(KeyCode.Escape) || OVRInput.GetDown(OVRInput.Button.PrimaryHandTrigger))
-        // {
-        // }
+        if (Input.GetKeyDown(KeyCode.Escape) || OVRInput.GetDown(OVRInput.Button.PrimaryHandTrigger))
+        {
+            CheckoutBasket();
+        }
     }
 
     private void Purchase()
@@ -115,12 +116,9 @@ public class StoreManager : MonoBehaviour
     public void ShowStore()
     {
         Debug.Log("Showing store");
+
         // Dissolve all powerups
-        var powerUps = FindObjectsOfType<BasePowerUpBehavior>();
-        foreach (var powerUp in powerUps)
-        {
-            powerUp.Dissolve();
-        }
+        GameManager.Instance.DissolveAllPowerUps();
 
         // Hide Docking Station
         PowerUpDockingStation.gameObject.SetActive(false);

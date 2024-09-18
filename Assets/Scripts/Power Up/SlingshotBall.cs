@@ -214,6 +214,10 @@ public class SlingshotBall : MonoBehaviour
                 UIManager.Instance.IncrementKill(transform.position, (int)SCOREFACTOR.SLINGSHOT);
                 Destroy(other.gameObject);
             }
+            else if (other.gameObject.tag == "TNT")
+            {
+                GameManager.Instance.TriggerTNT(other.transform.position, other.gameObject);
+            }
 
             RaycastVisualizer.HideProjectile();
 

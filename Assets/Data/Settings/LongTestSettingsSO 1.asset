@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   score: 25
   scoreMulFactor: 1
-  numberOfKills: 0
+  totalKills: 0
+  localKills: 0
   skillScoreValue: 100
   Cash: 3700
   flies: []
@@ -27,7 +28,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 2cb2a157148019742a5339d058893360, type: 2}
   waveWaitTime: 9999
   waveIndex: 0
-  durationOfWave: 02000000140000001e0000001e00000014000000
+  durationOfWave: 020000001e0000001e0000001e0000001e000000
   fliesInWave: 140000001e0000001e0000002800000028000000
   tntFliesInWave: 0100000002000000030000000400000005000000
   LevelGoals: 0000000000000000000000000000000000000000

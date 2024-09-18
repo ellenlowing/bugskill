@@ -2395,7 +2395,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3613868102660323786, guid: c2e00db6d2dfa42ac8d821db8d493a44, type: 3}
       propertyPath: <SceneLoadedEvent>k__BackingField.m_PersistentCalls.m_Calls.Array.size
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 3613868102660323786, guid: c2e00db6d2dfa42ac8d821db8d493a44, type: 3}
       propertyPath: <RoomCreatedEvent>k__BackingField.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
@@ -4479,6 +4479,7 @@ GameObject:
   - component: {fileID: 730595228}
   - component: {fileID: 730595229}
   - component: {fileID: 730595230}
+  - component: {fileID: 730595231}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -4532,7 +4533,7 @@ MonoBehaviour:
   HourGlass: {fileID: 1072865635}
   LevelPanel: {fileID: 7114770129407655930}
   settings: {fileID: 11400000, guid: 415f7b1141256224db7c3c8720566774, type: 2}
-  TestMode: 0
+  TestMode: 1
   gameSettings: {fileID: 11400000, guid: 415f7b1141256224db7c3c8720566774, type: 2}
   testSettings: {fileID: 11400000, guid: b60da9f77ff96467e8d8e56b55ad389c, type: 2}
   LandingLayerName: Landing
@@ -4605,6 +4606,46 @@ MonoBehaviour:
   BossFightEvent: {fileID: 11400000, guid: f4a202747a2db56458f5fccf51298240, type: 2}
   StartNextWaveEvent: {fileID: 11400000, guid: 16826ff85b57ded42a9461c318dd55c3, type: 2}
   ScoreUIUpdateEvent: {fileID: 11400000, guid: 483d9bbf59d0e684fa36d25290bb15c8, type: 2}
+--- !u!114 &730595231
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 730595226}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5cdc4b1b89c7c14e907ce0bab27b683, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsStoreActive: 0
+  MinDistanceToEdges: 1.5
+  StoreUI: {fileID: 2375270128856768485}
+  PopupTextObj: {fileID: 6082352034369301065, guid: 7f31f79308105443f8b0a1f4cb6bdfdc, type: 3}
+  GlobalName: {fileID: 519488274}
+  GlobalDescription: {fileID: 646988969265161865}
+  GlobalCashAmount: {fileID: 1293099588}
+  ShopItemDataUI: {fileID: 2028997170}
+  PurchaseBtnUI: {fileID: 9094096361958416363}
+  PurchaseBtn: {fileID: 6045326905814598286}
+  NextWaveBtn: {fileID: 933218964715691231}
+  StartNextWaveEvent: {fileID: 11400000, guid: 16826ff85b57ded42a9461c318dd55c3, type: 2}
+  ShopItems:
+  - {fileID: 3358396685065003162, guid: 5b709086755b74cd7856211270f75868, type: 3}
+  - {fileID: 124363068891232957, guid: 3ca39db74fe6b40daa34b2cd4edc4d57, type: 3}
+  - {fileID: 5455849151864903232, guid: 3c3e56f35930b43a6943720e083bf1ef, type: 3}
+  - {fileID: 2991904239131300368, guid: cf9b54e7873904dabbe3b87d6f87696e, type: 3}
+  ShopItemsParent: {fileID: 1414895417}
+  ShopMaster: {fileID: 997094406}
+  ShoppingBasket: {fileID: 396587582}
+  ThumbsUpEvent: {fileID: 82103667}
+  PowerUpDockingStation: {fileID: 324472332}
+  ShopItemPositions:
+  - {fileID: 2086158869}
+  - {fileID: 149993698}
+  - {fileID: 1243422799}
+  - {fileID: 111128113}
+  StorePositionFinder: {fileID: 107476052}
 --- !u!4 &733257559 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3960878488141208171, guid: 329126b98671a491db2c668a6273e3e4, type: 3}
@@ -13680,7 +13721,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3269330350203666269}
-  - component: {fileID: 3269330350203666270}
   m_Layer: 10
   m_Name: Store
   m_TagString: Untagged
@@ -14221,46 +14261,6 @@ Transform:
   - {fileID: 1920814779}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
---- !u!114 &3269330350203666270
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2375270128856768485}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5cdc4b1b89c7c14e907ce0bab27b683, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  IsStoreActive: 0
-  MinDistanceToEdges: 1.5
-  StoreUI: {fileID: 2375270128856768485}
-  PopupTextObj: {fileID: 6082352034369301065, guid: 7f31f79308105443f8b0a1f4cb6bdfdc, type: 3}
-  GlobalName: {fileID: 519488274}
-  GlobalDescription: {fileID: 646988969265161865}
-  GlobalCashAmount: {fileID: 1293099588}
-  ShopItemDataUI: {fileID: 2028997170}
-  PurchaseBtnUI: {fileID: 9094096361958416363}
-  PurchaseBtn: {fileID: 6045326905814598286}
-  NextWaveBtn: {fileID: 933218964715691231}
-  StartNextWaveEvent: {fileID: 11400000, guid: 16826ff85b57ded42a9461c318dd55c3, type: 2}
-  ShopItems:
-  - {fileID: 3358396685065003162, guid: 5b709086755b74cd7856211270f75868, type: 3}
-  - {fileID: 124363068891232957, guid: 3ca39db74fe6b40daa34b2cd4edc4d57, type: 3}
-  - {fileID: 5455849151864903232, guid: 3c3e56f35930b43a6943720e083bf1ef, type: 3}
-  - {fileID: 2991904239131300368, guid: cf9b54e7873904dabbe3b87d6f87696e, type: 3}
-  ShopItemsParent: {fileID: 1414895417}
-  ShopMaster: {fileID: 997094406}
-  ShoppingBasket: {fileID: 396587582}
-  ThumbsUpEvent: {fileID: 82103667}
-  PowerUpDockingStation: {fileID: 324472332}
-  ShopItemPositions:
-  - {fileID: 2086158869}
-  - {fileID: 149993698}
-  - {fileID: 1243422799}
-  - {fileID: 111128113}
-  StorePositionFinder: {fileID: 107476052}
 --- !u!1 &3301448209002459968
 GameObject:
   m_ObjectHideFlags: 0

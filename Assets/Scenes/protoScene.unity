@@ -587,7 +587,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 2038
   SurfaceClearanceDistance: 1
-  MaximumSpawnRadius: 1.5
+  MaximumSpawnRadius: 1.2
   MinimumSpawnRadius: 0.1
   HideMarker: 1
 --- !u!1 &111128112
@@ -4532,7 +4532,7 @@ MonoBehaviour:
   HourGlass: {fileID: 1072865635}
   LevelPanel: {fileID: 7114770129407655930}
   settings: {fileID: 11400000, guid: 415f7b1141256224db7c3c8720566774, type: 2}
-  TestMode: 1
+  TestMode: 0
   gameSettings: {fileID: 11400000, guid: 415f7b1141256224db7c3c8720566774, type: 2}
   testSettings: {fileID: 11400000, guid: b60da9f77ff96467e8d8e56b55ad389c, type: 2}
   LandingLayerName: Landing

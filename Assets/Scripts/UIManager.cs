@@ -102,7 +102,7 @@ public class UIManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.UpArrow))
+        if (Input.GetKeyDown(KeyCode.UpArrow) || OVRInput.GetDown(OVRInput.Button.PrimaryHandTrigger))
         {
             FaceCamera(GameStartUI);
         }
@@ -128,11 +128,11 @@ public class UIManager : MonoBehaviour
     {
     }
 
-    public void FailedPanel(bool state, int kills, int currentIndex)
+    public void FailedPanel(bool state)
     {
         // show failure panel
         FailurePanel.SetActive(state);
-        FailText.text = "you killed " + settings.numberOfKills + " flies and made " + settings.Cash + " dollars...";
+        FailText.text = "you killed " + settings.totalKills + " flies and made " + settings.Cash + " dollars...";
         FaceCamera(FailurePanel);
     }
 
@@ -159,7 +159,7 @@ public class UIManager : MonoBehaviour
 
     public void UpdateCashUI()
     {
-        WalletText.text = settings.Cash.ToString();
+        WalletText.text = settings.localKills.ToString(); // TODO Update later
         ShopWalletText.text = "$" + settings.Cash.ToString();
     }
 
@@ -217,7 +217,7 @@ public class UIManager : MonoBehaviour
 
     public void IncrementKill(Vector3 pos, int amount)
     {
-        settings.numberOfKills += 1;
+        settings.localKills += 1;
         settings.Cash += amount;
         ScoreUIUpdateEvent.RaiseEvent(amount, pos);
     }

@@ -81,7 +81,6 @@ public partial class GameManager : MonoBehaviour
     public GameObject RightFingerGun;
 
     private int LocalKills = 0;
-    private int LocalCash = 0;
     private bool doneOnce = false;
 
     void Awake()
@@ -105,7 +104,8 @@ public partial class GameManager : MonoBehaviour
         }
 
         settings.waveIndex = 0;
-        settings.numberOfKills = 0;
+        settings.totalKills = 0;
+        settings.localKills = 0;
         if (!TestMode) settings.Cash = 0;
         settings.flies = new List<GameObject>();
     }
@@ -179,9 +179,6 @@ public partial class GameManager : MonoBehaviour
         settings.flies.Clear();
         settings.flies = new List<GameObject>();
 
-        LocalKills = settings.numberOfKills - LocalKills;
-        LocalCash = settings.Cash - LocalCash;
-
         for (int i = BloodSplatContainer.childCount - 1; i >= 0; i--)
         {
             Destroy(BloodSplatContainer.GetChild(i).gameObject);
@@ -223,13 +220,15 @@ public partial class GameManager : MonoBehaviour
 
     private void CheckGoal(int waveI)
     {
-        Debug.Log("CHECK: " + settings.Cash + " " + settings.LevelGoals[waveI] + " " + waveI);
-        if (!(settings.Cash >= settings.LevelGoals[waveI]))
+        bool goalReached = settings.localKills >= settings.LevelGoals[waveI];
+        Debug.Log(goalReached + " for wave index " + waveI + ", Local Kills: " + settings.localKills + " Goal: " + settings.LevelGoals[waveI]);
+        settings.totalKills += settings.localKills;
+        settings.localKills = 0;
+
+        if (!goalReached)
         {
-            UIManager.Instance.FailedPanel(true, LocalCash, settings.waveIndex);
-            settings.waveIndex = 0;
+            UIManager.Instance.FailedPanel(true);
             GameEnds.RaiseEvent();
-            Debug.Log("Game ends!");
         }
         else
         {
@@ -249,9 +248,10 @@ public partial class GameManager : MonoBehaviour
 
         InitializeRound();
         settings.waveIndex = 0;
-        settings.numberOfKills = 0;
+        settings.totalKills = 0;
+        settings.localKills = 0;
         settings.Cash = 0;
-        UIManager.Instance.FailedPanel(false, 0, 0);
+        UIManager.Instance.FailedPanel(false);
         UIManager.Instance.UpdateLevel();
         UIManager.Instance.UpdateCashUI();
         // StoreManager.Instance.HideAllPowerUps();

@@ -76,12 +76,9 @@ public class StoreManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape) || OVRInput.GetDown(OVRInput.Button.PrimaryHandTrigger))
-        {
-            CheckoutBasket();
-            // StorePositionFinder.GetComponent<FindLargestSpawnPositions>().StartSpawnCurrentRoom();
-            // PlaceStore();
-        }
+        // if (Input.GetKeyDown(KeyCode.Escape) || OVRInput.GetDown(OVRInput.Button.PrimaryHandTrigger))
+        // {
+        // }
     }
 
     private void Purchase()

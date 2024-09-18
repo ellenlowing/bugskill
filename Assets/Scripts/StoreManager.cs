@@ -125,6 +125,9 @@ public class StoreManager : MonoBehaviour
             powerUp.Dissolve();
         }
 
+        // Hide Docking Station
+        PowerUpDockingStation.gameObject.SetActive(false);
+
         // Empty shop displays and shopping basket
         ShoppingBasket.Empty();
         for (int i = 0; i < ShopItemsParent.childCount; i++)
@@ -181,7 +184,8 @@ public class StoreManager : MonoBehaviour
         StoreUI.SetActive(false);
 
         // Place docking station
-        UIManager.Instance.FaceCamera(PowerUpDockingStation.gameObject, -0.3f);
+        UIManager.Instance.FaceCamera(PowerUpDockingStation.gameObject, -0.3f, 0.3f);
+        PowerUpDockingStation.gameObject.SetActive(true);
     }
 
     public void SetActivePowerUp(BasePowerUpBehavior powerUp)

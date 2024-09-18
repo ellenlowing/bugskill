@@ -7,6 +7,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.UI;
+using Meta.XR.MRUtilityKit;
 
 public class UIManager : MonoBehaviour
 {
@@ -99,6 +100,14 @@ public class UIManager : MonoBehaviour
         Invoke(nameof(UpdateStarterMenu), 1.5f);
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.UpArrow))
+        {
+            FaceCamera(GameStartUI);
+        }
+    }
+
     private void UpdateStarterMenu()
     {
         FaceCamera(GameStartUI, -0.15f);
@@ -183,8 +192,24 @@ public class UIManager : MonoBehaviour
         if (obj != null)
         {
             float distance = distanceFromCamera == -1f ? settings.distanceFromCamera : distanceFromCamera;
-            obj.transform.position = Camera.main.transform.position + Camera.main.transform.forward * distance;
-            obj.transform.position = new Vector3(obj.transform.position.x, Camera.main.transform.position.y + yOffset, obj.transform.position.z);
+
+            Vector3 pos = Camera.main.transform.position + Camera.main.transform.forward * distance;
+            pos = new Vector3(pos.x, Camera.main.transform.position.y + yOffset, pos.z);
+
+            MRUKRoom room = MRUK.Instance.GetCurrentRoom();
+            if (room != null)
+            {
+                while ((!room.IsPositionInRoom(pos, true) || room.IsPositionInSceneVolume(pos, true, 0)) && distance > 0)
+                {
+                    distance -= 0.1f;
+                    pos = Camera.main.transform.position + Camera.main.transform.forward * distance;
+                    pos = new Vector3(pos.x, Camera.main.transform.position.y + yOffset, pos.z);
+
+                    Debug.Log("Not in room by distance: " + distance);
+                }
+            }
+
+            obj.transform.position = pos;
             obj.transform.forward = Camera.main.transform.forward;
             obj.transform.eulerAngles = new Vector3(0, obj.transform.eulerAngles.y, obj.transform.eulerAngles.z);
         }

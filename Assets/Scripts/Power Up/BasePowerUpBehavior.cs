@@ -25,6 +25,7 @@ public class BasePowerUpBehavior : MonoBehaviour
     public PowerUpState CurrentState;
     public PointableUnityEventWrapper PointableEventWrapper;
     public ParticleSystem GlowEffect;
+    public bool AnchoredToHandPose = true;
 
     [Header("Power Capacity Settings")]
     public float MaxPowerCapacity = 1;
@@ -55,8 +56,8 @@ public class BasePowerUpBehavior : MonoBehaviour
         {
             PointableEventWrapper.WhenHover.AddListener(OnHover);
             PointableEventWrapper.WhenUnhover.AddListener(OnUnhover);
-            PointableEventWrapper.WhenSelect.AddListener(OnSelect);
-            PointableEventWrapper.WhenUnselect.AddListener(OnUnselect);
+            // PointableEventWrapper.WhenSelect.AddListener(OnSelect);
+            // PointableEventWrapper.WhenUnselect.AddListener(OnUnselect);
             PointableEventWrapper.WhenSelect.AddListener(OnGrabbableSelect);
             PointableEventWrapper.WhenUnselect.AddListener(OnGrabbableUnselect);
         }
@@ -125,7 +126,6 @@ public class BasePowerUpBehavior : MonoBehaviour
             GlowEffect.gameObject.SetActive(true);
             GlowEffect.Stop();
             GlowEffect.Play();
-            Debug.Log(gameObject.name + ": Glow effect started");
 
         }
     }
@@ -278,9 +278,15 @@ public class BasePowerUpBehavior : MonoBehaviour
         if (!StoreManager.Instance.IsStoreActive)
         {
             _isEquipped = true;
-            transform.parent = ActiveOVRHand.gameObject.transform;
             GlowEffect.gameObject.SetActive(false);
+
+            if (AnchoredToHandPose)
+            {
+                transform.parent = ActiveOVRHand.gameObject.transform;
+            }
         }
+
+        Debug.Log(gameObject.name + ": grabbable selected");
 
         EnterState(PowerUpState.ACTIVE);
     }
@@ -290,9 +296,9 @@ public class BasePowerUpBehavior : MonoBehaviour
         if (StoreManager.Instance.IsStoreActive)
         {
             ActiveOVRHand = null;
+            EnterState(PowerUpState.IDLE);
         }
 
-        EnterState(PowerUpState.IDLE);
         LeftUIContainer.SetActive(false);
         RightUIContainer.SetActive(false);
     }

@@ -15,7 +15,6 @@ public class BulletBehavior : MonoBehaviour
 
     void OnCollisionEnter(Collision other)
     {
-        Debug.Log(other.gameObject.name);
         Destroy(gameObject);
         if (other.gameObject.tag == "Fly")
         {

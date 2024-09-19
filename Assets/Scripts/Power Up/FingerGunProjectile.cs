@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MoveProjectile : MonoBehaviour
+public class FingerGunProjectile : MonoBehaviour
 {
     public float speed;
     public GameObject hitPrefab;
@@ -27,6 +27,10 @@ public class MoveProjectile : MonoBehaviour
         {
             UIManager.Instance.IncrementKill(transform.position, (int)SCOREFACTOR.FINGERGUN);
             Destroy(other.gameObject);
+        }
+        else if (other.gameObject.tag == "TNT")
+        {
+            GameManager.Instance.TriggerTNT(other.transform.position, other.gameObject);
         }
 
         if (hitPrefab != null)

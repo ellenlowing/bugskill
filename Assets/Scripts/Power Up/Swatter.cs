@@ -83,15 +83,6 @@ public class Swatter : BasePowerUpBehavior
     // Change and play particle and sound effects 
     private void ToggleEffects(bool active, AudioClip clip)
     {
-        // if (clip != null)
-        // {
-        //     Debug.Log($"ToggleEffects({active}, {clip.name})");
-        // }
-        // else
-        // {
-        //     Debug.Log($"ToggleEffects({active}");
-        // }
-
         if (active)
         {
             electricityEffectInstance =

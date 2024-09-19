@@ -6754,6 +6754,7 @@ MonoBehaviour:
   CurrentState: 0
   PointableEventWrapper: {fileID: 1939761346952342314}
   GlowEffect: {fileID: 6520390326275719780}
+  AnchoredToHandPose: 0
   MaxPowerCapacity: 1
   PowerCapacity: 1
   UsePowerRate: 0.05

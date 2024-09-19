@@ -49,6 +49,8 @@ public class FingerGunPowerUp : BasePowerUpBehavior
         {
             RightFingerGun.SetActive(true);
             LeftFingerGun.SetActive(false);
+            RightFingerGun.GetComponent<FingerGun>().Crosshair.SetActive(true);
+            LeftFingerGun.GetComponent<FingerGun>().Crosshair.SetActive(false);
             RightFingerGun.GetComponent<FingerGun>().StatusIndicator = StatusIndicator;
             _activeHand = GameManager.Instance.RightHand;
         }
@@ -56,9 +58,13 @@ public class FingerGunPowerUp : BasePowerUpBehavior
         {
             LeftFingerGun.SetActive(true);
             RightFingerGun.SetActive(false);
+            LeftFingerGun.GetComponent<FingerGun>().Crosshair.SetActive(true);
+            RightFingerGun.GetComponent<FingerGun>().Crosshair.SetActive(false);
             LeftFingerGun.GetComponent<FingerGun>().StatusIndicator = StatusIndicator;
             _activeHand = GameManager.Instance.LeftHand;
         }
+
+        // TODO check why Base power up behavior's ongrabbale select is not called?
 
     }
 

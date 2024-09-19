@@ -76,10 +76,10 @@ public class FingerGunPowerUp : BasePowerUpBehavior
             transform.position = pose.position;
             transform.rotation = Quaternion.LookRotation(pose.forward, -pose.right);
         }
-        else
-        {
-            Debug.Log("Hand pose not available");
-        }
+        // else
+        // {
+        //     Debug.Log("Hand pose not available");
+        // }
     }
 
     public override void Dissolve()

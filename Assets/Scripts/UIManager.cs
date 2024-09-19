@@ -29,6 +29,7 @@ public class UIManager : MonoBehaviour
     [Header("Buttons")]
     [Space(20)]
     [SerializeField] private InteractableUnityEventWrapper GameStartButton;
+    [SerializeField] private InteractableUnityEventWrapper HowToPlayButton;
     [SerializeField] private InteractableUnityEventWrapper GameExitButton;
 
     [Header("Events")]
@@ -95,25 +96,16 @@ public class UIManager : MonoBehaviour
         StartNextWaveEvent.OnEventRaised += UpdateLevel;
 
         GameStartButton.WhenSelect.AddListener(StartGameLoopTrigger);
+        HowToPlayButton.WhenSelect.AddListener(ShowHowToPlayScreen);
         GameExitButton.WhenSelect.AddListener(QuitGame);
 
-        Invoke(nameof(UpdateStarterMenu), 1.5f);
+        Invoke(nameof(ShowGameStartScreen), 1.5f);
     }
 
-    private void Update()
+    private void ShowGameStartScreen()
     {
-        if (Input.GetKeyDown(KeyCode.UpArrow) || OVRInput.GetDown(OVRInput.Button.PrimaryHandTrigger))
-        {
-            FaceCamera(GameStartUI);
-        }
-    }
-
-    private void UpdateStarterMenu()
-    {
-        FaceCamera(GameStartUI, -0.15f);
-        GameStartUI.transform.forward = -Camera.main.transform.forward;
-
-        FaceCamera(GameTitle, 0.5f);
+        // FaceCamera(obj: GameStartUI, yOffset: -0.15f, flipForwardVector: true);
+        FaceCamera(obj: GameTitle, yOffset: 0.5f);
     }
 
     private void QuitGame()
@@ -124,8 +116,9 @@ public class UIManager : MonoBehaviour
         Application.Quit();
     }
 
-    private void OnDisable()
+    public void ShowHowToPlayScreen()
     {
+
     }
 
     public void FailedPanel(bool state)
@@ -150,7 +143,6 @@ public class UIManager : MonoBehaviour
         tempText.text = cashAmount.ToString();
         tempObj = Instantiate(UIScoreObj, position, Quaternion.identity);
         UpdateCashUI();
-        // FaceCamera(tempObj);
         tempObj.transform.forward = Camera.main.transform.forward;
         tempObj.transform.eulerAngles = new Vector3(0, tempObj.transform.eulerAngles.y, tempObj.transform.eulerAngles.z);
 
@@ -187,7 +179,7 @@ public class UIManager : MonoBehaviour
         isGameStarted = false;
     }
 
-    public void FaceCamera(GameObject obj, float yOffset = 0f, float distanceFromCamera = -1f)
+    public void FaceCamera(GameObject obj, float yOffset = 0f, float distanceFromCamera = -1f, bool flipForwardVector = false)
     {
         if (obj != null)
         {
@@ -210,7 +202,14 @@ public class UIManager : MonoBehaviour
             }
 
             obj.transform.position = pos;
-            obj.transform.forward = Camera.main.transform.forward;
+            if (flipForwardVector)
+            {
+                obj.transform.forward = -Camera.main.transform.forward;
+            }
+            else
+            {
+                obj.transform.forward = Camera.main.transform.forward;
+            }
             obj.transform.eulerAngles = new Vector3(0, obj.transform.eulerAngles.y, obj.transform.eulerAngles.z);
         }
     }

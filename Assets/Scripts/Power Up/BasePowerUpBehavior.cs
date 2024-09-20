@@ -4,6 +4,7 @@ using Oculus.Interaction;
 using Oculus.Interaction.Input;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class BasePowerUpBehavior : MonoBehaviour
 {
@@ -43,6 +44,10 @@ public class BasePowerUpBehavior : MonoBehaviour
     public StoreItemSO StoreItemData;
     public GameObject LeftUIContainer;
     public GameObject RightUIContainer;
+    public TextMeshPro LeftPriceTagText;
+    public TextMeshPro RightPriceTagText;
+    public TextMeshPro DisplayPriceTagText;
+    public GameObject DisplayPriceTag;
 
     protected bool _isEquipped = false;
 
@@ -56,8 +61,6 @@ public class BasePowerUpBehavior : MonoBehaviour
         {
             PointableEventWrapper.WhenHover.AddListener(OnHover);
             PointableEventWrapper.WhenUnhover.AddListener(OnUnhover);
-            // PointableEventWrapper.WhenSelect.AddListener(OnSelect);
-            // PointableEventWrapper.WhenUnselect.AddListener(OnUnselect);
             PointableEventWrapper.WhenSelect.AddListener(OnGrabbableSelect);
             PointableEventWrapper.WhenUnselect.AddListener(OnGrabbableUnselect);
         }
@@ -66,6 +69,10 @@ public class BasePowerUpBehavior : MonoBehaviour
         RightUIContainer.SetActive(false);
 
         GlowEffect.gameObject.SetActive(false);
+
+        LeftPriceTagText.text = StoreItemData.Price.ToString();
+        RightPriceTagText.text = StoreItemData.Price.ToString();
+        DisplayPriceTagText.text = StoreItemData.Price.ToString();
     }
 
     public void Update()
@@ -126,7 +133,6 @@ public class BasePowerUpBehavior : MonoBehaviour
             GlowEffect.gameObject.SetActive(true);
             GlowEffect.Stop();
             GlowEffect.Play();
-
         }
     }
     public virtual void EnterInactiveState() { }
@@ -272,6 +278,7 @@ public class BasePowerUpBehavior : MonoBehaviour
             ActiveOVRHand = GameManager.Instance.LeftOVRHand;
         }
 
+        DisplayPriceTag.SetActive(false);
         LeftUIContainer.SetActive(handedness == Handedness.Left && StoreManager.Instance.IsStoreActive);
         RightUIContainer.SetActive(handedness == Handedness.Right && StoreManager.Instance.IsStoreActive);
 
@@ -286,8 +293,6 @@ public class BasePowerUpBehavior : MonoBehaviour
             }
         }
 
-        Debug.Log(gameObject.name + ": grabbable selected");
-
         EnterState(PowerUpState.ACTIVE);
     }
 
@@ -299,6 +304,7 @@ public class BasePowerUpBehavior : MonoBehaviour
             EnterState(PowerUpState.IDLE);
         }
 
+        DisplayPriceTag.SetActive(true);
         LeftUIContainer.SetActive(false);
         RightUIContainer.SetActive(false);
     }

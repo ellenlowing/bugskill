@@ -80,7 +80,6 @@ public partial class GameManager : MonoBehaviour
     public GameObject LeftFingerGun;
     public GameObject RightFingerGun;
 
-    private int LocalKills = 0;
     private bool doneOnce = false;
 
     void Awake()
@@ -126,6 +125,10 @@ public partial class GameManager : MonoBehaviour
 
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.UpArrow) || OVRInput.GetDown(OVRInput.Button.PrimaryHandTrigger))
+        {
+            UIManager.Instance.FaceCamera(debugObject);
+        }
     }
 
     void InitializeRound()

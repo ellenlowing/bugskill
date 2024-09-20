@@ -17,6 +17,7 @@ public class UIManager : MonoBehaviour
     [Space(20)]
     [SerializeField] private GameObject GameStartUI;
     [SerializeField] private GameObject GameTitle;
+    [SerializeField] public GameObject HowToPlayUI;
     [SerializeField] private GameObject UIScoreObj;
     [SerializeField] private GameObject FailurePanel;
     [SerializeField] private TextMeshProUGUI FailText;
@@ -88,6 +89,7 @@ public class UIManager : MonoBehaviour
         IsNotNull();
 
         settings = GameManager.Instance.settings;
+        HowToPlayUI.SetActive(false);
 
         // subscribe to all events
         GameEnds.OnEventRaised += EndGame;
@@ -105,7 +107,13 @@ public class UIManager : MonoBehaviour
     private void ShowGameStartScreen()
     {
         // FaceCamera(obj: GameStartUI, yOffset: -0.15f, flipForwardVector: true);
-        FaceCamera(obj: GameTitle, yOffset: 0.5f);
+        FaceCamera(obj: GameTitle, yOffset: 0.4f);
+    }
+
+    public void ShowHowToPlayScreen()
+    {
+        FaceCamera(obj: HowToPlayUI, distanceFromCamera: 0f);
+        GameTitle.SetActive(false);
     }
 
     private void QuitGame()
@@ -116,14 +124,8 @@ public class UIManager : MonoBehaviour
         Application.Quit();
     }
 
-    public void ShowHowToPlayScreen()
-    {
-
-    }
-
     public void FailedPanel(bool state)
     {
-        // show failure panel
         FailurePanel.SetActive(state);
         FailText.text = "you killed " + settings.totalKills + " flies and made " + settings.Cash + " dollars...";
         FaceCamera(FailurePanel);
@@ -167,6 +169,7 @@ public class UIManager : MonoBehaviour
         if (!isGameStarted)
         {
             isGameStarted = true;
+            HowToPlayUI.SetActive(false);
             GameTitle.SetActive(false);
             Debug.Log("Start Button clicked");
             GameBegins.RaiseEvent();
@@ -211,6 +214,8 @@ public class UIManager : MonoBehaviour
                 obj.transform.forward = Camera.main.transform.forward;
             }
             obj.transform.eulerAngles = new Vector3(0, obj.transform.eulerAngles.y, obj.transform.eulerAngles.z);
+
+            obj.SetActive(true);
         }
     }
 

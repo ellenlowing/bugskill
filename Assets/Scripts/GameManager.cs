@@ -24,6 +24,7 @@ public partial class GameManager : MonoBehaviour
     public Animator animator;
     public GameObject HourGlass;
     public GameObject LevelPanel;
+    public TutorialVideoPlayer TutorialVideoPlayer;
 
     [Header("Game Settings")]
     public SettingSO settings;

@@ -114,6 +114,13 @@ public class UIManager : MonoBehaviour
     {
         FaceCamera(obj: HowToPlayUI, distanceFromCamera: 0f);
         GameTitle.SetActive(false);
+        GameManager.Instance.TutorialVideoPlayer.PlayVideos();
+    }
+
+    public void HideHowToPlayScreen()
+    {
+        HowToPlayUI.SetActive(false);
+        GameManager.Instance.TutorialVideoPlayer.StopVideos();
     }
 
     private void QuitGame()
@@ -169,7 +176,7 @@ public class UIManager : MonoBehaviour
         if (!isGameStarted)
         {
             isGameStarted = true;
-            HowToPlayUI.SetActive(false);
+            HideHowToPlayScreen();
             GameTitle.SetActive(false);
             Debug.Log("Start Button clicked");
             GameBegins.RaiseEvent();

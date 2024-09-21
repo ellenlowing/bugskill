@@ -1801,7 +1801,7 @@ VideoPlayer:
   m_DataSource: 0
   m_TimeUpdateMode: 2
   m_PlaybackSpeed: 1
-  m_AudioOutputMode: 2
+  m_AudioOutputMode: 0
   m_TargetAudioSources:
   - {fileID: 0}
   m_DirectAudioVolumes:
@@ -2341,6 +2341,7 @@ GameObject:
   - component: {fileID: 281204938}
   - component: {fileID: 281204940}
   - component: {fileID: 281204939}
+  - component: {fileID: 281204941}
   m_Layer: 10
   m_Name: Dialog
   m_TagString: Untagged
@@ -2406,6 +2407,25 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 281204937}
   m_CullTransparentMesh: 1
+--- !u!114 &281204941
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 281204937}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b49915d6d0cec4ebbaea41c66951f723, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DialogList:
+  - Place the items in the glowing basket. When you're ready to check out, just look
+    at me and give a double thumbs up!
+  - Feel free to experiment with the power-up at your leisure. Take your time and
+    see how it suits you!
+  DialogText: {fileID: 1503197484}
+  DialogDuration: 8
 --- !u!1 &324472331
 GameObject:
   m_ObjectHideFlags: 0
@@ -4257,6 +4277,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 569008982}
+  - component: {fileID: 569008983}
   m_Layer: 0
   m_Name: Tutorial Video Players
   m_TagString: Untagged
@@ -4281,6 +4302,21 @@ Transform:
   - {fileID: 671724162}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &569008983
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 569008981}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 032c2aff5fcb64264bc00298939f7309, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  VideoPlayers:
+  - {fileID: 220389808}
+  - {fileID: 671724163}
 --- !u!114 &579984321 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5587229404333368252, guid: 07189f4709b1d4c34b859fa0b2060293, type: 3}
@@ -4545,14 +4581,14 @@ VideoPlayer:
   m_DataSource: 0
   m_TimeUpdateMode: 2
   m_PlaybackSpeed: 1
-  m_AudioOutputMode: 2
+  m_AudioOutputMode: 0
   m_TargetAudioSources:
   - {fileID: 0}
   m_DirectAudioVolumes:
   - 1
   m_Url: 
-  m_EnabledAudioTracks: 01
-  m_DirectAudioMutes: 01
+  m_EnabledAudioTracks: 00
+  m_DirectAudioMutes: 00
   m_ControlledAudioTrackCount: 1
   m_PlayOnAwake: 1
   m_SkipOnDrop: 1
@@ -5122,6 +5158,7 @@ MonoBehaviour:
   animator: {fileID: 738638577}
   HourGlass: {fileID: 1072865635}
   LevelPanel: {fileID: 7114770129407655930}
+  TutorialVideoPlayer: {fileID: 569008983}
   settings: {fileID: 11400000, guid: 415f7b1141256224db7c3c8720566774, type: 2}
   TestMode: 1
   gameSettings: {fileID: 11400000, guid: 415f7b1141256224db7c3c8720566774, type: 2}
@@ -8288,7 +8325,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1503197482}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -0.1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -8296,7 +8333,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: -0, y: -0.8}
   m_SizeDelta: {x: 200, y: 54.2}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1503197484
@@ -8319,8 +8356,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "The power-ups you purchase will automatically spawn in the next round.
-    Once you grab it, it\u2019ll be equipped and anchored to your hand."
+  m_text: Place the items in the glowing basket. When you're ready to check out,
+    just look at me and give a double thumbs up!
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: bff506696e6154002b49a1e0514f26bb, type: 2}
   m_sharedMaterial: {fileID: -110046429731387104, guid: bff506696e6154002b49a1e0514f26bb, type: 2}
@@ -8347,8 +8384,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 7.15
-  m_fontSizeBase: 8
+  m_fontSize: 7.25
+  m_fontSizeBase: 6
   m_fontWeight: 400
   m_enableAutoSizing: 1
   m_fontSizeMin: 2
@@ -8383,7 +8420,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 38.80322, y: -2.9818306, z: 38.753147, w: 11.839558}
+  m_margin: {x: 42.175415, y: -0.73013306, z: 41.37575, w: 17.08107}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -11069,7 +11106,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 3269330350203666269}
+    m_TransformParent: {fileID: 543450652473981799}
     m_Modifications:
     - target: {fileID: 1481440290192140, guid: 7ffd6822b816c9b428b2295eb5d7fa00, type: 3}
       propertyPath: m_Name
@@ -11077,43 +11114,43 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4927059292654576, guid: 7ffd6822b816c9b428b2295eb5d7fa00, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.10999997
+      value: 0.010999998
       objectReference: {fileID: 0}
     - target: {fileID: 4927059292654576, guid: 7ffd6822b816c9b428b2295eb5d7fa00, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.11000001
+      value: 0.011000001
       objectReference: {fileID: 0}
     - target: {fileID: 4927059292654576, guid: 7ffd6822b816c9b428b2295eb5d7fa00, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.28000006
+      value: 0.028000003
       objectReference: {fileID: 0}
     - target: {fileID: 4927059292654576, guid: 7ffd6822b816c9b428b2295eb5d7fa00, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.4840002
+      value: -0.0002999947
       objectReference: {fileID: 0}
     - target: {fileID: 4927059292654576, guid: 7ffd6822b816c9b428b2295eb5d7fa00, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.522
+      value: 0.023100002
       objectReference: {fileID: 0}
     - target: {fileID: 4927059292654576, guid: 7ffd6822b816c9b428b2295eb5d7fa00, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.246
+      value: -0.05210003
       objectReference: {fileID: 0}
     - target: {fileID: 4927059292654576, guid: 7ffd6822b816c9b428b2295eb5d7fa00, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0
+      value: -0.036021154
       objectReference: {fileID: 0}
     - target: {fileID: 4927059292654576, guid: 7ffd6822b816c9b428b2295eb5d7fa00, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: -0.70618874
       objectReference: {fileID: 0}
     - target: {fileID: 4927059292654576, guid: 7ffd6822b816c9b428b2295eb5d7fa00, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.050941605
+      value: -0.036021154
       objectReference: {fileID: 0}
     - target: {fileID: 4927059292654576, guid: 7ffd6822b816c9b428b2295eb5d7fa00, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.9987017
+      value: 0.70618874
       objectReference: {fileID: 0}
     - target: {fileID: 4927059292654576, guid: 7ffd6822b816c9b428b2295eb5d7fa00, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -14015,6 +14052,7 @@ Transform:
   - {fileID: 7552401189048733425}
   - {fileID: 772966297864197111}
   - {fileID: 543450651852869589}
+  - {fileID: 1920814779}
   m_Father: {fileID: 3269330350203666269}
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!4 &543450653337195984
@@ -18817,7 +18855,6 @@ Transform:
   - {fileID: 6639556372214571800}
   - {fileID: 1414895417}
   - {fileID: 82103666}
-  - {fileID: 1920814779}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!222 &3286326201055500260

@@ -1,8 +1,0 @@
-Model Information:
-* title:	Frog Head
-* source:	https://sketchfab.com/3d-models/frog-head-2eb7ba0fc5284a3b8aa30f7ede107c6a
-* author:	Tigerar1 (https://sketchfab.com/allanromanreyes)
-
-Model License:
-* license type:	SKETCHFAB Standard (https://sketchfab.com/licenses)
-* requirements:	Under basic restrictions, use worldwide, on all types of media, commercially or not, and in all types of derivative works

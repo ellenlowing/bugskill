@@ -22,7 +22,7 @@ public partial class GameManager : MonoBehaviour
 
     [Header("Scene Objects")]
     public Animator animator;
-    public GameObject HourGlass;
+    public GameObject GameUIGroup;
     public GameObject LevelPanel;
     public TutorialVideoPlayer TutorialVideoPlayer;
 
@@ -114,7 +114,7 @@ public partial class GameManager : MonoBehaviour
     {
         GameRestartEvent.WhenSelect.AddListener(RestartGameLoop);
 
-        HourGlass.SetActive(false);
+        GameUIGroup.SetActive(false);
         LevelPanel.SetActive(false);
 
 #if UNITY_EDITOR
@@ -167,7 +167,7 @@ public partial class GameManager : MonoBehaviour
             }
         }
 
-        HourGlass.SetActive(true);
+        GameUIGroup.SetActive(true);
         LevelPanel.SetActive(true);
         animator.speed = settings.divFactor / settings.durationOfWave[settings.waveIndex];
 
@@ -188,7 +188,7 @@ public partial class GameManager : MonoBehaviour
             Destroy(BloodSplatContainer.GetChild(i).gameObject);
         }
 
-        HourGlass.SetActive(false);
+        GameUIGroup.SetActive(false);
         LevelPanel.SetActive(false);
         CheckGoal(settings.waveIndex);
 
@@ -304,8 +304,9 @@ public partial class GameManager : MonoBehaviour
         }
     }
 
-    public void PlaceHourglass()
+    public void PlaceGameUIGroup()
     {
+        Debug.Log("starting to place gameUIgroup");
         MRUKRoom room = MRUK.Instance.GetCurrentRoom();
         foreach (var anchor in room.Anchors)
         {
@@ -314,9 +315,10 @@ public partial class GameManager : MonoBehaviour
             {
                 if (!doneOnce)
                 {
-                    HourGlass.transform.position = anchor.transform.position;
-                    HourGlass.transform.forward = -anchor.transform.right;
+                    GameUIGroup.transform.position = anchor.transform.position;
                     doneOnce = true;
+                    Debug.Log("Place on table");
+                    break;
                 }
             }
             else
@@ -325,9 +327,11 @@ public partial class GameManager : MonoBehaviour
                 {
                     if (!doneOnce)
                     {
-                        HourGlass.transform.position = anchor.transform.position;
-                        HourGlass.transform.forward = anchor.transform.up;
+                        GameUIGroup.transform.position = anchor.transform.position;
+                        GameUIGroup.transform.forward = anchor.transform.up;
                         doneOnce = true;
+                        Debug.Log("Place on floor");
+                        break;
                     }
                 }
             }
@@ -336,9 +340,13 @@ public partial class GameManager : MonoBehaviour
         if (!doneOnce)
         {
             var wall = room.GetKeyWall(out Vector2 wallScale);
-            HourGlass.transform.position = wall.transform.position - new Vector3(0, wallScale.y / 2, 0);
-            HourGlass.transform.forward = -wall.transform.forward;
+            GameUIGroup.transform.position = wall.transform.position - new Vector3(0, wallScale.y / 2, 0);
+            GameUIGroup.transform.forward = -wall.transform.forward;
+            Debug.Log("Place on key wall");
         }
+
+        GameUIGroup.transform.LookAt(room.FloorAnchor.transform);
+        GameUIGroup.transform.eulerAngles = new Vector3(0, GameUIGroup.transform.eulerAngles.y, 0);
     }
 
     public void DissolveAllPowerUps()

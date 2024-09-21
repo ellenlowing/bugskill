@@ -7,6 +7,19 @@ public class TutorialVideoPlayer : MonoBehaviour
 {
     public List<VideoPlayer> VideoPlayers;
 
+    void Start()
+    {
+        foreach (var videoPlayer in VideoPlayers)
+        {
+            videoPlayer.Prepare();
+            videoPlayer.prepareCompleted += source =>
+            {
+                Debug.Log("Video prepared " + source.name);
+                source.Play();
+            };
+        }
+    }
+
     public void PlayVideos()
     {
         foreach (var videoPlayer in VideoPlayers)

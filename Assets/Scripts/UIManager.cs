@@ -114,13 +114,13 @@ public class UIManager : MonoBehaviour
     {
         FaceCamera(obj: HowToPlayUI, distanceFromCamera: 0f);
         GameTitle.SetActive(false);
-        GameManager.Instance.TutorialVideoPlayer.PlayVideos();
+        // GameManager.Instance.TutorialVideoPlayer.PlayVideos();
     }
 
     public void HideHowToPlayScreen()
     {
         HowToPlayUI.SetActive(false);
-        GameManager.Instance.TutorialVideoPlayer.StopVideos();
+        // GameManager.Instance.TutorialVideoPlayer.StopVideos();
     }
 
     private void QuitGame()

@@ -27,6 +27,13 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI LevelGoalText;
     [SerializeField] private TextMeshProUGUI LevelNumberText;
 
+    [Header("Flask")]
+    [Space(20)]
+    public Renderer FlaskRenderer;
+    public ParticleSystem FlaskParticles;
+    public float FlaskFillSpeed = 1f;
+    private Coroutine FlaskFillCoroutine;
+
     [Header("Buttons")]
     [Space(20)]
     [SerializeField] private InteractableUnityEventWrapper GameStartButton;
@@ -104,6 +111,15 @@ public class UIManager : MonoBehaviour
         Invoke(nameof(ShowGameStartScreen), 1.5f);
     }
 
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            IncrementKill(Vector3.zero, 1);
+            Debug.Log("Debug: add kill");
+        }
+    }
+
     private void ShowGameStartScreen()
     {
         // FaceCamera(obj: GameStartUI, yOffset: -0.15f, flipForwardVector: true);
@@ -169,6 +185,7 @@ public class UIManager : MonoBehaviour
         int level = settings.waveIndex + 1;
         LevelNumberText.text = level.ToString();
         LevelGoalText.text = settings.LevelGoals[settings.waveIndex].ToString();
+        FlaskRenderer.sharedMaterial.SetFloat("_Fill", 0);
     }
 
     public void StartGameLoopTrigger()
@@ -231,5 +248,27 @@ public class UIManager : MonoBehaviour
         settings.localKills += 1;
         settings.Cash += amount;
         ScoreUIUpdateEvent.RaiseEvent(amount, pos);
+
+        if (FlaskFillCoroutine != null)
+        {
+            StopCoroutine(FlaskFillCoroutine);
+            FlaskFillCoroutine = null;
+        }
+        FlaskFillCoroutine = StartCoroutine(AnimateFlaskLiquidLevel());
+        FlaskParticles.Stop();
+        FlaskParticles.Play();
+    }
+
+    IEnumerator AnimateFlaskLiquidLevel()
+    {
+        float fill = FlaskRenderer.sharedMaterial.GetFloat("_Fill");
+        float targetFill = (float)settings.localKills / (float)settings.LevelGoals[settings.waveIndex];
+        float t = 0;
+        while (t < 1)
+        {
+            t += Time.deltaTime * FlaskFillSpeed;
+            FlaskRenderer.sharedMaterial.SetFloat("_Fill", Mathf.Lerp(fill, targetFill, t));
+            yield return null;
+        }
     }
 }

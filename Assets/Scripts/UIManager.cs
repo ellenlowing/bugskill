@@ -33,6 +33,9 @@ public class UIManager : MonoBehaviour
     public ParticleSystem FlaskParticles;
     public float FlaskFillSpeed = 1f;
     private Coroutine FlaskFillCoroutine;
+    public TextMeshProUGUI NumKillsLeftText;
+    public GameObject KillsLeftGroup;
+    public GameObject LevelClearedGroup;
 
     [Header("Buttons")]
     [Space(20)]
@@ -186,6 +189,9 @@ public class UIManager : MonoBehaviour
         LevelNumberText.text = level.ToString();
         LevelGoalText.text = settings.LevelGoals[settings.waveIndex].ToString();
         FlaskRenderer.sharedMaterial.SetFloat("_Fill", 0);
+        NumKillsLeftText.text = settings.LevelGoals[settings.waveIndex].ToString();
+        KillsLeftGroup.SetActive(true);
+        LevelClearedGroup.SetActive(false);
     }
 
     public void StartGameLoopTrigger()
@@ -249,12 +255,24 @@ public class UIManager : MonoBehaviour
         settings.Cash += amount;
         ScoreUIUpdateEvent.RaiseEvent(amount, pos);
 
-        if (FlaskFillCoroutine != null)
+        if (settings.localKills <= settings.LevelGoals[settings.waveIndex])
         {
-            StopCoroutine(FlaskFillCoroutine);
-            FlaskFillCoroutine = null;
+            NumKillsLeftText.text = (settings.LevelGoals[settings.waveIndex] - settings.localKills).ToString();
+
+            if (FlaskFillCoroutine != null)
+            {
+                StopCoroutine(FlaskFillCoroutine);
+                FlaskFillCoroutine = null;
+            }
+            FlaskFillCoroutine = StartCoroutine(AnimateFlaskLiquidLevel());
         }
-        FlaskFillCoroutine = StartCoroutine(AnimateFlaskLiquidLevel());
+
+        if (KillsLeftGroup.activeInHierarchy && settings.localKills >= settings.LevelGoals[settings.waveIndex])
+        {
+            KillsLeftGroup.SetActive(false);
+            LevelClearedGroup.SetActive(true);
+        }
+
         FlaskParticles.Stop();
         FlaskParticles.Play();
     }

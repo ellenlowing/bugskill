@@ -34,8 +34,12 @@ public class UIManager : MonoBehaviour
     public float FlaskFillSpeed = 1f;
     private Coroutine FlaskFillCoroutine;
     public TextMeshProUGUI NumKillsLeftText;
+    public Material FlaskPopUpMaterial;
+    public Color GoalClearedColor;
+    public Color GoalNotClearedColor;
     public GameObject KillsLeftGroup;
     public GameObject LevelClearedGroup;
+    public ParticleSystem GoalClearedParticles;
 
     [Header("Buttons")]
     [Space(20)]
@@ -192,6 +196,8 @@ public class UIManager : MonoBehaviour
         NumKillsLeftText.text = settings.LevelGoals[settings.waveIndex].ToString();
         KillsLeftGroup.SetActive(true);
         LevelClearedGroup.SetActive(false);
+        GoalClearedParticles.Stop();
+        FlaskPopUpMaterial.color = GoalNotClearedColor;
     }
 
     public void StartGameLoopTrigger()
@@ -269,8 +275,10 @@ public class UIManager : MonoBehaviour
 
         if (KillsLeftGroup.activeInHierarchy && settings.localKills >= settings.LevelGoals[settings.waveIndex])
         {
+            FlaskPopUpMaterial.color = GoalClearedColor;
             KillsLeftGroup.SetActive(false);
             LevelClearedGroup.SetActive(true);
+            GoalClearedParticles.Play();
         }
 
         FlaskParticles.Stop();

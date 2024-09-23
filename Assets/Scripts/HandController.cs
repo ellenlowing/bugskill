@@ -53,10 +53,10 @@ public class HandController : MonoBehaviour
             StartCoroutine(CheckFlyHit());
 
             // Start game loop when player claps hands in tutorial
-            if (UIManager.Instance.HowToPlayUI.activeSelf)
-            {
-                UIManager.Instance.StartGameLoopTrigger();
-            }
+            // if (UIManager.Instance.HowToPlayUI.activeSelf)
+            // {
+            //     UIManager.Instance.StartGameLoopTrigger();
+            // }
         }
         else if (other.gameObject.tag == "Fly")
         {

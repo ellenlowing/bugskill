@@ -192,7 +192,7 @@ public class UIManager : MonoBehaviour
         int level = settings.waveIndex + 1;
         LevelNumberText.text = level.ToString();
         LevelGoalText.text = settings.LevelGoals[settings.waveIndex].ToString();
-        FlaskRenderer.sharedMaterial.SetFloat("_Fill", 0);
+        // FlaskRenderer.sharedMaterial.SetFloat("_Fill", 0);
         NumKillsLeftText.text = settings.LevelGoals[settings.waveIndex].ToString();
         KillsLeftGroup.SetActive(true);
         LevelClearedGroup.SetActive(false);

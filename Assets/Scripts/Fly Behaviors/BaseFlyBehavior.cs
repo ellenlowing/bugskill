@@ -30,6 +30,7 @@ public class BaseFlyBehavior : MonoBehaviour
     public float TakeoffChance;
     public MRUKAnchor.SceneLabels LandingSurface;
     public bool IsSlowed;
+    public bool IsKilled;
     [SerializeField] private List<MeshRenderer> normalEyeMesh;
     [SerializeField] private List<MeshRenderer> circularEyeMesh;
 

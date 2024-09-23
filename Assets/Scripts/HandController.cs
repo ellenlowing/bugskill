@@ -96,9 +96,10 @@ public class HandController : MonoBehaviour
 
     IEnumerator CheckFlyHit()
     {
-        if (!isTouchingFly && touchedFlyTransform != null)
+        if (!isTouchingFly && touchedFlyTransform != null && !touchedFlyTransform.GetComponent<BaseFlyBehavior>().IsKilled)
         {
             isTouchingFly = true;
+            touchedFlyTransform.GetComponent<BaseFlyBehavior>().IsKilled = true;
 
             if (isTouchingLandingSurface || isTouchingOtherHand)
             {

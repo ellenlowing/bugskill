@@ -156,9 +156,12 @@ public class UIManager : MonoBehaviour
 
     public void FailedPanel(bool state)
     {
+        if (state)
+        {
+            FailText.text = "you killed " + settings.totalKills + " flies and made " + settings.Cash + " dollars...";
+            FaceCamera(FailurePanel);
+        }
         FailurePanel.SetActive(state);
-        FailText.text = "you killed " + settings.totalKills + " flies and made " + settings.Cash + " dollars...";
-        FaceCamera(FailurePanel);
     }
 
     public void DestroyPanel(GameObject obj, float waitTime)

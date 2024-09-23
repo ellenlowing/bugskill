@@ -116,6 +116,7 @@ public partial class GameManager : MonoBehaviour
 
         GameUIGroup.SetActive(false);
         LevelPanel.SetActive(false);
+        UIManager.Instance.FailedPanel(false);
 
 #if UNITY_EDITOR
         EffectMesh.HideMesh = false;
@@ -311,30 +312,30 @@ public partial class GameManager : MonoBehaviour
         foreach (var anchor in room.Anchors)
         {
             // place hourglass on table
-            // if (anchor.HasAnyLabel(MRUKAnchor.SceneLabels.TABLE))
-            // {
-            //     if (!doneOnce)
-            //     {
-            //         GameUIGroup.transform.position = anchor.transform.position;
-            //         doneOnce = true;
-            //         Debug.Log("Place on table");
-            //         break;
-            //     }
-            // }
-            // else
-            // {
-            if (anchor.HasAnyLabel(MRUKAnchor.SceneLabels.FLOOR))
+            if (anchor.HasAnyLabel(MRUKAnchor.SceneLabels.TABLE))
             {
                 if (!doneOnce)
                 {
                     GameUIGroup.transform.position = anchor.transform.position;
-                    GameUIGroup.transform.forward = anchor.transform.up;
                     doneOnce = true;
-                    Debug.Log("Place on floor");
+                    Debug.Log("Place on table");
                     break;
                 }
             }
-            // }
+            else
+            {
+                if (anchor.HasAnyLabel(MRUKAnchor.SceneLabels.FLOOR))
+                {
+                    if (!doneOnce)
+                    {
+                        GameUIGroup.transform.position = anchor.transform.position;
+                        GameUIGroup.transform.forward = anchor.transform.up;
+                        doneOnce = true;
+                        Debug.Log("Place on floor");
+                        break;
+                    }
+                }
+            }
         }
 
         if (!doneOnce)

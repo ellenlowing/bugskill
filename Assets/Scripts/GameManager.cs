@@ -171,6 +171,7 @@ public partial class GameManager : MonoBehaviour
         GameUIGroup.SetActive(true);
         LevelPanel.SetActive(true);
         animator.speed = settings.divFactor / settings.durationOfWave[settings.waveIndex];
+        animator.Play("Animation", 0, 0);
 
         StartCoroutine(SetTimer(settings.durationOfWave[settings.waveIndex]));
     }
@@ -218,10 +219,8 @@ public partial class GameManager : MonoBehaviour
 
     public void StartNextWave()
     {
-        animator.speed = settings.divFactor / settings.durationOfWave[settings.waveIndex];
-        animator.Play("Animation", 0, 0);
-        InitializeRound();
         StoreManager.Instance.HideStore();
+        InitializeRound();
     }
 
     private void CheckGoal(int waveI)

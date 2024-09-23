@@ -8,6 +8,7 @@ using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.UI;
 using Meta.XR.MRUtilityKit;
+using System;
 
 public class UIManager : MonoBehaviour
 {
@@ -26,6 +27,8 @@ public class UIManager : MonoBehaviour
     public TextMeshProUGUI ShopWalletText;
     [SerializeField] private TextMeshProUGUI LevelGoalText;
     [SerializeField] private TextMeshProUGUI LevelNumberText;
+    public GameObject RoundStartUI;
+    public TextMeshProUGUI RoundStartGoalText;
 
     [Header("Flask")]
     [Space(20)]
@@ -104,6 +107,7 @@ public class UIManager : MonoBehaviour
 
         settings = GameManager.Instance.settings;
         HowToPlayUI.SetActive(false);
+        HideRoundStartUI();
 
         // subscribe to all events
         GameEnds.OnEventRaised += EndGame;
@@ -122,15 +126,14 @@ public class UIManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            ShowHowToPlayScreen();
-            // IncrementKill(Vector3.zero, 1);
+            // ShowHowToPlayScreen();
+            IncrementKill(Vector3.zero, 1);
             // Debug.Log("Debug: add kill");
         }
     }
 
     private void ShowGameStartScreen()
     {
-        // FaceCamera(obj: GameStartUI, yOffset: -0.15f, flipForwardVector: true);
         FaceCamera(obj: GameTitle, yOffset: 0.4f);
     }
 
@@ -138,13 +141,16 @@ public class UIManager : MonoBehaviour
     {
         FaceCamera(obj: HowToPlayUI, distanceFromCamera: -0.5f);
         GameTitle.SetActive(false);
-        // GameManager.Instance.TutorialVideoPlayer.PlayVideos();
     }
 
     public void HideHowToPlayScreen()
     {
         HowToPlayUI.SetActive(false);
-        // GameManager.Instance.TutorialVideoPlayer.StopVideos();
+    }
+
+    public void HideRoundStartUI()
+    {
+        RoundStartUI.SetActive(false);
     }
 
     private void QuitGame()
@@ -202,6 +208,10 @@ public class UIManager : MonoBehaviour
         LevelClearedGroup.SetActive(false);
         GoalClearedParticles.Stop();
         FlaskPopUpMaterial.color = GoalNotClearedColor;
+
+        FaceCamera(RoundStartUI, distanceFromCamera: 1f);
+        RoundStartGoalText.text = String.Format("DAY {0}:    KILL <color=#FFEE00>{1}</color> FLIES!", level, settings.LevelGoals[settings.waveIndex]);
+        Invoke(nameof(HideRoundStartUI), 3f);
     }
 
     public void StartGameLoopTrigger()

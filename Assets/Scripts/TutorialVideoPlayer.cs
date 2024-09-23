@@ -14,7 +14,6 @@ public class TutorialVideoPlayer : MonoBehaviour
             videoPlayer.Prepare();
             videoPlayer.prepareCompleted += source =>
             {
-                Debug.Log("Video prepared " + source.name);
                 source.Play();
             };
         }

@@ -18,9 +18,9 @@
       "depth": 0,
       "source": "git",
       "dependencies": {
-        "com.unity.xr.oculus": "4.2.0-exp-env-depth.2"
+        "com.unity.xr.oculus": "4.2.0"
       },
-      "hash": "5e07b8e7a7298c4e184b2cb342044611bad893f3"
+      "hash": "5af969a9836f66157d6dc8997774ed89ac5baa1f"
     },
     "com.meta.xr.mrutilitykit": {
       "version": "67.0.0",
@@ -473,7 +473,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.xr.oculus": {
-      "version": "4.2.0-exp-env-depth.2",
+      "version": "4.2.0",
       "depth": 1,
       "source": "registry",
       "dependencies": {

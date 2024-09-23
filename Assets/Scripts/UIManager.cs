@@ -122,8 +122,9 @@ public class UIManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            IncrementKill(Vector3.zero, 1);
-            Debug.Log("Debug: add kill");
+            ShowHowToPlayScreen();
+            // IncrementKill(Vector3.zero, 1);
+            // Debug.Log("Debug: add kill");
         }
     }
 
@@ -135,7 +136,7 @@ public class UIManager : MonoBehaviour
 
     public void ShowHowToPlayScreen()
     {
-        FaceCamera(obj: HowToPlayUI, distanceFromCamera: 0f);
+        FaceCamera(obj: HowToPlayUI, distanceFromCamera: -0.5f);
         GameTitle.SetActive(false);
         // GameManager.Instance.TutorialVideoPlayer.PlayVideos();
     }

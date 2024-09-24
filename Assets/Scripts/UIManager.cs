@@ -210,7 +210,7 @@ public class UIManager : MonoBehaviour
         GoalClearedParticles.Stop();
         FlaskPopUpMaterial.color = GoalNotClearedColor;
 
-        RoundStartGoalText.text = String.Format("DAY {0}:    KILL <color=#FFEE00>{1}</color> FLIES!", level, settings.LevelGoals[settings.waveIndex]);
+        RoundStartGoalText.text = String.Format("DAY {0}:    KILL <color=#FF0000>{1}</color>", level, settings.LevelGoals[settings.waveIndex]);
         RoundStartUI.transform.position = StoreManager.Instance.StoreUI.transform.position + StoreManager.Instance.StoreUI.transform.up;
         RoundStartUI.transform.forward = -StoreManager.Instance.StoreUI.transform.forward;
         RoundStartUI.SetActive(true);

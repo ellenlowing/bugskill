@@ -10,16 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8f3807ef8626e3643970322efcdda1f1, type: 3}
-  m_Name: Level2
+  m_Name: Level8
   m_EditorClassIdentifier: 
-  minRestDuration: 8
-  maxRestDuration: 13
-  minSpeed: 2
-  maxSpeed: 4
-  speed: 2
-  flySlowDownTime: 12
-  flySlowDownSpeed: 0.3
-  insaneSpeed: 10
+  minRestDuration: 3
+  maxRestDuration: 5
+  minSpeed: 8
+  maxSpeed: 11
+  speed: 8
+  flySlowDownTime: 4
+  flySlowDownSpeed: 0.8
+  insaneSpeed: 16
   rotationSpeed: 10
   distanceToEdges: 0.2
   checkDistance: 0.15

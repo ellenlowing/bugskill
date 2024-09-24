@@ -116,7 +116,7 @@ public partial class GameManager : MonoBehaviour
 
         GameUIGroup.SetActive(false);
         LevelPanel.SetActive(false);
-        UIManager.Instance.FailedPanel(false);
+        UIManager.Instance.GameEndUI.SetActive(false);
 
 #if UNITY_EDITOR
         EffectMesh.HideMesh = false;
@@ -232,7 +232,13 @@ public partial class GameManager : MonoBehaviour
 
         if (!goalReached)
         {
-            UIManager.Instance.FailedPanel(true);
+            UIManager.Instance.ShowGameEndPanel(false);
+            GameEnds.RaiseEvent();
+        }
+        else if (waveI == settings.LevelGoals.Length - 1)
+        {
+            Debug.Log("Game Ends. You WINNNN!");
+            UIManager.Instance.ShowGameEndPanel(true);
             GameEnds.RaiseEvent();
         }
         else
@@ -249,16 +255,15 @@ public partial class GameManager : MonoBehaviour
     public void RestartGameLoop()
     {
         settings.flies.Clear();
-        animator.Play("Animation", 0, 0);
-
-        InitializeRound();
         settings.waveIndex = 0;
         settings.totalKills = 0;
         settings.localKills = 0;
         settings.Cash = 0;
-        UIManager.Instance.FailedPanel(false);
+
+        UIManager.Instance.GameEndUI.SetActive(false);
         UIManager.Instance.UpdateLevel();
         UIManager.Instance.UpdateCashUI();
+        InitializeRound();
         // StoreManager.Instance.HideAllPowerUps();
     }
 

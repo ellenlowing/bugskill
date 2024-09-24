@@ -30,6 +30,9 @@ public class UIManager : MonoBehaviour
     public GameObject RoundStartUI;
     public TextMeshProUGUI RoundStartGoalText;
     public float RoundStartUIDuration = 2f;
+    public GameObject GameEndUI;
+    public TextMeshProUGUI GameEndWinText;
+    public TextMeshProUGUI GameEndLoseText;
 
     [Header("Flask")]
     [Space(20)]
@@ -108,6 +111,7 @@ public class UIManager : MonoBehaviour
 
         settings = GameManager.Instance.settings;
         HowToPlayUI.SetActive(false);
+        GameEndUI.SetActive(false);
         HideRoundStartUI();
 
         // subscribe to all events
@@ -172,6 +176,23 @@ public class UIManager : MonoBehaviour
         FailurePanel.SetActive(state);
     }
 
+    public void ShowGameEndPanel(bool win)
+    {
+        FaceCamera(GameEndUI);
+        if (win)
+        {
+            GameEndWinText.text = String.Format("Splendid work! You've killed {0} flies and saved me from another day of sipping tea and pondering the futility of existence. Onward, dear friend, to our next adventure!", settings.totalKills);
+            GameEndWinText.gameObject.SetActive(true);
+            GameEndLoseText.gameObject.SetActive(false);
+        }
+        else
+        {
+            GameEndLoseText.text = String.Format("{0} flies down, and yet, here I am - still stuck in this tea-sipping nightmare. Bravo. Perhaps next time we’ll aim for success instead of existential dread, hmm?", settings.totalKills);
+            GameEndWinText.gameObject.SetActive(false);
+            GameEndLoseText.gameObject.SetActive(true);
+        }
+    }
+
     public void DestroyPanel(GameObject obj, float waitTime)
     {
         if (obj != null)
@@ -223,6 +244,7 @@ public class UIManager : MonoBehaviour
         {
             isGameStarted = true;
             HideHowToPlayScreen();
+            GameEndUI.SetActive(false);
             GameTitle.SetActive(false);
             Debug.Log("Start Button clicked");
             GameBegins.RaiseEvent();

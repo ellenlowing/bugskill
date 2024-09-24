@@ -47,6 +47,7 @@ public class UIManager : MonoBehaviour
     public GameObject KillsLeftGroup;
     public GameObject LevelClearedGroup;
     public ParticleSystem GoalClearedParticles;
+    public AudioSource LevelClearedSound;
 
     [Header("Buttons")]
     [Space(20)]
@@ -318,6 +319,7 @@ public class UIManager : MonoBehaviour
             KillsLeftGroup.SetActive(false);
             LevelClearedGroup.SetActive(true);
             GoalClearedParticles.Play();
+            LevelClearedSound.Play();
         }
 
         FlaskParticles.Stop();

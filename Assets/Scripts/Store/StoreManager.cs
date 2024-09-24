@@ -45,6 +45,7 @@ public class StoreManager : MonoBehaviour
     public Transform PowerUpDockingStation;
     public List<Transform> ShopItemPositions;
     public Transform StorePositionFinder;
+    public AudioSource CheckoutSound;
 
     [Header("Dialog")]
     public GameObject CheckoutInstructions;
@@ -248,6 +249,7 @@ public class StoreManager : MonoBehaviour
             CheckoutInstructions.SetActive(false);
             ThankyouDialog.SetActive(true);
             ThankyouDialogText.text = "You've checked out " + ShoppingBasket.Items.Count + " items! Thank you for supporting my small business.\nBack to work in 3... 2... 1...";
+            CheckoutSound.Play();
 
             // Add to docking station
             int index = 0;

@@ -263,7 +263,7 @@ public class StoreManager : MonoBehaviour
             PowerUpDockingStation.gameObject.SetActive(true);
 
             // Start Next Wave
-            Invoke(nameof(NextWave), 3f);
+            Invoke(nameof(NextWave), 2f);
         }
     }
 

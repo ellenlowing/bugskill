@@ -302,9 +302,9 @@ public class BasePowerUpBehavior : MonoBehaviour
         {
             ActiveOVRHand = null;
             EnterState(PowerUpState.IDLE);
+            DisplayPriceTag.SetActive(true);
         }
 
-        DisplayPriceTag.SetActive(true);
         LeftUIContainer.SetActive(false);
         RightUIContainer.SetActive(false);
     }

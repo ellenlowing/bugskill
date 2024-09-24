@@ -66,12 +66,17 @@ public class FingerGun : MonoBehaviour
                 origin: _firePosition,
                 direction: gunDirection,
                 hitInfo: out RaycastHit hit,
-                maxDistance: 100f,
+                maxDistance: Mathf.Infinity,
                 layerMask: _crosshairRaycastLayerMaskInt)
             )
             {
+                Crosshair.SetActive(true);
                 Crosshair.transform.position = hit.point;
                 Crosshair.transform.up = hit.normal;
+            }
+            else
+            {
+                Crosshair.SetActive(false);
             }
         }
 
@@ -85,13 +90,13 @@ public class FingerGun : MonoBehaviour
     void OnGunActive()
     {
         _isIdle = true;
-        StatusIndicator.GetComponent<MeshRenderer>().material.color = _corePowerUpBehavior.FingerGunActiveColor;
+        // StatusIndicator.GetComponent<MeshRenderer>().material.color = _corePowerUpBehavior.FingerGunActiveColor;
     }
 
     void OnGunIdle()
     {
         _isIdle = false;
-        StatusIndicator.GetComponent<MeshRenderer>().material.color = _corePowerUpBehavior.FingerGunIdleColor;
+        // StatusIndicator.GetComponent<MeshRenderer>().material.color = _corePowerUpBehavior.FingerGunIdleColor;
     }
 
     void TurnOnFiring()
@@ -104,7 +109,7 @@ public class FingerGun : MonoBehaviour
     {
         _isFiring = false;
         _lastFiringTime = 0f;
-        StatusIndicator.GetComponent<MeshRenderer>().material.color = _corePowerUpBehavior.FingerGunActiveColor;
+        StatusIndicator.GetComponent<MeshRenderer>().material.color = _corePowerUpBehavior.FingerGunIdleColor;
     }
 
     public void FireBullet()

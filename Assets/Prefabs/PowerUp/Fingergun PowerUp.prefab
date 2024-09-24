@@ -5617,6 +5617,7 @@ MonoBehaviour:
     - {x: 0.09519648, y: -0.023466406, z: 0.103199586, w: 0.98981655}
     - {x: -0.06250053, y: 0.029331654, z: -0.28930733, w: 0.9547432}
     - {x: 0.0010154267, y: -0.04893162, z: -0.084158845, w: 0.9952497}
+  _ghostProvider: {fileID: 0}
 --- !u!1 &2205825677256174959
 GameObject:
   m_ObjectHideFlags: 0
@@ -5791,6 +5792,7 @@ MonoBehaviour:
     - {x: 0.09519648, y: -0.023466406, z: 0.103199586, w: 0.98981655}
     - {x: -0.06250053, y: 0.029331654, z: -0.28930733, w: 0.9547432}
     - {x: 0.0010154267, y: -0.04893162, z: -0.084158845, w: 0.9952497}
+  _ghostProvider: {fileID: 0}
 --- !u!1 &2294316794563122926
 GameObject:
   m_ObjectHideFlags: 0
@@ -6073,6 +6075,7 @@ MonoBehaviour:
     - {x: 0.09519648, y: -0.023466406, z: 0.103199586, w: 0.98981655}
     - {x: -0.06250053, y: 0.029331654, z: -0.28930733, w: 0.9547432}
     - {x: 0.0010154267, y: -0.04893162, z: -0.084158845, w: 0.9952497}
+  _ghostProvider: {fileID: 0}
 --- !u!1 &2508919155722620923
 GameObject:
   m_ObjectHideFlags: 0
@@ -6300,7 +6303,7 @@ MonoBehaviour:
   _scoringModifier:
     _positionRotationWeight: 1
   _slippiness: 0
-  _supportedGrabTypes: 1
+  _supportedGrabTypes: -1
   _pinchGrabRules:
     _thumbRequirement: 0
     _indexRequirement: 1
@@ -6389,6 +6392,7 @@ MonoBehaviour:
     - {x: 0.09519648, y: -0.023466406, z: 0.103199586, w: 0.98981655}
     - {x: -0.06250053, y: 0.029331654, z: -0.28930733, w: 0.9547432}
     - {x: 0.0010154267, y: -0.04893162, z: -0.084158845, w: 0.9952497}
+  _ghostProvider: {fileID: 0}
 --- !u!1 &3216942216013783423
 GameObject:
   m_ObjectHideFlags: 0
@@ -6787,6 +6791,7 @@ MonoBehaviour:
     - {x: 0.09519648, y: -0.023466406, z: 0.103199586, w: 0.98981655}
     - {x: -0.06250053, y: 0.029331654, z: -0.28930733, w: 0.9547432}
     - {x: 0.0010154267, y: -0.04893162, z: -0.084158845, w: 0.9952497}
+  _ghostProvider: {fileID: 0}
 --- !u!1 &4382941625643447867
 GameObject:
   m_ObjectHideFlags: 0
@@ -7189,6 +7194,7 @@ MonoBehaviour:
     - {x: 0.09519648, y: -0.023466406, z: 0.103199586, w: 0.98981655}
     - {x: -0.06250053, y: 0.029331654, z: -0.28930733, w: 0.9547432}
     - {x: 0.0010154267, y: -0.04893162, z: -0.084158845, w: 0.9952497}
+  _ghostProvider: {fileID: 0}
 --- !u!1 &5414941736933685282
 GameObject:
   m_ObjectHideFlags: 0
@@ -7453,7 +7459,7 @@ MonoBehaviour:
   AnchoredToHandPose: 0
   MaxPowerCapacity: 1
   PowerCapacity: 1
-  UsePowerRate: 0.05
+  UsePowerRate: 0.025
   DissolveDuration: 1
   DissolvePairs:
   - MeshRenderer: {fileID: 3916335227334637623}
@@ -7472,8 +7478,8 @@ MonoBehaviour:
   LeftFingerGun: {fileID: 0}
   RightFingerGun: {fileID: 0}
   StatusIndicator: {fileID: 8158008584100659356}
-  FingerGunActiveColor: {r: 0.76862746, g: 1, b: 0, a: 1}
-  FingerGunIdleColor: {r: 1, g: 1, b: 0.92156863, a: 1}
+  FingerGunActiveColor: {r: 0.6117647, g: 1, b: 0, a: 1}
+  FingerGunIdleColor: {r: 1, g: 0.92156863, b: 0.6392157, a: 1}
   FingerGunFiringColor: {r: 1, g: 0.78039217, b: 0, a: 1}
 --- !u!1 &6015928469267008986
 GameObject:
@@ -8502,8 +8508,8 @@ MeshRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8158008584100659356}
   m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
   m_DynamicOccludee: 1
   m_StaticShadowCaster: 0
   m_MotionVectors: 1
@@ -8594,7 +8600,7 @@ MonoBehaviour:
   _scoringModifier:
     _positionRotationWeight: 1
   _slippiness: 0
-  _supportedGrabTypes: 1
+  _supportedGrabTypes: -1
   _pinchGrabRules:
     _thumbRequirement: 0
     _indexRequirement: 1

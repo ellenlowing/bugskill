@@ -73,8 +73,8 @@ public class FingerGunPowerUp : BasePowerUpBehavior
         bool handPoseAvailable = hand.GetRootPose(out Pose pose);
         if (handPoseAvailable)
         {
-            transform.position = pose.position;
             transform.rotation = Quaternion.LookRotation(pose.forward, -pose.right);
+            transform.position = pose.position - transform.up * 0.1f;
         }
         // else
         // {

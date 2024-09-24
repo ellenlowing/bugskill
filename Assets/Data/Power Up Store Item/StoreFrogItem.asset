@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9db9b9d6e23bd4c498873e373b2aa62f, type: 3}
   m_Name: StoreFrogItem
   m_EditorClassIdentifier: 
-  Price: 50
+  Price: 100
   Name: Froggy
   Description: Aim at a fly and pinch to feed it to froggy!
   LocalPosition: {x: 0, y: 0.263, z: 0}

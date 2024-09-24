@@ -49,6 +49,11 @@ public partial class GameManager : MonoBehaviour
     public float TNTExplosionRadius = 1.5f;
     private Stack<GameObject> TNTFlies = new Stack<GameObject>();
 
+
+    [Header("MRUK")]
+    public List<MRUKAnchor> ValidAnchors;
+    public int ValidAnchorIndex = 0;
+
     [Header("Game Events")]
     [Tooltip("Subscribe to run before first game wave")]
     public VoidEventChannelSO GameBegins;
@@ -114,7 +119,8 @@ public partial class GameManager : MonoBehaviour
     {
         GameRestartEvent.WhenSelect.AddListener(RestartGameLoop);
 
-        GameUIGroup.SetActive(false);
+        animator.speed = 0;
+        // GameUIGroup.SetActive(false);
         LevelPanel.SetActive(false);
         UIManager.Instance.GameEndUI.SetActive(false);
 
@@ -129,7 +135,7 @@ public partial class GameManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.UpArrow) || OVRInput.GetDown(OVRInput.Button.PrimaryHandTrigger))
         {
-            UIManager.Instance.FaceCamera(debugObject);
+            CycleGameUIGroupPlacement();
         }
     }
 
@@ -190,7 +196,7 @@ public partial class GameManager : MonoBehaviour
             Destroy(BloodSplatContainer.GetChild(i).gameObject);
         }
 
-        GameUIGroup.SetActive(false);
+        // GameUIGroup.SetActive(false);
         LevelPanel.SetActive(false);
         CheckGoal(settings.waveIndex);
 
@@ -307,6 +313,39 @@ public partial class GameManager : MonoBehaviour
             LevelPanel.transform.position = wall.transform.position + new Vector3(0, wallScale.y / 2, 0);
             LevelPanel.transform.forward = -wall.transform.forward;
         }
+    }
+
+    public void GetValidAnchorsForGameUIGroup()
+    {
+        Debug.Log("get game UI group placement");
+        MRUKRoom room = MRUK.Instance.GetCurrentRoom();
+        List<string> sceneLabels = new List<string> { "TABLE", "COUCH", "STORAGE", "BED", "FLOOR" };
+
+        if (room != null)
+        {
+            foreach (var anchor in room.Anchors)
+            {
+                if (anchor.HasAnyLabel(sceneLabels))
+                {
+                    ValidAnchors.Add(anchor);
+                }
+            }
+        }
+    }
+
+    public void CycleGameUIGroupPlacement()
+    {
+        if (ValidAnchors.Count == 0)
+        {
+            GetValidAnchorsForGameUIGroup();
+        }
+
+        var anchor = ValidAnchors[ValidAnchorIndex];
+        GameUIGroup.transform.position = anchor.transform.position;
+        GameUIGroup.transform.LookAt(MRUK.Instance.GetCurrentRoom().FloorAnchor.transform);
+        GameUIGroup.transform.eulerAngles = new Vector3(0, GameUIGroup.transform.eulerAngles.y, 0);
+
+        ValidAnchorIndex = (ValidAnchorIndex + 1) % ValidAnchors.Count;
     }
 
     public void PlaceGameUIGroup()

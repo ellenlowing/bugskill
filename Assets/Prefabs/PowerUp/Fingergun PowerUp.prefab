@@ -5410,7 +5410,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 6.56, y: 1.92, z: 1}
+  m_LocalScale: {x: 6.56, y: 2.31, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4215412195111591179}
@@ -5497,7 +5497,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _editor: {fileID: 2090045198506791534}
   _width: 6.5
-  _height: 1.86
+  _height: 2.25
   _color: {r: 0.6745098, g: 1, b: 0.8666667, a: 0.03137255}
   _borderColor: {r: 0.6745098, g: 1, b: 0.8666667, a: 1}
   _radiusTopLeft: 0.2
@@ -6106,7 +6106,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 6.56, y: 1.92, z: 1}
+  m_LocalScale: {x: 6.56, y: 2.31, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4215412195111591179}
@@ -6193,7 +6193,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _editor: {fileID: 3016208152273895995}
   _width: 6.5
-  _height: 1.86
+  _height: 2.25
   _color: {r: 0.6745098, g: 1, b: 0.8666667, a: 0.03137255}
   _borderColor: {r: 0.6745098, g: 1, b: 0.8666667, a: 1}
   _radiusTopLeft: 0.2
@@ -6423,7 +6423,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 6.56, y: 1.92, z: 1}
+  m_LocalScale: {x: 6.56, y: 2.31, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7426584581266673371}
@@ -6510,7 +6510,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _editor: {fileID: 7710766439044866063}
   _width: 6.5
-  _height: 1.86
+  _height: 2.25
   _color: {r: 0.6745098, g: 1, b: 0.8666667, a: 0.03137255}
   _borderColor: {r: 0.6745098, g: 1, b: 0.8666667, a: 1}
   _radiusTopLeft: 0.2
@@ -6618,8 +6618,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Put on the wristband to unlock the FINGER GUN power. \nJust gesture and
-    curl your thumb to shoot. Limited to 15 shots."
+  m_text: "Grab the wristband to equip the FINGER GUN. Just gesture and curl your
+    thumb to shoot. \nAngle your hand so that all fingers are visible to the camera!"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: fe0bcf811033b49989959f1e5e30b665, type: 2}
   m_sharedMaterial: {fileID: 8572475109205535080, guid: fe0bcf811033b49989959f1e5e30b665, type: 2}
@@ -6682,7 +6682,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 1
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: -7.502019, z: 2.9257812, w: 0}
+  m_margin: {x: 0, y: -7.502019, z: 8.476624, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   _SortingLayer: 0
@@ -7225,7 +7225,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 6.56, y: 1.92, z: 1}
+  m_LocalScale: {x: 6.56, y: 2.31, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7426584581266673371}
@@ -7312,7 +7312,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _editor: {fileID: 1638281406296886469}
   _width: 6.5
-  _height: 1.86
+  _height: 2.25
   _color: {r: 0.6745098, g: 1, b: 0.8666667, a: 0.03137255}
   _borderColor: {r: 0.6745098, g: 1, b: 0.8666667, a: 1}
   _radiusTopLeft: 0.2
@@ -7656,8 +7656,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Put on the wristband to unlock the FINGER GUN power. \nJust gesture and
-    curl your thumb to shoot. Limited to 15 shots."
+  m_text: "Grab the wristband to equip the FINGER GUN. Just gesture and curl your
+    thumb to shoot. \nAngle your hand so that all fingers are visible to the camera!"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: fe0bcf811033b49989959f1e5e30b665, type: 2}
   m_sharedMaterial: {fileID: 8572475109205535080, guid: fe0bcf811033b49989959f1e5e30b665, type: 2}
@@ -7720,7 +7720,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 1
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: -7.502019, z: 2.9257812, w: 0}
+  m_margin: {x: 0, y: -7.502019, z: 8.526529, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   _SortingLayer: 0

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9db9b9d6e23bd4c498873e373b2aa62f, type: 3}
   m_Name: SwatterStoreItem
   m_EditorClassIdentifier: 
-  Price: 50
+  Price: 120
   Name: Electric Swatter
   Description: Wave the electric swatter to kill flies in air!
   LocalPosition: {x: 0.534, y: 0.179, z: 0}

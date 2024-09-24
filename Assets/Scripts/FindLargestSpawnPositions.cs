@@ -115,7 +115,15 @@ public class FindLargestSpawnPositions : MonoBehaviour
 
     public void StartSpawnCurrentRoom()
     {
-        StartSpawn(MRUK.Instance.GetCurrentRoom());
+        var room = MRUK.Instance.GetCurrentRoom();
+        if (room != null)
+        {
+            StartSpawn(room);
+        }
+        else
+        {
+            UnityEngine.Debug.Log("FindLargestSpawnPositions: Cannot find current room");
+        }
     }
 
     public void StartSpawn(MRUKRoom room)
@@ -207,6 +215,25 @@ public class FindLargestSpawnPositions : MonoBehaviour
             {
                 break;
             }
+        }
+
+        // If nothing is found, spawn in the middle of the room, or where the user currently stands
+        if (!_spawnPositionFound)
+        {
+            UnityEngine.Debug.Log("Cannot find valid spawn position; spawning at where the user is standing");
+            var spawnPosition = Camera.main.transform.position;
+            var floorAnchor = room.FloorAnchor;
+
+            if (floorAnchor != null)
+            {
+                spawnPosition.y = floorAnchor.transform.position.y;
+            }
+            else
+            {
+                spawnPosition.y = 0;
+            }
+
+            Instantiate(SpawnObject, spawnPosition, Quaternion.identity, transform);
         }
     }
 }

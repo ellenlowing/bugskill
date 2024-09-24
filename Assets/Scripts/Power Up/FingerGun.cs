@@ -14,10 +14,12 @@ public class FingerGun : MonoBehaviour
     public bool IsLeftHand = false;
     public float BulletSpeed = 1f;
     public float FiringRate = 0.5f;
-    public Transform FirePoint;
     public OVRHand ActiveOVRHand;
     public GameObject StatusIndicator;
     public Transform WristTransform;
+
+    public Transform FirePoint;
+    public float SmoothFactor;
 
     private bool _isIdle = false;
     private bool _isFiring = false;
@@ -34,6 +36,9 @@ public class FingerGun : MonoBehaviour
         GunTriggerEvent.WhenSelected.AddListener(TurnOnFiring);
         GunTriggerEvent.WhenUnselected.AddListener(TurnOffFiring);
         _crosshairRaycastLayerMaskInt = (1 << LayerMask.NameToLayer(GameManager.Instance.LandingLayerName)) | (1 << LayerMask.NameToLayer(GameManager.Instance.FloorLayerName));
+
+        _firePosition = FirePoint.position;
+        _fireDirection = FirePoint.right;
     }
 
     void Update()
@@ -54,17 +59,15 @@ public class FingerGun : MonoBehaviour
         if (!ActiveOVRHand.IsTracked) return;
 
         // Update firing position and firing direction
-        _firePosition = FirePoint.position;
-        _fireDirection = FirePoint.right;
+        _firePosition = Vector3.Lerp(_firePosition, FirePoint.position, SmoothFactor);
+        _fireDirection = Vector3.Lerp(_fireDirection, FirePoint.right, SmoothFactor);
 
         // Update crosshair position
-        if (_firePosition != null && _fireDirection != null && (_isIdle || _isFiring))
+        if (_firePosition != null && _fireDirection != null)
         {
-            Vector3 gunDirection = _fireDirection;
-
             if (Physics.Raycast(
                 origin: _firePosition,
-                direction: gunDirection,
+                direction: _fireDirection,
                 hitInfo: out RaycastHit hit,
                 maxDistance: Mathf.Infinity,
                 layerMask: _crosshairRaycastLayerMaskInt)

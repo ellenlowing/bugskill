@@ -29,6 +29,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI LevelNumberText;
     public GameObject RoundStartUI;
     public TextMeshProUGUI RoundStartGoalText;
+    public float RoundStartUIDuration = 2f;
 
     [Header("Flask")]
     [Space(20)]
@@ -209,9 +210,11 @@ public class UIManager : MonoBehaviour
         GoalClearedParticles.Stop();
         FlaskPopUpMaterial.color = GoalNotClearedColor;
 
-        FaceCamera(RoundStartUI, distanceFromCamera: 1f);
         RoundStartGoalText.text = String.Format("DAY {0}:    KILL <color=#FFEE00>{1}</color> FLIES!", level, settings.LevelGoals[settings.waveIndex]);
-        Invoke(nameof(HideRoundStartUI), 3f);
+        RoundStartUI.transform.position = StoreManager.Instance.StoreUI.transform.position + StoreManager.Instance.StoreUI.transform.up;
+        RoundStartUI.transform.forward = -StoreManager.Instance.StoreUI.transform.forward;
+        RoundStartUI.SetActive(true);
+        Invoke(nameof(HideRoundStartUI), RoundStartUIDuration);
     }
 
     public void StartGameLoopTrigger()

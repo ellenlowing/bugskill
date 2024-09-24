@@ -17,7 +17,7 @@ public class StoreManager : MonoBehaviour
     public float MinDistanceToEdges = 1.5f;
 
     [Header("UI")]
-    [SerializeField] private GameObject StoreUI;
+    public GameObject StoreUI;
     [SerializeField] private GameObject PopupTextObj;
 
     [Header("Shared UI")]
@@ -78,6 +78,7 @@ public class StoreManager : MonoBehaviour
     {
         settings = GameManager.Instance.settings;
         StoreUI.SetActive(false);
+        PlaceStore();
         ThumbsUpEvent.WhenSelected.AddListener(OnThumbsUpSelected);
     }
 
@@ -169,19 +170,17 @@ public class StoreManager : MonoBehaviour
 
     public void PlaceStore()
     {
-        if (StorePositionFinder.childCount > 0)
+        Debug.Log("Placing store " + StorePositionFinder.childCount);
+        if (StorePositionFinder.childCount == 0)
         {
-            StoreUI.transform.position = StorePositionFinder.GetChild(StorePositionFinder.childCount - 1).position;
-            MRUKRoom room = MRUK.Instance.GetCurrentRoom();
-            if (room != null)
-            {
-                var floor = room.FloorAnchor;
-                StoreUI.transform.LookAt(floor.transform);
-            }
+            StorePositionFinder.GetComponent<FindLargestSpawnPositions>().StartSpawnCurrentRoom();
         }
-        else
+        StoreUI.transform.position = StorePositionFinder.GetChild(StorePositionFinder.childCount - 1).position;
+        MRUKRoom room = MRUK.Instance.GetCurrentRoom();
+        if (room != null)
         {
-            Debug.LogError("Store Position Finder has no children");
+            var floor = room.FloorAnchor;
+            StoreUI.transform.LookAt(floor.transform);
         }
     }
 

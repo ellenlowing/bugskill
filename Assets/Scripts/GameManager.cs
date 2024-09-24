@@ -220,7 +220,7 @@ public partial class GameManager : MonoBehaviour
     public void StartNextWave()
     {
         StoreManager.Instance.HideStore();
-        InitializeRound();
+        Invoke(nameof(InitializeRound), UIManager.Instance.RoundStartUIDuration);
     }
 
     private void CheckGoal(int waveI)

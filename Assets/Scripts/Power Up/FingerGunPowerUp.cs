@@ -16,6 +16,7 @@ public class FingerGunPowerUp : BasePowerUpBehavior
     public Color FingerGunFiringColor;
 
     private Hand _activeHand;
+    private bool _isActiveHandLeft;
 
     new void Start()
     {
@@ -53,6 +54,7 @@ public class FingerGunPowerUp : BasePowerUpBehavior
             LeftFingerGun.GetComponent<FingerGun>().Crosshair.SetActive(false);
             RightFingerGun.GetComponent<FingerGun>().StatusIndicator = StatusIndicator;
             _activeHand = GameManager.Instance.RightHand;
+            _isActiveHandLeft = false;
         }
         else
         {
@@ -62,6 +64,7 @@ public class FingerGunPowerUp : BasePowerUpBehavior
             RightFingerGun.GetComponent<FingerGun>().Crosshair.SetActive(false);
             LeftFingerGun.GetComponent<FingerGun>().StatusIndicator = StatusIndicator;
             _activeHand = GameManager.Instance.LeftHand;
+            _isActiveHandLeft = true;
         }
 
         // TODO check why Base power up behavior's ongrabbale select is not called?
@@ -74,6 +77,11 @@ public class FingerGunPowerUp : BasePowerUpBehavior
         if (handPoseAvailable)
         {
             transform.rotation = Quaternion.LookRotation(pose.forward, -pose.right);
+            if (_isActiveHandLeft)
+            {
+                transform.rotation = Quaternion.LookRotation(-pose.forward, pose.right);
+                Debug.Log("Left hand finger gun");
+            }
             transform.position = pose.position - transform.up * 0.1f;
         }
         // else
@@ -84,10 +92,10 @@ public class FingerGunPowerUp : BasePowerUpBehavior
 
     public override void Dissolve()
     {
-        LeftFingerGun.SetActive(false);
-        RightFingerGun.SetActive(false);
         LeftFingerGun.GetComponent<FingerGun>().Crosshair.SetActive(false);
         RightFingerGun.GetComponent<FingerGun>().Crosshair.SetActive(false);
+        LeftFingerGun.SetActive(false);
+        RightFingerGun.SetActive(false);
         base.Dissolve();
     }
 }

@@ -214,7 +214,16 @@ public class StoreManager : MonoBehaviour
 
     public void CheckoutBasket()
     {
-        if (ShoppingBasket.Items.Count == 0) return;
+        if (ShoppingBasket.Items.Count == 0)
+        {
+            NotEnoughCashDialog.SetActive(false);
+            CheckoutInstructions.SetActive(false);
+            ThankyouDialog.SetActive(true);
+            ThankyouDialogText.text = "Oh, nothing in the basket? A true connoisseur of window shopping, I see. Well then, back to work in 3... 2... 1...";
+
+            Invoke(nameof(NextWave), 2f);
+            return;
+        };
 
         var totalSum = 0;
         foreach (GameObject item in ShoppingBasket.Items)

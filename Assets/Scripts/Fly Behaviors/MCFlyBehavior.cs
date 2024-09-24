@@ -4,15 +4,21 @@ using UnityEngine;
 
 public class MCFlyBehavior : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    private void OnTriggerEnter(Collider other)
     {
+        Debug.Log(other.gameObject.name);
+        if (other.gameObject.tag == "Hands")
+        {
+            Debug.Log("Collided with hands");
 
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        // transform.position += new Vector3(0, Mathf.PingPong(Time.time, 0.1f), 0);
+            if (UIManager.Instance.HowToPlayUI.activeInHierarchy)
+            {
+                UIManager.Instance.StartGameLoopTrigger();
+            }
+            else if (StoreManager.Instance.IsStoreActive)
+            {
+                StoreManager.Instance.OnThumbsUpSelected();
+            }
+        }
     }
 }

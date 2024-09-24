@@ -296,7 +296,7 @@ public class BasePowerUpBehavior : MonoBehaviour
         EnterState(PowerUpState.ACTIVE);
     }
 
-    public void OnGrabbableUnselect(PointerEvent arg0)
+    public virtual void OnGrabbableUnselect(PointerEvent arg0)
     {
         if (StoreManager.Instance.IsStoreActive)
         {

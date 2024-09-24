@@ -71,6 +71,20 @@ public class FingerGunPowerUp : BasePowerUpBehavior
 
     }
 
+    public override void OnGrabbableUnselect(PointerEvent arg0)
+    {
+        base.OnGrabbableUnselect(arg0);
+
+        if (StoreManager.Instance.IsStoreActive)
+        {
+            _activeHand = null;
+            LeftFingerGun.SetActive(false);
+            RightFingerGun.SetActive(false);
+            LeftFingerGun.GetComponent<FingerGun>().Crosshair.SetActive(false);
+            RightFingerGun.GetComponent<FingerGun>().Crosshair.SetActive(false);
+        }
+    }
+
     public void MoveToWrist(Hand hand)
     {
         bool handPoseAvailable = hand.GetRootPose(out Pose pose);

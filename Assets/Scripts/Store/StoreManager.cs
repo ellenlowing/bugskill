@@ -46,6 +46,13 @@ public class StoreManager : MonoBehaviour
     public List<Transform> ShopItemPositions;
     public Transform StorePositionFinder;
 
+    [Header("Dialog")]
+    public GameObject CheckoutInstructions;
+    public GameObject ThankyouDialog;
+    public TextMeshProUGUI ThankyouDialogText;
+    public GameObject NotEnoughCashDialog;
+    // public TextMeshProUGUI NotEnoughCashDialogText;
+
     private BasePowerUpBehavior _selectedPowerUp;
     private SettingSO settings;
 
@@ -120,6 +127,11 @@ public class StoreManager : MonoBehaviour
         // Dissolve all powerups
         GameManager.Instance.DissolveAllPowerUps();
 
+        // Dialog
+        CheckoutInstructions.SetActive(true);
+        ThankyouDialog.SetActive(false);
+        NotEnoughCashDialog.SetActive(false);
+
         // Hide Docking Station
         PowerUpDockingStation.gameObject.SetActive(false);
 
@@ -177,10 +189,6 @@ public class StoreManager : MonoBehaviour
     {
         IsStoreActive = false;
         StoreUI.SetActive(false);
-
-        // Place docking station
-        UIManager.Instance.FaceCamera(PowerUpDockingStation.gameObject, -0.3f, 0.3f);
-        PowerUpDockingStation.gameObject.SetActive(true);
     }
 
     public void SetActivePowerUp(BasePowerUpBehavior powerUp)
@@ -203,7 +211,6 @@ public class StoreManager : MonoBehaviour
         {
             CheckoutBasket();
         }
-        Invoke(nameof(NextWave), 1.5f);
     }
 
     public void CheckoutBasket()
@@ -219,14 +226,20 @@ public class StoreManager : MonoBehaviour
 
         if (settings.Cash < totalSum)
         {
-            AddTextPopUp("Not Enough Cash!", ShoppingBasket.transform.position);
+            NotEnoughCashDialog.SetActive(true);
+            CheckoutInstructions.SetActive(false);
+            ThankyouDialog.SetActive(false);
         }
         else
         {
             Debug.Log("Checking out basket with enough cash");
             settings.Cash -= totalSum;
             UIManager.Instance.UpdateCashUI();
-            AddTextPopUp("Purchased " + ShoppingBasket.Items.Count + " items!", ShoppingBasket.transform.position);
+            // AddTextPopUp("Purchased " + ShoppingBasket.Items.Count + " items!", ShoppingBasket.transform.position);
+            NotEnoughCashDialog.SetActive(false);
+            CheckoutInstructions.SetActive(false);
+            ThankyouDialog.SetActive(true);
+            ThankyouDialogText.text = "You've checked out " + ShoppingBasket.Items.Count + " items! Thank you for supporting my small business.\nBack to work in 3... 2... 1...";
 
             // Add to docking station
             int index = 0;
@@ -236,11 +249,21 @@ public class StoreManager : MonoBehaviour
                 powerUp.IsSold = true;
                 powerUp.gameObject.transform.SetParent(PowerUpDockingStation, true);
                 powerUp.gameObject.transform.localPosition = new Vector3(index * 0.3f, 0, 0);
+                powerUp.GlowEffect.gameObject.SetActive(true);
+                powerUp.GlowEffect.Stop();
+                powerUp.GlowEffect.Play();
                 RotatePowerUpDisplay(powerUp.gameObject);
 
                 index++;
                 Debug.Log("Purchased " + powerUp.StoreItemData.Name);
             }
+
+            // Place docking station behind store
+            PowerUpDockingStation.transform.position = StoreUI.transform.position - StoreUI.transform.forward * 0.3f + StoreUI.transform.up * 0.8f;
+            PowerUpDockingStation.gameObject.SetActive(true);
+
+            // Start Next Wave
+            Invoke(nameof(NextWave), 3f);
         }
     }
 

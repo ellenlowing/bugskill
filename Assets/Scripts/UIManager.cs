@@ -182,7 +182,7 @@ public class UIManager : MonoBehaviour
     public void UpdateScore(float cashAmount, Vector3 position)
     {
         tempText = UIScoreObj.GetComponentInChildren<TextMeshProUGUI>();
-        tempText.text = cashAmount.ToString();
+        tempText.text = "+" + cashAmount.ToString();
         tempObj = Instantiate(UIScoreObj, position, Quaternion.identity);
         UpdateCashUI();
         tempObj.transform.forward = Camera.main.transform.forward;

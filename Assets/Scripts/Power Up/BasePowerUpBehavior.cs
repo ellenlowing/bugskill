@@ -128,12 +128,12 @@ public class BasePowerUpBehavior : MonoBehaviour
     public virtual void EnterIdleState() { }
     public virtual void UpdateIdleState()
     {
-        if (!GlowEffect.gameObject.activeInHierarchy && !StoreManager.Instance.IsStoreActive)
-        {
-            GlowEffect.gameObject.SetActive(true);
-            GlowEffect.Stop();
-            GlowEffect.Play();
-        }
+        // if (!GlowEffect.gameObject.activeInHierarchy && !StoreManager.Instance.IsStoreActive)
+        // {
+        //     GlowEffect.gameObject.SetActive(true);
+        //     GlowEffect.Stop();
+        //     GlowEffect.Play();
+        // }
     }
     public virtual void EnterInactiveState() { }
     public virtual void UpdateInactiveState() { }

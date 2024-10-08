@@ -8,8 +8,6 @@ public class MCFlyBehavior : MonoBehaviour
     {
         if (other.gameObject.tag == "Hands")
         {
-            Debug.Log("Collided with hands");
-
             if (UIManager.Instance.HowToPlayUI.activeInHierarchy)
             {
                 UIManager.Instance.StartGameLoopTrigger();

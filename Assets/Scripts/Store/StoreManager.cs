@@ -207,7 +207,7 @@ public class StoreManager : MonoBehaviour
     public void OnThumbsUpSelected()
     {
         Debug.Log("Thumbs up selected");
-        if (IsStoreActive)
+        if (IsStoreActive) // Change isstoreactive
         {
             CheckoutBasket();
         }
@@ -215,6 +215,7 @@ public class StoreManager : MonoBehaviour
 
     public void CheckoutBasket()
     {
+        IsStoreActive = false;
         if (ShoppingBasket.Items.Count == 0)
         {
             NotEnoughCashDialog.SetActive(false);

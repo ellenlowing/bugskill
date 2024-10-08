@@ -175,7 +175,7 @@ public partial class GameManager : MonoBehaviour
         }
 
         GameUIGroup.SetActive(true);
-        LevelPanel.SetActive(true);
+        // LevelPanel.SetActive(true);
         animator.speed = settings.divFactor / settings.durationOfWave[settings.waveIndex];
         animator.Play("Animation", 0, 0);
 

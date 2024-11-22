@@ -50,6 +50,10 @@ public class BaseFlyBehavior : MonoBehaviour
         FlyingSpeed = Random.Range(CurrentFlyStat.minSpeed, CurrentFlyStat.maxSpeed);
         RestDuration = Random.Range(CurrentFlyStat.minRestDuration, CurrentFlyStat.maxRestDuration);
         TakeoffChance = settings.TakeoffChances[settings.waveIndex];
+        if (Random.Range(0f, 1f) < TakeoffChance)
+        {
+            transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+        }
         needNewTarget = true;
         IsSlowed = false;
         rb = GetComponent<Rigidbody>();

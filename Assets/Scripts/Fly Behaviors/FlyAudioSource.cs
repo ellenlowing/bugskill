@@ -15,10 +15,6 @@ public class FlyAudioSource : MonoBehaviour
     void Start()
     {
         idx = Random.Range(0, flyMovingClip.Count);
-        if (idx > 1)
-        {
-            transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
-        }
         audioSource = gameObject.GetComponent<AudioSource>();
         audioSource.clip = flyMovingClip[idx];
         audioSource.spatialBlend = 1f;

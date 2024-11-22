@@ -120,7 +120,7 @@ public partial class GameManager : MonoBehaviour
         GameRestartEvent.WhenSelect.AddListener(RestartGameLoop);
 
         animator.speed = 0;
-        // GameUIGroup.SetActive(false);
+        GameUIGroup.SetActive(false);
         LevelPanel.SetActive(false);
         UIManager.Instance.GameEndUI.SetActive(false);
 
@@ -175,7 +175,7 @@ public partial class GameManager : MonoBehaviour
         }
 
         GameUIGroup.SetActive(true);
-        // LevelPanel.SetActive(true);
+        LevelPanel.SetActive(true);
         animator.speed = settings.divFactor / settings.durationOfWave[settings.waveIndex];
         animator.Play("Animation", 0, 0);
 
@@ -196,7 +196,7 @@ public partial class GameManager : MonoBehaviour
             Destroy(BloodSplatContainer.GetChild(i).gameObject);
         }
 
-        // GameUIGroup.SetActive(false);
+        GameUIGroup.SetActive(false);
         LevelPanel.SetActive(false);
         CheckGoal(settings.waveIndex);
 

@@ -65,10 +65,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Purchased 5 items!
+  m_text: Purchased swatter!
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 2305e8a180eb34166ba5115a20404285, type: 2}
-  m_sharedMaterial: {fileID: 3717593566342794886, guid: 2305e8a180eb34166ba5115a20404285, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: f02e4f70bf1c84288993344b8500e643, type: 2}
+  m_sharedMaterial: {fileID: 6242911578138398018, guid: f02e4f70bf1c84288993344b8500e643, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

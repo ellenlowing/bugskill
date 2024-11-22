@@ -5,6 +5,7 @@ using Oculus.Interaction.Input;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using Oculus.Platform.Models;
 
 public class BasePowerUpBehavior : MonoBehaviour
 {
@@ -54,6 +55,7 @@ public class BasePowerUpBehavior : MonoBehaviour
     public void Start()
     {
         settings = GameManager.Instance.settings;
+        DissolveDuration = GameManager.Instance.DissolveDuration;
         ResetPowerUp();
         EnterState(PowerUpState.IDLE);
 
@@ -146,6 +148,12 @@ public class BasePowerUpBehavior : MonoBehaviour
             {
                 PowerCapacitySlider.gameObject.SetActive(true);
             }
+        }
+
+        if (_isEquipped)
+        {
+            LeftUIContainer.SetActive(false);
+            RightUIContainer.SetActive(false);
         }
 
         if (!StoreManager.Instance.IsStoreActive && PowerCapacity <= 0)
@@ -248,23 +256,6 @@ public class BasePowerUpBehavior : MonoBehaviour
         }
     }
 
-    // TODO change selection method
-    public void OnSelect(PointerEvent arg0)
-    {
-        if (StoreManager.Instance.IsStoreActive)
-        {
-            StoreManager.Instance.SetActivePowerUp(this);
-        }
-    }
-
-    public void OnUnselect(PointerEvent arg0)
-    {
-        if (StoreManager.Instance.IsStoreActive)
-        {
-            StoreManager.Instance.SetActivePowerUp(null);
-        }
-    }
-
     public virtual void OnGrabbableSelect(PointerEvent arg0)
     {
         HandRef handData = (HandRef)arg0.Data;
@@ -282,7 +273,12 @@ public class BasePowerUpBehavior : MonoBehaviour
         LeftUIContainer.SetActive(handedness == Handedness.Left && StoreManager.Instance.IsStoreActive);
         RightUIContainer.SetActive(handedness == Handedness.Right && StoreManager.Instance.IsStoreActive);
 
-        if (!StoreManager.Instance.IsStoreActive)
+        if (StoreManager.Instance.IsStoreActive)
+        {
+            StoreManager.Instance.Purchase(this);
+        }
+
+        if (IsSold)
         {
             _isEquipped = true;
             GlowEffect.gameObject.SetActive(false);
@@ -293,12 +289,29 @@ public class BasePowerUpBehavior : MonoBehaviour
             }
         }
 
+        // if (!StoreManager.Instance.IsStoreActive)
+        // {
+        // _isEquipped = true;
+        // GlowEffect.gameObject.SetActive(false);
+        // if (AnchoredToHandPose)
+        // {
+        //     transform.parent = ActiveOVRHand.gameObject.transform;
+        // }
+        // }
+
         EnterState(PowerUpState.ACTIVE);
     }
 
     public virtual void OnGrabbableUnselect(PointerEvent arg0)
     {
-        if (StoreManager.Instance.IsStoreActive)
+        // if (StoreManager.Instance.IsStoreActive)
+        // {
+        // ActiveOVRHand = null;
+        // EnterState(PowerUpState.IDLE);
+        // DisplayPriceTag.SetActive(true);
+        // }
+
+        if (!_isEquipped)
         {
             ActiveOVRHand = null;
             EnterState(PowerUpState.IDLE);

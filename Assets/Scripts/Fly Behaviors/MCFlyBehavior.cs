@@ -12,10 +12,6 @@ public class MCFlyBehavior : MonoBehaviour
             {
                 UIManager.Instance.StartGameLoopTrigger();
             }
-            else if (StoreManager.Instance.IsStoreActive)
-            {
-                StoreManager.Instance.OnThumbsUpSelected();
-            }
         }
     }
 }

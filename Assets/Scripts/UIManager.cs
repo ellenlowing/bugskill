@@ -117,7 +117,7 @@ public class UIManager : MonoBehaviour
 
         // subscribe to all events
         GameEnds.OnEventRaised += EndGame;
-
+        GameBegins.OnEventRaised += StoreManager.Instance.PlaceStore;
         GameBegins.OnEventRaised += UpdateLevel;
         StartNextWaveEvent.OnEventRaised += UpdateLevel;
 

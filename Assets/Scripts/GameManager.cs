@@ -42,13 +42,15 @@ public partial class GameManager : MonoBehaviour
     public MRUKAnchor.SceneLabels SpawnAnchorLabels;
     public LayerMask FlyLayerMask;
 
+    [Header("Power Up")]
+    public float DissolveDuration = 1.5f;
+
     [Header("TNT Stuff")]
     public GameObject TNTFlyPrefab;
     public ParticleSystem TNTExplosion;
     public float TNTEffectTimeout = 5f;
     public float TNTExplosionRadius = 1.5f;
     private Stack<GameObject> TNTFlies = new Stack<GameObject>();
-
 
     [Header("MRUK")]
     public List<MRUKAnchor> ValidAnchors;
@@ -198,7 +200,7 @@ public partial class GameManager : MonoBehaviour
 
         GameUIGroup.SetActive(false);
         LevelPanel.SetActive(false);
-        CheckGoal(settings.waveIndex);
+        StartCoroutine(CheckGoal(settings.waveIndex));
 
         settings.waveIndex = settings.waveIndex + 1;
 
@@ -220,7 +222,6 @@ public partial class GameManager : MonoBehaviour
     {
         StartNextWaveEvent.OnEventRaised += StartNextWave;
         GameBegins.OnEventRaised += StartGameLoop;
-        GameEnds.OnEventRaised += DissolveAllPowerUps;
     }
 
     public void StartNextWave()
@@ -229,8 +230,10 @@ public partial class GameManager : MonoBehaviour
         Invoke(nameof(InitializeRound), UIManager.Instance.RoundStartUIDuration);
     }
 
-    private void CheckGoal(int waveI)
+    IEnumerator CheckGoal(int waveI)
     {
+        int powerUpCount = DissolveAllPowerUps();
+        yield return new WaitForSeconds(powerUpCount > 0 ? DissolveDuration : 0);
         bool goalReached = settings.localKills >= settings.LevelGoals[waveI];
         Debug.Log(goalReached + " for wave index " + waveI + ", Local Kills: " + settings.localKills + " Goal: " + settings.LevelGoals[waveI]);
         settings.totalKills += settings.localKills;
@@ -255,7 +258,7 @@ public partial class GameManager : MonoBehaviour
 
     private void StartGameLoop()
     {
-        InitializeRound();
+        Invoke(nameof(InitializeRound), UIManager.Instance.RoundStartUIDuration);
     }
 
     public void RestartGameLoop()
@@ -393,7 +396,7 @@ public partial class GameManager : MonoBehaviour
         GameUIGroup.transform.eulerAngles = new Vector3(0, GameUIGroup.transform.eulerAngles.y, 0);
     }
 
-    public void DissolveAllPowerUps()
+    public int DissolveAllPowerUps()
     {
         Debug.Log("StoreManager: Dissolving all powerups");
         var powerUps = FindObjectsOfType<BasePowerUpBehavior>();
@@ -401,6 +404,7 @@ public partial class GameManager : MonoBehaviour
         {
             powerUp.Dissolve();
         }
+        return powerUps.Length;
     }
 
     void OnDrawGizmos()

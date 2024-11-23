@@ -233,8 +233,13 @@ public class UIManager : MonoBehaviour
         FlaskPopUpMaterial.color = GoalNotClearedColor;
 
         RoundStartGoalText.text = String.Format("DAY {0}:    KILL <color=#FF0000>{1}</color>", level, settings.LevelGoals[settings.waveIndex]);
-        RoundStartUI.transform.position = StoreManager.Instance.StoreUI.transform.position + StoreManager.Instance.StoreUI.transform.up;
-        RoundStartUI.transform.forward = -StoreManager.Instance.StoreUI.transform.forward;
+
+        // Old approach: Place RoundStart banner above store 
+        // RoundStartUI.transform.position = StoreManager.Instance.StoreUI.transform.position + StoreManager.Instance.StoreUI.transform.up;
+        // RoundStartUI.transform.forward = -StoreManager.Instance.StoreUI.transform.forward;
+
+        // Spawn roundstartUI in front of user
+        FaceCamera(obj: RoundStartUI, distanceFromCamera: settings.farDistanceFromCamera);
         RoundStartUI.SetActive(true);
         Invoke(nameof(HideRoundStartUI), RoundStartUIDuration);
     }
@@ -262,7 +267,7 @@ public class UIManager : MonoBehaviour
     {
         if (obj != null)
         {
-            float distance = distanceFromCamera == -1f ? settings.distanceFromCamera : distanceFromCamera;
+            float distance = distanceFromCamera == -1f ? settings.nearDistanceFromCamera : distanceFromCamera;
 
             Vector3 pos = Camera.main.transform.position + Camera.main.transform.forward * distance;
             pos = new Vector3(pos.x, Camera.main.transform.position.y + yOffset, pos.z);

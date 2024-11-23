@@ -105,6 +105,7 @@ public class HandController : MonoBehaviour
                     var splatter = Instantiate(splatterPrefab, touchedFlyTransform.position, Quaternion.identity);
                     splatter.transform.up = touchedFlyTransform.up;
                     splatter.transform.parent = GameManager.Instance.BloodSplatContainer;
+                    splatter.transform.localPosition = splatter.transform.localPosition + splatter.transform.up * settings.SplatDistanceOffset;
 
                     if (!isTouchingMC)
                     {

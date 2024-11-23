@@ -226,6 +226,8 @@ public class BasePowerUpBehavior : MonoBehaviour
         {
             GameManager.Instance.LeftHandRenderer.SetActive(true);
         }
+        LeftUIContainer.SetActive(handedness == Handedness.Left && StoreManager.Instance.IsStoreActive);
+        RightUIContainer.SetActive(handedness == Handedness.Right && StoreManager.Instance.IsStoreActive);
 
         if (StoreManager.Instance.IsStoreActive)
         {
@@ -246,6 +248,9 @@ public class BasePowerUpBehavior : MonoBehaviour
         {
             GameManager.Instance.LeftHandRenderer.SetActive(false);
         }
+
+        LeftUIContainer.SetActive(false);
+        RightUIContainer.SetActive(false);
 
         if (StoreManager.Instance.IsStoreActive)
         {
@@ -270,8 +275,6 @@ public class BasePowerUpBehavior : MonoBehaviour
         }
 
         DisplayPriceTag.SetActive(false);
-        LeftUIContainer.SetActive(handedness == Handedness.Left && StoreManager.Instance.IsStoreActive);
-        RightUIContainer.SetActive(handedness == Handedness.Right && StoreManager.Instance.IsStoreActive);
 
         if (StoreManager.Instance.IsStoreActive)
         {
@@ -317,9 +320,6 @@ public class BasePowerUpBehavior : MonoBehaviour
             EnterState(PowerUpState.IDLE);
             DisplayPriceTag.SetActive(true);
         }
-
-        LeftUIContainer.SetActive(false);
-        RightUIContainer.SetActive(false);
     }
 
     public void ShowItemData(PointerEvent arg0)

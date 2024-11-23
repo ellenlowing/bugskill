@@ -31,8 +31,10 @@ public class SettingSO : ScriptableObject
     public int[] LevelGoals = { 2, 2, 2, 2 };
     public float[] TakeoffChances = { 0.1f, 0.2f, 0.3f, 0.4f };
 
-    [Header("HourGlass")]
+    [Header("Presets")]
     public float divFactor = 2.7f;
-    public float distanceFromCamera = 1.0f;
+    public float nearDistanceFromCamera = 1.0f;
+    public float farDistanceFromCamera = 1.0f;
+    public float SplatDistanceOffset = 0.05f;
 
 }

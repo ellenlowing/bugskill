@@ -179,12 +179,18 @@ public class StoreManager : MonoBehaviour
             StorePositionFinder.GetComponent<FindLargestSpawnPositions>().StartSpawnCurrentRoom();
         }
         StoreUI.transform.position = StorePositionFinder.GetChild(StorePositionFinder.childCount - 1).position;
-        MRUKRoom room = MRUK.Instance.GetCurrentRoom();
-        if (room != null)
-        {
-            var floor = room.FloorAnchor;
-            StoreUI.transform.LookAt(floor.transform);
-        }
+
+        // Old approach: Look at room center
+        // MRUKRoom room = MRUK.Instance.GetCurrentRoom();
+        // if (room != null)
+        // {
+        //     var floor = room.FloorAnchor;
+        //     StoreUI.transform.LookAt(floor.transform);
+        // }
+
+        // Store looks at user
+        StoreUI.transform.LookAt(new Vector3(Camera.main.transform.position.x, 0, Camera.main.transform.position.z));
+        StoreUI.transform.eulerAngles = new Vector3(0, StoreUI.transform.eulerAngles.y, 0);
     }
 
     public void HideStore()

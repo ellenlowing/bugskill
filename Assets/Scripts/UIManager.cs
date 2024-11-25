@@ -117,7 +117,7 @@ public class UIManager : MonoBehaviour
 
         // subscribe to all events
         GameEnds.OnEventRaised += EndGame;
-        GameBegins.OnEventRaised += StoreManager.Instance.PlaceStore;
+        GameBegins.OnEventRaised += StoreManager.Instance.InitializeStorePosition;
         GameBegins.OnEventRaised += UpdateLevel;
         StartNextWaveEvent.OnEventRaised += UpdateLevel;
 
@@ -140,7 +140,7 @@ public class UIManager : MonoBehaviour
 
     private void ShowGameStartScreen()
     {
-        FaceCamera(obj: GameTitle, yOffset: 0.4f);
+        FaceCamera(obj: GameTitle, yOffset: 0.4f, distanceFromCamera: settings.farDistanceFromCamera);
     }
 
     public void ShowHowToPlayScreen()

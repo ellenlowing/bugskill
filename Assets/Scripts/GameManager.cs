@@ -130,7 +130,10 @@ public partial class GameManager : MonoBehaviour
         EffectMesh.HideMesh = false;
 #endif
 
-        UIManager.Instance.FaceCamera(debugObject, -0.3f);
+        if (debugObject != null)
+        {
+            UIManager.Instance.FaceCamera(debugObject, -0.3f);
+        }
     }
 
     void Update()

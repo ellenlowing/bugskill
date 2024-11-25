@@ -79,7 +79,7 @@ public class StoreManager : MonoBehaviour
     {
         settings = GameManager.Instance.settings;
         StoreUI.SetActive(false);
-        PlaceStore();
+        InitializeStorePosition();
         // ThumbsUpEvent.WhenSelected.AddListener(OnThumbsUpSelected);
     }
 
@@ -171,7 +171,7 @@ public class StoreManager : MonoBehaviour
         IsStoreActive = true;
     }
 
-    public void PlaceStore()
+    public void InitializeStorePosition()
     {
         Debug.Log("Placing store " + StorePositionFinder.childCount);
         if (StorePositionFinder.childCount == 0)
@@ -179,7 +179,10 @@ public class StoreManager : MonoBehaviour
             StorePositionFinder.GetComponent<FindLargestSpawnPositions>().StartSpawnCurrentRoom();
         }
         StoreUI.transform.position = StorePositionFinder.GetChild(StorePositionFinder.childCount - 1).position;
+    }
 
+    public void PlaceStore()
+    {
         // Old approach: Look at room center
         // MRUKRoom room = MRUK.Instance.GetCurrentRoom();
         // if (room != null)

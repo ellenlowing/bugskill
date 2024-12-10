@@ -167,7 +167,7 @@ public class BaseFlyBehavior : MonoBehaviour
     {
         restTimer = Time.time;
         transform.up = targetNormal;
-        transform.position = targetPosition + 0.01f * targetNormal;
+        transform.position = targetPosition;
         transform.rotation = transform.rotation * Quaternion.Euler(0, Random.Range(0, 360f), 0);
     }
 

@@ -1451,7 +1451,6 @@ MonoBehaviour:
   HandSplat: {fileID: 676907612}
   BloodSplatTimeout: 2
   BloodSplatParticles: {fileID: 3387161656658716193}
-  ScoreUpdateEvent: {fileID: 11400000, guid: 483d9bbf59d0e684fa36d25290bb15c8, type: 2}
 --- !u!54 &130871185
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -18856,7 +18855,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3613868102660323786, guid: c2e00db6d2dfa42ac8d821db8d493a44, type: 3}
       propertyPath: <RoomCreatedEvent>k__BackingField.m_PersistentCalls.m_Calls.Array.size
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3613868102660323786, guid: c2e00db6d2dfa42ac8d821db8d493a44, type: 3}
       propertyPath: <RoomUpdatedEvent>k__BackingField.m_PersistentCalls.m_Calls.Array.size
@@ -27272,7 +27271,7 @@ MonoBehaviour:
   FailurePanel: {fileID: 1918739197658357991}
   FailText: {fileID: 4376122200986101306}
   LevelProgressUI: {fileID: 7114770129407655930}
-  PlayerSettingsUI: {fileID: 0}
+  PlayerSettingsUI: {fileID: 720755178}
   WalletText: {fileID: 1912979365}
   ShopWalletText: {fileID: 467803027}
   LevelGoalText: {fileID: 1594302088}
@@ -27296,7 +27295,7 @@ MonoBehaviour:
   LevelClearedSound: {fileID: 1817601410}
   GameStartButton: {fileID: 7148373579189778676}
   HowToPlayButton: {fileID: 1707698286}
-  PlayerSettingsButton: {fileID: 0}
+  PlayerSettingsButton: {fileID: 1858778943}
   GameExitButton: {fileID: 1024137554}
   GameBegins: {fileID: 11400000, guid: e1f9e8cd7ed35bb4f933dfe252aff86d, type: 2}
   FrogPowerUp: {fileID: 11400000, guid: d77f5a68065e545499e35851c0ded3e1, type: 2}
@@ -28550,7 +28549,6 @@ MonoBehaviour:
   HandSplat: {fileID: 13004061}
   BloodSplatTimeout: 2
   BloodSplatParticles: {fileID: 3387161656658716193}
-  ScoreUpdateEvent: {fileID: 11400000, guid: 483d9bbf59d0e684fa36d25290bb15c8, type: 2}
 --- !u!54 &787182960
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -36496,6 +36494,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1857255933}
   m_CullTransparentMesh: 1
+--- !u!114 &1858778943 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8755629725108178869, guid: fdd733798a7a54a839890e650730dc78, type: 3}
+  m_PrefabInstance: {fileID: 1278331788}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1464721f2283eb14e94a33e812b47be4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1874991646 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2296141232796561049, guid: cee191920b8eb41b0960b1082a393a3e, type: 3}
@@ -39935,31 +39944,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 6670049389550846114, guid: 3c3e56f35930b43a6943720e083bf1ef, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 0}
-    - targetCorrespondingSourceObject: {fileID: 2294316794563122926, guid: 3c3e56f35930b43a6943720e083bf1ef, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 0}
-    - targetCorrespondingSourceObject: {fileID: 3664048536673726785, guid: 3c3e56f35930b43a6943720e083bf1ef, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 0}
-    - targetCorrespondingSourceObject: {fileID: 7159431485317472230, guid: 3c3e56f35930b43a6943720e083bf1ef, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 0}
-    - targetCorrespondingSourceObject: {fileID: 737014363358471316, guid: 3c3e56f35930b43a6943720e083bf1ef, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 0}
-    - targetCorrespondingSourceObject: {fileID: 6350388391561077117, guid: 3c3e56f35930b43a6943720e083bf1ef, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 0}
-    - targetCorrespondingSourceObject: {fileID: 1092481369897942025, guid: 3c3e56f35930b43a6943720e083bf1ef, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 0}
-    - targetCorrespondingSourceObject: {fileID: 4850486955352128246, guid: 3c3e56f35930b43a6943720e083bf1ef, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 0}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3c3e56f35930b43a6943720e083bf1ef, type: 3}
 --- !u!4 &2117908838 stripped
 Transform:

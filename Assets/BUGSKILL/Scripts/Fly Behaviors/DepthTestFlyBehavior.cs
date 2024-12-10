@@ -5,24 +5,26 @@ using UnityEngine;
 public class DepthTestFlyBehavior : BaseFlyBehavior
 {
     private MeshRenderer[] _renderers;
-    private float _EnvironmentDepthBias = 0;
 
     new void Start()
     {
         _renderers = GetComponentsInChildren<MeshRenderer>();
+        TakeoffChance = 0;
     }
 
     new void Update()
     {
-
     }
 
-    public void AdjustDepthBias(float value)
+    public void SetDepthBias(float value)
     {
-        _EnvironmentDepthBias += value;
         foreach (var renderer in _renderers)
         {
-            renderer.material.SetFloat("_EnvironmentDepthBias", _EnvironmentDepthBias);
+            Material[] materials = renderer.materials;
+            foreach (var material in materials)
+            {
+                material.SetFloat("_EnvironmentDepthBias", value);
+            }
         }
     }
 }

@@ -83,6 +83,8 @@ public partial class GameManager : MonoBehaviour
     public GameObject RightHandRenderer;
     public Hand LeftHand;
     public Hand RightHand;
+    public HandController LeftHandController;
+    public HandController RightHandController;
 
     [Header("Finger Gun")]
     public GameObject LeftFingerGun;
@@ -125,6 +127,7 @@ public partial class GameManager : MonoBehaviour
         GameUIGroup.SetActive(false);
         LevelPanel.SetActive(false);
         UIManager.Instance.GameEndUI.SetActive(false);
+        SetHandControllersActive(false);
 
 #if UNITY_EDITOR
         EffectMesh.HideMesh = false;
@@ -261,6 +264,7 @@ public partial class GameManager : MonoBehaviour
 
     private void StartGameLoop()
     {
+        SetHandControllersActive(true);
         Invoke(nameof(InitializeRound), UIManager.Instance.RoundStartUIDuration);
     }
 
@@ -420,5 +424,11 @@ public partial class GameManager : MonoBehaviour
                 Gizmos.DrawWireSphere(fly.transform.position, TNTExplosionRadius);
             }
         }
+    }
+
+    public void SetHandControllersActive(bool active)
+    {
+        LeftHandController.enabled = active;
+        RightHandController.enabled = active;
     }
 }

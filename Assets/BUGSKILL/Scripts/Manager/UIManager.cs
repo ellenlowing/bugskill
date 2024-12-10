@@ -23,6 +23,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject FailurePanel;
     [SerializeField] private TextMeshProUGUI FailText;
     [SerializeField] private GameObject LevelProgressUI;
+    [SerializeField] private GameObject PlayerSettingsUI;
     public TextMeshProUGUI WalletText;
     public TextMeshProUGUI ShopWalletText;
     [SerializeField] private TextMeshProUGUI LevelGoalText;
@@ -53,6 +54,7 @@ public class UIManager : MonoBehaviour
     [Space(20)]
     [SerializeField] private InteractableUnityEventWrapper GameStartButton;
     [SerializeField] private InteractableUnityEventWrapper HowToPlayButton;
+    [SerializeField] private InteractableUnityEventWrapper PlayerSettingsButton;
     [SerializeField] private InteractableUnityEventWrapper GameExitButton;
 
     [Header("Events")]
@@ -111,7 +113,8 @@ public class UIManager : MonoBehaviour
         IsNotNull();
 
         settings = GameManager.Instance.settings;
-        HowToPlayUI.SetActive(false);
+        HidePlayerSettings();
+        HideHowToPlayScreen();
         GameEndUI.SetActive(false);
         HideRoundStartUI();
 
@@ -124,18 +127,13 @@ public class UIManager : MonoBehaviour
         GameStartButton.WhenSelect.AddListener(StartGameLoopTrigger);
         HowToPlayButton.WhenSelect.AddListener(ShowHowToPlayScreen);
         GameExitButton.WhenSelect.AddListener(QuitGame);
+        PlayerSettingsButton.WhenSelect.AddListener(ShowPlayerSettings);
 
         Invoke(nameof(ShowGameStartScreen), 1.5f);
     }
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            // ShowHowToPlayScreen();
-            IncrementKill(Vector3.zero, 1);
-            // Debug.Log("Debug: add kill");
-        }
     }
 
     private void ShowGameStartScreen()
@@ -149,6 +147,12 @@ public class UIManager : MonoBehaviour
         GameTitle.SetActive(false);
     }
 
+    public void ShowPlayerSettings()
+    {
+        PlayerSettingsUI.SetActive(true);
+        PlayerSettingsUI.GetComponent<PlayerSettingsManager>().CreateDepthTestEnvironment();
+    }
+
     public void HideHowToPlayScreen()
     {
         HowToPlayUI.SetActive(false);
@@ -157,6 +161,12 @@ public class UIManager : MonoBehaviour
     public void HideRoundStartUI()
     {
         RoundStartUI.SetActive(false);
+    }
+
+    public void HidePlayerSettings()
+    {
+        PlayerSettingsUI.GetComponent<PlayerSettingsManager>().DestroyDepthTestEnvironment();
+        PlayerSettingsUI.SetActive(false);
     }
 
     private void QuitGame()

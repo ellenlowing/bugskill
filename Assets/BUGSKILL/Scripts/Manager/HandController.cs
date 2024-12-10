@@ -22,8 +22,6 @@ public class HandController : MonoBehaviour
     bool isTouchingFly = false;
     Transform touchedFlyTransform = null;
     float BloodSplatTimer = 0;
-
-    private int totalCash = 0;
     private SettingSO settings;
 
     void Start()

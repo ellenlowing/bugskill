@@ -14,9 +14,6 @@ public class HandController : MonoBehaviour
     public float BloodSplatTimeout = 2f;
     public ParticleSystem BloodSplatParticles;
 
-    [Header("Events")]
-    [SerializeField] private FVEventSO ScoreUpdateEvent;
-
     bool isTouchingLandingSurface = false;
     bool isTouchingOtherHand = false;
     bool isTouchingFly = false;

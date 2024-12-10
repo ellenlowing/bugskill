@@ -103,4 +103,4 @@ MonoBehaviour:
   divFactor: 3
   nearDistanceFromCamera: 0.5
   farDistanceFromCamera: 1
-  SplatDistanceOffset: 0.05
+  SplatDistanceOffset: 0

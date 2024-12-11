@@ -3283,7 +3283,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2300318445620189431, guid: 9e97e48275a5e4e569483e81bad37b11, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.196
+      value: 1.164
       objectReference: {fileID: 0}
     - target: {fileID: 2300318445620189431, guid: 9e97e48275a5e4e569483e81bad37b11, type: 3}
       propertyPath: m_LocalPosition.z
@@ -28758,7 +28758,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: -0.027, y: 0.308}
-  m_SizeDelta: {x: 73.42, y: 9.4}
+  m_SizeDelta: {x: 64.62, y: 9.4}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &780590652
 MonoBehaviour:
@@ -35004,7 +35004,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1672929402
 RectTransform:
   m_ObjectHideFlags: 0

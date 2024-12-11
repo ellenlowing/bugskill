@@ -242,7 +242,7 @@ public class UIManager : MonoBehaviour
         LevelClearedGroup.SetActive(false);
         GoalClearedParticles.Stop();
         FlaskPopUpMaterial.color = GoalNotClearedColor;
-
+        CatchCountUIText.text = FormatCatchCountUIText();
         RoundStartGoalText.text = String.Format("DAY {0}:    KILL <color=#FF0000>{1}</color>", level, settings.LevelGoals[settings.waveIndex]);
 
         // Old approach: Place RoundStart banner above store 

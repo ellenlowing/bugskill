@@ -12,10 +12,6 @@ public class DepthTestFlyBehavior : BaseFlyBehavior
         TakeoffChance = 0;
     }
 
-    new void Update()
-    {
-    }
-
     public void SetDepthBias(float value)
     {
         foreach (var renderer in _renderers)

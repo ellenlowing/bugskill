@@ -1380,7 +1380,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.09, y: 0.005, z: 0}
-  m_LocalScale: {x: 0.2, y: 0.05, z: 0.13}
+  m_LocalScale: {x: 0.2, y: 0.08, z: 0.13}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1747532723}
@@ -1405,7 +1405,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 2fc94bc5936a6ea49a1e6c2cb6e92a8f, type: 2}
+  - {fileID: 2100000, guid: b4129a7a829654913981614a70ff5036, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1442,7 +1442,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 130871178}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 18d43e546c96240ad80f4c840661fd5d, type: 3}
   m_Name: 
@@ -18984,7 +18984,7 @@ PrefabInstance:
     - target: {fileID: 3613868102660323786, guid: c2e00db6d2dfa42ac8d821db8d493a44, type: 3}
       propertyPath: <SceneLoadedEvent>k__BackingField.m_PersistentCalls.m_Calls.Array.data[7].m_Target
       value: 
-      objectReference: {fileID: 720755179}
+      objectReference: {fileID: 0}
     - target: {fileID: 3613868102660323786, guid: c2e00db6d2dfa42ac8d821db8d493a44, type: 3}
       propertyPath: <RoomCreatedEvent>k__BackingField.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
@@ -19091,7 +19091,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3613868102660323786, guid: c2e00db6d2dfa42ac8d821db8d493a44, type: 3}
       propertyPath: <SceneLoadedEvent>k__BackingField.m_PersistentCalls.m_Calls.Array.data[7].m_MethodName
-      value: CreateDepthTestEnvironment
+      value: CreateMesh
       objectReference: {fileID: 0}
     - target: {fileID: 3613868102660323786, guid: c2e00db6d2dfa42ac8d821db8d493a44, type: 3}
       propertyPath: <RoomCreatedEvent>k__BackingField.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
@@ -19139,7 +19139,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3613868102660323786, guid: c2e00db6d2dfa42ac8d821db8d493a44, type: 3}
       propertyPath: <SceneLoadedEvent>k__BackingField.m_PersistentCalls.m_Calls.Array.data[7].m_TargetAssemblyTypeName
-      value: PlayerSettingsManager, Assembly-CSharp
+      value: Meta.XR.MRUtilityKit.EffectMesh, meta.xr.mrutilitykit
       objectReference: {fileID: 0}
     - target: {fileID: 3613868102660323786, guid: c2e00db6d2dfa42ac8d821db8d493a44, type: 3}
       propertyPath: RoomCreatedEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
@@ -27020,7 +27020,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DepthTestFlyPrefab: {fileID: 708182128869486111, guid: 22286bcab744a4116890503ae01aafab, type: 3}
-  DepthTestFlyCount: 10
+  DepthTestFlyCount: 20
   EnvironmentDepthBias: 0
 --- !u!4 &720755180
 Transform:
@@ -28478,7 +28478,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0.09, y: -0.005, z: 0}
-  m_LocalScale: {x: 0.2, y: 0.05, z: 0.13}
+  m_LocalScale: {x: 0.2, y: 0.08, z: 0.13}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1747532722}
@@ -28503,7 +28503,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 8d0dfc5c145ff431f801a77d7a263c59, type: 2}
+  - {fileID: 2100000, guid: 40f9211c68ea245259692d4b50ce5641, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -28540,7 +28540,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 787182954}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 18d43e546c96240ad80f4c840661fd5d, type: 3}
   m_Name: 
@@ -35390,6 +35390,9 @@ PrefabInstance:
       addedObject: {fileID: 1129462519}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 100004, guid: 126d619cf4daa52469682f85c1378b4a, type: 3}
+      insertIndex: 1
+      addedObject: {fileID: 1747532728}
+    - targetCorrespondingSourceObject: {fileID: 100004, guid: 126d619cf4daa52469682f85c1378b4a, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1503377499}
   m_SourcePrefab: {fileID: 100100000, guid: 126d619cf4daa52469682f85c1378b4a, type: 3}
@@ -35424,6 +35427,24 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 400004, guid: 126d619cf4daa52469682f85c1378b4a, type: 3}
   m_PrefabInstance: {fileID: 1747532720}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1747532728
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1503377494}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b023183069df224080314a560e6e1ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  blockId: e47682b9-c270-40b1-b16d-90b627a5ce1b
+  instanceId: 803a4e8d-29ea-40b4-9459-c545c5e4d3d7
+  version: 1
+  installationRoutineCheckpoint:
+    _installationRoutineId: 
+    _installationVariants: []
 --- !u!1001 &1763405740
 PrefabInstance:
   m_ObjectHideFlags: 0

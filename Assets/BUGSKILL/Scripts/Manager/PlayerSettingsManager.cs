@@ -9,6 +9,7 @@ public class PlayerSettingsManager : MonoBehaviour
     public GameObject DepthTestFlyPrefab;
     public int DepthTestFlyCount = 10;
     public float EnvironmentDepthBias = 0;
+    public List<GameObject> OccludedPrefabs;
     private List<GameObject> _depthTestFlyList = new List<GameObject>();
 
     void Awake()
@@ -33,6 +34,11 @@ public class PlayerSettingsManager : MonoBehaviour
         {
             AdjustDepthBias(-0.01f);
         }
+
+        if (OVRInput.GetDown(OVRInput.RawButton.A))
+        {
+            CreateDepthTestEnvironment();
+        }
     }
 
     public void AdjustDepthBias(float value)
@@ -48,7 +54,21 @@ public class PlayerSettingsManager : MonoBehaviour
     public void CreateDepthTestEnvironment()
     {
         GameManager.Instance.SetHandControllersActive(false);
+        SamplePointsOnSceneModel();
+        // SamplePointsOnGlobalMesh();
+    }
 
+    public void DestroyDepthTestEnvironment()
+    {
+        foreach (var depthTestFly in _depthTestFlyList)
+        {
+            Destroy(depthTestFly);
+        }
+        _depthTestFlyList.Clear();
+    }
+
+    public void SamplePointsOnSceneModel()
+    {
         MRUKRoom currentRoom = MRUK.Instance.GetCurrentRoom();
         var labelFilter = LabelFilter.Included(GameManager.Instance.SpawnAnchorLabels);
 
@@ -66,12 +86,73 @@ public class PlayerSettingsManager : MonoBehaviour
         }
     }
 
-    public void DestroyDepthTestEnvironment()
+    public void SamplePointsOnGlobalMesh()
     {
-        foreach (var depthTestFly in _depthTestFlyList)
+        MRUKRoom currentRoom = MRUK.Instance.GetCurrentRoom();
+        MRUKAnchor globalMeshAnchor = currentRoom.GlobalMeshAnchor;
+        Mesh globalMesh = globalMeshAnchor.GlobalMesh;
+
+        for (int i = 0; i < DepthTestFlyCount; i++)
         {
-            Destroy(depthTestFly);
+            (Vector3 point, Vector3 normal) = GetRandomPointOnMesh(globalMesh, globalMeshAnchor.transform);
+            GameObject fly = Instantiate(DepthTestFlyPrefab, point, Quaternion.identity, gameObject.transform);
+            fly.transform.up = normal;
+            fly.transform.rotation = fly.transform.rotation * Quaternion.Euler(0, Random.Range(0, 360f), 0);
+            fly.name = "Depth Test Fly " + i.ToString();
+            _depthTestFlyList.Add(fly);
+            Debug.Log("Depth Test Fly " + i.ToString() + " created at " + point.ToString());
         }
-        _depthTestFlyList.Clear();
+    }
+
+    public static (Vector3 point, Vector3 normal) GetRandomPointOnMesh(Mesh mesh, Transform transform)
+    {
+        // Get mesh data
+        Vector3[] vertices = mesh.vertices;
+        int[] triangles = mesh.triangles;
+
+        // Calculate areas of all triangles
+        float[] cumulativeAreas = new float[triangles.Length / 3];
+        float totalArea = 0f;
+
+        for (int i = 0; i < triangles.Length; i += 3)
+        {
+            Vector3 v0 = vertices[triangles[i]];
+            Vector3 v1 = vertices[triangles[i + 1]];
+            Vector3 v2 = vertices[triangles[i + 2]];
+
+            // Calculate area of the triangle
+            float area = Vector3.Cross(v1 - v0, v2 - v0).magnitude * 0.5f;
+            totalArea += area;
+            cumulativeAreas[i / 3] = totalArea;
+        }
+
+        // Select a triangle based on areas
+        float randomValue = Random.value * totalArea;
+        int triangleIndex = System.Array.BinarySearch(cumulativeAreas, randomValue);
+        if (triangleIndex < 0)
+            triangleIndex = ~triangleIndex;
+
+        // Get triangle vertices
+        Vector3 a = vertices[triangles[triangleIndex * 3]];
+        Vector3 b = vertices[triangles[triangleIndex * 3 + 1]];
+        Vector3 c = vertices[triangles[triangleIndex * 3 + 2]];
+
+        // Calculate triangle normal dynamically
+        Vector3 dynamicNormal = Vector3.Cross(b - a, c - a).normalized;
+
+        // Random barycentric coordinates
+        float u = Random.value;
+        float v = Random.value;
+        if (u + v > 1f)
+        {
+            u = 1f - u;
+            v = 1f - v;
+        }
+        float w = 1f - u - v;
+
+        // Convert to world space
+        Vector3 localPoint = a * u + b * v + c * w;
+
+        return (transform.TransformPoint(localPoint), transform.TransformDirection(dynamicNormal));
     }
 }

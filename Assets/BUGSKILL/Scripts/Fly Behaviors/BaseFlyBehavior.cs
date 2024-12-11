@@ -33,7 +33,7 @@ public class BaseFlyBehavior : MonoBehaviour
     public bool IsKilled;
     [SerializeField] private List<MeshRenderer> normalEyeMesh;
     [SerializeField] private List<MeshRenderer> circularEyeMesh;
-
+    [SerializeField] private Animator animator;
     private SettingSO settings;
     private Rigidbody rb;
     private Vector3 targetPosition;
@@ -129,9 +129,15 @@ public class BaseFlyBehavior : MonoBehaviour
         }
     }
 
-    public virtual void EnterIdleState() { }
+    public virtual void EnterIdleState()
+    {
+        animator.speed = 0;
+    }
     public virtual void UpdateIdleState() { }
-    public virtual void EnterFlyingState() { }
+    public virtual void EnterFlyingState()
+    {
+        animator.speed = 1;
+    }
     public virtual void UpdateFlyingState()
     {
         int tries = 0;
@@ -166,6 +172,7 @@ public class BaseFlyBehavior : MonoBehaviour
     public virtual void EnterRestingState()
     {
         restTimer = Time.time;
+        animator.speed = 0;
         transform.up = targetNormal;
         transform.position = targetPosition;
         transform.rotation = transform.rotation * Quaternion.Euler(0, Random.Range(0, 360f), 0);
@@ -181,12 +188,14 @@ public class BaseFlyBehavior : MonoBehaviour
 
     public virtual void EnterDyingState()
     {
+        animator.speed = 0;
         rb.isKinematic = false;
         rb.useGravity = true;
     }
     public virtual void UpdateDyingState() { }
     public virtual void EnterDeadState()
     {
+        animator.speed = 0;
         UIManager.Instance.IncrementKill(transform.position, (int)SCOREFACTOR.SPRAY);
         Destroy(gameObject);
     }

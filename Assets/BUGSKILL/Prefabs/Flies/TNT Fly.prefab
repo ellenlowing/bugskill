@@ -179,12 +179,14 @@ MonoBehaviour:
   TakeoffChance: 0
   LandingSurface: 16383
   IsSlowed: 0
+  IsKilled: 0
   normalEyeMesh:
   - {fileID: 8161488179538572312}
   - {fileID: 8161353380878517188}
   circularEyeMesh:
   - {fileID: 8860143217507585408}
   - {fileID: 5468476972978534699}
+  animator: {fileID: 8089709310135259662}
 --- !u!54 &1778244852545078343
 Rigidbody:
   m_ObjectHideFlags: 0

@@ -329,7 +329,8 @@ public partial class GameManager : MonoBehaviour
     {
         Debug.Log("get game UI group placement");
         MRUKRoom room = MRUK.Instance.GetCurrentRoom();
-        List<string> sceneLabels = new List<string> { "TABLE", "COUCH", "STORAGE", "BED", "FLOOR" };
+        // List<string> sceneLabels = new List<string> { "TABLE", "COUCH", "STORAGE", "BED", "FLOOR" };
+        List<string> sceneLabels = new List<string> { "FLOOR" };
 
         if (room != null)
         {

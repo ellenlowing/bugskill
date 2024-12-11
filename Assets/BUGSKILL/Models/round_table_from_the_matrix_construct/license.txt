@@ -1,0 +1,11 @@
+Model Information:
+* title:	Round Table from The Matrix Construct
+* source:	https://sketchfab.com/3d-models/round-table-from-the-matrix-construct-8f406f8e77114338a04d39d794f751ce
+* author:	Rodrigo Villani (https://sketchfab.com/rvillani)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Round Table from The Matrix Construct" (https://sketchfab.com/3d-models/round-table-from-the-matrix-construct-8f406f8e77114338a04d39d794f751ce) by Rodrigo Villani (https://sketchfab.com/rvillani) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

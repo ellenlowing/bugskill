@@ -22,12 +22,12 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject UIScoreObj;
     [SerializeField] private GameObject FailurePanel;
     [SerializeField] private TextMeshProUGUI FailText;
-    [SerializeField] private GameObject LevelProgressUI;
     [SerializeField] private GameObject PlayerSettingsUI;
     public TextMeshProUGUI WalletText;
     public TextMeshProUGUI ShopWalletText;
     [SerializeField] private TextMeshProUGUI LevelGoalText;
     [SerializeField] private TextMeshProUGUI LevelNumberText;
+    public TextMeshProUGUI CatchCountUIText;
     public GameObject RoundStartUI;
     public TextMeshProUGUI RoundStartGoalText;
     public float RoundStartUIDuration = 2f;
@@ -228,6 +228,7 @@ public class UIManager : MonoBehaviour
     {
         WalletText.text = settings.localKills.ToString(); // TODO Update later
         ShopWalletText.text = "$" + settings.Cash.ToString();
+        CatchCountUIText.text = FormatCatchCountUIText();
     }
 
     public void UpdateLevel()
@@ -252,6 +253,20 @@ public class UIManager : MonoBehaviour
         FaceCamera(obj: RoundStartUI, distanceFromCamera: settings.farDistanceFromCamera);
         RoundStartUI.SetActive(true);
         Invoke(nameof(HideRoundStartUI), RoundStartUIDuration);
+    }
+
+    public string FormatCatchCountUIText()
+    {
+        int kills = settings.localKills;
+        int goal = settings.LevelGoals[settings.waveIndex];
+        if (kills < goal)
+        {
+            return "<color=#FF0000>" + kills + "</color> / " + goal;
+        }
+        else
+        {
+            return "<color=#00FF00>" + kills + "</color> / " + goal;
+        }
     }
 
     public void StartGameLoopTrigger()

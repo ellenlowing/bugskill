@@ -21,7 +21,7 @@ public class HandController : MonoBehaviour
     float BloodSplatTimer = 0;
     private SettingSO settings;
 
-    void Start()
+    void OnEnable()
     {
         settings = GameManager.Instance.settings;
     }

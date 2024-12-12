@@ -104,7 +104,7 @@ public class SlingshotBall : MonoBehaviour
         UpdateFingerPose();
 
         transform.position = _averageFingerTipPosition;
-        // transform.rotation = Quaternion.Euler(0, 90f, 0) * Quaternion.Euler(_averageFingerTipEulerAngles);
+        transform.rotation = Quaternion.LookRotation(_indexFingerTipPose.up);
 
         DrawSlingshotLines();
     }

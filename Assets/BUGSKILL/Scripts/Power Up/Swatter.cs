@@ -115,6 +115,7 @@ public class Swatter : BasePowerUpBehavior
         {
             if (other.gameObject.CompareTag("Fly"))
             {
+                other.GetComponent<BaseFlyBehavior>().IsKilled = true;
                 HitSoundPlayer.Play();
                 other.transform.SetParent(SwatterPosition);
 
@@ -127,10 +128,6 @@ public class Swatter : BasePowerUpBehavior
                 UIManager.Instance.IncrementKill(other.transform.position, (int)SCOREFACTOR.SWATTER);
                 // Destroy fly after delay 
                 Destroy(other.gameObject, destroyFlyDelay);
-            }
-            else if (other.gameObject.tag == "TNT")
-            {
-                GameManager.Instance.TriggerTNT(other.transform.position, other.gameObject);
             }
         }
     }

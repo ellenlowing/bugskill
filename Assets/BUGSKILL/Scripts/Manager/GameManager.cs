@@ -166,20 +166,20 @@ public partial class GameManager : MonoBehaviour
                 }
             }
 
-            TNTFlies.Clear();
-            for (int i = 0; i < settings.tntFliesInWave[settings.waveIndex]; i++)
-            {
-                if (currentRoom.GenerateRandomPositionOnSurface(MRUK.SurfaceType.VERTICAL, 0.01f, labelFilter, out Vector3 position, out Vector3 normal))
-                {
-                    GameObject fly = Instantiate(TNTFlyPrefab, position, Quaternion.identity, FlyParentAnchor);
-                    fly.transform.up = normal;
-                    fly.transform.rotation = fly.transform.rotation * Quaternion.Euler(0, Random.Range(0, 360f), 0);
-                    fly.name = "TNT Fly " + i.ToString();
-                    settings.flies.Add(fly);
+            // TNTFlies.Clear();
+            // for (int i = 0; i < settings.tntFliesInWave[settings.waveIndex]; i++)
+            // {
+            //     if (currentRoom.GenerateRandomPositionOnSurface(MRUK.SurfaceType.VERTICAL, 0.01f, labelFilter, out Vector3 position, out Vector3 normal))
+            //     {
+            //         GameObject fly = Instantiate(TNTFlyPrefab, position, Quaternion.identity, FlyParentAnchor);
+            //         fly.transform.up = normal;
+            //         fly.transform.rotation = fly.transform.rotation * Quaternion.Euler(0, Random.Range(0, 360f), 0);
+            //         fly.name = "TNT Fly " + i.ToString();
+            //         settings.flies.Add(fly);
 
-                    TNTFlies.Push(fly);
-                }
-            }
+            //         TNTFlies.Push(fly);
+            //     }
+            // }
         }
 
         GameUIGroup.SetActive(true);
@@ -283,20 +283,23 @@ public partial class GameManager : MonoBehaviour
         // StoreManager.Instance.HideAllPowerUps();
     }
 
-    public void TriggerTNT(Vector3 position, GameObject tntFly)
+    public void TriggerTNT(Vector3 position, GameObject tntFly = null)
     {
         TNTExplosion.transform.position = position;
         TNTExplosion.Stop();
         TNTExplosion.Play();
         TNTExplosion.gameObject.GetComponent<AudioSource>().Play();
-        Destroy(tntFly);
+        // Destroy(tntFly);
 
         Collider[] hitFlies = Physics.OverlapSphere(position, TNTExplosionRadius, FlyLayerMask);
         foreach (var fly in hitFlies)
         {
-            if (fly.GetComponent<BaseFlyBehavior>().Type == BaseFlyBehavior.FlyType.REGULAR)
+            BaseFlyBehavior flyBehavior = fly.GetComponent<BaseFlyBehavior>();
+            if (fly.GetComponent<BaseFlyBehavior>().Type == BaseFlyBehavior.FlyType.REGULAR && !flyBehavior.IsKilled)
             {
+                flyBehavior.IsKilled = true;
                 UIManager.Instance.IncrementKill(fly.transform.position, (int)SCOREFACTOR.TNT);
+                Debug.Log("Increment Kill: " + fly.name + " " + fly.transform.position);
                 Destroy(fly.gameObject);
             }
         }

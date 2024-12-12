@@ -60,10 +60,6 @@ public class HandController : MonoBehaviour
                 // }
             }
         }
-        else if (other.gameObject.tag == "TNT")
-        {
-            GameManager.Instance.TriggerTNT(other.transform.position, other.gameObject);
-        }
     }
 
     private void OnTriggerExit(Collider other)

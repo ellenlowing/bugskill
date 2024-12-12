@@ -18,11 +18,8 @@ public class BulletBehavior : MonoBehaviour
         Destroy(gameObject);
         if (other.gameObject.tag == "Fly")
         {
+            other.gameObject.GetComponent<BaseFlyBehavior>().IsKilled = true;
             Destroy(other.gameObject);
-        }
-        else if (other.gameObject.tag == "TNT")
-        {
-            GameManager.Instance.TriggerTNT(other.transform.position, other.gameObject);
         }
     }
 }

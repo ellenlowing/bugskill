@@ -28,6 +28,7 @@ public class SlingshotBall : MonoBehaviour
     private Pose _indexFingerTipPose;
     private Pose _middleFingerTipPose;
     private Vector3 _averageFingerTipPosition;
+    private Vector3 _averageFingerTipEulerAngles;
 
     void Start()
     {
@@ -103,6 +104,7 @@ public class SlingshotBall : MonoBehaviour
         UpdateFingerPose();
 
         transform.position = _averageFingerTipPosition;
+        // transform.rotation = Quaternion.Euler(0, 90f, 0) * Quaternion.Euler(_averageFingerTipEulerAngles);
 
         DrawSlingshotLines();
     }
@@ -141,6 +143,7 @@ public class SlingshotBall : MonoBehaviour
         PrimaryHand.GetJointPose(_indexFingerJoint, out _indexFingerTipPose);
         PrimaryHand.GetJointPose(_middleFingerJoint, out _middleFingerTipPose);
         _averageFingerTipPosition = (_indexFingerTipPose.position + _middleFingerTipPose.position) / 2;
+        _averageFingerTipEulerAngles = (_indexFingerTipPose.rotation.eulerAngles + _middleFingerTipPose.rotation.eulerAngles) / 2;
         _pinchDownPosition = _averageFingerTipPosition;
     }
 
@@ -209,16 +212,13 @@ public class SlingshotBall : MonoBehaviour
     {
         if (CurrentState == SlingshotState.InLaunch)
         {
-            if (other.gameObject.tag == "Fly")
-            {
-                UIManager.Instance.IncrementKill(transform.position, (int)SCOREFACTOR.SLINGSHOT);
-                Destroy(other.gameObject);
-            }
-            else if (other.gameObject.tag == "TNT")
-            {
-                GameManager.Instance.TriggerTNT(other.transform.position, other.gameObject);
-            }
+            Debug.Log("TNT collided with " + other.gameObject.name);
 
+            if (other.gameObject.layer == LayerMask.NameToLayer(GameManager.Instance.LandingLayerName) || other.gameObject.layer == LayerMask.NameToLayer(GameManager.Instance.FloorLayerName))
+            {
+                Vector3 contactPoint = other.contacts[0].point;
+                GameManager.Instance.TriggerTNT(contactPoint);
+            }
             RaycastVisualizer.HideProjectile();
 
             Destroy(gameObject);

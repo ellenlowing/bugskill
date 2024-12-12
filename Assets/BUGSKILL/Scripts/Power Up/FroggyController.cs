@@ -254,6 +254,7 @@ public class FroggyController : BasePowerUpBehavior
         if (other.tag == "Fly")
         {
             other.GetComponentInChildren<BaseFlyBehavior>().enabled = false;
+            other.GetComponentInChildren<BaseFlyBehavior>().IsKilled = true;
             var outline = other.GetComponentInChildren<Outline>();
             if (outline != null)
             {
@@ -266,10 +267,6 @@ public class FroggyController : BasePowerUpBehavior
 
             UIManager.Instance.IncrementKill(other.transform.position, (int)SCOREFACTOR.FROG);
             Destroy(other.gameObject, 0.5f);
-        }
-        else if (other.gameObject.tag == "TNT")
-        {
-            GameManager.Instance.TriggerTNT(other.transform.position, other.gameObject);
         }
     }
 

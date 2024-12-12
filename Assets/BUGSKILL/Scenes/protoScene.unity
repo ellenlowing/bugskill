@@ -27571,7 +27571,7 @@ MonoBehaviour:
   TNTFlyPrefab: {fileID: 708182128869486111, guid: 6d53a31eeb0594f1d87267cbea8d037d, type: 3}
   TNTExplosion: {fileID: 1816584845}
   TNTEffectTimeout: 5
-  TNTExplosionRadius: 0.8
+  TNTExplosionRadius: 0.5
   ValidAnchors: []
   ValidAnchorIndex: 0
   GameBegins: {fileID: 11400000, guid: e1f9e8cd7ed35bb4f933dfe252aff86d, type: 2}
@@ -32648,7 +32648,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1371412118
 Transform:
   m_ObjectHideFlags: 0
@@ -36256,6 +36256,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1228365099249328, guid: ed511b7776af6174e9b1255c7a81e59c, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1809022330002312, guid: ed511b7776af6174e9b1255c7a81e59c, type: 3}
       propertyPath: m_Name
       value: TNT Explosion
@@ -36334,7 +36338,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 198192500169632356, guid: ed511b7776af6174e9b1255c7a81e59c, type: 3}
       propertyPath: InitialModule.startSize.scalar
-      value: 1
+      value: 0.7
       objectReference: {fileID: 0}
     - target: {fileID: 198192500169632356, guid: ed511b7776af6174e9b1255c7a81e59c, type: 3}
       propertyPath: InitialModule.startSpeed.scalar
@@ -36365,6 +36369,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 198195352207415246, guid: ed511b7776af6174e9b1255c7a81e59c, type: 3}
+      propertyPath: EmissionModule.enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 198195352207415246, guid: ed511b7776af6174e9b1255c7a81e59c, type: 3}
       propertyPath: InitialModule.maxNumParticles
       value: 300
       objectReference: {fileID: 0}
@@ -36380,6 +36388,10 @@ PrefabInstance:
       propertyPath: InitialModule.startSpeed.minScalar
       value: 30
       objectReference: {fileID: 0}
+    - target: {fileID: 198195352207415246, guid: ed511b7776af6174e9b1255c7a81e59c, type: 3}
+      propertyPath: EmissionModule.m_Bursts.Array.data[0].countCurve.scalar
+      value: 50
+      objectReference: {fileID: 0}
     - target: {fileID: 198212443826252400, guid: ed511b7776af6174e9b1255c7a81e59c, type: 3}
       propertyPath: playOnAwake
       value: 0
@@ -36393,12 +36405,28 @@ PrefabInstance:
       value: 300
       objectReference: {fileID: 0}
     - target: {fileID: 198212443826252400, guid: ed511b7776af6174e9b1255c7a81e59c, type: 3}
+      propertyPath: InitialModule.startSize.scalar
+      value: 0.003
+      objectReference: {fileID: 0}
+    - target: {fileID: 198212443826252400, guid: ed511b7776af6174e9b1255c7a81e59c, type: 3}
+      propertyPath: InitialModule.startSpeed.scalar
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 198212443826252400, guid: ed511b7776af6174e9b1255c7a81e59c, type: 3}
+      propertyPath: InitialModule.startSize.minScalar
+      value: 0.001
+      objectReference: {fileID: 0}
+    - target: {fileID: 198212443826252400, guid: ed511b7776af6174e9b1255c7a81e59c, type: 3}
       propertyPath: InitialModule.startLifetime.scalar
-      value: 1
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 198212443826252400, guid: ed511b7776af6174e9b1255c7a81e59c, type: 3}
       propertyPath: InitialModule.startSpeed.minScalar
-      value: 2
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 198212443826252400, guid: ed511b7776af6174e9b1255c7a81e59c, type: 3}
+      propertyPath: InitialModule.startLifetime.minScalar
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 199019332059290098, guid: ed511b7776af6174e9b1255c7a81e59c, type: 3}
       propertyPath: m_Materials.Array.size
@@ -49024,7 +49052,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1261102215393631779, guid: 329126b98671a491db2c668a6273e3e4, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3960878488141208171, guid: 329126b98671a491db2c668a6273e3e4, type: 3}
       propertyPath: m_LocalPosition.x
@@ -49064,6 +49092,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3960878488141208171, guid: 329126b98671a491db2c668a6273e3e4, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4392488904170828629, guid: 329126b98671a491db2c668a6273e3e4, type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4392488904170828629, guid: 329126b98671a491db2c668a6273e3e4, type: 3}
+      propertyPath: m_ReceiveShadows
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5059796184299956075, guid: 329126b98671a491db2c668a6273e3e4, type: 3}
@@ -50897,7 +50933,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &4809075781635108443
 GameObject:
   m_ObjectHideFlags: 0

@@ -21,10 +21,6 @@ public class SprayParticle : MonoBehaviour
                     fly.EnterState(BaseFlyBehavior.FlyState.DYING);
                 }
             }
-            else if (other.tag == "TNT")
-            {
-                GameManager.Instance.TriggerTNT(other.transform.position, other.gameObject);
-            }
         }
     }
 }

@@ -1,0 +1,11 @@
+Model Information:
+* title:	Alchemist's shelf
+* source:	https://sketchfab.com/3d-models/alchemists-shelf-0ff50a11c3c94d0192e9c3add248e98e
+* author:	YJW (https://sketchfab.com/YJW)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Alchemist's shelf" (https://sketchfab.com/3d-models/alchemists-shelf-0ff50a11c3c94d0192e9c3add248e98e) by YJW (https://sketchfab.com/YJW) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

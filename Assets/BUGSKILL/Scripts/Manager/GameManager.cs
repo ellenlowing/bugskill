@@ -90,6 +90,10 @@ public partial class GameManager : MonoBehaviour
     public GameObject LeftFingerGun;
     public GameObject RightFingerGun;
 
+    [Header("Finger Slingshot")]
+    public GameObject LeftFingerSlingshot;
+    public GameObject RightFingerSlingshot;
+
     private bool doneOnce = false;
 
     void Awake()

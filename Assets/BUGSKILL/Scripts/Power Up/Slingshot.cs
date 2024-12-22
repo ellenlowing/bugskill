@@ -10,6 +10,7 @@ public class Slingshot : MonoBehaviour
     public GameObject BallPrefab;
     public SelectorUnityEventWrapper ScissorsPoseEvent;
     public Hand PrimaryHand;
+    public GameObject StatusIndicator;
 
     private HandJointId _indexFingerJoint = HandJointId.HandIndexTip;
     private HandJointId _middleFingerJoint = HandJointId.HandMiddleTip;

@@ -1,18 +1,107 @@
 using System.Collections;
 using System.Collections.Generic;
+using Oculus.Interaction;
+using Oculus.Interaction.Input;
 using UnityEngine;
 
-public class FingerSlingshotPowerUp : MonoBehaviour
+public class FingerSlingshotPowerUp : BasePowerUpBehavior
 {
-    // Start is called before the first frame update
-    void Start()
+    [HideInInspector] public GameObject LeftFingerSlingshot;
+    [HideInInspector] public GameObject RightFingerSlingshot;
+
+    [Header("Status")]
+    public GameObject StatusIndicator;
+    public Color FingerSlingshotActiveColor;
+    public Color FingerSlingshotIdleColor;
+    public Color FingerSlingshotFiringColor;
+
+    private Hand _activeHand;
+    private bool _isActiveHandLeft;
+
+    new void Start()
     {
-        
+        base.Start();
+        LeftFingerSlingshot = GameManager.Instance.LeftFingerSlingshot;
+        RightFingerSlingshot = GameManager.Instance.RightFingerSlingshot;
     }
 
-    // Update is called once per frame
-    void Update()
+    new void Update()
     {
-        
+        base.Update();
+
+        if (_isEquipped)
+        {
+            if (_activeHand != null)
+            {
+                MoveToWrist(_activeHand);
+            }
+        }
+    }
+
+    public override void OnGrabbableSelect(PointerEvent arg0)
+    {
+        base.OnGrabbableSelect(arg0);
+        transform.parent = null;
+
+        HandRef handData = (HandRef)arg0.Data;
+        Handedness handedness = handData.Handedness;
+
+        if (handedness == Handedness.Right)
+        {
+            RightFingerSlingshot.SetActive(true);
+            LeftFingerSlingshot.SetActive(false);
+            RightFingerSlingshot.GetComponent<Slingshot>().StatusIndicator = StatusIndicator;
+            _activeHand = GameManager.Instance.RightHand;
+            _isActiveHandLeft = false;
+        }
+        else
+        {
+            LeftFingerSlingshot.SetActive(true);
+            RightFingerSlingshot.SetActive(false);
+            LeftFingerSlingshot.GetComponent<Slingshot>().StatusIndicator = StatusIndicator;
+            _activeHand = GameManager.Instance.LeftHand;
+            _isActiveHandLeft = true;
+        }
+
+        // TODO check why Base power up behavior's ongrabbale select is not called?
+
+    }
+
+    public override void OnGrabbableUnselect(PointerEvent arg0)
+    {
+        base.OnGrabbableUnselect(arg0);
+
+        if (StoreManager.Instance.IsStoreActive)
+        {
+            _activeHand = null;
+            LeftFingerSlingshot.SetActive(false);
+            RightFingerSlingshot.SetActive(false);
+        }
+    }
+
+    public void MoveToWrist(Hand hand)
+    {
+        bool handPoseAvailable = hand.GetRootPose(out Pose pose);
+        if (handPoseAvailable)
+        {
+            transform.rotation = Quaternion.LookRotation(pose.forward, -pose.right);
+            if (_isActiveHandLeft)
+            {
+                transform.rotation = Quaternion.LookRotation(-pose.forward, pose.right);
+                Debug.Log("Left hand finger gun");
+            }
+            transform.position = pose.position - transform.up * 0.1f;
+        }
+        // else
+        // {
+        //     Debug.Log("Hand pose not available");
+        // }
+    }
+
+    public override void Dissolve()
+    {
+        LeftFingerSlingshot.SetActive(false);
+        RightFingerSlingshot.SetActive(false);
+        base.Dissolve();
     }
 }

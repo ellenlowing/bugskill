@@ -21,8 +21,6 @@ public class SlingshotBall : MonoBehaviour
     public Raycaster RaycastVisualizer;
     public Raycaster IndexFingerLine;
     public Raycaster MiddleFingerLine;
-    public float TimeToDestroyIdleBomb = 3f;
-    public TextMeshProUGUI DebugText;
 
     [HideInInspector] public Hand PrimaryHand;
 
@@ -40,7 +38,7 @@ public class SlingshotBall : MonoBehaviour
         _rb = GetComponent<Rigidbody>();
         BallPinchEvent.WhenSelect.AddListener(OnSelect);
         BallPinchEvent.WhenUnselect.AddListener(OnUnselect);
-        StartCoroutine(DestroyIdleBomb());
+        // StartCoroutine(DestroyIdleBomb());
         SetState(SlingshotState.Idle);
     }
 
@@ -129,9 +127,6 @@ public class SlingshotBall : MonoBehaviour
         Vector3 force = (_pinchDownPosition - transform.position) * LaunchForce;
         Vector3[] trajectoryPoints = GetTrajectoryPoints(force, _rb, transform.position);
         RaycastVisualizer.DrawProjectile(trajectoryPoints);
-
-        DebugText.text = "(" + RoundToTwoDecimals(force.x) + ", " + RoundToTwoDecimals(force.y) + ", " + RoundToTwoDecimals(force.z) + ")";
-        Debug.Log("(" + RoundToTwoDecimals(force.x) + ", " + RoundToTwoDecimals(force.y) + ", " + RoundToTwoDecimals(force.z) + ")");
     }
 
     private void EnterInLaunchState()
@@ -156,16 +151,16 @@ public class SlingshotBall : MonoBehaviour
         _pinchDownPosition = _averageFingerTipPosition;
     }
 
-    IEnumerator DestroyIdleBomb()
-    {
-        yield return new WaitForSeconds(TimeToDestroyIdleBomb);
+    // IEnumerator DestroyIdleBomb()
+    // {
+    //     yield return new WaitForSeconds(TimeToDestroyIdleBomb);
 
-        if (CurrentState == SlingshotState.Idle)
-        {
-            Destroy(gameObject);
-            Debug.Log("Destroy idle TNT");
-        }
-    }
+    //     if (CurrentState == SlingshotState.Idle)
+    //     {
+    //         Destroy(gameObject);
+    //         Debug.Log("Destroy idle TNT");
+    //     }
+    // }
 
     void DrawSlingshotLines()
     {
@@ -252,10 +247,5 @@ public class SlingshotBall : MonoBehaviour
     //         Destroy(gameObject);
     //     }
     // }
-
-    string RoundToTwoDecimals(float val)
-    {
-        return val.ToString("F2");
-    }
 
 }

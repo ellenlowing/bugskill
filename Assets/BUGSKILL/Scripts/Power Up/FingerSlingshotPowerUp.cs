@@ -102,6 +102,7 @@ public class FingerSlingshotPowerUp : BasePowerUpBehavior
         SlingshotBall bomb = FindAnyObjectByType<SlingshotBall>();
         if (bomb != null)
         {
+            bomb.RaycastVisualizer.HideProjectile();
             Destroy(bomb.gameObject);
         }
         base.Dissolve();

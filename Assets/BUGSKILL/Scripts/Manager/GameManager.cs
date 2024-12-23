@@ -33,6 +33,7 @@ public partial class GameManager : MonoBehaviour
     [SerializeField] private SettingSO testSettings;
     public string LandingLayerName = "Landing";
     public string FloorLayerName = "Floor";
+    public LayerMask LandingAndFloorLayerMask;
 
     [Header("Flies")]
     public GameObject FlyPrefab;

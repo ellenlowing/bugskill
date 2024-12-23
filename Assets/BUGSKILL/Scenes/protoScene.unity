@@ -27647,6 +27647,9 @@ MonoBehaviour:
   testSettings: {fileID: 11400000, guid: f17f1c6612d95425a8965738fd836c8a, type: 2}
   LandingLayerName: Landing
   FloorLayerName: Floor
+  LandingAndFloorLayerMask:
+    serializedVersion: 2
+    m_Bits: 72
   FlyPrefab: {fileID: 708182128869486111, guid: 75d14416f534f4b11aec372b6307c3bb, type: 3}
   FlyParentAnchor: {fileID: 652486518}
   BloodSplatterPrefabs:
@@ -28794,6 +28797,79 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 769717658}
   m_CullTransparentMesh: 1
+--- !u!1001 &775372548
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1371412118}
+    m_Modifications:
+    - target: {fileID: 1261102215393631779, guid: 329126b98671a491db2c668a6273e3e4, type: 3}
+      propertyPath: m_Name
+      value: Projectile Visualization
+      objectReference: {fileID: 0}
+    - target: {fileID: 3960878488141208171, guid: 329126b98671a491db2c668a6273e3e4, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3960878488141208171, guid: 329126b98671a491db2c668a6273e3e4, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3960878488141208171, guid: 329126b98671a491db2c668a6273e3e4, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3960878488141208171, guid: 329126b98671a491db2c668a6273e3e4, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3960878488141208171, guid: 329126b98671a491db2c668a6273e3e4, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3960878488141208171, guid: 329126b98671a491db2c668a6273e3e4, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3960878488141208171, guid: 329126b98671a491db2c668a6273e3e4, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3960878488141208171, guid: 329126b98671a491db2c668a6273e3e4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3960878488141208171, guid: 329126b98671a491db2c668a6273e3e4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3960878488141208171, guid: 329126b98671a491db2c668a6273e3e4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 329126b98671a491db2c668a6273e3e4, type: 3}
+--- !u!4 &775372549 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3960878488141208171, guid: 329126b98671a491db2c668a6273e3e4, type: 3}
+  m_PrefabInstance: {fileID: 775372548}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &775372550 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5727386282306070811, guid: 329126b98671a491db2c668a6273e3e4, type: 3}
+  m_PrefabInstance: {fileID: 775372548}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ecf814898e73c44caa1a08f1f1e15cc0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &780590650
 GameObject:
   m_ObjectHideFlags: 0
@@ -29431,6 +29507,7 @@ MonoBehaviour:
   PrimaryHand: {fileID: 2065752923}
   StatusIndicator: {fileID: 0}
   CorePowerUp: {fileID: 0}
+  RaycastVisualizer: {fileID: 775372550}
 --- !u!1 &878250353
 GameObject:
   m_ObjectHideFlags: 0
@@ -32748,6 +32825,7 @@ Transform:
   m_Children:
   - {fileID: 856285583}
   - {fileID: 1502083611}
+  - {fileID: 775372549}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1377466796
@@ -33224,6 +33302,7 @@ MonoBehaviour:
   PrimaryHand: {fileID: 2065752921}
   StatusIndicator: {fileID: 0}
   CorePowerUp: {fileID: 0}
+  RaycastVisualizer: {fileID: 775372550}
 --- !u!4 &1502083611
 Transform:
   m_ObjectHideFlags: 0

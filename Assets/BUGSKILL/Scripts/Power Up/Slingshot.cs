@@ -12,6 +12,7 @@ public class Slingshot : MonoBehaviour
     public Hand PrimaryHand;
     public GameObject StatusIndicator;
     public FingerSlingshotPowerUp CorePowerUp;
+    public Raycaster RaycastVisualizer;
 
     private HandJointId _indexFingerJoint = HandJointId.HandIndexTip;
     private HandJointId _middleFingerJoint = HandJointId.HandMiddleTip;
@@ -53,6 +54,7 @@ public class Slingshot : MonoBehaviour
 
         _activeBall = Instantiate(BallPrefab, averageFingerTipPosition, Quaternion.identity);
         _activeBall.GetComponent<SlingshotBall>().PrimaryHand = PrimaryHand;
+        _activeBall.GetComponent<SlingshotBall>().RaycastVisualizer = RaycastVisualizer;
 
         if (CorePowerUp != null)
         {

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using Oculus.Interaction;
 using UnityEngine;
 using Oculus.Interaction.Input;
+using TMPro;
+using UnityEngine.UI;
 
 public enum SlingshotState
 {
@@ -20,6 +22,7 @@ public class SlingshotBall : MonoBehaviour
     public Raycaster IndexFingerLine;
     public Raycaster MiddleFingerLine;
     public float TimeToDestroyIdleBomb = 3f;
+    public TextMeshProUGUI DebugText;
 
     [HideInInspector] public Hand PrimaryHand;
 
@@ -126,12 +129,14 @@ public class SlingshotBall : MonoBehaviour
         Vector3 force = (_pinchDownPosition - transform.position) * LaunchForce;
         Vector3[] trajectoryPoints = GetTrajectoryPoints(force, _rb, transform.position);
         RaycastVisualizer.DrawProjectile(trajectoryPoints);
+
+        DebugText.text = "(" + RoundToTwoDecimals(force.x) + ", " + RoundToTwoDecimals(force.y) + ", " + RoundToTwoDecimals(force.z) + ")";
+        Debug.Log("(" + RoundToTwoDecimals(force.x) + ", " + RoundToTwoDecimals(force.y) + ", " + RoundToTwoDecimals(force.z) + ")");
     }
 
     private void EnterInLaunchState()
     {
         // Calculate launch parameters
-        RaycastVisualizer.HideProjectile();
         Vector3 force = (_pinchDownPosition - transform.position) * LaunchForce;
         _rb.isKinematic = false;
         _rb.useGravity = true;
@@ -183,17 +188,18 @@ public class SlingshotBall : MonoBehaviour
         float flightDuration = 2 * velocity.y / Physics.gravity.y;
         float lineSegmentCount = 30;
         float stepTime = flightDuration / lineSegmentCount;
+        float sign = force.y > 0 ? -1 : 1;
 
         for (int i = 0; i < lineSegmentCount; i++)
         {
             float stepTimePassed = stepTime * i;
-            Vector3 movementVector = velocity * stepTimePassed - 0.5f * Physics.gravity * stepTimePassed * stepTimePassed;
+            Vector3 movementVector = velocity * stepTimePassed + 0.5f * Physics.gravity * stepTimePassed * stepTimePassed * sign;
             RaycastHit hit;
-            if (Physics.Raycast(launchPosition, -movementVector, out hit, movementVector.magnitude))
+            if (Physics.Raycast(launchPosition, sign * movementVector.normalized, out hit, movementVector.magnitude, GameManager.Instance.LandingAndFloorLayerMask))
             {
                 break;
             }
-            trajectoryPoints.Add(launchPosition - movementVector);
+            trajectoryPoints.Add(launchPosition + sign * movementVector);
         }
 
         return trajectoryPoints.ToArray();
@@ -233,6 +239,7 @@ public class SlingshotBall : MonoBehaviour
             {
                 Vector3 contactPoint = other.contacts[0].point;
                 GameManager.Instance.TriggerTNT(contactPoint);
+                RaycastVisualizer.HideProjectile();
                 Destroy(gameObject);
             }
         }
@@ -245,5 +252,10 @@ public class SlingshotBall : MonoBehaviour
     //         Destroy(gameObject);
     //     }
     // }
+
+    string RoundToTwoDecimals(float val)
+    {
+        return val.ToString("F2");
+    }
 
 }

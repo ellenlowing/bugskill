@@ -94,7 +94,6 @@ public class FingerGunPowerUp : BasePowerUpBehavior
             if (_isActiveHandLeft)
             {
                 transform.rotation = Quaternion.LookRotation(-pose.forward, pose.right);
-                Debug.Log("Left hand finger gun");
             }
             transform.position = pose.position - transform.up * 0.1f;
         }

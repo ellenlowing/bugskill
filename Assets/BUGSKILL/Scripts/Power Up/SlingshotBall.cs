@@ -13,12 +13,14 @@ public enum SlingshotState
 
 public class SlingshotBall : MonoBehaviour
 {
-    public SlingshotState CurrentState = SlingshotState.Idle;
+    public SlingshotState CurrentState;
     public PointableUnityEventWrapper BallPinchEvent;
     public float LaunchForce;
     public Raycaster RaycastVisualizer;
     public Raycaster IndexFingerLine;
     public Raycaster MiddleFingerLine;
+    public float TimeToDestroyIdleBomb = 3f;
+
     [HideInInspector] public Hand PrimaryHand;
 
     private HandJointId _indexFingerJoint = HandJointId.HandIndexTip;
@@ -35,7 +37,8 @@ public class SlingshotBall : MonoBehaviour
         _rb = GetComponent<Rigidbody>();
         BallPinchEvent.WhenSelect.AddListener(OnSelect);
         BallPinchEvent.WhenUnselect.AddListener(OnUnselect);
-        RaycastVisualizer = GameObject.Find("Projectile Visualization").GetComponent<Raycaster>();
+        StartCoroutine(DestroyIdleBomb());
+        SetState(SlingshotState.Idle);
     }
 
     void Update()
@@ -147,6 +150,17 @@ public class SlingshotBall : MonoBehaviour
         _pinchDownPosition = _averageFingerTipPosition;
     }
 
+    IEnumerator DestroyIdleBomb()
+    {
+        yield return new WaitForSeconds(TimeToDestroyIdleBomb);
+
+        if (CurrentState == SlingshotState.Idle)
+        {
+            Destroy(gameObject);
+            Debug.Log("Destroy idle TNT");
+        }
+    }
+
     void DrawSlingshotLines()
     {
         // IndexFingerLine.positionCount = 2;
@@ -218,19 +232,18 @@ public class SlingshotBall : MonoBehaviour
             {
                 Vector3 contactPoint = other.contacts[0].point;
                 GameManager.Instance.TriggerTNT(contactPoint);
+                RaycastVisualizer.HideProjectile();
+                Destroy(gameObject);
             }
-            RaycastVisualizer.HideProjectile();
-
-            Destroy(gameObject);
         }
     }
 
-    void OnCollisionStay(Collision other)
-    {
-        if (CurrentState == SlingshotState.InLaunch)
-        {
-            Destroy(gameObject);
-        }
-    }
+    // void OnCollisionStay(Collision other)
+    // {
+    //     if (CurrentState == SlingshotState.InLaunch)
+    //     {
+    //         Destroy(gameObject);
+    //     }
+    // }
 
 }

@@ -11,6 +11,7 @@ public class Slingshot : MonoBehaviour
     public SelectorUnityEventWrapper ScissorsPoseEvent;
     public Hand PrimaryHand;
     public GameObject StatusIndicator;
+    public FingerSlingshotPowerUp CorePowerUp;
 
     private HandJointId _indexFingerJoint = HandJointId.HandIndexTip;
     private HandJointId _middleFingerJoint = HandJointId.HandMiddleTip;
@@ -19,7 +20,7 @@ public class Slingshot : MonoBehaviour
     void Start()
     {
         ScissorsPoseEvent.WhenSelected.AddListener(OnScissorsPoseSelected);
-        ScissorsPoseEvent.WhenUnselected.AddListener(OnScissorsPoseUnselected);
+        // ScissorsPoseEvent.WhenUnselected.AddListener(OnScissorsPoseUnselected);
     }
 
     void Update()
@@ -31,13 +32,21 @@ public class Slingshot : MonoBehaviour
     {
         Debug.Log("Scissors Pose Selected");
 
-        // Get finger tip positions
-        PrimaryHand.GetJointPose(_indexFingerJoint, out Pose indexFingerTipPose);
-        PrimaryHand.GetJointPose(_middleFingerJoint, out Pose middleFingerTipPose);
-        var averageFingerTipPosition = (indexFingerTipPose.position + middleFingerTipPose.position) / 2;
+        if (_activeBall == null)
+        {
+            // Get finger tip positions
+            PrimaryHand.GetJointPose(_indexFingerJoint, out Pose indexFingerTipPose);
+            PrimaryHand.GetJointPose(_middleFingerJoint, out Pose middleFingerTipPose);
+            var averageFingerTipPosition = (indexFingerTipPose.position + middleFingerTipPose.position) / 2;
 
-        _activeBall = Instantiate(BallPrefab, averageFingerTipPosition, Quaternion.identity);
-        _activeBall.GetComponent<SlingshotBall>().PrimaryHand = PrimaryHand;
+            _activeBall = Instantiate(BallPrefab, averageFingerTipPosition, Quaternion.identity);
+            _activeBall.GetComponent<SlingshotBall>().PrimaryHand = PrimaryHand;
+
+            if (CorePowerUp != null)
+            {
+                CorePowerUp.UsePowerCapacity();
+            }
+        }
     }
 
     public void OnScissorsPoseUnselected()

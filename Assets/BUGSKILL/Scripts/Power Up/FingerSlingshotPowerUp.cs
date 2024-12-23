@@ -51,6 +51,7 @@ public class FingerSlingshotPowerUp : BasePowerUpBehavior
             RightFingerSlingshot.SetActive(true);
             LeftFingerSlingshot.SetActive(false);
             RightFingerSlingshot.GetComponent<Slingshot>().StatusIndicator = StatusIndicator;
+            RightFingerSlingshot.GetComponent<Slingshot>().CorePowerUp = this;
             _activeHand = GameManager.Instance.RightHand;
             _isActiveHandLeft = false;
         }
@@ -59,6 +60,7 @@ public class FingerSlingshotPowerUp : BasePowerUpBehavior
             LeftFingerSlingshot.SetActive(true);
             RightFingerSlingshot.SetActive(false);
             LeftFingerSlingshot.GetComponent<Slingshot>().StatusIndicator = StatusIndicator;
+            LeftFingerSlingshot.GetComponent<Slingshot>().CorePowerUp = this;
             _activeHand = GameManager.Instance.LeftHand;
             _isActiveHandLeft = true;
         }
@@ -88,14 +90,9 @@ public class FingerSlingshotPowerUp : BasePowerUpBehavior
             if (_isActiveHandLeft)
             {
                 transform.rotation = Quaternion.LookRotation(-pose.forward, pose.right);
-                Debug.Log("Left hand finger gun");
             }
             transform.position = pose.position - transform.up * 0.1f;
         }
-        // else
-        // {
-        //     Debug.Log("Hand pose not available");
-        // }
     }
 
     public override void Dissolve()

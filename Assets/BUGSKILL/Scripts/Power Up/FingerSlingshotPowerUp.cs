@@ -99,6 +99,11 @@ public class FingerSlingshotPowerUp : BasePowerUpBehavior
     {
         LeftFingerSlingshot.SetActive(false);
         RightFingerSlingshot.SetActive(false);
+        SlingshotBall bomb = FindAnyObjectByType<SlingshotBall>();
+        if (bomb != null)
+        {
+            Destroy(bomb.gameObject);
+        }
         base.Dissolve();
     }
 }

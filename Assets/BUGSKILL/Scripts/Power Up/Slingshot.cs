@@ -16,45 +16,47 @@ public class Slingshot : MonoBehaviour
     private HandJointId _indexFingerJoint = HandJointId.HandIndexTip;
     private HandJointId _middleFingerJoint = HandJointId.HandMiddleTip;
     private GameObject _activeBall;
+    private bool _isPoseActive = false;
 
     void Start()
     {
         ScissorsPoseEvent.WhenSelected.AddListener(OnScissorsPoseSelected);
-        // ScissorsPoseEvent.WhenUnselected.AddListener(OnScissorsPoseUnselected);
+        ScissorsPoseEvent.WhenUnselected.AddListener(OnScissorsPoseUnselected);
     }
 
     void Update()
     {
-
+        if (_isPoseActive && _activeBall == null)
+        {
+            CreateNewBomb();
+        }
     }
 
     public void OnScissorsPoseSelected()
     {
+        _isPoseActive = true;
         Debug.Log("Scissors Pose Selected");
-
-        if (_activeBall == null)
-        {
-            // Get finger tip positions
-            PrimaryHand.GetJointPose(_indexFingerJoint, out Pose indexFingerTipPose);
-            PrimaryHand.GetJointPose(_middleFingerJoint, out Pose middleFingerTipPose);
-            var averageFingerTipPosition = (indexFingerTipPose.position + middleFingerTipPose.position) / 2;
-
-            _activeBall = Instantiate(BallPrefab, averageFingerTipPosition, Quaternion.identity);
-            _activeBall.GetComponent<SlingshotBall>().PrimaryHand = PrimaryHand;
-
-            if (CorePowerUp != null)
-            {
-                CorePowerUp.UsePowerCapacity();
-            }
-        }
     }
 
     public void OnScissorsPoseUnselected()
     {
+        _isPoseActive = false;
         Debug.Log("Scissors Pose Unselected");
-        if (_activeBall != null)
+    }
+
+    public void CreateNewBomb()
+    {
+        // Get finger tip positions
+        PrimaryHand.GetJointPose(_indexFingerJoint, out Pose indexFingerTipPose);
+        PrimaryHand.GetJointPose(_middleFingerJoint, out Pose middleFingerTipPose);
+        var averageFingerTipPosition = (indexFingerTipPose.position + middleFingerTipPose.position) / 2;
+
+        _activeBall = Instantiate(BallPrefab, averageFingerTipPosition, Quaternion.identity);
+        _activeBall.GetComponent<SlingshotBall>().PrimaryHand = PrimaryHand;
+
+        if (CorePowerUp != null)
         {
-            Destroy(_activeBall);
+            CorePowerUp.UsePowerCapacity();
         }
     }
 

@@ -40,105 +40,105 @@ public class Raycaster : MonoBehaviour
         PointerPose = new Pose(transform.position, transform.rotation);
     }
 
-    void Update()
-    {
+    // void Update()
+    // {
 
-        transform.SetPositionAndRotation(PointerPose.position, PointerPose.rotation);
+    //     transform.SetPositionAndRotation(PointerPose.position, PointerPose.rotation);
 
-        switch (CurrentState)
-        {
-            case RaycastState.Idle:
-                UpdateIdleState();
-                break;
+    //     switch (CurrentState)
+    //     {
+    //         case RaycastState.Idle:
+    //             UpdateIdleState();
+    //             break;
 
-            case RaycastState.PreLaunch:
-                UpdatePreLaunchState();
-                break;
+    //         case RaycastState.PreLaunch:
+    //             UpdatePreLaunchState();
+    //             break;
 
-            case RaycastState.InLaunch:
-                UpdateInLaunchState();
-                break;
-        }
-    }
+    //         case RaycastState.InLaunch:
+    //             UpdateInLaunchState();
+    //             break;
+    //     }
+    // }
 
-    public void SetState(RaycastState state)
-    {
-        if (state != CurrentState)
-        {
-            switch (state)
-            {
-                case RaycastState.Idle:
-                    EnterIdleState();
-                    break;
+    // public void SetState(RaycastState state)
+    // {
+    //     if (state != CurrentState)
+    //     {
+    //         switch (state)
+    //         {
+    //             case RaycastState.Idle:
+    //                 EnterIdleState();
+    //                 break;
 
-                case RaycastState.PreLaunch:
-                    EnterPreLaunchState();
-                    break;
+    //             case RaycastState.PreLaunch:
+    //                 EnterPreLaunchState();
+    //                 break;
 
-                case RaycastState.InLaunch:
-                    EnterInLaunchState();
-                    break;
-            }
+    //             case RaycastState.InLaunch:
+    //                 EnterInLaunchState();
+    //                 break;
+    //         }
 
-            CurrentState = state;
-        }
-    }
+    //         CurrentState = state;
+    //     }
+    // }
 
-    /// <summary>
-    /// IDLE STATE
-    /// </summary> 
-    private void EnterIdleState()
-    {
-        // _tubeRenderer.Hide();
-    }
+    // /// <summary>
+    // /// IDLE STATE
+    // /// </summary> 
+    // private void EnterIdleState()
+    // {
+    //     // _tubeRenderer.Hide();
+    // }
 
-    private void UpdateIdleState()
-    {
-        // _tubeRenderer.Hide();
+    // private void UpdateIdleState()
+    // {
+    //     // _tubeRenderer.Hide();
 
-        // if (Input.GetKey(KeyCode.Space))
-        // {
-        //     SetState(RaycastState.PreLaunch);
-        // }
-    }
+    //     // if (Input.GetKey(KeyCode.Space))
+    //     // {
+    //     //     SetState(RaycastState.PreLaunch);
+    //     // }
+    // }
 
-    /// <summary>
-    /// PRELAUNCH STATE
-    /// </summary>
-    private void EnterPreLaunchState()
-    {
-        _tubeRenderer.Gradient = _prelaunchGradient;
-        _tubeRenderer.Tint = RaycasterTint;
-    }
+    // /// <summary>
+    // /// PRELAUNCH STATE
+    // /// </summary>
+    // private void EnterPreLaunchState()
+    // {
+    //     _tubeRenderer.Gradient = _prelaunchGradient;
+    //     _tubeRenderer.Tint = RaycasterTint;
+    // }
 
-    private void UpdatePreLaunchState()
-    {
-        // TODO replace [target] (1st param) with RaycastHit.point
-        // TODO replace [launchPosition] (2nd param) with ball's position
-        // GetRaycastHit();
-        LaunchPosition = transform.position;
-        ProjectileLibrary.CalculatePathFromLaunchToTarget(tempTargetPoint.position, LaunchPosition, out GroundDirectionNorm, out LaunchHeight, out V0, out LaunchDuration, out LaunchAngle);
-        Vector3[] projectilePositions = ProjectileLibrary.GetProjectilePositions(LaunchPosition, GroundDirectionNorm, V0, LaunchDuration, LaunchAngle);
-        DrawProjectile(projectilePositions);
+    // private void UpdatePreLaunchState()
+    // {
+    //     // TODO replace [target] (1st param) with RaycastHit.point
+    //     // TODO replace [launchPosition] (2nd param) with ball's position
+    //     // GetRaycastHit();
+    //     LaunchPosition = transform.position;
+    //     ProjectileLibrary.CalculatePathFromLaunchToTarget(tempTargetPoint.position, LaunchPosition, out GroundDirectionNorm, out LaunchHeight, out V0, out LaunchDuration, out LaunchAngle);
+    //     Vector3[] projectilePositions = ProjectileLibrary.GetProjectilePositions(LaunchPosition, GroundDirectionNorm, V0, LaunchDuration, LaunchAngle);
+    //     DrawProjectile(projectilePositions);
 
-        // if (Input.GetKeyUp(KeyCode.Space))
-        // {
-        //     SetState(RaycastState.InLaunch);
-        // }
-    }
+    //     // if (Input.GetKeyUp(KeyCode.Space))
+    //     // {
+    //     //     SetState(RaycastState.InLaunch);
+    //     // }
+    // }
 
-    /// <summary>
-    /// INLAUNCH STATE
-    /// </summary> 
-    private void EnterInLaunchState()
-    {
-        _tubeRenderer.Gradient = _inlaunchGradient;
-        _tubeTrailLength = Mathf.Max(_tubeRenderer.TotalLength * 0.01f, _tubeRenderer.Feather);
-        LeanTween.value(gameObject, _tweenStartFadeThreshold, -_tubeTrailLength, _tubeRenderer.TotalLength - _tubeTrailLength, LaunchDuration).setEase(_inlaunchTweenType);
-        LeanTween.value(gameObject, _tweenEndFadeThreshold, _tubeRenderer.TotalLength - _tubeTrailLength, -_tubeTrailLength, LaunchDuration).setEase(_inlaunchTweenType).setOnComplete(() => SetState(RaycastState.Idle));
-    }
+    // /// <summary>
+    // /// INLAUNCH STATE
+    // /// </summary> 
+    // private void EnterInLaunchState()
+    // {
+    //     _tubeRenderer.Gradient = _inlaunchGradient;
+    //     _tubeTrailLength = Mathf.Max(_tubeRenderer.TotalLength * 0.01f, _tubeRenderer.Feather);
+    //     LeanTween.value(gameObject, _tweenStartFadeThreshold, -_tubeTrailLength, _tubeRenderer.TotalLength - _tubeTrailLength, LaunchDuration).setEase(_inlaunchTweenType);
+    //     LeanTween.value(gameObject, _tweenEndFadeThreshold, _tubeRenderer.TotalLength - _tubeTrailLength, -_tubeTrailLength, LaunchDuration).setEase(_inlaunchTweenType).setOnComplete(() => SetState(RaycastState.Idle));
+    // }
 
-    private void UpdateInLaunchState() { }
+    // private void UpdateInLaunchState() { }
 
     public void GetRaycastHit()
     {
@@ -152,6 +152,11 @@ public class Raycaster : MonoBehaviour
 
     public void DrawProjectile(Vector3[] projectilePositions)
     {
+        if (projectilePositions.Length <= 2)
+        {
+            return;
+        }
+
         UpdateProjectilePoints(projectilePositions);
         _tubeRenderer.StartFadeThresold = 0f;
         _tubeRenderer.EndFadeThresold = 0f;

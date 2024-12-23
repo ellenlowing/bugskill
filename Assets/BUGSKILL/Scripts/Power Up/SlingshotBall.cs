@@ -118,19 +118,20 @@ public class SlingshotBall : MonoBehaviour
 
     private void UpdatePreLaunchState()
     {
-        // Draw trajectory
-        Vector3 force = (_pinchDownPosition - transform.position) * LaunchForce;
-        Vector3[] trajectoryPoints = GetTrajectoryPoints(force, _rb, transform.position); // should last param be indexFingerTipPose.position?
-        RaycastVisualizer.DrawProjectile(trajectoryPoints);
-
         // Update ball position
         UpdateFingerPose();
         DrawSlingshotLines();
+
+        // Draw trajectory
+        Vector3 force = (_pinchDownPosition - transform.position) * LaunchForce;
+        Vector3[] trajectoryPoints = GetTrajectoryPoints(force, _rb, transform.position);
+        RaycastVisualizer.DrawProjectile(trajectoryPoints);
     }
 
     private void EnterInLaunchState()
     {
         // Calculate launch parameters
+        RaycastVisualizer.HideProjectile();
         Vector3 force = (_pinchDownPosition - transform.position) * LaunchForce;
         _rb.isKinematic = false;
         _rb.useGravity = true;
@@ -139,8 +140,8 @@ public class SlingshotBall : MonoBehaviour
 
     private void UpdateInLaunchState()
     {
-        // SetState(SlingshotState.Idle);
     }
+
     void UpdateFingerPose()
     {
         PrimaryHand.GetJointPose(_indexFingerJoint, out _indexFingerTipPose);
@@ -232,7 +233,6 @@ public class SlingshotBall : MonoBehaviour
             {
                 Vector3 contactPoint = other.contacts[0].point;
                 GameManager.Instance.TriggerTNT(contactPoint);
-                RaycastVisualizer.HideProjectile();
                 Destroy(gameObject);
             }
         }

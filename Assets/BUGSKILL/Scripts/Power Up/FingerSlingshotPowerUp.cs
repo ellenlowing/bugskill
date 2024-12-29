@@ -40,6 +40,11 @@ public class FingerSlingshotPowerUp : BasePowerUpBehavior
 
     public override void OnGrabbableSelect(PointerEvent arg0)
     {
+        if (_isEquipped)
+        {
+            return;
+        }
+
         base.OnGrabbableSelect(arg0);
         transform.parent = null;
 
@@ -64,9 +69,6 @@ public class FingerSlingshotPowerUp : BasePowerUpBehavior
             _activeHand = GameManager.Instance.LeftHand;
             _isActiveHandLeft = true;
         }
-
-        // TODO check why Base power up behavior's ongrabbale select is not called?
-
     }
 
     public override void OnGrabbableUnselect(PointerEvent arg0)

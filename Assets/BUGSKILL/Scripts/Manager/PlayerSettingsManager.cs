@@ -9,13 +9,16 @@ public class PlayerSettingsManager : MonoBehaviour
 
     [Header("Move Game UI Anchor")]
     public GameObject GameUIGroup;
+    public bool IsGameUIMovementEnabled = false;
 
     [Header("Adjust Depth Bias")]
     public GameObject DepthTestFlyPrefab;
     public int DepthTestFlyCount = 10;
     public float EnvironmentDepthBias = 0;
     public List<GameObject> OccludedPrefabs;
+
     private List<GameObject> _depthTestFlyList = new List<GameObject>();
+    private int _wallLayerMask;
 
     void Awake()
     {
@@ -32,6 +35,19 @@ public class PlayerSettingsManager : MonoBehaviour
     void Start()
     {
         GameUIGroup = GameManager.Instance.GameUIGroup;
+        _wallLayerMask = GameManager.Instance.GetWallLayerMask();
+    }
+
+    void OnEnable()
+    {
+        GameUIGroup.SetActive(IsGameUIMovementEnabled);
+        CreateDepthTestEnvironment();
+    }
+
+    void OnDisable()
+    {
+        GameUIGroup.SetActive(false);
+        DestroyDepthTestEnvironment();
     }
 
     void Update()
@@ -49,12 +65,33 @@ public class PlayerSettingsManager : MonoBehaviour
         {
             CreateDepthTestEnvironment();
         }
+
+        if (IsGameUIMovementEnabled)
+        {
+            MoveGameUI();
+        }
     }
 
     /* SETTING: MOVE GAME UI */
     public void MoveGameUI()
     {
+        if (GameManager.Instance.RightHand.GetIndexFingerIsPinching())
+        {
+            RaycastHit hit;
+            GameManager.Instance.RightHand.GetPointerPose(out Pose pointerPose);
 
+            if (Physics.Raycast(pointerPose.position, pointerPose.forward.normalized, out hit, Mathf.Infinity, _wallLayerMask))
+            {
+                GameUIGroup.transform.position = hit.point;
+                GameUIGroup.transform.rotation = Quaternion.LookRotation(hit.normal);
+            }
+        }
+    }
+
+    public void ToggleGameUIMovement()
+    {
+        IsGameUIMovementEnabled = !IsGameUIMovementEnabled;
+        GameUIGroup.SetActive(IsGameUIMovementEnabled);
     }
 
     /* SETTING: ADJUST DEPTH BIAS */

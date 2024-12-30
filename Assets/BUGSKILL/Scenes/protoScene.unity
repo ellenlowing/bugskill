@@ -27360,6 +27360,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GameUIGroup: {fileID: 0}
+  IsGameUIMovementEnabled: 1
   DepthTestFlyPrefab: {fileID: 708182128869486111, guid: 22286bcab744a4116890503ae01aafab, type: 3}
   DepthTestFlyCount: 20
   EnvironmentDepthBias: 0
@@ -27991,7 +27992,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8897093224900880590, guid: fac0a33f3667ca642895251e039037d7, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.211
+      value: 0.251
       objectReference: {fileID: 0}
     - target: {fileID: 8897093224900880590, guid: fac0a33f3667ca642895251e039037d7, type: 3}
       propertyPath: m_LocalRotation.w
@@ -29515,7 +29516,7 @@ Transform:
   m_GameObject: {fileID: 881433945}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.6170001, y: 0.385, z: 0.371}
+  m_LocalPosition: {x: -0.6170001, y: 0.385, z: 0.41099998}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -29551,7 +29552,7 @@ Transform:
   m_GameObject: {fileID: 889370223}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.19500017, y: 0.429, z: 0.22800002}
+  m_LocalPosition: {x: -0.19500017, y: 0.429, z: 0.268}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -34474,9 +34475,9 @@ Transform:
   m_GameObject: {fileID: 1583608742}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.713, y: 0, z: -0.551}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalPosition: {x: 4.713, y: 0, z: -0.535}
+  m_LocalScale: {x: 0.7, y: 0.7, z: 0.7}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 738638576}
   - {fileID: 889370224}
@@ -39310,7 +39311,7 @@ Transform:
   m_GameObject: {fileID: 2054121376}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.7071068, z: -0.7071068, w: 0}
-  m_LocalPosition: {x: 0.017000198, y: 0.42199993, z: 0.293}
+  m_LocalPosition: {x: 0.017000198, y: 0.42199993, z: 0.333}
   m_LocalScale: {x: 0.100000046, y: 0.10000004, z: 0.10000004}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -39485,7 +39486,19 @@ MonoBehaviour:
       m_Calls: []
   _whenSelect:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 720755179}
+        m_TargetAssemblyTypeName: PlayerSettingsManager, Assembly-CSharp
+        m_MethodName: ToggleGameUIMovement
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   _whenUnselect:
     m_PersistentCalls:
       m_Calls: []
@@ -42447,21 +42460,6 @@ Transform:
   - {fileID: 533991106}
   m_Father: {fileID: 3269330350203666269}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &543450653547563599
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 919132149340721397}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0.005541619, y: -0.72354645, z: 0.005809113, w: 0.69022906}
-  m_LocalPosition: {x: -2.46, y: 0, z: 0}
-  m_LocalScale: {x: 0.31, y: 0.31, z: 0.31}
-  m_ConstrainProportionsScale: 1
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0.92, y: -92.7, z: 0}
 --- !u!114 &552503391125626270
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -43482,22 +43480,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!1 &919132149340721397
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 543450653547563599}
-  m_Layer: 0
-  m_Name: AlchemyThigsSketchfab
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!1 &919132149417660266
 GameObject:
   m_ObjectHideFlags: 0
@@ -43887,7 +43869,7 @@ Transform:
   m_GameObject: {fileID: 438250899295402255}
   serializedVersion: 2
   m_LocalRotation: {x: -0.6155863, y: -0.34792745, z: -0.34792745, w: 0.6155863}
-  m_LocalPosition: {x: -0.19500017, y: 0.43699992, z: 0.14600003}
+  m_LocalPosition: {x: -0.19500017, y: 0.43699992, z: 0.18600002}
   m_LocalScale: {x: 71.77, y: 71.77, z: 71.77}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -49297,7 +49279,7 @@ Transform:
   m_GameObject: {fileID: 7809359110026662331}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0.332, z: 0.208}
+  m_LocalPosition: {x: 0, y: 0.332, z: 0.248}
   m_LocalScale: {x: 0.09, y: 0.09, z: 0.09}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -63011,6 +62993,7 @@ SceneRoots:
   - {fileID: 418266064}
   - {fileID: 115128580}
   - {fileID: 730595227}
+  - {fileID: 720755180}
   - {fileID: 907711823}
   - {fileID: 938613594}
   - {fileID: 569008982}
@@ -63032,5 +63015,3 @@ SceneRoots:
   - {fileID: 2443870073695183625}
   - {fileID: 1957542275}
   - {fileID: 5734112112409308096}
-  - {fileID: 720755180}
-  - {fileID: 543450653547563599}

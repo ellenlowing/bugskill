@@ -448,4 +448,9 @@ public partial class GameManager : MonoBehaviour
     {
         return (1 << LayerMask.NameToLayer(LandingLayerName)) | (1 << LayerMask.NameToLayer(FloorLayerName)) | (1 << LayerMask.NameToLayer(WallLayerName));
     }
+
+    public int GetWallLayerMask()
+    {
+        return 1 << LayerMask.NameToLayer(WallLayerName);
+    }
 }

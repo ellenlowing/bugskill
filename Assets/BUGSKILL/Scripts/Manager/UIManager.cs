@@ -122,6 +122,7 @@ public class UIManager : MonoBehaviour
         GameEnds.OnEventRaised += EndGame;
         GameBegins.OnEventRaised += StoreManager.Instance.InitializeStorePosition;
         GameBegins.OnEventRaised += UpdateLevel;
+        GameBegins.OnEventRaised += HidePlayerSettings; // TODO change it so that an settings close button is attached to HidePlayerSettings
         StartNextWaveEvent.OnEventRaised += UpdateLevel;
 
         GameStartButton.WhenSelect.AddListener(StartGameLoopTrigger);
@@ -130,10 +131,6 @@ public class UIManager : MonoBehaviour
         PlayerSettingsButton.WhenSelect.AddListener(ShowPlayerSettings);
 
         Invoke(nameof(ShowGameStartScreen), 1.5f);
-    }
-
-    void Update()
-    {
     }
 
     private void ShowGameStartScreen()
@@ -150,7 +147,6 @@ public class UIManager : MonoBehaviour
     public void ShowPlayerSettings()
     {
         PlayerSettingsUI.SetActive(true);
-        PlayerSettingsUI.GetComponent<PlayerSettingsManager>().CreateDepthTestEnvironment();
     }
 
     public void HideHowToPlayScreen()
@@ -165,7 +161,6 @@ public class UIManager : MonoBehaviour
 
     public void HidePlayerSettings()
     {
-        PlayerSettingsUI.GetComponent<PlayerSettingsManager>().DestroyDepthTestEnvironment();
         PlayerSettingsUI.SetActive(false);
     }
 

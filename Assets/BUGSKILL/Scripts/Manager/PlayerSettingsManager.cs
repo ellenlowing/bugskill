@@ -19,6 +19,7 @@ public class PlayerSettingsManager : MonoBehaviour
 
     private List<GameObject> _depthTestFlyList = new List<GameObject>();
     private int _wallLayerMask;
+    private SettingSO settings;
 
     void Awake()
     {
@@ -36,6 +37,7 @@ public class PlayerSettingsManager : MonoBehaviour
     {
         GameUIGroup = GameManager.Instance.GameUIGroup;
         _wallLayerMask = GameManager.Instance.GetWallLayerMask();
+        settings = GameManager.Instance.settings;
     }
 
     void OnEnable()
@@ -59,11 +61,6 @@ public class PlayerSettingsManager : MonoBehaviour
         else if (OVRInput.Get(OVRInput.RawAxis2D.RThumbstick).y < -0.5f)
         {
             AdjustDepthBias(-0.01f);
-        }
-
-        if (OVRInput.GetDown(OVRInput.RawButton.A))
-        {
-            CreateDepthTestEnvironment();
         }
 
         if (IsGameUIMovementEnabled)
@@ -102,6 +99,7 @@ public class PlayerSettingsManager : MonoBehaviour
         {
             depthTestFly.GetComponent<DepthTestFlyBehavior>().SetDepthBias(EnvironmentDepthBias);
         }
+        settings.EnvironmentDepthBias = EnvironmentDepthBias;
         Debug.Log("New depth bias: " + EnvironmentDepthBias);
     }
 

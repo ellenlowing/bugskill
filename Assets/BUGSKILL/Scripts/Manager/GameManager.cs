@@ -170,21 +170,6 @@ public partial class GameManager : MonoBehaviour
                     settings.flies.Add(fly);
                 }
             }
-
-            // TNTFlies.Clear();
-            // for (int i = 0; i < settings.tntFliesInWave[settings.waveIndex]; i++)
-            // {
-            //     if (currentRoom.GenerateRandomPositionOnSurface(MRUK.SurfaceType.VERTICAL, 0.01f, labelFilter, out Vector3 position, out Vector3 normal))
-            //     {
-            //         GameObject fly = Instantiate(TNTFlyPrefab, position, Quaternion.identity, FlyParentAnchor);
-            //         fly.transform.up = normal;
-            //         fly.transform.rotation = fly.transform.rotation * Quaternion.Euler(0, Random.Range(0, 360f), 0);
-            //         fly.name = "TNT Fly " + i.ToString();
-            //         settings.flies.Add(fly);
-
-            //         TNTFlies.Push(fly);
-            //     }
-            // }
         }
 
         GameUIGroup.SetActive(true);

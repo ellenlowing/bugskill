@@ -36,5 +36,6 @@ public class SettingSO : ScriptableObject
     public float nearDistanceFromCamera = 1.0f;
     public float farDistanceFromCamera = 1.0f;
     public float SplatDistanceOffset = 0.05f;
+    public float EnvironmentDepthBias = 0f;
 
 }

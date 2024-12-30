@@ -41,6 +41,7 @@ public class BaseFlyBehavior : MonoBehaviour
     private float restTimer;
     private float slowdownTimer;
     private bool needNewTarget;
+    public MeshRenderer[] _renderers;
 
     public void Start()
     {
@@ -57,6 +58,8 @@ public class BaseFlyBehavior : MonoBehaviour
         needNewTarget = true;
         IsSlowed = false;
         rb = GetComponent<Rigidbody>();
+        _renderers = GetComponentsInChildren<MeshRenderer>();
+        SetDepthBias(settings.EnvironmentDepthBias);
     }
 
     public void Update()
@@ -278,6 +281,18 @@ public class BaseFlyBehavior : MonoBehaviour
                     }
                 }
                 break;
+        }
+    }
+
+    public void SetDepthBias(float value)
+    {
+        foreach (var renderer in _renderers)
+        {
+            Material[] materials = renderer.materials;
+            foreach (var material in materials)
+            {
+                material.SetFloat("_EnvironmentDepthBias", value);
+            }
         }
     }
 }

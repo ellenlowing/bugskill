@@ -32,10 +32,12 @@ public class SlingshotBall : MonoBehaviour
     private Pose _middleFingerTipPose;
     private Vector3 _averageFingerTipPosition;
     private Vector3 _averageFingerTipEulerAngles;
+    private int _anyLandingLayerMask;
 
     void Start()
     {
         _rb = GetComponent<Rigidbody>();
+        _anyLandingLayerMask = GameManager.Instance.GetAnyLandingLayerMask();
         BallPinchEvent.WhenSelect.AddListener(OnSelect);
         BallPinchEvent.WhenUnselect.AddListener(OnUnselect);
         // StartCoroutine(DestroyIdleBomb());
@@ -190,7 +192,7 @@ public class SlingshotBall : MonoBehaviour
             float stepTimePassed = stepTime * i;
             Vector3 movementVector = velocity * stepTimePassed + 0.5f * Physics.gravity * stepTimePassed * stepTimePassed * sign;
             RaycastHit hit;
-            if (Physics.Raycast(launchPosition, sign * movementVector.normalized, out hit, movementVector.magnitude, GameManager.Instance.LandingAndFloorLayerMask))
+            if (Physics.Raycast(launchPosition, sign * movementVector.normalized, out hit, movementVector.magnitude, _anyLandingLayerMask))
             {
                 break;
             }
@@ -230,7 +232,7 @@ public class SlingshotBall : MonoBehaviour
         {
             Debug.Log("TNT collided with " + other.gameObject.name);
 
-            if (other.gameObject.layer == LayerMask.NameToLayer(GameManager.Instance.LandingLayerName) || other.gameObject.layer == LayerMask.NameToLayer(GameManager.Instance.FloorLayerName))
+            if (GameManager.Instance.IsOnAnyLandingLayer(other.gameObject))
             {
                 Vector3 contactPoint = other.contacts[0].point;
                 GameManager.Instance.TriggerTNT(contactPoint);

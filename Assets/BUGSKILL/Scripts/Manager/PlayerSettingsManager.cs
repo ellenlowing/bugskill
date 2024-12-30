@@ -6,6 +6,11 @@ using Meta.XR.MRUtilityKit;
 public class PlayerSettingsManager : MonoBehaviour
 {
     public static PlayerSettingsManager Instance;
+
+    [Header("Move Game UI Anchor")]
+    public GameObject GameUIGroup;
+
+    [Header("Adjust Depth Bias")]
     public GameObject DepthTestFlyPrefab;
     public int DepthTestFlyCount = 10;
     public float EnvironmentDepthBias = 0;
@@ -22,6 +27,11 @@ public class PlayerSettingsManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
+
+    void Start()
+    {
+        GameUIGroup = GameManager.Instance.GameUIGroup;
     }
 
     void Update()
@@ -41,6 +51,13 @@ public class PlayerSettingsManager : MonoBehaviour
         }
     }
 
+    /* SETTING: MOVE GAME UI */
+    public void MoveGameUI()
+    {
+
+    }
+
+    /* SETTING: ADJUST DEPTH BIAS */
     public void AdjustDepthBias(float value)
     {
         EnvironmentDepthBias += value;
@@ -55,7 +72,6 @@ public class PlayerSettingsManager : MonoBehaviour
     {
         GameManager.Instance.SetHandControllersActive(false);
         SamplePointsOnSceneModel();
-        // SamplePointsOnGlobalMesh();
     }
 
     public void DestroyDepthTestEnvironment()

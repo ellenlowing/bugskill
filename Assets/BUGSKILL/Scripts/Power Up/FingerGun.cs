@@ -35,7 +35,7 @@ public class FingerGun : MonoBehaviour
         GunIdleEvent.WhenUnselected.AddListener(OnGunIdle);
         GunTriggerEvent.WhenSelected.AddListener(TurnOnFiring);
         GunTriggerEvent.WhenUnselected.AddListener(TurnOffFiring);
-        _crosshairRaycastLayerMaskInt = (1 << LayerMask.NameToLayer(GameManager.Instance.LandingLayerName)) | (1 << LayerMask.NameToLayer(GameManager.Instance.FloorLayerName));
+        _crosshairRaycastLayerMaskInt = GameManager.Instance.GetAnyLandingLayerMask();
 
         _firePosition = FirePoint.position;
         _fireDirection = FirePoint.right;

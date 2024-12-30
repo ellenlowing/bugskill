@@ -37,20 +37,28 @@ public class EnvironmentSetup : MonoBehaviour
             {
                 var labelFilter = LabelFilter.Included(canLand);
 
-                if (labelFilter.PassesFilter(anchor.Label))
-                {
-                    anchor.gameObject.layer = LayerMask.NameToLayer(GameManager.Instance.LandingLayerName);
-                    foreach (Transform child in anchor.transform)
-                    {
-                        child.gameObject.layer = LayerMask.NameToLayer(GameManager.Instance.LandingLayerName);
-                    }
-                }
-                else if (anchor.Label == MRUKAnchor.SceneLabels.FLOOR)
+                if (anchor.Label == MRUKAnchor.SceneLabels.FLOOR)
                 {
                     anchor.gameObject.layer = LayerMask.NameToLayer(GameManager.Instance.FloorLayerName);
                     foreach (Transform child in anchor.transform)
                     {
                         child.gameObject.layer = LayerMask.NameToLayer(GameManager.Instance.FloorLayerName);
+                    }
+                }
+                else if (anchor.Label == MRUKAnchor.SceneLabels.WALL_FACE)
+                {
+                    anchor.gameObject.layer = LayerMask.NameToLayer(GameManager.Instance.WallLayerName);
+                    foreach (Transform child in anchor.transform)
+                    {
+                        child.gameObject.layer = LayerMask.NameToLayer(GameManager.Instance.WallLayerName);
+                    }
+                }
+                else if (labelFilter.PassesFilter(anchor.Label))
+                {
+                    anchor.gameObject.layer = LayerMask.NameToLayer(GameManager.Instance.LandingLayerName);
+                    foreach (Transform child in anchor.transform)
+                    {
+                        child.gameObject.layer = LayerMask.NameToLayer(GameManager.Instance.LandingLayerName);
                     }
                 }
             }

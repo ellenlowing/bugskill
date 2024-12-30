@@ -44,8 +44,6 @@ namespace linabelina
 
         void Update()
         {
-
-
             elapsed += Time.deltaTime;
             timeSinceLastDirectionChange += Time.deltaTime;
             timeSinceLastRest += Time.deltaTime;

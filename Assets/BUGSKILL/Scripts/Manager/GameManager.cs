@@ -33,7 +33,7 @@ public partial class GameManager : MonoBehaviour
     [SerializeField] private SettingSO testSettings;
     public string LandingLayerName = "Landing";
     public string FloorLayerName = "Floor";
-    public LayerMask LandingAndFloorLayerMask;
+    public string WallLayerName = "Wall";
 
     [Header("Flies")]
     public GameObject FlyPrefab;
@@ -294,7 +294,6 @@ public partial class GameManager : MonoBehaviour
         TNTExplosion.Stop();
         TNTExplosion.Play();
         TNTExplosion.gameObject.GetComponent<AudioSource>().Play();
-        // Destroy(tntFly);
 
         Collider[] hitFlies = Physics.OverlapSphere(position, TNTExplosionRadius, FlyLayerMask);
         foreach (var fly in hitFlies)
@@ -337,7 +336,6 @@ public partial class GameManager : MonoBehaviour
     {
         Debug.Log("get game UI group placement");
         MRUKRoom room = MRUK.Instance.GetCurrentRoom();
-        // List<string> sceneLabels = new List<string> { "TABLE", "COUCH", "STORAGE", "BED", "FLOOR" };
         List<string> sceneLabels = new List<string> { "FLOOR" };
 
         if (room != null)
@@ -439,5 +437,15 @@ public partial class GameManager : MonoBehaviour
     {
         LeftHandController.enabled = active;
         RightHandController.enabled = active;
+    }
+
+    public bool IsOnAnyLandingLayer(GameObject obj)
+    {
+        return obj.layer == LayerMask.NameToLayer(LandingLayerName) || obj.layer == LayerMask.NameToLayer(FloorLayerName) || obj.layer == LayerMask.NameToLayer(WallLayerName);
+    }
+
+    public int GetAnyLandingLayerMask()
+    {
+        return (1 << LayerMask.NameToLayer(LandingLayerName)) | (1 << LayerMask.NameToLayer(FloorLayerName)) | (1 << LayerMask.NameToLayer(WallLayerName));
     }
 }

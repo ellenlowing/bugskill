@@ -264,6 +264,18 @@ public class BaseFlyBehavior : MonoBehaviour
         }
     }
 
+    public void SetDepthBias(float value)
+    {
+        foreach (var renderer in _renderers)
+        {
+            Material[] materials = renderer.materials;
+            foreach (var material in materials)
+            {
+                material.SetFloat("_EnvironmentDepthBias", value);
+            }
+        }
+    }
+
     private void OnCollisionEnter(Collision other)
     {
         switch (CurrentState)
@@ -281,18 +293,6 @@ public class BaseFlyBehavior : MonoBehaviour
                     }
                 }
                 break;
-        }
-    }
-
-    public void SetDepthBias(float value)
-    {
-        foreach (var renderer in _renderers)
-        {
-            Material[] materials = renderer.materials;
-            foreach (var material in materials)
-            {
-                material.SetFloat("_EnvironmentDepthBias", value);
-            }
         }
     }
 }

@@ -86,6 +86,8 @@ public partial class GameManager : MonoBehaviour
     public Hand RightHand;
     public HandController LeftHandController;
     public HandController RightHandController;
+    public GameObject LeftHandVisuals;
+    public GameObject RightHandVisuals;
 
     [Header("Finger Gun")]
     public GameObject LeftFingerGun;
@@ -133,6 +135,7 @@ public partial class GameManager : MonoBehaviour
         LevelPanel.SetActive(false);
         UIManager.Instance.GameEndUI.SetActive(false);
         SetHandControllersActive(false);
+        SetHandVisualsActive(false);
 
 #if UNITY_EDITOR
         EffectMesh.HideMesh = false;
@@ -422,6 +425,12 @@ public partial class GameManager : MonoBehaviour
     {
         LeftHandController.enabled = active;
         RightHandController.enabled = active;
+    }
+
+    public void SetHandVisualsActive(bool active)
+    {
+        LeftHandVisuals.SetActive(active);
+        RightHandVisuals.SetActive(active);
     }
 
     public bool IsOnAnyLandingLayer(GameObject obj)

@@ -20449,6 +20449,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _pokeInteractable: {fileID: 1024137553}
   _buttonBaseTransform: {fileID: 1914020220}
+--- !u!1 &508235979 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3678661475425720304, guid: fdd733798a7a54a839890e650730dc78, type: 3}
+  m_PrefabInstance: {fileID: 1278331788}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &513727435
 GameObject:
   m_ObjectHideFlags: 0
@@ -27594,6 +27599,8 @@ MonoBehaviour:
   RightHand: {fileID: 2065752921}
   LeftHandController: {fileID: 130871184}
   RightHandController: {fileID: 787182959}
+  LeftHandVisuals: {fileID: 783006781}
+  RightHandVisuals: {fileID: 1843040925}
   LeftFingerGun: {fileID: 9043528672117650296}
   RightFingerGun: {fileID: 6286605665713243847}
   LeftFingerSlingshot: {fileID: 856285582}
@@ -28852,6 +28859,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 780590650}
   m_CullTransparentMesh: 1
+--- !u!1 &783006781 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 15374482166302223, guid: ea16c3c8c1688234fa81a4f39339bf1b, type: 3}
+  m_PrefabInstance: {fileID: 2065752919}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &787182954
 GameObject:
   m_ObjectHideFlags: 0
@@ -30847,6 +30859,11 @@ Transform:
   - {fileID: 898619182}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1097941192 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3678661475425720304, guid: fdd733798a7a54a839890e650730dc78, type: 3}
+  m_PrefabInstance: {fileID: 736331770741926874}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1102107209
 GameObject:
   m_ObjectHideFlags: 0
@@ -32278,6 +32295,9 @@ PrefabInstance:
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3678661475425720304, guid: fdd733798a7a54a839890e650730dc78, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1858778945}
     - targetCorrespondingSourceObject: {fileID: 1925703900041366992, guid: fdd733798a7a54a839890e650730dc78, type: 3}
       insertIndex: -1
       addedObject: {fileID: 0}
@@ -35490,6 +35510,7 @@ GameObject:
   - component: {fileID: 1707698284}
   - component: {fileID: 1707698285}
   - component: {fileID: 1707698286}
+  - component: {fileID: 1707698287}
   m_Layer: 0
   m_Name: How to Play Button
   m_TagString: Untagged
@@ -35697,6 +35718,19 @@ MonoBehaviour:
   _whenSelectingInteractorViewRemoved:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &1707698287
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1707698283}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c319f3536d6ba48de97869cb7594d40d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PokeButtonEvent: {fileID: 0}
 --- !u!1 &1731175880
 GameObject:
   m_ObjectHideFlags: 0
@@ -37004,6 +37038,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1833336822}
   m_CullTransparentMesh: 1
+--- !u!1 &1843040925 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3363867107013514217, guid: ea16c3c8c1688234fa81a4f39339bf1b, type: 3}
+  m_PrefabInstance: {fileID: 2065752919}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1856893003
 GameObject:
   m_ObjectHideFlags: 0
@@ -37218,12 +37257,25 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8755629725108178869, guid: fdd733798a7a54a839890e650730dc78, type: 3}
   m_PrefabInstance: {fileID: 1278331788}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 508235979}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1464721f2283eb14e94a33e812b47be4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1858778945
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 508235979}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c319f3536d6ba48de97869cb7594d40d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PokeButtonEvent: {fileID: 0}
 --- !u!114 &1874991646 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2296141232796561049, guid: cee191920b8eb41b0960b1082a393a3e, type: 3}
@@ -40155,7 +40207,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6303876425801177966, guid: ea16c3c8c1688234fa81a4f39339bf1b, type: 3}
       propertyPath: m_Materials.Array.size
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6303876425801177966, guid: ea16c3c8c1688234fa81a4f39339bf1b, type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -43034,6 +43086,9 @@ PrefabInstance:
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3678661475425720304, guid: fdd733798a7a54a839890e650730dc78, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7148373579189778678}
     - targetCorrespondingSourceObject: {fileID: 1925703900041366992, guid: fdd733798a7a54a839890e650730dc78, type: 3}
       insertIndex: -1
       addedObject: {fileID: 0}
@@ -55017,12 +55072,25 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8755629725108178869, guid: fdd733798a7a54a839890e650730dc78, type: 3}
   m_PrefabInstance: {fileID: 736331770741926874}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1097941192}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1464721f2283eb14e94a33e812b47be4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &7148373579189778678
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1097941192}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c319f3536d6ba48de97869cb7594d40d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PokeButtonEvent: {fileID: 0}
 --- !u!4 &7153943919050542702
 Transform:
   m_ObjectHideFlags: 0

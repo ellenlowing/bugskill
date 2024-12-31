@@ -184,6 +184,7 @@ public class UIManager : MonoBehaviour
 
     public void ShowGameEndPanel(bool win)
     {
+        GameManager.Instance.SetHandVisualsActive(true);
         FaceCamera(GameEndUI);
         if (win)
         {

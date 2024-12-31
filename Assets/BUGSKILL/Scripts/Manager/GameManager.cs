@@ -88,6 +88,8 @@ public partial class GameManager : MonoBehaviour
     public HandController RightHandController;
     public GameObject LeftHandVisuals;
     public GameObject RightHandVisuals;
+    public GameObject LeftHandRayInteractor;
+    public GameObject RightHandRayInteractor;
 
     [Header("Finger Gun")]
     public GameObject LeftFingerGun;
@@ -135,7 +137,7 @@ public partial class GameManager : MonoBehaviour
         LevelPanel.SetActive(false);
         UIManager.Instance.GameEndUI.SetActive(false);
         SetHandControllersActive(false);
-        SetHandVisualsActive(false);
+        SetHandVisualsActive(true);
 
 #if UNITY_EDITOR
         EffectMesh.HideMesh = false;
@@ -149,10 +151,6 @@ public partial class GameManager : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.UpArrow) || OVRInput.GetDown(OVRInput.Button.PrimaryHandTrigger))
-        {
-            CycleGameUIGroupPlacement();
-        }
     }
 
     void InitializeRound()
@@ -257,12 +255,13 @@ public partial class GameManager : MonoBehaviour
 
     private void StartGameLoop()
     {
-        SetHandControllersActive(true);
+        SetHandVisualsActive(false);
         Invoke(nameof(InitializeRound), UIManager.Instance.RoundStartUIDuration);
     }
 
     public void RestartGameLoop()
     {
+        SetHandVisualsActive(false);
         settings.flies.Clear();
         settings.waveIndex = 0;
         settings.totalKills = 0;
@@ -431,6 +430,8 @@ public partial class GameManager : MonoBehaviour
     {
         LeftHandVisuals.SetActive(active);
         RightHandVisuals.SetActive(active);
+        LeftHandRayInteractor.SetActive(active);
+        RightHandRayInteractor.SetActive(active);
     }
 
     public bool IsOnAnyLandingLayer(GameObject obj)

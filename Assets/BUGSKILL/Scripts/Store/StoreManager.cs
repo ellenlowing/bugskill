@@ -56,6 +56,7 @@ public class StoreManager : MonoBehaviour
 
     private BasePowerUpBehavior _selectedPowerUp;
     private SettingSO settings;
+    public List<BasePowerUpBehavior.PowerUpType> _powerUpTypes = new List<BasePowerUpBehavior.PowerUpType>();
 
     private void OnEnable()
     {
@@ -80,18 +81,11 @@ public class StoreManager : MonoBehaviour
         settings = GameManager.Instance.settings;
         StoreUI.SetActive(false);
         InitializeStorePosition();
-        // ThumbsUpEvent.WhenSelected.AddListener(OnThumbsUpSelected);
-    }
-
-    private void Update()
-    {
-
-#if UNITY_EDITOR
-        if (Input.GetKeyDown(KeyCode.Escape) || OVRInput.GetDown(OVRInput.Button.PrimaryHandTrigger))
+        foreach (var item in ShopItems)
         {
-            CheckoutBasket();
+            var powerup = item.GetComponent<BasePowerUpBehavior>();
+            _powerUpTypes.Add(powerup.Type);
         }
-#endif
     }
 
     public void Purchase(BasePowerUpBehavior powerup)
@@ -115,8 +109,6 @@ public class StoreManager : MonoBehaviour
                 AddTextPopUp(shopItemName + " Purchased!", powerupItem.transform.position);
 
                 Invoke(nameof(NextWave), 1f);
-
-                // _selectedPowerUp = null;
             }
         }
     }
@@ -131,16 +123,19 @@ public class StoreManager : MonoBehaviour
     {
         Debug.Log("Showing store");
 
-        // Dialog
-        CheckoutInstructions.SetActive(true);
-        ThankyouDialog.SetActive(false);
-        NotEnoughCashDialog.SetActive(false);
+        // UNCOMMENT IF SHOPPING BASKET FEATURE IS RE-ENABLED
+        // // Dialog
+        // CheckoutInstructions.SetActive(true);
+        // ThankyouDialog.SetActive(false);
+        // NotEnoughCashDialog.SetActive(false);
 
-        // Hide Docking Station
-        PowerUpDockingStation.gameObject.SetActive(false);
+        // // Hide Docking Station
+        // PowerUpDockingStation.gameObject.SetActive(false);
 
-        // Empty shop displays and shopping basket
-        ShoppingBasket.Empty();
+        // Empty shopping basket
+        // ShoppingBasket.Empty();
+
+        // Empty store displays
         for (int i = 0; i < ShopItemsParent.childCount; i++)
         {
             Destroy(ShopItemsParent.GetChild(i).gameObject);
@@ -159,9 +154,32 @@ public class StoreManager : MonoBehaviour
         {
             var powerup = powerupInStock[i];
             powerup.transform.position = ShopItemPositions[i].position;
-
             RotatePowerUpDisplay(powerup);
         }
+
+        // List<GameObject> itemsInStock = new List<GameObject>();
+        // foreach (Transform child in ShopItemsParent)
+        // {
+        //     itemsInStock.Add(child.gameObject);
+        // }
+
+        // List<GameObject> missingPowerups = ShopItems;
+        // for (int i = ShopItems.Count - 1; i >= 0; i--)
+        // {
+        //     var powerup = ShopItems[i];
+        //     if ()
+        //     {
+        //         missingPowerups.Remove(powerup);
+        //     }
+        // }
+
+        // foreach (var powerup in missingPowerups)
+        // {
+        //     var powerupObj = Instantiate(powerup, ShopItemsParent);
+        //     var index = ShopItems.IndexOf(powerup);
+        //     powerupObj.transform.position = ShopItemPositions[index].position;
+        //     RotatePowerUpDisplay(powerupObj);
+        // }
 
         // Use Store Position Finder to grab spawn location
         PlaceStore();

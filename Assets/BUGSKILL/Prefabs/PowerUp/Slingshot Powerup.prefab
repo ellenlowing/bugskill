@@ -1693,6 +1693,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ActiveOVRHand: {fileID: 0}
+  Type: 3
   CurrentState: 0
   PointableEventWrapper: {fileID: 4110729270436649015}
   GlowEffect: {fileID: 3204429878681210940}

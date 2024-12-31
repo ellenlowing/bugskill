@@ -16,6 +16,15 @@ public class BasePowerUpBehavior : MonoBehaviour
         ACTIVE // in use + grabbed
     }
 
+    public enum PowerUpType
+    {
+        SWATTER,
+        SPRAY,
+        FROGGY,
+        FINGER_SLINGSHOT,
+        FINGER_GUN
+    }
+
     [System.Serializable]
     public class MeshMatPair
     {
@@ -24,6 +33,7 @@ public class BasePowerUpBehavior : MonoBehaviour
     }
 
     public OVRHand ActiveOVRHand = null;
+    public PowerUpType Type;
     public PowerUpState CurrentState;
     public PointableUnityEventWrapper PointableEventWrapper;
     public ParticleSystem GlowEffect;

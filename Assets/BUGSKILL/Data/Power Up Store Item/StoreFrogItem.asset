@@ -16,4 +16,5 @@ MonoBehaviour:
   Name: Froggy
   Description: Aim at a fly and pinch to feed it to froggy!
   LocalPosition: {x: 0, y: 0.263, z: 0}
+  ItemContainerName: Bottom_Left
   LocalEulerAngles: {x: 0, y: 321.6, z: 0}

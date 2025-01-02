@@ -16,4 +16,5 @@ MonoBehaviour:
   Name: Electric Swatter
   Description: Wave the electric swatter to kill flies in air!
   LocalPosition: {x: 0.534, y: 0.179, z: 0}
+  ItemContainerName: Top_Left
   LocalEulerAngles: {x: 23.79, y: 15, z: 50.1}

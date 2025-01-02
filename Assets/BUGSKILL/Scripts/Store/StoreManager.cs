@@ -37,6 +37,7 @@ public class StoreManager : MonoBehaviour
     [Header("Power Up")]
     public List<GameObject> ShopItems;
     public Transform ShopItemsParent;
+    public Transform ShopItemContainersParent;
 
     [Header("Shop Props")]
     public GameObject ShopMaster;
@@ -54,7 +55,7 @@ public class StoreManager : MonoBehaviour
     public GameObject NotEnoughCashDialog;
     // public TextMeshProUGUI NotEnoughCashDialogText;
 
-    private BasePowerUpBehavior _selectedPowerUp;
+    public BasePowerUpBehavior _selectedPowerUp;
     private SettingSO settings;
     public List<BasePowerUpBehavior.PowerUpType> _powerUpTypes = new List<BasePowerUpBehavior.PowerUpType>();
 
@@ -79,13 +80,7 @@ public class StoreManager : MonoBehaviour
     private void Start()
     {
         settings = GameManager.Instance.settings;
-        StoreUI.SetActive(false);
         InitializeStorePosition();
-        foreach (var item in ShopItems)
-        {
-            var powerup = item.GetComponent<BasePowerUpBehavior>();
-            _powerUpTypes.Add(powerup.Type);
-        }
     }
 
     public void Purchase(BasePowerUpBehavior powerup)
@@ -107,6 +102,8 @@ public class StoreManager : MonoBehaviour
                 GameObject powerupItem = powerup.GetComponentInParent<Grabbable>().gameObject;
 
                 AddTextPopUp(shopItemName + " Purchased!", powerupItem.transform.position);
+
+                _selectedPowerUp = powerup;
 
                 Invoke(nameof(NextWave), 1f);
             }
@@ -135,25 +132,42 @@ public class StoreManager : MonoBehaviour
         // Empty shopping basket
         // ShoppingBasket.Empty();
 
+        // ORIGINAL IMPLEMENTATION STARTS HERE
         // Empty store displays
+        // for (int i = 0; i < ShopItemsParent.childCount; i++)
+        // {
+        //     Destroy(ShopItemsParent.GetChild(i).gameObject);
+        // }
+
+        // // Instantiate shop items
+        // List<GameObject> powerupInStock = new List<GameObject>();
+        // foreach (var item in ShopItems)
+        // {
+        //     var powerup = Instantiate(item, ShopItemsParent);
+        //     powerupInStock.Add(powerup);
+        // }
+
+        // // Organize shop items based on list of shop item transforms
+        // for (int i = 0; i < powerupInStock.Count; i++)
+        // {
+        //     var powerup = powerupInStock[i];
+        //     powerup.transform.position = ShopItemPositions[i].position;
+        //     RotatePowerUpDisplay(powerup);
+        // }
+        // ORIGINAL IMPLEMENTATION ENDS HERE
+
+        // Instantiate (restock) previous selected power-up
+        // bug: selected power up was dissolved, so it returns null
+        // if (_selectedPowerUp != null)
+        // {
+        //     var powerup = Instantiate(_selectedPowerUp.gameObject, ShopItemsParent);
+        //     _selectedPowerUp = null;
+        // }
+
         for (int i = 0; i < ShopItemsParent.childCount; i++)
         {
-            Destroy(ShopItemsParent.GetChild(i).gameObject);
-        }
-
-        // Instantiate shop items
-        List<GameObject> powerupInStock = new List<GameObject>();
-        foreach (var item in ShopItems)
-        {
-            var powerup = Instantiate(item, ShopItemsParent);
-            powerupInStock.Add(powerup);
-        }
-
-        // Organize shop items based on list of shop item transforms
-        for (int i = 0; i < powerupInStock.Count; i++)
-        {
-            var powerup = powerupInStock[i];
-            powerup.transform.position = ShopItemPositions[i].position;
+            var powerup = ShopItemsParent.GetChild(i).gameObject;
+            PlacePowerUpDisplay(powerup);
             RotatePowerUpDisplay(powerup);
         }
 
@@ -183,10 +197,17 @@ public class StoreManager : MonoBehaviour
 
         // Use Store Position Finder to grab spawn location
         PlaceStore();
-
         UIManager.Instance.UpdateCashUI();
         StoreUI.SetActive(true);
         IsStoreActive = true;
+    }
+
+    public void RestockPowerup(BasePowerUpBehavior powerup)
+    {
+        var shopItem = ShopItems.Find(item => item.GetComponent<BasePowerUpBehavior>().Type == powerup.Type);
+        var powerupObj = Instantiate(shopItem, ShopItemsParent);
+        PlacePowerUpDisplay(powerupObj);
+        RotatePowerUpDisplay(powerupObj);
     }
 
     public void InitializeStorePosition()
@@ -307,8 +328,16 @@ public class StoreManager : MonoBehaviour
         }
     }
 
+    private void PlacePowerUpDisplay(GameObject powerup)
+    {
+        string containerName = powerup.GetComponentInChildren<BasePowerUpBehavior>().StoreItemData.ItemContainerName;
+        Transform containerTransform = ShopItemContainersParent.Find(containerName);
+        powerup.transform.position = containerTransform.position;
+    }
+
     private void RotatePowerUpDisplay(GameObject powerup)
     {
+        powerup.transform.rotation = Quaternion.identity;
         Transform rotationTransform = powerup.transform.FindChildRecursive("Rotation");
         if (rotationTransform != null)
         {

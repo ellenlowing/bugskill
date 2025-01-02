@@ -8,6 +8,6 @@ public class StoreItemSO : ScriptableObject
     public int Price = 0;
     public string Name = "ItemName";
     public string Description = "Nothing";
-    public Vector3 LocalPosition = Vector3.zero;
+    public string ItemContainerName = "";
     public Vector3 LocalEulerAngles = Vector3.zero;
 }

@@ -137,7 +137,10 @@ public class BasePowerUpBehavior : MonoBehaviour
         }
     }
 
-    public virtual void EnterIdleState() { }
+    public virtual void EnterIdleState()
+    {
+        DisplayPriceTag.SetActive(true);
+    }
     public virtual void UpdateIdleState()
     {
         // if (!GlowEffect.gameObject.activeInHierarchy && !StoreManager.Instance.IsStoreActive)
@@ -187,6 +190,8 @@ public class BasePowerUpBehavior : MonoBehaviour
 
     public virtual void Dissolve()
     {
+        StoreManager.Instance.RestockPowerup(this);
+
         EnterState(PowerUpState.INACTIVE);
 
         if (PowerCapacitySlider != null)

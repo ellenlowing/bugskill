@@ -136,6 +136,7 @@ public partial class GameManager : MonoBehaviour
         GameUIGroup.SetActive(false);
         LevelPanel.SetActive(false);
         UIManager.Instance.GameEndUI.SetActive(false);
+        StoreManager.Instance.HideStore();
         SetHandControllersActive(false);
         SetHandVisualsActive(true);
 
@@ -230,7 +231,7 @@ public partial class GameManager : MonoBehaviour
     IEnumerator CheckGoal(int waveI)
     {
         int powerUpCount = DissolveAllPowerUps();
-        yield return new WaitForSeconds(powerUpCount > 0 ? DissolveDuration : 0);
+        yield return new WaitForSeconds(powerUpCount > 0 ? DissolveDuration : 0.1f);
         bool goalReached = settings.localKills >= settings.LevelGoals[waveI];
         Debug.Log(goalReached + " for wave index " + waveI + ", Local Kills: " + settings.localKills + " Goal: " + settings.LevelGoals[waveI]);
         settings.totalKills += settings.localKills;
@@ -256,6 +257,8 @@ public partial class GameManager : MonoBehaviour
     private void StartGameLoop()
     {
         SetHandVisualsActive(false);
+        SetHandControllersActive(true);
+        StoreManager.Instance.HideStore();
         Invoke(nameof(InitializeRound), UIManager.Instance.RoundStartUIDuration);
     }
 
@@ -400,12 +403,23 @@ public partial class GameManager : MonoBehaviour
     public int DissolveAllPowerUps()
     {
         Debug.Log("StoreManager: Dissolving all powerups");
-        var powerUps = FindObjectsOfType<BasePowerUpBehavior>();
-        foreach (var powerUp in powerUps)
+        // var powerUps = FindObjectsOfType<BasePowerUpBehavior>();
+        // foreach (var powerUp in powerUps)
+        // {
+        //     powerUp.Dissolve();
+        // }
+        // return powerUps.Length;
+
+        var powerup = StoreManager.Instance._selectedPowerUp;
+        if (powerup != null)
         {
-            powerUp.Dissolve();
+            powerup.Dissolve();
+            return 1;
         }
-        return powerUps.Length;
+        else
+        {
+            return 0;
+        }
     }
 
     void OnDrawGizmos()

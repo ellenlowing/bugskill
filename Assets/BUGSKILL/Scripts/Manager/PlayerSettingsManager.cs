@@ -35,7 +35,6 @@ public class PlayerSettingsManager : MonoBehaviour
 
     void Start()
     {
-        GameUIGroup = GameManager.Instance.GameUIGroup;
         _wallLayerMask = GameManager.Instance.GetWallLayerMask();
         settings = GameManager.Instance.settings;
     }

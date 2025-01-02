@@ -12,7 +12,7 @@ public class BillboardUI : MonoBehaviour
 
     void Update()
     {
-        transform.rotation = Quaternion.LookRotation(transform.position - Camera.main.transform.position);
+        transform.rotation = Quaternion.LookRotation(transform.position - GameManager.Instance.MainCameraTransform.position);
 
     }
 }

@@ -26188,7 +26188,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78263bbaee33843a581d5bf6240e7077, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GameUIGroup: {fileID: 0}
+  GameUIGroup: {fileID: 1583608742}
   IsGameUIMovementEnabled: 1
   DepthTestFlyPrefab: {fileID: 708182128869486111, guid: 22286bcab744a4116890503ae01aafab, type: 3}
   DepthTestFlyCount: 20
@@ -26378,6 +26378,7 @@ MonoBehaviour:
   GameUIGroup: {fileID: 1583608742}
   LevelPanel: {fileID: 1501541907}
   TutorialVideoPlayer: {fileID: 569008983}
+  MainCameraTransform: {fileID: 1915206569}
   settings: {fileID: 11400000, guid: 415f7b1141256224db7c3c8720566774, type: 2}
   TestMode: 1
   gameSettings: {fileID: 11400000, guid: 415f7b1141256224db7c3c8720566774, type: 2}
@@ -33865,6 +33866,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: OVRCameraRig
       objectReference: {fileID: 0}
+    - target: {fileID: 100006, guid: 126d619cf4daa52469682f85c1378b4a, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
     - target: {fileID: 109308, guid: 126d619cf4daa52469682f85c1378b4a, type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -35628,6 +35633,11 @@ Transform:
   - {fileID: 1400340398}
   m_Father: {fileID: 1747532722}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &1915206569 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 400002, guid: 126d619cf4daa52469682f85c1378b4a, type: 3}
+  m_PrefabInstance: {fileID: 1747532720}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1920814779 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4927059292654576, guid: 7ffd6822b816c9b428b2295eb5d7fa00, type: 3}
@@ -38517,10 +38527,6 @@ PrefabInstance:
     - target: {fileID: 5455849151864903232, guid: 3c3e56f35930b43a6943720e083bf1ef, type: 3}
       propertyPath: m_Name
       value: Fingergun PowerUp
-      objectReference: {fileID: 0}
-    - target: {fileID: 5455849151864903232, guid: 3c3e56f35930b43a6943720e083bf1ef, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -46048,10 +46054,6 @@ PrefabInstance:
     - target: {fileID: 2819779808052606813, guid: 35762777fd1d94782b096022b23edcb1, type: 3}
       propertyPath: m_Name
       value: Slingshot Powerup
-      objectReference: {fileID: 0}
-    - target: {fileID: 2819779808052606813, guid: 35762777fd1d94782b096022b23edcb1, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4550602522913028410, guid: 35762777fd1d94782b096022b23edcb1, type: 3}
       propertyPath: m_AnchorMax.x

@@ -25,6 +25,7 @@ public partial class GameManager : MonoBehaviour
     public GameObject GameUIGroup;
     public GameObject LevelPanel;
     public TutorialVideoPlayer TutorialVideoPlayer;
+    public Transform MainCameraTransform;
 
     [Header("Game Settings")]
     public SettingSO settings;
@@ -231,7 +232,8 @@ public partial class GameManager : MonoBehaviour
     IEnumerator CheckGoal(int waveI)
     {
         int powerUpCount = DissolveAllPowerUps();
-        yield return new WaitForSeconds(powerUpCount > 0 ? DissolveDuration : 0.1f);
+        yield return null;
+        // yield return new WaitForSeconds(powerUpCount > 0 ? DissolveDuration : 0.1f);
         bool goalReached = settings.localKills >= settings.LevelGoals[waveI];
         Debug.Log(goalReached + " for wave index " + waveI + ", Local Kills: " + settings.localKills + " Goal: " + settings.LevelGoals[waveI]);
         settings.totalKills += settings.localKills;

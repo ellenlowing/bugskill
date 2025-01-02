@@ -10,9 +10,9 @@ public class LookAt : MonoBehaviour
 
     private void Update()
     {
-        Vector3 targetPosition = Camera.main.transform.position + Camera.main.transform.forward * GameManager.Instance.settings.nearDistanceFromCamera;
+        Vector3 targetPosition = GameManager.Instance.MainCameraTransform.position + GameManager.Instance.MainCameraTransform.forward * GameManager.Instance.settings.nearDistanceFromCamera;
         transform.position = Vector3.SmoothDamp(transform.position, targetPosition, ref velocity, smoothTime);
-        // transform.forward = Camera.main.transform.forward;
+        // transform.forward = GameManager.Instance.MainCameraTransform.forward;
         // transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, transform.eulerAngles.z);
     }
 }

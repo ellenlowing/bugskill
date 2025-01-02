@@ -214,7 +214,7 @@ public class UIManager : MonoBehaviour
         tempText.text = "+" + cashAmount.ToString();
         tempObj = Instantiate(UIScoreObj, position, Quaternion.identity);
         UpdateCashUI();
-        tempObj.transform.forward = Camera.main.transform.forward;
+        tempObj.transform.forward = GameManager.Instance.MainCameraTransform.forward;
         tempObj.transform.eulerAngles = new Vector3(0, tempObj.transform.eulerAngles.y, tempObj.transform.eulerAngles.z);
 
         Destroy(tempObj, 1f);
@@ -290,8 +290,8 @@ public class UIManager : MonoBehaviour
         {
             float distance = distanceFromCamera == -1f ? settings.nearDistanceFromCamera : distanceFromCamera;
 
-            Vector3 pos = Camera.main.transform.position + Camera.main.transform.forward * distance;
-            pos = new Vector3(pos.x, Camera.main.transform.position.y + yOffset, pos.z);
+            Vector3 pos = GameManager.Instance.MainCameraTransform.position + GameManager.Instance.MainCameraTransform.forward * distance;
+            pos = new Vector3(pos.x, GameManager.Instance.MainCameraTransform.position.y + yOffset, pos.z);
 
             MRUKRoom room = MRUK.Instance.GetCurrentRoom();
             if (room != null)
@@ -299,8 +299,8 @@ public class UIManager : MonoBehaviour
                 while ((!room.IsPositionInRoom(pos, true) || room.IsPositionInSceneVolume(pos, true, 0)) && distance > 0)
                 {
                     distance -= 0.1f;
-                    pos = Camera.main.transform.position + Camera.main.transform.forward * distance;
-                    pos = new Vector3(pos.x, Camera.main.transform.position.y + yOffset, pos.z);
+                    pos = GameManager.Instance.MainCameraTransform.position + GameManager.Instance.MainCameraTransform.forward * distance;
+                    pos = new Vector3(pos.x, GameManager.Instance.MainCameraTransform.position.y + yOffset, pos.z);
 
                     Debug.Log("Not in room by distance: " + distance);
                 }
@@ -309,11 +309,11 @@ public class UIManager : MonoBehaviour
             obj.transform.position = pos;
             if (flipForwardVector)
             {
-                obj.transform.forward = -Camera.main.transform.forward;
+                obj.transform.forward = -GameManager.Instance.MainCameraTransform.forward;
             }
             else
             {
-                obj.transform.forward = Camera.main.transform.forward;
+                obj.transform.forward = GameManager.Instance.MainCameraTransform.forward;
             }
             obj.transform.eulerAngles = new Vector3(0, obj.transform.eulerAngles.y, obj.transform.eulerAngles.z);
 

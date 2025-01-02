@@ -221,7 +221,7 @@ public class FindLargestSpawnPositions : MonoBehaviour
         if (!_spawnPositionFound)
         {
             UnityEngine.Debug.Log("Cannot find valid spawn position; spawning at where the user is standing");
-            var spawnPosition = Camera.main.transform.position;
+            var spawnPosition = GameManager.Instance.MainCameraTransform.position;
             var floorAnchor = room.FloorAnchor;
 
             if (floorAnchor != null)

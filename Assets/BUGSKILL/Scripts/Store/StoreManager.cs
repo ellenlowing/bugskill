@@ -7,6 +7,7 @@ using Oculus.Interaction.Input;
 using Oculus.Interaction.PoseDetection;
 using Meta.XR.MRUtilityKit;
 using UnityEngine.UIElements;
+using System.Collections;
 
 public class StoreManager : MonoBehaviour
 {
@@ -156,14 +157,6 @@ public class StoreManager : MonoBehaviour
         // }
         // ORIGINAL IMPLEMENTATION ENDS HERE
 
-        // Instantiate (restock) previous selected power-up
-        // bug: selected power up was dissolved, so it returns null
-        // if (_selectedPowerUp != null)
-        // {
-        //     var powerup = Instantiate(_selectedPowerUp.gameObject, ShopItemsParent);
-        //     _selectedPowerUp = null;
-        // }
-
         for (int i = 0; i < ShopItemsParent.childCount; i++)
         {
             var powerup = ShopItemsParent.GetChild(i).gameObject;
@@ -171,35 +164,18 @@ public class StoreManager : MonoBehaviour
             RotatePowerUpDisplay(powerup);
         }
 
-        // List<GameObject> itemsInStock = new List<GameObject>();
-        // foreach (Transform child in ShopItemsParent)
-        // {
-        //     itemsInStock.Add(child.gameObject);
-        // }
-
-        // List<GameObject> missingPowerups = ShopItems;
-        // for (int i = ShopItems.Count - 1; i >= 0; i--)
-        // {
-        //     var powerup = ShopItems[i];
-        //     if ()
-        //     {
-        //         missingPowerups.Remove(powerup);
-        //     }
-        // }
-
-        // foreach (var powerup in missingPowerups)
-        // {
-        //     var powerupObj = Instantiate(powerup, ShopItemsParent);
-        //     var index = ShopItems.IndexOf(powerup);
-        //     powerupObj.transform.position = ShopItemPositions[index].position;
-        //     RotatePowerUpDisplay(powerupObj);
-        // }
-
         // Use Store Position Finder to grab spawn location
         PlaceStore();
         UIManager.Instance.UpdateCashUI();
+        // StartCoroutine(DelayShowStore(1f));
         StoreUI.SetActive(true);
         IsStoreActive = true;
+    }
+
+    IEnumerator DelayShowStore(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        StoreUI.SetActive(true);
     }
 
     public void RestockPowerup(BasePowerUpBehavior powerup)
@@ -222,22 +198,16 @@ public class StoreManager : MonoBehaviour
 
     public void PlaceStore()
     {
-        // Old approach: Look at room center
-        // MRUKRoom room = MRUK.Instance.GetCurrentRoom();
-        // if (room != null)
-        // {
-        //     var floor = room.FloorAnchor;
-        //     StoreUI.transform.LookAt(floor.transform);
-        // }
-
         // Store looks at user
-        StoreUI.transform.LookAt(new Vector3(Camera.main.transform.position.x, 0, Camera.main.transform.position.z));
+        StoreUI.transform.LookAt(new Vector3(GameManager.Instance.MainCameraTransform.position.x, 0, GameManager.Instance.MainCameraTransform.position.z));
         StoreUI.transform.eulerAngles = new Vector3(0, StoreUI.transform.eulerAngles.y, 0);
     }
 
     public void HideStore()
     {
         IsStoreActive = false;
+
+        // StoreUI.transform.position = new Vector3(StoreUI.transform.position.x, -100, StoreUI.transform.position.z);
         StoreUI.SetActive(false);
     }
 

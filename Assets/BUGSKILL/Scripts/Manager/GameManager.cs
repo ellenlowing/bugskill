@@ -391,7 +391,7 @@ public partial class GameManager : MonoBehaviour
         if (!doneOnce)
         {
             var wall = room.GetKeyWall(out Vector2 wallScale);
-            GameUIGroup.transform.position = wall.transform.position - new Vector3(0, wallScale.y / 2, 0);
+            GameUIGroup.transform.position = wall.transform.position - new Vector3(0, wallScale.y / 2, 0); // place on floor
             GameUIGroup.transform.forward = -wall.transform.forward;
             Debug.Log("Place on key wall");
         }
@@ -400,16 +400,18 @@ public partial class GameManager : MonoBehaviour
         GameUIGroup.transform.eulerAngles = new Vector3(0, GameUIGroup.transform.eulerAngles.y, 0);
     }
 
+    public void PlaceGameUIOnKeyWall()
+    {
+        MRUKRoom room = MRUK.Instance.GetCurrentRoom();
+        var wall = room.GetKeyWall(out Vector2 wallScale);
+        GameUIGroup.transform.position = wall.transform.position; // + new Vector3(0, wallScale.y / 3, 0);
+        GameUIGroup.transform.forward = wall.transform.forward;
+        Debug.Log("Place on key wall");
+    }
+
     public int DissolveAllPowerUps()
     {
         Debug.Log("StoreManager: Dissolving all powerups");
-        // var powerUps = FindObjectsOfType<BasePowerUpBehavior>();
-        // foreach (var powerUp in powerUps)
-        // {
-        //     powerUp.Dissolve();
-        // }
-        // return powerUps.Length;
-
         var powerup = StoreManager.Instance._selectedPowerUp;
         if (powerup != null)
         {

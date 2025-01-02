@@ -337,11 +337,11 @@ public class StoreManager : MonoBehaviour
 
     private void RotatePowerUpDisplay(GameObject powerup)
     {
-        powerup.transform.rotation = Quaternion.identity;
         Transform rotationTransform = powerup.transform.FindChildRecursive("Rotation");
         if (rotationTransform != null)
         {
             rotationTransform.localEulerAngles = powerup.GetComponentInChildren<BasePowerUpBehavior>().StoreItemData.LocalEulerAngles;
+            powerup.transform.localRotation = Quaternion.identity;
         }
         else
         {

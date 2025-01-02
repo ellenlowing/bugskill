@@ -38528,8 +38528,28 @@ PrefabInstance:
       propertyPath: m_Name
       value: Fingergun PowerUp
       objectReference: {fileID: 0}
+    - target: {fileID: 6029677832534136926, guid: 3c3e56f35930b43a6943720e083bf1ef, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8029411147320020174, guid: 3c3e56f35930b43a6943720e083bf1ef, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8158008584100659356, guid: 3c3e56f35930b43a6943720e083bf1ef, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9140456987500883283, guid: 3c3e56f35930b43a6943720e083bf1ef, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 8158008584100659356, guid: 3c3e56f35930b43a6943720e083bf1ef, type: 3}
+    - {fileID: 9140456987500883283, guid: 3c3e56f35930b43a6943720e083bf1ef, type: 3}
+    - {fileID: 6029677832534136926, guid: 3c3e56f35930b43a6943720e083bf1ef, type: 3}
+    - {fileID: 8029411147320020174, guid: 3c3e56f35930b43a6943720e083bf1ef, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 6670049389550846114, guid: 3c3e56f35930b43a6943720e083bf1ef, type: 3}
@@ -46064,7 +46084,11 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 1678654008281879149, guid: 35762777fd1d94782b096022b23edcb1, type: 3}
+    - {fileID: 5998041489750133813, guid: 35762777fd1d94782b096022b23edcb1, type: 3}
+    - {fileID: 2652595593510709806, guid: 35762777fd1d94782b096022b23edcb1, type: 3}
+    - {fileID: 8753745718187990436, guid: 35762777fd1d94782b096022b23edcb1, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 1811061823838690625, guid: 35762777fd1d94782b096022b23edcb1, type: 3}

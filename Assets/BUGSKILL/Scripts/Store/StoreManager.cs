@@ -111,7 +111,7 @@ public class StoreManager : MonoBehaviour
         }
     }
 
-    private void NextWave()
+    public void NextWave()
     {
         Debug.Log("[Testing] Next Wave Triggered");
         StartNextWaveEvent.RaiseEvent();
@@ -167,15 +167,8 @@ public class StoreManager : MonoBehaviour
         // Use Store Position Finder to grab spawn location
         PlaceStore();
         UIManager.Instance.UpdateCashUI();
-        // StartCoroutine(DelayShowStore(1f));
         StoreUI.SetActive(true);
         IsStoreActive = true;
-    }
-
-    IEnumerator DelayShowStore(float delay)
-    {
-        yield return new WaitForSeconds(delay);
-        StoreUI.SetActive(true);
     }
 
     public void RestockPowerup(BasePowerUpBehavior powerup)

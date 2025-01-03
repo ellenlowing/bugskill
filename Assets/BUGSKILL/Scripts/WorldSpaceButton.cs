@@ -8,13 +8,16 @@ public class WorldSpaceButton : MonoBehaviour
     public float TouchDuration = 0.5f;
     public UnityEvent OnButtonPressed;
     public float RotationSpeed = 15f;
+    public MeshRenderer BubbleRenderer;
     private bool _isTouching = false;
     private float _firstTouchTime = Mathf.Infinity;
     private float _rotationY = 0;
+    private Material _bubbleMaterial;
 
     void Start()
     {
-
+        _bubbleMaterial = BubbleRenderer.material;
+        OnButtonPressed.AddListener(Reset);
     }
 
     void Update()
@@ -47,6 +50,10 @@ public class WorldSpaceButton : MonoBehaviour
                 OnButtonPressed.Invoke();
                 _firstTouchTime = Mathf.Infinity;
             }
+            else
+            {
+                _bubbleMaterial.SetFloat("_Fill", (Time.time - _firstTouchTime) / TouchDuration);
+            }
         }
     }
 
@@ -54,8 +61,14 @@ public class WorldSpaceButton : MonoBehaviour
     {
         if (other.gameObject.tag == "Hands")
         {
-            _firstTouchTime = Mathf.Infinity;
-            _isTouching = false;
+            Reset();
         }
+    }
+
+    public void Reset()
+    {
+        _firstTouchTime = Mathf.Infinity;
+        _isTouching = false;
+        _bubbleMaterial.SetFloat("_Fill", 0);
     }
 }

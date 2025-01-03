@@ -3,6 +3,7 @@ Shader "Depth/Custom Liquid Occlude"
     Properties
     {
         [MainColor] _BaseColor("Base Color", Color) = (1, 1, 1, 1)
+        [MainColor] _EndColor("End Color", Color) = (1, 1, 1, 0)
         _Fill("Fill", Range(0.0, 1.0)) = 0.5
         _Min("Minimum", Float) = 0.0
         _Max("Maximum", Float) = 0.0
@@ -10,7 +11,7 @@ Shader "Depth/Custom Liquid Occlude"
 
     SubShader
     {
-        Tags { "RenderType" = "Opaque" }
+        Tags { "RenderType" = "Transparent" }
 
         // 0. It's important to have One OneMinusSrcAlpha so it blends properly against transparent background (passthrough)
         Blend SrcAlpha OneMinusSrcAlpha, One OneMinusSrcAlpha
@@ -54,6 +55,7 @@ Shader "Depth/Custom Liquid Occlude"
 
             CBUFFER_START(UnityPerMaterial)
                 half4 _BaseColor;
+                half4 _EndColor;
                 half _Fill;
                 half _Min;
                 half _Max;
@@ -90,7 +92,8 @@ Shader "Depth/Custom Liquid Occlude"
                 float mappedFill = _Min + _Fill * (_Max - _Min);
 
                 float alpha = step(objectPos.z, mappedFill);
-                finalColor.a = alpha;
+                finalColor = lerp(_BaseColor, _EndColor, alpha);
+                // finalColor.a = alpha * _BaseColor.a;
 
                 // 8. A third macro required to enable occlusions.
                 //    It requires previous macros to be there as well as the naming behind the macro is strict.

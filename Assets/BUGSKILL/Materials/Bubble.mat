@@ -8,24 +8,25 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Bubble
-  m_Shader: {fileID: 4800000, guid: 556f50c252c558a4781cad260a5bb414, type: 3}
+  m_Shader: {fileID: 4800000, guid: 93165a86ed4f24c66a7f1bc09719dc28, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
-  m_ValidKeywords:
-  - _ALPHABLEND_ON
+  m_ValidKeywords: []
   m_InvalidKeywords: []
   m_LightmapFlags: 0
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: 3000
-  stringTagMap:
-    RenderType: Transparent
-  disabledShaderPasses:
-  - GRABPASS
+  stringTagMap: {}
+  disabledShaderPasses: []
   m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - _Albedo:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _BumpMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -82,15 +83,19 @@ Material:
     - _DstBlend: 10
     - _EmissionEnabled: 0
     - _EnvironmentDepthBias: 0
+    - _Fill: 0
     - _FlipbookMode: 0
     - _FresnelPower: 0.95
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
     - _LightingEnabled: 0
+    - _Max: 0.5
     - _Metallic: 0
+    - _Min: -0.5
     - _Mode: 2
     - _OcclusionStrength: 1
+    - _OutlineWidth: 2
     - _Parallax: 0.02
     - _SmoothnessTextureChannel: 0
     - _SoftParticlesEnabled: 0
@@ -99,13 +104,22 @@ Material:
     - _SpecularHighlights: 1
     - _SrcBlend: 5
     - _UVSec: 0
+    - _WobbleX: 0
+    - _WobbleZ: 0
+    - _ZTest: 0
     - _ZWrite: 0
     m_Colors:
+    - _BaseColor: {r: 0.7640174, g: 0.9150943, b: 0.9150943, a: 0.2}
     - _CameraFadeParams: {r: 0, g: Infinity, b: 0, a: 0}
     - _Color: {r: 0.76886797, g: 1, b: 0.98211306, a: 0.2}
     - _ColorAddSubDiff: {r: 0, g: 0, b: 0, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _EndColor: {r: 0.7549395, g: 0.8207547, b: 0.8207547, a: 0.8}
+    - _OutlineColor: {r: 1, g: 1, b: 1, a: 1}
+    - _OutputRange: {r: 0, g: 0, b: 0, a: 0}
+    - _SideColor: {r: 0.759434, g: 1, b: 0.9697161, a: 0}
     - _SoftParticleFadeParams: {r: 0, g: 0, b: 0, a: 0}
+    - _TopColor: {r: 0.7688679, g: 1, b: 0.9661248, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &6366309356483913129
 MonoBehaviour:

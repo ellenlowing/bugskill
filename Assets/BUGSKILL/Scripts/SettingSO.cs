@@ -7,11 +7,8 @@ using UnityEngine;
 public class SettingSO : ScriptableObject
 {
     [Header("Scoring")]
-    public int score = 0;
-    public int scoreMulFactor = 175;
     public int totalKills = 0;
     public int localKills = 0;
-    public int skillScoreValue = 100;
     public int Cash = 0;
 
     [Header("Fly Objects")]

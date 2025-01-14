@@ -1578,7 +1578,7 @@ GameObject:
   - component: {fileID: 130871184}
   - component: {fileID: 130871185}
   - component: {fileID: 130871186}
-  m_Layer: 2
+  m_Layer: 12
   m_Name: LeftHandCollider
   m_TagString: Hands
   m_Icon: {fileID: 0}
@@ -27517,7 +27517,7 @@ GameObject:
   - component: {fileID: 787182959}
   - component: {fileID: 787182960}
   - component: {fileID: 787182961}
-  m_Layer: 2
+  m_Layer: 12
   m_Name: RightHandCollider
   m_TagString: Hands
   m_Icon: {fileID: 0}

@@ -303,6 +303,6 @@ public class BaseFlyBehavior : MonoBehaviour
 
     void OnDrawGizmos()
     {
-        Gizmos.DrawSphere(transform.position, MinNearbyFlyDistance);
+        Gizmos.DrawWireSphere(transform.position, MinNearbyFlyDistance);
     }
 }

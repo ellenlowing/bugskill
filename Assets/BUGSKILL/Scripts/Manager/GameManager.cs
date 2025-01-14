@@ -161,6 +161,14 @@ public partial class GameManager : MonoBehaviour
 #endif
     }
 
+    void OnApplicationQuit()
+    {
+        settings.waveIndex = 0;
+        settings.totalKills = 0;
+        settings.localKills = 0;
+        if (!TestMode) settings.Cash = 0;
+    }
+
     void InitializeRound()
     {
         MRUKRoom currentRoom = MRUK.Instance.GetCurrentRoom();

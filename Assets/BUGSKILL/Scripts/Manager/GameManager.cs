@@ -327,94 +327,83 @@ public partial class GameManager : MonoBehaviour
         }
     }
 
-    public void PlaceLevelPanel()
-    {
-        MRUKRoom room = MRUK.Instance.GetCurrentRoom();
-        if (room != null)
-        {
-            var wall = room.GetKeyWall(out Vector2 wallScale);
-            LevelPanel.transform.position = wall.transform.position + new Vector3(0, wallScale.y / 2, 0);
-            LevelPanel.transform.forward = -wall.transform.forward;
-        }
-    }
+    // public void GetValidAnchorsForGameUIGroup()
+    // {
+    //     Debug.Log("get game UI group placement");
+    //     MRUKRoom room = MRUK.Instance.GetCurrentRoom();
+    //     List<string> sceneLabels = new List<string> { "FLOOR" };
 
-    public void GetValidAnchorsForGameUIGroup()
-    {
-        Debug.Log("get game UI group placement");
-        MRUKRoom room = MRUK.Instance.GetCurrentRoom();
-        List<string> sceneLabels = new List<string> { "FLOOR" };
+    //     if (room != null)
+    //     {
+    //         foreach (var anchor in room.Anchors)
+    //         {
+    //             if (anchor.HasAnyLabel(sceneLabels))
+    //             {
+    //                 ValidAnchors.Add(anchor);
+    //             }
+    //         }
+    //     }
+    // }
 
-        if (room != null)
-        {
-            foreach (var anchor in room.Anchors)
-            {
-                if (anchor.HasAnyLabel(sceneLabels))
-                {
-                    ValidAnchors.Add(anchor);
-                }
-            }
-        }
-    }
+    // public void CycleGameUIGroupPlacement()
+    // {
+    //     if (ValidAnchors.Count == 0)
+    //     {
+    //         GetValidAnchorsForGameUIGroup();
+    //     }
 
-    public void CycleGameUIGroupPlacement()
-    {
-        if (ValidAnchors.Count == 0)
-        {
-            GetValidAnchorsForGameUIGroup();
-        }
+    //     var anchor = ValidAnchors[ValidAnchorIndex];
+    //     GameUIGroup.transform.position = anchor.transform.position;
+    //     GameUIGroup.transform.LookAt(MRUK.Instance.GetCurrentRoom().FloorAnchor.transform);
+    //     GameUIGroup.transform.eulerAngles = new Vector3(0, GameUIGroup.transform.eulerAngles.y, 0);
 
-        var anchor = ValidAnchors[ValidAnchorIndex];
-        GameUIGroup.transform.position = anchor.transform.position;
-        GameUIGroup.transform.LookAt(MRUK.Instance.GetCurrentRoom().FloorAnchor.transform);
-        GameUIGroup.transform.eulerAngles = new Vector3(0, GameUIGroup.transform.eulerAngles.y, 0);
+    //     ValidAnchorIndex = (ValidAnchorIndex + 1) % ValidAnchors.Count;
+    // }
 
-        ValidAnchorIndex = (ValidAnchorIndex + 1) % ValidAnchors.Count;
-    }
+    // public void PlaceGameUIGroup()
+    // {
+    //     Debug.Log("starting to place gameUIgroup");
+    //     MRUKRoom room = MRUK.Instance.GetCurrentRoom();
+    //     foreach (var anchor in room.Anchors)
+    //     {
+    //         // place hourglass on table
+    //         if (anchor.HasAnyLabel(MRUKAnchor.SceneLabels.TABLE))
+    //         {
+    //             if (!doneOnce)
+    //             {
+    //                 GameUIGroup.transform.position = anchor.transform.position;
+    //                 doneOnce = true;
+    //                 Debug.Log("Place on table");
+    //                 break;
+    //             }
+    //         }
+    //         else
+    //         {
+    //             if (anchor.HasAnyLabel(MRUKAnchor.SceneLabels.FLOOR))
+    //             {
+    //                 if (!doneOnce)
+    //                 {
+    //                     GameUIGroup.transform.position = anchor.transform.position;
+    //                     GameUIGroup.transform.forward = anchor.transform.up;
+    //                     doneOnce = true;
+    //                     Debug.Log("Place on floor");
+    //                     break;
+    //                 }
+    //             }
+    //         }
+    //     }
 
-    public void PlaceGameUIGroup()
-    {
-        Debug.Log("starting to place gameUIgroup");
-        MRUKRoom room = MRUK.Instance.GetCurrentRoom();
-        foreach (var anchor in room.Anchors)
-        {
-            // place hourglass on table
-            if (anchor.HasAnyLabel(MRUKAnchor.SceneLabels.TABLE))
-            {
-                if (!doneOnce)
-                {
-                    GameUIGroup.transform.position = anchor.transform.position;
-                    doneOnce = true;
-                    Debug.Log("Place on table");
-                    break;
-                }
-            }
-            else
-            {
-                if (anchor.HasAnyLabel(MRUKAnchor.SceneLabels.FLOOR))
-                {
-                    if (!doneOnce)
-                    {
-                        GameUIGroup.transform.position = anchor.transform.position;
-                        GameUIGroup.transform.forward = anchor.transform.up;
-                        doneOnce = true;
-                        Debug.Log("Place on floor");
-                        break;
-                    }
-                }
-            }
-        }
+    //     if (!doneOnce)
+    //     {
+    //         var wall = room.GetKeyWall(out Vector2 wallScale);
+    //         GameUIGroup.transform.position = wall.transform.position - new Vector3(0, wallScale.y / 2, 0); // place on floor
+    //         GameUIGroup.transform.forward = -wall.transform.forward;
+    //         Debug.Log("Place on key wall");
+    //     }
 
-        if (!doneOnce)
-        {
-            var wall = room.GetKeyWall(out Vector2 wallScale);
-            GameUIGroup.transform.position = wall.transform.position - new Vector3(0, wallScale.y / 2, 0); // place on floor
-            GameUIGroup.transform.forward = -wall.transform.forward;
-            Debug.Log("Place on key wall");
-        }
-
-        GameUIGroup.transform.LookAt(room.FloorAnchor.transform);
-        GameUIGroup.transform.eulerAngles = new Vector3(0, GameUIGroup.transform.eulerAngles.y, 0);
-    }
+    //     GameUIGroup.transform.LookAt(room.FloorAnchor.transform);
+    //     GameUIGroup.transform.eulerAngles = new Vector3(0, GameUIGroup.transform.eulerAngles.y, 0);
+    // }
 
     public void PlaceGameUIOnKeyWall()
     {

@@ -18,7 +18,37 @@ MonoBehaviour:
   localKills: 0
   skillScoreValue: 100
   Cash: 3700
-  flies: []
+  flies:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   eyeSpiralSpeed: 220
   flyIntelLevels:
   - {fileID: 11400000, guid: 94c1c6d1603a36147af3eee62718f46c, type: 2}
@@ -27,7 +57,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: f5898cf1fcc934a4784ab8ecd71b4934, type: 2}
   - {fileID: 11400000, guid: 2cb2a157148019742a5339d058893360, type: 2}
   waveWaitTime: 9999
-  waveIndex: 1
+  waveIndex: 2
   durationOfWave: 05000000050000001e0000001e0000001e000000
   fliesInWave: 140000001e0000001e0000002800000028000000
   tntFliesInWave: 0100000002000000030000000400000005000000
@@ -38,6 +68,15 @@ MonoBehaviour:
   - 0.3
   - 0.4
   - 0.5
+  minNearbyFlyDistances:
+  - 0.1
+  - 0.2
+  - 0.3
+  - 0.4
+  - 0.45
+  - 0.5
+  - 0.55
+  - 0.6
   divFactor: 3
   nearDistanceFromCamera: 1
   farDistanceFromCamera: 1

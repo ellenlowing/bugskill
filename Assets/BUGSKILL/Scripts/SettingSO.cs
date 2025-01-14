@@ -30,6 +30,7 @@ public class SettingSO : ScriptableObject
     public int[] tntFliesInWave = { 1, 2, 3, 4 };
     public int[] LevelGoals = { 2, 2, 2, 2 };
     public float[] TakeoffChances = { 0.1f, 0.2f, 0.3f, 0.4f };
+    public float[] minNearbyFlyDistances = { 1.5f, 1.5f, 1.5f, 1.5f };
 
     [Header("Presets")]
     public float divFactor = 2.7f;

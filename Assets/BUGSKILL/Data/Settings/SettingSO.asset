@@ -14,67 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   score: 25
   scoreMulFactor: 1
-  totalKills: 0
+  totalKills: 18
   localKills: 0
   skillScoreValue: 100
-  Cash: 240
-  flies:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  Cash: 0
+  flies: []
   eyeSpiralSpeed: 220
   flyIntelLevels:
   - {fileID: 11400000, guid: 94c1c6d1603a36147af3eee62718f46c, type: 2}
@@ -86,11 +30,11 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 35ec6dc755b7c488ea5d046d261bbf64, type: 2}
   - {fileID: 11400000, guid: 94e7992f49cd24316a34d2c8455ddaba, type: 2}
   waveWaitTime: 9999
-  waveIndex: 0
+  waveIndex: 3
   durationOfWave: 1e0000001e0000001e0000001e0000001e0000001e0000001e0000001e000000
-  fliesInWave: 0c0000000f000000110000001300000016000000180000001a0000001c000000
+  fliesInWave: 070000000b0000000f0000001300000016000000180000001a0000001c000000
   tntFliesInWave: 0000000001000000010000000200000002000000020000000300000003000000
-  LevelGoals: 0400000006000000080000000a0000000c0000000e0000001000000012000000
+  LevelGoals: 0300000005000000080000000b0000000c0000000e0000001000000012000000
   TakeoffChances:
   - 0.1
   - 0.15
@@ -100,7 +44,17 @@ MonoBehaviour:
   - 0.35
   - 0.4
   - 0.45
+  minNearbyFlyDistances:
+  - 0.2
+  - 0.25
+  - 0.35
+  - 0.45
+  - 1.5
+  - 1.5
+  - 1.5
+  - 1.5
   divFactor: 3
   nearDistanceFromCamera: 0.5
   farDistanceFromCamera: 0.8
   SplatDistanceOffset: 0
+  EnvironmentDepthBias: 0

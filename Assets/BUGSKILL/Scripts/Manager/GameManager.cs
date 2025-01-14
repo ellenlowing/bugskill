@@ -153,6 +153,12 @@ public partial class GameManager : MonoBehaviour
 
     void Update()
     {
+#if UNITY_EDITOR
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            settings.localKills += 1;
+        }
+#endif
     }
 
     void InitializeRound()

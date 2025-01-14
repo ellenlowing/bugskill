@@ -28,6 +28,7 @@ public class BaseFlyBehavior : MonoBehaviour
     public float FlyingSpeed;
     public float RestDuration;
     public float TakeoffChance;
+    public float MinNearbyFlyDistance;
     public MRUKAnchor.SceneLabels LandingSurface;
     public bool IsSlowed;
     public bool IsKilled;
@@ -51,6 +52,7 @@ public class BaseFlyBehavior : MonoBehaviour
         FlyingSpeed = Random.Range(CurrentFlyStat.minSpeed, CurrentFlyStat.maxSpeed);
         RestDuration = Random.Range(CurrentFlyStat.minRestDuration, CurrentFlyStat.maxRestDuration);
         TakeoffChance = settings.TakeoffChances[settings.waveIndex];
+        MinNearbyFlyDistance = settings.minNearbyFlyDistances[settings.waveIndex];
         if (Random.Range(0f, 1f) < TakeoffChance)
         {
             transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
@@ -149,8 +151,9 @@ public class BaseFlyBehavior : MonoBehaviour
             FindNewPosition();
 
             tries++;
-            if (tries > 10)
+            if (tries > 30)
             {
+                Debug.Log(gameObject.name + " couldn't find a new position");
                 break;
             }
         }
@@ -254,9 +257,11 @@ public class BaseFlyBehavior : MonoBehaviour
     private void CheckValidPosition(Vector3 position, Vector3 normal)
     {
         Vector3 direction = (position - transform.position).normalized;
+        bool isPathClear = !Physics.Raycast(transform.position, direction, Vector3.Distance(transform.position, position)); // If there's no obstacle in the fly's path
+        Collider[] nearbyFlies = Physics.OverlapSphere(position, MinNearbyFlyDistance, GameManager.Instance.FlyLayerMask);
+        bool isFlyNearby = nearbyFlies.Length > 0; // If there are flies nearby
 
-        // If there's no obstacle in the fly's path
-        if (!Physics.Raycast(transform.position, direction, Vector3.Distance(transform.position, position)))
+        if (isPathClear && !isFlyNearby)
         {
             targetPosition = position;
             targetNormal = normal;
@@ -294,5 +299,10 @@ public class BaseFlyBehavior : MonoBehaviour
                 }
                 break;
         }
+    }
+
+    void OnDrawGizmos()
+    {
+        Gizmos.DrawSphere(transform.position, MinNearbyFlyDistance);
     }
 }

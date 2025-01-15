@@ -205,11 +205,12 @@ public class BaseFlyBehavior : MonoBehaviour
             {
                 // Hop to nearby location
                 Transform hand = detectedHands[0].transform;
-                Vector3 awayFromHand = (hand.position - transform.position).normalized; // Direction away from the hand
+                Vector3 awayFromHand = hand.position - transform.position; // Direction away from the hand
+                awayFromHand = Vector3.ProjectOnPlane(awayFromHand, transform.up).normalized;
                 float randomAngle = Random.Range(-90f, 90f);
                 Quaternion randomRotation = Quaternion.Euler(randomAngle * transform.up);
                 awayFromHand = randomRotation * awayFromHand;
-                Vector3 evadePosition = transform.position + awayFromHand * 0.5f;
+                Vector3 evadePosition = transform.position + awayFromHand * CurrentFlyStat.detectionRadius * 0.5f; // change the distance to a variable within fly stat
                 transform.position = evadePosition;
                 transform.rotation = transform.rotation * Quaternion.Euler(0, Random.Range(0, 360f), 0);
 

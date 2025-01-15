@@ -1595,7 +1595,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.09, y: 0.005, z: 0}
-  m_LocalScale: {x: 0.2, y: 0.08, z: 0.13}
+  m_LocalScale: {x: 0.2, y: 0.06, z: 0.13}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1747532723}
@@ -1607,7 +1607,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 130871178}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -26564,7 +26564,7 @@ MonoBehaviour:
   TutorialVideoPlayer: {fileID: 569008983}
   MainCameraTransform: {fileID: 1915206569}
   settings: {fileID: 11400000, guid: 415f7b1141256224db7c3c8720566774, type: 2}
-  TestMode: 1
+  TestMode: 0
   gameSettings: {fileID: 11400000, guid: 415f7b1141256224db7c3c8720566774, type: 2}
   testSettings: {fileID: 11400000, guid: f17f1c6612d95425a8965738fd836c8a, type: 2}
   LandingLayerName: Landing
@@ -27537,7 +27537,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0.09, y: -0.005, z: 0}
-  m_LocalScale: {x: 0.2, y: 0.08, z: 0.13}
+  m_LocalScale: {x: 0.2, y: 0.06, z: 0.13}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1747532722}

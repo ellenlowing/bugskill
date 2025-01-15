@@ -41,6 +41,7 @@ public class BaseFlyBehavior : MonoBehaviour
     private Vector3 targetNormal;
     private float restTimer;
     private float slowdownTimer;
+    private float evadeTimer;
     private bool needNewTarget;
     public MeshRenderer[] _renderers;
 
@@ -178,6 +179,7 @@ public class BaseFlyBehavior : MonoBehaviour
     public virtual void EnterRestingState()
     {
         restTimer = Time.time;
+        evadeTimer = -1;
         animator.speed = 0;
         transform.up = targetNormal;
         transform.position = targetPosition;
@@ -189,6 +191,37 @@ public class BaseFlyBehavior : MonoBehaviour
         if (Time.time - restTimer >= RestDuration)
         {
             EnterState(FlyState.FLYING);
+        }
+
+        Collider[] detectedHands = Physics.OverlapSphere(transform.position, CurrentFlyStat.detectionRadius, GameManager.Instance.HandsLayerMask);
+        if (detectedHands.Length > 0)
+        {
+            // If the fly is near the hand, it should start counting down to evading
+            if (evadeTimer == -1)
+            {
+                evadeTimer = Time.time;
+            }
+            else if (Time.time - evadeTimer >= CurrentFlyStat.evadeTime)
+            {
+                // Hop to nearby location
+                Transform hand = detectedHands[0].transform;
+                Vector3 awayFromHand = (hand.position - transform.position).normalized; // Direction away from the hand
+                float randomAngle = Random.Range(-90f, 90f);
+                Quaternion randomRotation = Quaternion.Euler(randomAngle * transform.up);
+                awayFromHand = randomRotation * awayFromHand;
+                Vector3 evadePosition = transform.position + awayFromHand * 0.5f;
+                transform.position = evadePosition;
+                transform.rotation = transform.rotation * Quaternion.Euler(0, Random.Range(0, 360f), 0);
+
+                // Reset evade timer
+                evadeTimer = -1;
+
+                Debug.Log(name + " evaded hand");
+            }
+        }
+        else
+        {
+            evadeTimer = -1;
         }
     }
 
@@ -303,6 +336,6 @@ public class BaseFlyBehavior : MonoBehaviour
 
     void OnDrawGizmos()
     {
-        Gizmos.DrawWireSphere(transform.position, MinNearbyFlyDistance);
+        Gizmos.DrawWireSphere(transform.position, CurrentFlyStat.detectionRadius);
     }
 }

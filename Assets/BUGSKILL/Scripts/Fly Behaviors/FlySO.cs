@@ -16,12 +16,14 @@ public class FlySO : ScriptableObject
     public float speed = 2.0f;
     public float flySlowDownTime = 8.0f;
     public float flySlowDownSpeed = 0.5f;
-    public float insaneSpeed = 10.0f;
+
+    [Header("Fly Evasion")]
+    public float evadeTime = 2.0f;
+    public float detectionRadius = 0.15f;  // Radius to check around the target position
 
     [Header("Others")]
     public float rotationSpeed = 10f;
     public float distanceToEdges = 0.2f;
     public float checkDistance = 0.15f;  // Small forward distance to project the spherecast along the normal
-    public float radius = 0.15f;  // Radius to check around the target position
 
 }

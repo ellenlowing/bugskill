@@ -91,6 +91,7 @@ public partial class GameManager : MonoBehaviour
     public GameObject RightHandVisuals;
     public GameObject LeftHandRayInteractor;
     public GameObject RightHandRayInteractor;
+    public LayerMask HandsLayerMask;
 
     [Header("Finger Gun")]
     public GameObject LeftFingerGun;

@@ -177,15 +177,16 @@ public partial class GameManager : MonoBehaviour
 
         if (currentRoom != null)
         {
-            for (int i = 0; i < settings.fliesInWave[settings.waveIndex]; i++)
+            int spawnedFlies = 0;
+            while (spawnedFlies < settings.fliesInWave[settings.waveIndex])
             {
-                if (currentRoom.GenerateRandomPositionOnSurface(MRUK.SurfaceType.VERTICAL, 0.01f, labelFilter, out Vector3 position, out Vector3 normal))
+                Vector3? position = currentRoom.GenerateRandomPositionInRoom(0.05f, true);
+                if (position.HasValue)
                 {
-                    GameObject fly = Instantiate(FlyPrefab, position, Quaternion.identity, FlyParentAnchor);
-                    fly.transform.up = normal;
-                    fly.transform.rotation = fly.transform.rotation * Quaternion.Euler(0, Random.Range(0, 360f), 0);
-                    fly.name = "Fly " + i.ToString();
+                    GameObject fly = Instantiate(FlyPrefab, (Vector3)position, Quaternion.identity, FlyParentAnchor);
+                    fly.name = "Fly " + spawnedFlies.ToString();
                     settings.flies.Add(fly);
+                    spawnedFlies++;
                 }
             }
         }

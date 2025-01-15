@@ -164,13 +164,13 @@ public class BaseFlyBehavior : MonoBehaviour
             MoveTowardsTargetPosition();
             if (Vector3.Distance(transform.position, targetPosition) < 0.08f)
             {
-                if (Random.Range(0, 1f) < TakeoffChance)
+                if (evadeTimer != -1 || Random.Range(0, 1f) >= TakeoffChance)
                 {
-                    needNewTarget = true;
+                    EnterState(FlyState.RESTING);
                 }
                 else
                 {
-                    EnterState(FlyState.RESTING);
+                    needNewTarget = true;
                 }
             }
         }
@@ -210,12 +210,9 @@ public class BaseFlyBehavior : MonoBehaviour
                 float randomAngle = Random.Range(-90f, 90f);
                 Quaternion randomRotation = Quaternion.Euler(randomAngle * transform.up);
                 awayFromHand = randomRotation * awayFromHand;
-                Vector3 evadePosition = transform.position + awayFromHand * CurrentFlyStat.detectionRadius * 0.5f; // change the distance to a variable within fly stat
-                transform.position = evadePosition;
-                transform.rotation = transform.rotation * Quaternion.Euler(0, Random.Range(0, 360f), 0);
-
-                // Reset evade timer
-                evadeTimer = -1;
+                Vector3 evadePosition = transform.position + awayFromHand * CurrentFlyStat.evadeDistance;
+                targetPosition = evadePosition;
+                EnterState(FlyState.FLYING);
 
                 Debug.Log(name + " evaded hand");
             }

@@ -19,6 +19,7 @@ public class FlySO : ScriptableObject
 
     [Header("Fly Evasion")]
     public float evadeTime = 2.0f;
+    public float evadeDistance = 1f;
     public float detectionRadius = 0.15f;  // Radius to check around the target position
 
     [Header("Others")]

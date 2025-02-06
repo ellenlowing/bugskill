@@ -1607,7 +1607,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 130871178}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -1662,7 +1662,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18d43e546c96240ad80f4c840661fd5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsRightHand: 1
+  IsRightHand: 0
   HandSplat: {fileID: 676907612}
   BloodSplatTimeout: 2
   BloodSplatParticles: {fileID: 3387161656658716193}
@@ -2277,7 +2277,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2143258140177466417, guid: e7fbb376593cff24f9db4ecf8d465aaf, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2143258140644656277, guid: e7fbb376593cff24f9db4ecf8d465aaf, type: 3}
       propertyPath: m_IsActive
@@ -3405,7 +3405,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: d641a50c4fe4ee3489a64cf52b76ae79, type: 2}
     - target: {fileID: 8662184560477892146, guid: 94313e563929cb3499e3989be338a213, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8662184561472330084, guid: 94313e563929cb3499e3989be338a213, type: 3}
       propertyPath: _hand
@@ -26565,7 +26565,7 @@ MonoBehaviour:
   MainCameraTransform: {fileID: 1915206569}
   settings: {fileID: 11400000, guid: 415f7b1141256224db7c3c8720566774, type: 2}
   TestMode: 0
-  StartWaveIndex: 0
+  StartWaveIndex: 2
   gameSettings: {fileID: 11400000, guid: 415f7b1141256224db7c3c8720566774, type: 2}
   testSettings: {fileID: 11400000, guid: f17f1c6612d95425a8965738fd836c8a, type: 2}
   LandingLayerName: Landing
@@ -27521,6 +27521,7 @@ GameObject:
   - component: {fileID: 787182959}
   - component: {fileID: 787182960}
   - component: {fileID: 787182961}
+  - component: {fileID: 787182962}
   m_Layer: 12
   m_Name: RightHandCollider
   m_TagString: Hands
@@ -27550,7 +27551,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 787182954}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -27657,6 +27658,18 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &787182962
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 787182954}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe2c50ef56c7d4348a49b151db1c962c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &804851486
 PrefabInstance:
   m_ObjectHideFlags: 0

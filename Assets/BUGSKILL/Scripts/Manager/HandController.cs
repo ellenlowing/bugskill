@@ -6,6 +6,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Dynamic;
 using UnityEngine;
+using Oculus.Interaction;
 
 public class HandController : MonoBehaviour
 {
@@ -17,6 +18,7 @@ public class HandController : MonoBehaviour
     bool isTouchingLandingSurface = false;
     bool isTouchingOtherHand = false;
     bool isTouchingFly = false;
+    Collider touchedSurfaceCollider = null;
     Transform touchedFlyTransform = null;
     float BloodSplatTimer = 0;
     private SettingSO settings;
@@ -39,7 +41,7 @@ public class HandController : MonoBehaviour
         if (GameManager.Instance.IsOnAnyLandingLayer(other.gameObject))
         {
             isTouchingLandingSurface = true;
-
+            touchedSurfaceCollider = other;
             StartCoroutine(CheckFlyHit());
         }
         else if (other.gameObject.tag == "Hands")
@@ -67,6 +69,7 @@ public class HandController : MonoBehaviour
         if (GameManager.Instance.IsOnAnyLandingLayer(other.gameObject))
         {
             isTouchingLandingSurface = false;
+            touchedSurfaceCollider = null;
         }
         else if (other.gameObject.tag == "Hands")
         {
@@ -93,8 +96,16 @@ public class HandController : MonoBehaviour
 
                 if (isTouchingLandingSurface)
                 {
-                    var splatter = Instantiate(splatterPrefab, touchedFlyTransform.position, Quaternion.identity);
-                    splatter.transform.up = touchedFlyTransform.up;
+                    Vector3 contactPoint = touchedSurfaceCollider.ClosestPoint(touchedFlyTransform.position);
+                    var splatter = Instantiate(splatterPrefab, contactPoint, Quaternion.identity);
+                    if (Physics.Raycast(contactPoint, transform.up, out RaycastHit hit, 0.3f, GameManager.Instance.GetAnyLandingLayerMask(), QueryTriggerInteraction.Collide))
+                    {
+                        splatter.transform.up = hit.normal;
+                    }
+                    else
+                    {
+                        splatter.transform.up = touchedFlyTransform.up;
+                    }
                     splatter.transform.parent = GameManager.Instance.BloodSplatContainer;
                     splatter.transform.localPosition = splatter.transform.localPosition + splatter.transform.up * settings.SplatDistanceOffset;
 
@@ -136,6 +147,7 @@ public class HandController : MonoBehaviour
 
                 isTouchingFly = false;
                 isTouchingLandingSurface = false;
+                touchedSurfaceCollider = null;
             }
         }
         yield return null;

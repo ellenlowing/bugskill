@@ -320,6 +320,6 @@ public class BaseFlyBehavior : MonoBehaviour
 
     void OnDrawGizmos()
     {
-        Gizmos.DrawWireSphere(transform.position, CurrentFlyStat.detectionRadius);
+        if (CurrentFlyStat != null) Gizmos.DrawWireSphere(transform.position, CurrentFlyStat.detectionRadius);
     }
 }

@@ -37,17 +37,18 @@ public class BaseFlyBehavior : MonoBehaviour
     [SerializeField] private Animator animator;
     private SettingSO settings;
     private Rigidbody rb;
+    private FlyAudioSource flyAudio;
     private Vector3 targetPosition;
     private Vector3 targetNormal;
     private float restTimer;
     private float slowdownTimer;
     private float evadeTimer;
     private bool needNewTarget;
-    public MeshRenderer[] _renderers;
 
     public void Start()
     {
-        EnterState(FlyState.FLYING);
+        rb = GetComponent<Rigidbody>();
+        flyAudio = GetComponent<FlyAudioSource>();
         settings = GameManager.Instance.settings;
         CurrentFlyStat = settings.flyIntelLevels[settings.waveIndex];
         FlyingSpeed = Random.Range(CurrentFlyStat.minSpeed, CurrentFlyStat.maxSpeed);
@@ -60,9 +61,7 @@ public class BaseFlyBehavior : MonoBehaviour
         }
         needNewTarget = true;
         IsSlowed = false;
-        rb = GetComponent<Rigidbody>();
-        _renderers = GetComponentsInChildren<MeshRenderer>();
-        SetDepthBias(settings.EnvironmentDepthBias);
+        EnterState(FlyState.FLYING);
     }
 
     public void Update()
@@ -74,10 +73,6 @@ public class BaseFlyBehavior : MonoBehaviour
             IsSlowed = false;
             slowdownTimer = -1;
             FlyingSpeed = Random.Range(CurrentFlyStat.minSpeed, CurrentFlyStat.maxSpeed);
-            if (TryGetComponent<FlyAudioSource>(out var src))
-            {
-                src.MoveClip();
-            };
             ChangeEyeType(false);
         }
 
@@ -138,11 +133,14 @@ public class BaseFlyBehavior : MonoBehaviour
     public virtual void EnterIdleState()
     {
         animator.speed = 0;
+        flyAudio.Mute(true);
     }
     public virtual void UpdateIdleState() { }
     public virtual void EnterFlyingState()
     {
         animator.speed = 1;
+        flyAudio.Mute(false);
+        flyAudio.MoveClip();
     }
     public virtual void UpdateFlyingState()
     {
@@ -181,6 +179,7 @@ public class BaseFlyBehavior : MonoBehaviour
         restTimer = Time.time;
         evadeTimer = -1;
         animator.speed = 0;
+        flyAudio.Mute(true);
         transform.up = targetNormal;
         transform.position = targetPosition;
         transform.rotation = transform.rotation * Quaternion.Euler(0, Random.Range(0, 360f), 0);
@@ -226,6 +225,7 @@ public class BaseFlyBehavior : MonoBehaviour
     public virtual void EnterDyingState()
     {
         animator.speed = 0;
+        flyAudio.Mute(true);
         rb.isKinematic = false;
         rb.useGravity = true;
     }
@@ -233,6 +233,7 @@ public class BaseFlyBehavior : MonoBehaviour
     public virtual void EnterDeadState()
     {
         animator.speed = 0;
+        flyAudio.Mute(true);
         UIManager.Instance.IncrementKill(transform.position, (int)SCOREFACTOR.SPRAY);
         Destroy(gameObject);
     }
@@ -243,10 +244,7 @@ public class BaseFlyBehavior : MonoBehaviour
         IsSlowed = true;
         slowdownTimer = Time.time;
         FlyingSpeed = CurrentFlyStat.flySlowDownSpeed;
-        if (TryGetComponent<FlyAudioSource>(out var src))
-        {
-            src.DizzyClip();
-        };
+        flyAudio.DizzyClip();
         ChangeEyeType(true);
     }
 
@@ -297,18 +295,6 @@ public class BaseFlyBehavior : MonoBehaviour
             targetPosition = position;
             targetNormal = normal;
             needNewTarget = false;
-        }
-    }
-
-    public void SetDepthBias(float value)
-    {
-        foreach (var renderer in _renderers)
-        {
-            Material[] materials = renderer.materials;
-            foreach (var material in materials)
-            {
-                material.SetFloat("_EnvironmentDepthBias", value);
-            }
         }
     }
 

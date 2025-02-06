@@ -26564,7 +26564,8 @@ MonoBehaviour:
   TutorialVideoPlayer: {fileID: 569008983}
   MainCameraTransform: {fileID: 1915206569}
   settings: {fileID: 11400000, guid: 415f7b1141256224db7c3c8720566774, type: 2}
-  TestMode: 1
+  TestMode: 0
+  StartWaveIndex: 0
   gameSettings: {fileID: 11400000, guid: 415f7b1141256224db7c3c8720566774, type: 2}
   testSettings: {fileID: 11400000, guid: f17f1c6612d95425a8965738fd836c8a, type: 2}
   LandingLayerName: Landing
@@ -59431,6 +59432,7 @@ GameObject:
   - component: {fileID: 3681384435940424427}
   - component: {fileID: 3831481026748613766}
   - component: {fileID: 5442300630938616161}
+  - component: {fileID: 7809359110026662332}
   m_Layer: 0
   m_Name: Shelf_low
   m_TagString: Untagged
@@ -59438,6 +59440,18 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &7809359110026662332
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7809359110026662331}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c05378c4abe8452ab3e3312acbbddb9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &7830047983305761689
 RectTransform:
   m_ObjectHideFlags: 0

@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 8739802252041560880}
   - component: {fileID: 1498207966584698426}
   - component: {fileID: 7548854634824961179}
+  - component: {fileID: -6972487321307327829}
   m_Layer: 0
   m_Name: Splat 6
   m_TagString: Untagged
@@ -220,3 +221,15 @@ MonoBehaviour:
   gainBoostDb: 0
   enableAcoustics: 1
   reverbSendDb: 0
+--- !u!114 &-6972487321307327829
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8404636662083356861}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c05378c4abe8452ab3e3312acbbddb9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

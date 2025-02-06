@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 2405249929382498652}
   - component: {fileID: 8774292083201648534}
   - component: {fileID: -5220285057168288479}
+  - component: {fileID: 4423785248972801048}
   m_Layer: 0
   m_Name: Splat 2
   m_TagString: Untagged
@@ -220,3 +221,15 @@ MonoBehaviour:
   gainBoostDb: 0
   enableAcoustics: 1
   reverbSendDb: 0
+--- !u!114 &4423785248972801048
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6949516455442263442}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c05378c4abe8452ab3e3312acbbddb9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -96,7 +96,7 @@ public class PlayerSettingsManager : MonoBehaviour
         EnvironmentDepthBias += value;
         foreach (var depthTestFly in _depthTestFlyList)
         {
-            depthTestFly.GetComponent<DepthTestFlyBehavior>().SetDepthBias(EnvironmentDepthBias);
+            depthTestFly.GetComponent<ApplyDepthBias>().SetDepthBias(EnvironmentDepthBias);
         }
         settings.EnvironmentDepthBias = EnvironmentDepthBias;
         Debug.Log("New depth bias: " + EnvironmentDepthBias);

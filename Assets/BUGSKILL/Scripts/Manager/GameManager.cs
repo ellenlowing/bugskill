@@ -30,6 +30,7 @@ public partial class GameManager : MonoBehaviour
     [Header("Game Settings")]
     public SettingSO settings;
     public bool TestMode;
+    public int StartWaveIndex = 0;
     [SerializeField] private SettingSO gameSettings;
     [SerializeField] private SettingSO testSettings;
     public string LandingLayerName = "Landing";
@@ -101,7 +102,7 @@ public partial class GameManager : MonoBehaviour
     public GameObject LeftFingerSlingshot;
     public GameObject RightFingerSlingshot;
 
-    private bool doneOnce = false;
+    // private bool doneOnce = false;
 
     void Awake()
     {
@@ -123,7 +124,7 @@ public partial class GameManager : MonoBehaviour
             settings = gameSettings;
         }
 
-        settings.waveIndex = 0;
+        settings.waveIndex = StartWaveIndex;
         settings.totalKills = 0;
         settings.localKills = 0;
         if (!TestMode) settings.Cash = 0;
@@ -164,7 +165,7 @@ public partial class GameManager : MonoBehaviour
 
     void OnApplicationQuit()
     {
-        settings.waveIndex = 0;
+        settings.waveIndex = StartWaveIndex;
         settings.totalKills = 0;
         settings.localKills = 0;
         if (!TestMode) settings.Cash = 0;
@@ -284,7 +285,7 @@ public partial class GameManager : MonoBehaviour
     {
         SetHandVisualsActive(false);
         settings.flies.Clear();
-        settings.waveIndex = 0;
+        settings.waveIndex = StartWaveIndex;
         settings.totalKills = 0;
         settings.localKills = 0;
         settings.Cash = 0;

@@ -12,7 +12,7 @@ public class FlyAudioSource : MonoBehaviour
     private int idx = 0;
     private BaseFlyBehavior flyBehavior;
 
-    void Start()
+    void Awake()
     {
         idx = Random.Range(0, flyMovingClip.Count);
         audioSource = gameObject.GetComponent<AudioSource>();
@@ -24,14 +24,13 @@ public class FlyAudioSource : MonoBehaviour
         audioSource.playOnAwake = true;
         var metaAudio = gameObject.AddComponent<MetaXRAudioSource>();
         metaAudio.EnableSpatialization = true;
-        audioSource.Play();
 
         flyBehavior = GetComponent<BaseFlyBehavior>();
     }
 
-    void Update()
+    public void Mute(bool muted)
     {
-        audioSource.mute = flyBehavior.CurrentState == BaseFlyBehavior.FlyState.RESTING;
+        audioSource.mute = muted;
     }
 
     public void DizzyClip()

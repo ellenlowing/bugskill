@@ -135,6 +135,7 @@ GameObject:
   - component: {fileID: 9178032825499093740}
   - component: {fileID: 7207335563215581596}
   - component: {fileID: 4482827973642035594}
+  - component: {fileID: 1271559775146544622}
   m_Layer: 7
   m_Name: DepthTestFly
   m_TagString: Fly
@@ -176,6 +177,7 @@ MonoBehaviour:
   FlyingSpeed: 0
   RestDuration: 0
   TakeoffChance: 0
+  MinNearbyFlyDistance: 0
   LandingSurface: 49151
   IsSlowed: 0
   IsKilled: 0
@@ -243,7 +245,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 708182128869486111}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4b82017952172aa498ab5bd23dfe4cf3, type: 3}
   m_Name: 
@@ -266,7 +268,7 @@ AudioSource:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 708182128869486111}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
@@ -355,6 +357,18 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1271559775146544622
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 708182128869486111}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c05378c4abe8452ab3e3312acbbddb9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4171755376823053841
 GameObject:
   m_ObjectHideFlags: 0

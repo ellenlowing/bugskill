@@ -186,7 +186,10 @@ public class StoreManager : MonoBehaviour
         {
             StorePositionFinder.GetComponent<FindLargestSpawnPositions>().StartSpawnCurrentRoom();
         }
-        StoreUI.transform.position = StorePositionFinder.GetChild(StorePositionFinder.childCount - 1).position;
+        else
+        {
+            StoreUI.transform.position = StorePositionFinder.GetChild(StorePositionFinder.childCount - 1).position;
+        }
     }
 
     public void PlaceStore()
@@ -238,7 +241,8 @@ public class StoreManager : MonoBehaviour
 
             Invoke(nameof(NextWave), 2f);
             return;
-        };
+        }
+        ;
 
         var totalSum = 0;
         foreach (GameObject item in ShoppingBasket.Items)

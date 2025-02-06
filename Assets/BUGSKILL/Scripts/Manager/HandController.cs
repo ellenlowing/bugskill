@@ -1,5 +1,3 @@
-
-using Meta.WitAi;
 using Oculus.Interaction.PoseDetection.Debug;
 using Oculus.Interaction.Input;
 using System.Collections;

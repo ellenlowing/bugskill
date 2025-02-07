@@ -188,7 +188,7 @@ MonoBehaviour:
   - {fileID: 8860143217507585408}
   - {fileID: 5468476972978534699}
   animator: {fileID: 8089709310135259662}
-  _renderers: []
+  currentLandingSurface: {fileID: 0}
 --- !u!54 &1778244852545078343
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -231,14 +231,14 @@ CapsuleCollider:
     serializedVersion: 2
     m_Bits: 512
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.050022956
+  m_Radius: 0.05
   m_Height: 0.15
   m_Direction: 2
-  m_Center: {x: 0, y: 0.050022956, z: 0}
+  m_Center: {x: 0, y: 0.045, z: 0}
 --- !u!114 &7207335563215581596
 MonoBehaviour:
   m_ObjectHideFlags: 0

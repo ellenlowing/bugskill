@@ -174,7 +174,6 @@ public partial class GameManager : MonoBehaviour
     void InitializeRound()
     {
         MRUKRoom currentRoom = MRUK.Instance.GetCurrentRoom();
-        var labelFilter = LabelFilter.Included(SpawnAnchorLabels);
 
         if (currentRoom != null)
         {

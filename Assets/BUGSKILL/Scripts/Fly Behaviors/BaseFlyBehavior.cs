@@ -44,6 +44,7 @@ public class BaseFlyBehavior : MonoBehaviour
     private float slowdownTimer;
     private float evadeTimer;
     private bool needNewTarget;
+    public MRUKAnchor currentLandingSurface;
 
     public void Start()
     {
@@ -205,15 +206,23 @@ public class BaseFlyBehavior : MonoBehaviour
                 // Hop to nearby location
                 Transform hand = detectedHands[0].transform;
                 Vector3 awayFromHand = hand.position - transform.position; // Direction away from the hand
-                awayFromHand = Vector3.ProjectOnPlane(awayFromHand, transform.up).normalized;
+                awayFromHand = Vector3.ProjectOnPlane(awayFromHand, transform.up).normalized; // TODO 2nd parameter should be the landing surface's normal vector
                 float randomAngle = Random.Range(-90f, 90f);
                 Quaternion randomRotation = Quaternion.Euler(randomAngle * transform.up);
                 awayFromHand = randomRotation * awayFromHand;
                 Vector3 evadePosition = transform.position + awayFromHand * CurrentFlyStat.evadeDistance;
-                targetPosition = evadePosition;
+                Vector3 closestPosition = evadePosition;
+                Vector3 closestNormal = transform.up;
+                if (currentLandingSurface != null)
+                {
+                    // Improvement Notes
+                    // 1. Make sure the evaded position is within the bounds of the surface that the fly initially landed on
+                    // 2. Account for the landing surface's rotation
+                    float closestDistance = currentLandingSurface.GetClosestSurfacePosition(evadePosition, out closestPosition, out closestNormal);
+                }
+                targetPosition = closestPosition;
+                targetNormal = closestNormal;
                 EnterState(FlyState.FLYING);
-
-                Debug.Log(name + " evaded hand");
             }
         }
         else
@@ -300,10 +309,12 @@ public class BaseFlyBehavior : MonoBehaviour
 
     private void OnCollisionEnter(Collision other)
     {
+        bool isLanded = GameManager.Instance.IsOnAnyLandingLayer(other.gameObject);
+
         switch (CurrentState)
         {
             case FlyState.DYING:
-                if (GameManager.Instance.IsOnAnyLandingLayer(other.gameObject))
+                if (isLanded)
                 {
                     foreach (ContactPoint contact in other.contacts)
                     {
@@ -315,6 +326,15 @@ public class BaseFlyBehavior : MonoBehaviour
                     }
                 }
                 break;
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        bool isLanded = GameManager.Instance.IsOnAnyLandingLayer(other.gameObject);
+        if (isLanded)
+        {
+            currentLandingSurface = other.gameObject.GetComponentInParent<MRUKAnchor>();
         }
     }
 

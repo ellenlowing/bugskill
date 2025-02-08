@@ -188,6 +188,7 @@ MonoBehaviour:
   - {fileID: 8860143217507585408}
   - {fileID: 5468476972978534699}
   animator: {fileID: 8089709310135259662}
+  targetPosition: {x: 0, y: 0, z: 0}
   currentLandingSurface: {fileID: 0}
 --- !u!54 &1778244852545078343
 Rigidbody:
@@ -231,7 +232,7 @@ CapsuleCollider:
     serializedVersion: 2
     m_Bits: 512
   m_LayerOverridePriority: 0
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2

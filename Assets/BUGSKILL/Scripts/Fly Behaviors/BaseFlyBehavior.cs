@@ -192,6 +192,11 @@ public class BaseFlyBehavior : MonoBehaviour
         transform.up = targetNormal;
         transform.position = targetPosition;
         transform.rotation = transform.rotation * Quaternion.Euler(0, Random.Range(0, 360f), 0);
+        Collider[] overlapColliders = Physics.OverlapSphere(targetPosition, 0.05f, landingLayerMask);
+        if (overlapColliders.Length > 0)
+        {
+            currentLandingSurface = overlapColliders[0].GetComponentInParent<MRUKAnchor>();
+        }
     }
 
     public virtual void UpdateRestingState()
@@ -360,17 +365,8 @@ public class BaseFlyBehavior : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        bool isLanded = GameManager.Instance.IsOnAnyLandingLayer(other.gameObject);
-        if (isLanded)
-        {
-            currentLandingSurface = other.gameObject.GetComponentInParent<MRUKAnchor>();
-        }
-    }
-
     void OnDrawGizmos()
     {
-        if (CurrentFlyStat != null) Gizmos.DrawWireSphere(transform.position, MinNearbyFlyDistance);
+        if (CurrentFlyStat != null) Gizmos.DrawWireSphere(transform.position, 0.05f);
     }
 }

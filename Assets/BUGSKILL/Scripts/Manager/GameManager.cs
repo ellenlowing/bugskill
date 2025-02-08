@@ -247,6 +247,7 @@ public partial class GameManager : MonoBehaviour
 
     IEnumerator CheckGoal(int waveI)
     {
+        SetHandVisualsActive(true);
         int powerUpCount = DissolveAllPowerUps();
         yield return null;
         // yield return new WaitForSeconds(powerUpCount > 0 ? DissolveDuration : 0.1f);
@@ -422,6 +423,7 @@ public partial class GameManager : MonoBehaviour
         var powerup = StoreManager.Instance._selectedPowerUp;
         if (powerup != null)
         {
+            Debug.Log("dissolving " + powerup.name);
             powerup.Dissolve();
             return 1;
         }

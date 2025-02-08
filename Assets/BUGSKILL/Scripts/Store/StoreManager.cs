@@ -62,7 +62,7 @@ public class StoreManager : MonoBehaviour
 
     private void OnEnable()
     {
-        // PurchaseBtn.WhenSelect.AddListener(Purchase);
+        PurchaseBtn.WhenSelect.AddListener(delegate { Purchase(_selectedPowerUp); });
         NextWaveBtn.WhenSelect.AddListener(NextWave);
     }
 
@@ -84,6 +84,33 @@ public class StoreManager : MonoBehaviour
         InitializeStorePosition();
     }
 
+    void Update()
+    {
+#if UNITY_EDITOR
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            _selectedPowerUp = ShopItemsParent.GetChild(0).GetComponentInChildren<BasePowerUpBehavior>();
+            Purchase(_selectedPowerUp);
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            _selectedPowerUp = ShopItemsParent.GetChild(1).GetComponentInChildren<BasePowerUpBehavior>();
+            Purchase(_selectedPowerUp);
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            _selectedPowerUp = ShopItemsParent.GetChild(2).GetComponentInChildren<BasePowerUpBehavior>();
+            Purchase(_selectedPowerUp);
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha4))
+        {
+            _selectedPowerUp = ShopItemsParent.GetChild(3).GetComponentInChildren<BasePowerUpBehavior>();
+            Purchase(_selectedPowerUp);
+        }
+
+#endif
+    }
+
     public void Purchase(BasePowerUpBehavior powerup)
     {
         if (powerup != null)
@@ -98,15 +125,13 @@ public class StoreManager : MonoBehaviour
                 var shopItemName = powerup.StoreItemData.Name;
                 settings.Cash -= powerup.StoreItemData.Price;
                 powerup.IsSold = true;
+                powerup.transform.SetParent(null);
                 UIManager.Instance.UpdateCashUI();
 
                 GameObject powerupItem = powerup.GetComponentInParent<Grabbable>().gameObject;
 
                 AddTextPopUp(shopItemName + " Purchased!", powerupItem.transform.position);
-
-                _selectedPowerUp = powerup;
-
-                Invoke(nameof(NextWave), 1f);
+                Debug.Log("Purchased " + powerup.name);
             }
         }
     }
@@ -207,18 +232,18 @@ public class StoreManager : MonoBehaviour
         StoreUI.SetActive(false);
     }
 
-    // public void SetActivePowerUp(BasePowerUpBehavior powerUp)
-    // {
-    //     _selectedPowerUp = powerUp;
-    //     if (powerUp == null)
-    //     {
-    //         PurchaseBtnUI.SetActive(false);
-    //     }
-    //     else
-    //     {
-    //         PurchaseBtnUI.SetActive(true);
-    //     }
-    // }
+    public void SetActivePowerUp(BasePowerUpBehavior powerUp)
+    {
+        _selectedPowerUp = powerUp;
+        if (powerUp != null)
+        {
+            Debug.Log("Active Power Up: " + powerUp.gameObject.name);
+        }
+        else
+        {
+            Debug.Log("Removed Active Power Up");
+        }
+    }
 
     public void OnThumbsUpSelected()
     {

@@ -293,7 +293,13 @@ public class BasePowerUpBehavior : MonoBehaviour
 
         if (StoreManager.Instance.IsStoreActive)
         {
-            StoreManager.Instance.Purchase(this);
+            // StoreManager.Instance.Purchase(this);
+            StoreManager.Instance.SetActivePowerUp(this);
+        }
+        else
+        {
+            LeftUIContainer.SetActive(false);
+            RightUIContainer.SetActive(false);
         }
 
         if (IsSold)
@@ -328,6 +334,11 @@ public class BasePowerUpBehavior : MonoBehaviour
         // EnterState(PowerUpState.IDLE);
         // DisplayPriceTag.SetActive(true);
         // }
+
+        if (StoreManager.Instance.IsStoreActive)
+        {
+            StoreManager.Instance.SetActivePowerUp(null);
+        }
 
         if (!_isEquipped)
         {

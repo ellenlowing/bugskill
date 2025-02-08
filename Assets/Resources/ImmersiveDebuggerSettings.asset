@@ -16,7 +16,11 @@ MonoBehaviour:
   - AssemblyName: Assembly-CSharp
     DebugTypes:
     - DebugManager
-  immersiveDebuggerEnabled: 0
+  - AssemblyName: Meta.XR.ImmersiveDebugger
+    DebugTypes:
+    - TestSceneUsage
+    - UIEditorSetup
+  immersiveDebuggerEnabled: 1
   immersiveDebuggerDisplayAtStartup: 1
   immersiveDebuggerToggleDisplayButton: 2
   showInspectors: 0

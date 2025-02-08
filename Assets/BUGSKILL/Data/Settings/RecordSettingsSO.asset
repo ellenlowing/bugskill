@@ -12,11 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 345cf1bedd32c9f4483a79373f5c4bc1, type: 3}
   m_Name: RecordSettingsSO
   m_EditorClassIdentifier: 
-  score: 25
-  scoreMulFactor: 1
   totalKills: 0
   localKills: 0
-  skillScoreValue: 100
   Cash: 0
   flies:
   - {fileID: 0}
@@ -78,5 +75,13 @@ MonoBehaviour:
   - 0.5
   - 0.6
   - 0.7
+  minNearbyFlyDistances:
+  - 1.5
+  - 1.5
+  - 1.5
+  - 1.5
   divFactor: 3
-  distanceFromCamera: 0.8
+  nearDistanceFromCamera: 1
+  farDistanceFromCamera: 1
+  SplatDistanceOffset: 0.05
+  EnvironmentDepthBias: 0.15

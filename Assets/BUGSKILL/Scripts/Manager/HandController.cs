@@ -96,7 +96,7 @@ public class HandController : MonoBehaviour
                 {
                     Vector3 contactPoint = touchedSurfaceCollider.ClosestPoint(touchedFlyTransform.position);
                     var splatter = Instantiate(splatterPrefab, contactPoint, Quaternion.identity);
-                    if (Physics.Raycast(contactPoint, transform.up, out RaycastHit hit, 0.3f, GameManager.Instance.GetAnyLandingLayerMask(), QueryTriggerInteraction.Collide))
+                    if (Physics.Raycast(contactPoint, transform.up, out RaycastHit hit, 0.5f, GameManager.Instance.GetAnyLandingLayerMask(), QueryTriggerInteraction.Collide))
                     {
                         splatter.transform.up = hit.normal;
                     }

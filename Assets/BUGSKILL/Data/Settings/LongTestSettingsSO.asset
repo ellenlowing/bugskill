@@ -66,4 +66,4 @@ MonoBehaviour:
   nearDistanceFromCamera: 0.5
   farDistanceFromCamera: 0.8
   SplatDistanceOffset: 0.05
-  EnvironmentDepthBias: 0
+  EnvironmentDepthBias: 0.15

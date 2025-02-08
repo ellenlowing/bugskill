@@ -12,9 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9db9b9d6e23bd4c498873e373b2aa62f, type: 3}
   m_Name: Finger Slingshot
   m_EditorClassIdentifier: 
-  Price: 50
+  Price: 100
   Name: Finger Slingshot
   Description: 
-  LocalPosition: {x: 0, y: 0, z: 0}
   ItemContainerName: Middle_RightMost
   LocalEulerAngles: {x: 0, y: 90, z: 0}

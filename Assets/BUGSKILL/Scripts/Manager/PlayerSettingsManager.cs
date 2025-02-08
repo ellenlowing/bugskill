@@ -37,6 +37,7 @@ public class PlayerSettingsManager : MonoBehaviour
     {
         _wallLayerMask = GameManager.Instance.GetWallLayerMask();
         settings = GameManager.Instance.settings;
+        EnvironmentDepthBias = settings.EnvironmentDepthBias;
     }
 
     void OnEnable()

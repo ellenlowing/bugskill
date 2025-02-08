@@ -7707,7 +7707,7 @@ MonoBehaviour:
   AnchoredToHandPose: 0
   MaxPowerCapacity: 1
   PowerCapacity: 1
-  UsePowerRate: 0.025
+  UsePowerRate: 0.05
   DissolveDuration: 1
   DissolvePairs:
   - MeshRenderer: {fileID: 3686731002302317938}

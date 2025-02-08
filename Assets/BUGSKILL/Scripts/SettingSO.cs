@@ -20,11 +20,9 @@ public class SettingSO : ScriptableObject
     public List<FlySO> flyIntelLevels = new List<FlySO>();
 
     [Header("Game Play Flow")]
-    public float waveWaitTime = 30f;
     public int waveIndex = 0;
     public int[] durationOfWave = { 60, 120, 200, 300 };
     public int[] fliesInWave = { 5, 10, 20, 40 };
-    public int[] tntFliesInWave = { 1, 2, 3, 4 };
     public int[] LevelGoals = { 2, 2, 2, 2 };
     public float[] TakeoffChances = { 0.1f, 0.2f, 0.3f, 0.4f };
     public float[] minNearbyFlyDistances = { 1.5f, 1.5f, 1.5f, 1.5f };

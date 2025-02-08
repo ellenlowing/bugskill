@@ -38,12 +38,13 @@ public class BaseFlyBehavior : MonoBehaviour
     private SettingSO settings;
     private Rigidbody rb;
     private FlyAudioSource flyAudio;
-    private Vector3 targetPosition;
+    public Vector3 targetPosition;
     private Vector3 targetNormal;
     private float restTimer;
     private float slowdownTimer;
     private float evadeTimer;
     private bool needNewTarget;
+    private int landingLayerMask;
     public MRUKAnchor currentLandingSurface;
 
     public void Start()
@@ -51,6 +52,7 @@ public class BaseFlyBehavior : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         flyAudio = GetComponent<FlyAudioSource>();
         settings = GameManager.Instance.settings;
+        landingLayerMask = GameManager.Instance.GetAnyLandingLayerMask();
         CurrentFlyStat = settings.flyIntelLevels[settings.waveIndex];
         FlyingSpeed = Random.Range(CurrentFlyStat.minSpeed, CurrentFlyStat.maxSpeed);
         RestDuration = Random.Range(CurrentFlyStat.minRestDuration, CurrentFlyStat.maxRestDuration);
@@ -80,7 +82,12 @@ public class BaseFlyBehavior : MonoBehaviour
 #if UNITY_EDITOR
         if (Input.GetKeyDown(KeyCode.DownArrow))
         {
-            EnterState(FlyState.DYING);
+            MRUKRoom currentRoom = MRUK.Instance.GetCurrentRoom();
+            if (currentRoom != null)
+            {
+                bool isTargetPositionInVolume = currentRoom.IsPositionInSceneVolume(targetPosition, out MRUKAnchor anchor, true);
+                Debug.Log(gameObject.name + " is in volume?: " + isTargetPositionInVolume + " " + anchor);
+            }
         }
 #endif
     }
@@ -148,11 +155,12 @@ public class BaseFlyBehavior : MonoBehaviour
         int tries = 0;
         while (needNewTarget)
         {
-            FindNewPosition();
+            FindNewPosition(true);
 
             tries++;
             if (tries > 30)
             {
+                FindNewPosition(false);
                 Debug.Log(gameObject.name + " couldn't find a new position");
                 break;
             }
@@ -161,7 +169,7 @@ public class BaseFlyBehavior : MonoBehaviour
         if (!needNewTarget)
         {
             MoveTowardsTargetPosition();
-            if (Vector3.Distance(transform.position, targetPosition) < 0.08f)
+            if (Vector3.Distance(transform.position, targetPosition) < 0.02f) // !! REASON FOR GLITCHING WHEN EVADING
             {
                 if (evadeTimer != -1 || Random.Range(0, 1f) >= TakeoffChance)
                 {
@@ -275,7 +283,7 @@ public class BaseFlyBehavior : MonoBehaviour
         transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(direction), CurrentFlyStat.rotationSpeed * Time.deltaTime);
     }
 
-    private void FindNewPosition()
+    private void FindNewPosition(bool needCheck)
     {
         MRUKRoom currentRoom = MRUK.Instance.GetCurrentRoom();
         if (currentRoom != null)
@@ -287,24 +295,47 @@ public class BaseFlyBehavior : MonoBehaviour
             // + position is not too close to anchor's edge 
             if (currentRoom.GenerateRandomPositionOnSurface(MRUK.SurfaceType.FACING_UP | MRUK.SurfaceType.VERTICAL, CurrentFlyStat.distanceToEdges, labelFilter, out Vector3 position, out Vector3 normal))
             {
-                CheckValidPosition(position, normal);
+                CheckValidPosition(currentRoom, position, normal, needCheck);
             }
         }
     }
 
-    private void CheckValidPosition(Vector3 position, Vector3 normal)
+    private void CheckValidPosition(MRUKRoom room, Vector3 position, Vector3 normal, bool needCheck)
     {
-        Vector3 direction = (position - transform.position).normalized;
-        bool isPathClear = !Physics.Raycast(transform.position, direction, Vector3.Distance(transform.position, position)); // If there's no obstacle in the fly's path
-        Collider[] nearbyFlies = Physics.OverlapSphere(position, MinNearbyFlyDistance, GameManager.Instance.FlyLayerMask);
-        bool isFlyNearby = nearbyFlies.Length > 0; // If there are flies nearby
-
-        if (isPathClear && !isFlyNearby)
+        if (!needCheck)
         {
-            targetPosition = position;
-            targetNormal = normal;
-            needNewTarget = false;
+            AssignNewTarget(position, normal);
         }
+        else
+        {
+            // Vector3 direction = (position - transform.position).normalized;
+            // bool isPathClear = !Physics.Raycast(transform.position, direction, Vector3.Distance(transform.position, position), landingLayerMask); // If there's no obstacle in the fly's path
+            // if (!isPathClear) return;
+
+            bool isInVolume = room.IsPositionInSceneVolume(position);
+            if (isInVolume) return;
+
+            bool isFlyNearby = false;
+            foreach (var fly in settings.flies)
+            {
+                if (Vector3.Distance(fly.GetComponent<BaseFlyBehavior>().targetPosition, position) < MinNearbyFlyDistance)
+                {
+                    isFlyNearby = true;
+                    break;
+                }
+            }
+            if (isFlyNearby) return;
+
+            AssignNewTarget(position, normal);
+
+        }
+    }
+
+    private void AssignNewTarget(Vector3 position, Vector3 normal)
+    {
+        targetPosition = position;
+        targetNormal = normal;
+        needNewTarget = false;
     }
 
     private void OnCollisionEnter(Collision other)
@@ -340,6 +371,6 @@ public class BaseFlyBehavior : MonoBehaviour
 
     void OnDrawGizmos()
     {
-        if (CurrentFlyStat != null) Gizmos.DrawWireSphere(transform.position, CurrentFlyStat.detectionRadius);
+        if (CurrentFlyStat != null) Gizmos.DrawWireSphere(transform.position, MinNearbyFlyDistance);
     }
 }

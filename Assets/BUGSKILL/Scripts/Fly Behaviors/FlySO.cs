@@ -25,6 +25,5 @@ public class FlySO : ScriptableObject
     [Header("Others")]
     public float rotationSpeed = 10f;
     public float distanceToEdges = 0.2f;
-    public float checkDistance = 0.15f;  // Small forward distance to project the spherecast along the normal
 
 }

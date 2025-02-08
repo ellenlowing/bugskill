@@ -16,7 +16,7 @@ MonoBehaviour:
   - AssemblyName: Assembly-CSharp
     DebugTypes:
     - DebugManager
-  immersiveDebuggerEnabled: 1
+  immersiveDebuggerEnabled: 0
   immersiveDebuggerDisplayAtStartup: 1
   immersiveDebuggerToggleDisplayButton: 2
   showInspectors: 0

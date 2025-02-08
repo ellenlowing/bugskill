@@ -141,7 +141,10 @@ public class BaseFlyBehavior : MonoBehaviour
     public virtual void EnterIdleState()
     {
         animator.speed = 0;
-        flyAudio.Mute(true);
+        if (flyAudio != null)
+        {
+            flyAudio.Mute(true);
+        }
     }
     public virtual void UpdateIdleState() { }
     public virtual void EnterFlyingState()
@@ -169,7 +172,7 @@ public class BaseFlyBehavior : MonoBehaviour
         if (!needNewTarget)
         {
             MoveTowardsTargetPosition();
-            if (Vector3.Distance(transform.position, targetPosition) < 0.02f) // !! REASON FOR GLITCHING WHEN EVADING
+            if (Vector3.Distance(transform.position, targetPosition) < 0.025f) // !! REASON FOR GLITCHING WHEN EVADING
             {
                 if (evadeTimer != -1 || Random.Range(0, 1f) >= TakeoffChance)
                 {
@@ -300,12 +303,12 @@ public class BaseFlyBehavior : MonoBehaviour
             // + position is not too close to anchor's edge 
             if (currentRoom.GenerateRandomPositionOnSurface(MRUK.SurfaceType.FACING_UP | MRUK.SurfaceType.VERTICAL, CurrentFlyStat.distanceToEdges, labelFilter, out Vector3 position, out Vector3 normal))
             {
-                CheckValidPosition(currentRoom, position, normal, needCheck);
+                CheckValidPosition(position, normal, needCheck);
             }
         }
     }
 
-    private void CheckValidPosition(MRUKRoom room, Vector3 position, Vector3 normal, bool needCheck)
+    private void CheckValidPosition(Vector3 position, Vector3 normal, bool needCheck)
     {
         if (!needCheck)
         {
@@ -313,13 +316,6 @@ public class BaseFlyBehavior : MonoBehaviour
         }
         else
         {
-            // Vector3 direction = (position - transform.position).normalized;
-            // bool isPathClear = !Physics.Raycast(transform.position, direction, Vector3.Distance(transform.position, position), landingLayerMask); // If there's no obstacle in the fly's path
-            // if (!isPathClear) return;
-
-            bool isInVolume = room.IsPositionInSceneVolume(position);
-            if (isInVolume) return;
-
             bool isFlyNearby = false;
             foreach (var fly in settings.flies)
             {
@@ -332,7 +328,6 @@ public class BaseFlyBehavior : MonoBehaviour
             if (isFlyNearby) return;
 
             AssignNewTarget(position, normal);
-
         }
     }
 

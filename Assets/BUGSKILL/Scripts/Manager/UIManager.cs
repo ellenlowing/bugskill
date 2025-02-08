@@ -135,6 +135,7 @@ public class UIManager : MonoBehaviour
 
     private void ShowGameStartScreen()
     {
+        GameTitle.GetComponent<FollowCamera>().ResetPosition();
         GameTitle.SetActive(true);
     }
 
@@ -247,6 +248,7 @@ public class UIManager : MonoBehaviour
 
         // Spawn roundstartUI in front of user
         FaceCamera(obj: RoundStartUI, distanceFromCamera: settings.farDistanceFromCamera);
+        // RoundStartUI.GetComponent<FollowCamera>().ResetPosition();
         RoundStartUI.SetActive(true);
         Invoke(nameof(HideRoundStartUI), RoundStartUIDuration);
     }

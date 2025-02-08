@@ -9,6 +9,11 @@ public class FollowCamera : MonoBehaviour
     public float distance = 0.8f;       // Distance in front of the user
     public Vector3 offset = new Vector3(0, 0.3f, 0); // Adjust height offset
 
+    void Start()
+    {
+        ResetPosition();
+    }
+
     void Update()
     {
         if (cameraTransform == null) return;
@@ -23,5 +28,11 @@ public class FollowCamera : MonoBehaviour
         Vector3 lookDirection = transform.position - cameraTransform.position;
         lookDirection.y = 0; // Remove tilt influence
         transform.rotation = Quaternion.LookRotation(lookDirection);
+    }
+
+    public void ResetPosition()
+    {
+        Vector3 targetPosition = cameraTransform.position + cameraTransform.forward * distance + offset;
+        transform.position = targetPosition;
     }
 }

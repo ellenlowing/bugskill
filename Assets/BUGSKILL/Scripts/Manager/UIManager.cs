@@ -135,7 +135,7 @@ public class UIManager : MonoBehaviour
 
     private void ShowGameStartScreen()
     {
-        FaceCamera(obj: GameTitle, yOffset: 0.4f, distanceFromCamera: settings.farDistanceFromCamera);
+        GameTitle.SetActive(true);
     }
 
     public void ShowHowToPlayScreen()

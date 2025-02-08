@@ -360,8 +360,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Grab the wristband to equip the FINGER GUN. Just gesture and curl your
-    thumb to shoot. \nAngle your hand so that all fingers are visible to the camera!"
+  m_text: "Grab the wristband to equip the FINGER SLINGSHOT! \nDo a V sign, then
+    use your other hand to pull the TNT back and release to shoot!"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: fe0bcf811033b49989959f1e5e30b665, type: 2}
   m_sharedMaterial: {fileID: 8572475109205535080, guid: fe0bcf811033b49989959f1e5e30b665, type: 2}
@@ -8217,8 +8217,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Grab the wristband to equip the FINGER GUN. Just gesture and curl your
-    thumb to shoot. \nAngle your hand so that all fingers are visible to the camera!"
+  m_text: "Grab the wristband to equip the FINGER SLINGSHOT! \nDo a V sign, then
+    use your other hand to pull the TNT back and release to shoot!"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: fe0bcf811033b49989959f1e5e30b665, type: 2}
   m_sharedMaterial: {fileID: 8572475109205535080, guid: fe0bcf811033b49989959f1e5e30b665, type: 2}

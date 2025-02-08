@@ -75,7 +75,7 @@ public class FingerGunPowerUp : BasePowerUpBehavior
     {
         base.OnGrabbableUnselect(arg0);
 
-        if (StoreManager.Instance.IsStoreActive)
+        if (!IsSold && StoreManager.Instance.IsStoreActive)
         {
             _activeHand = null;
             LeftFingerGun.SetActive(false);

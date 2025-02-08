@@ -75,7 +75,7 @@ public class FingerSlingshotPowerUp : BasePowerUpBehavior
     {
         base.OnGrabbableUnselect(arg0);
 
-        if (StoreManager.Instance.IsStoreActive)
+        if (!IsSold && StoreManager.Instance.IsStoreActive)
         {
             _activeHand = null;
             LeftFingerSlingshot.SetActive(false);

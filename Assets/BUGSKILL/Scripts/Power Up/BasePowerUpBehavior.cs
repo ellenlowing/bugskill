@@ -163,11 +163,11 @@ public class BasePowerUpBehavior : MonoBehaviour
             }
         }
 
-        if (_isEquipped)
-        {
-            LeftUIContainer.SetActive(false);
-            RightUIContainer.SetActive(false);
-        }
+        // if (IsSold)
+        // {
+        //     LeftUIContainer.SetActive(false);
+        //     RightUIContainer.SetActive(false);
+        // }
 
         if (!StoreManager.Instance.IsStoreActive && PowerCapacity <= 0)
         {
@@ -199,8 +199,8 @@ public class BasePowerUpBehavior : MonoBehaviour
             PowerCapacitySlider.gameObject.SetActive(false);
         }
 
-        GameManager.Instance.RightHandRenderer.SetActive(false);
-        GameManager.Instance.LeftHandRenderer.SetActive(false);
+        // GameManager.Instance.RightHandRenderer.SetActive(false);
+        // GameManager.Instance.LeftHandRenderer.SetActive(false);
 
         foreach (var pair in DissolvePairs)
         {
@@ -233,21 +233,24 @@ public class BasePowerUpBehavior : MonoBehaviour
     {
         HandRef handData = (HandRef)arg0.Data;
         Handedness handedness = handData.Handedness;
-        if (handedness == Handedness.Right)
-        {
-            GameManager.Instance.RightHandRenderer.SetActive(true);
-        }
-        else
-        {
-            GameManager.Instance.LeftHandRenderer.SetActive(true);
-        }
-        LeftUIContainer.SetActive(handedness == Handedness.Left && StoreManager.Instance.IsStoreActive);
-        RightUIContainer.SetActive(handedness == Handedness.Right && StoreManager.Instance.IsStoreActive);
+        // if (handedness == Handedness.Right)
+        // {
+        //     GameManager.Instance.RightHandRenderer.SetActive(true);
+        // }
+        // else
+        // {
+        //     GameManager.Instance.LeftHandRenderer.SetActive(true);
+        // }
+
+        // LeftUIContainer.SetActive(handedness == Handedness.Left && StoreManager.Instance.IsStoreActive);
+        // RightUIContainer.SetActive(handedness == Handedness.Right && StoreManager.Instance.IsStoreActive);
 
         if (StoreManager.Instance.IsStoreActive)
         {
             ShowItemData(arg0);
             StoreManager.Instance.ShopItemDataUI.SetActive(true);
+            LeftUIContainer.SetActive(handedness == Handedness.Left);
+            RightUIContainer.SetActive(handedness == Handedness.Right);
         }
     }
 
@@ -255,14 +258,14 @@ public class BasePowerUpBehavior : MonoBehaviour
     {
         HandRef handData = (HandRef)arg0.Data;
         Handedness handedness = handData.Handedness;
-        if (handedness == Handedness.Right)
-        {
-            GameManager.Instance.RightHandRenderer.SetActive(false);
-        }
-        else
-        {
-            GameManager.Instance.LeftHandRenderer.SetActive(false);
-        }
+        // if (handedness == Handedness.Right)
+        // {
+        //     GameManager.Instance.RightHandRenderer.SetActive(false);
+        // }
+        // else
+        // {
+        //     GameManager.Instance.LeftHandRenderer.SetActive(false);
+        // }
 
         LeftUIContainer.SetActive(false);
         RightUIContainer.SetActive(false);
@@ -296,22 +299,17 @@ public class BasePowerUpBehavior : MonoBehaviour
             // StoreManager.Instance.Purchase(this);
             StoreManager.Instance.SetActivePowerUp(this);
         }
-        else
-        {
-            LeftUIContainer.SetActive(false);
-            RightUIContainer.SetActive(false);
-        }
 
-        if (IsSold)
-        {
-            _isEquipped = true;
-            GlowEffect.gameObject.SetActive(false);
+        // if (IsSold)
+        // {
+        //     _isEquipped = true;
+        //     GlowEffect.gameObject.SetActive(false);
 
-            if (AnchoredToHandPose)
-            {
-                transform.parent = ActiveOVRHand.gameObject.transform;
-            }
-        }
+        //     if (AnchoredToHandPose)
+        //     {
+        //         transform.parent = ActiveOVRHand.gameObject.transform;
+        //     }
+        // }
 
         // if (!StoreManager.Instance.IsStoreActive)
         // {
@@ -335,7 +333,7 @@ public class BasePowerUpBehavior : MonoBehaviour
         // DisplayPriceTag.SetActive(true);
         // }
 
-        if (StoreManager.Instance.IsStoreActive)
+        if (!IsSold && StoreManager.Instance.IsStoreActive)
         {
             StoreManager.Instance.SetActivePowerUp(null);
         }
@@ -345,6 +343,20 @@ public class BasePowerUpBehavior : MonoBehaviour
             ActiveOVRHand = null;
             EnterState(PowerUpState.IDLE);
             DisplayPriceTag.SetActive(true);
+        }
+    }
+
+    public void HandlePurchase()
+    {
+        IsSold = true;
+        _isEquipped = true;
+        StoreManager.Instance.SetActivePowerUp(this);
+        DisplayPriceTag.SetActive(false);
+        LeftUIContainer.SetActive(false);
+        RightUIContainer.SetActive(false);
+        if (AnchoredToHandPose)
+        {
+            transform.parent = ActiveOVRHand.gameObject.transform;
         }
     }
 

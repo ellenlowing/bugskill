@@ -142,6 +142,8 @@ public partial class GameManager : MonoBehaviour
         StoreManager.Instance.HideStore();
         SetHandControllersActive(false);
         SetHandVisualsActive(true);
+        RightHandRenderer.SetActive(false);
+        LeftHandRenderer.SetActive(false);
 
 #if UNITY_EDITOR
         EffectMesh.HideMesh = false;

@@ -20,7 +20,7 @@ MonoBehaviour:
     DebugTypes:
     - TestSceneUsage
     - UIEditorSetup
-  immersiveDebuggerEnabled: 1
+  immersiveDebuggerEnabled: 0
   immersiveDebuggerDisplayAtStartup: 1
   immersiveDebuggerToggleDisplayButton: 2
   showInspectors: 0

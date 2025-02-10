@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9db9b9d6e23bd4c498873e373b2aa62f, type: 3}
   m_Name: SprayStoreItem
   m_EditorClassIdentifier: 
-  Price: 150
+  Price: 120
   Name: Insecticide Spray
   Description: Spray at fly to slow them down!
   ItemContainerName: Bottom_Center

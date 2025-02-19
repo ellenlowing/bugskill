@@ -295,7 +295,7 @@ public partial class GameManager : MonoBehaviour
         UIManager.Instance.GameEndUI.SetActive(false);
         UIManager.Instance.UpdateLevel();
         UIManager.Instance.UpdateCashUI();
-        InitializeRound();
+        StartGameLoop();
         // StoreManager.Instance.HideAllPowerUps();
     }
 

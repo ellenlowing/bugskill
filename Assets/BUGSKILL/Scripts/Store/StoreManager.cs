@@ -124,8 +124,6 @@ public class StoreManager : MonoBehaviour
             {
                 var shopItemName = powerup.StoreItemData.Name;
                 settings.Cash -= powerup.StoreItemData.Price;
-                // powerup.IsSold = true;
-                // powerup.transform.SetParent(null);
                 powerup.HandlePurchase();
                 UIManager.Instance.UpdateCashUI();
 

@@ -113,7 +113,7 @@ public class StoreManager : MonoBehaviour
 
     public void Purchase(BasePowerUpBehavior powerup)
     {
-        if (powerup != null)
+        if (powerup != null && !powerup.IsSold)
         {
             var shopItemPrice = powerup.StoreItemData.Price;
             if (settings.Cash < shopItemPrice)

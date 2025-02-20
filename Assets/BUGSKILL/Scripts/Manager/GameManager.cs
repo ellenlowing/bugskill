@@ -415,7 +415,7 @@ public partial class GameManager : MonoBehaviour
     {
         MRUKRoom room = MRUK.Instance.GetCurrentRoom();
         var wall = room.GetKeyWall(out Vector2 wallScale);
-        GameUIGroup.transform.position = wall.transform.position; // + new Vector3(0, wallScale.y / 3, 0);
+        GameUIGroup.transform.position = wall.transform.position - new Vector3(0, wallScale.y / 5, 0);
         GameUIGroup.transform.forward = wall.transform.forward;
         Debug.Log("Place on key wall");
     }

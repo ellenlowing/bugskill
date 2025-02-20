@@ -12,7 +12,6 @@ using Oculus.Interaction.Input;
 using Oculus.Interaction.PoseDetection;
 using Unity.VisualScripting;
 using Oculus.Interaction.Input.Filter;
-using Meta.XR.EnvironmentDepth;
 
 public partial class GameManager : MonoBehaviour
 {
@@ -26,7 +25,6 @@ public partial class GameManager : MonoBehaviour
     public GameObject GameUIGroup;
     public GameObject LevelPanel;
     public Transform MainCameraTransform;
-    public EnvironmentDepthManager EnvironmentDepthManager;
 
     [Header("Game Settings")]
     public SettingSO settings;

@@ -13,10 +13,9 @@ MonoBehaviour:
   m_Name: Level5
   m_EditorClassIdentifier: 
   minRestDuration: 3
-  maxRestDuration: 7
-  minSpeed: 5
-  maxSpeed: 7
-  speed: 5
+  maxRestDuration: 6
+  minSpeed: 7
+  maxSpeed: 9
   flySlowDownTime: 1
   flySlowDownSpeed: 1.5
   evadeTime: 0.6

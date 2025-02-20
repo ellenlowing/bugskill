@@ -13,7 +13,6 @@ public class FlySO : ScriptableObject
     [Header("Fly Speed")]
     public float minSpeed = 2.0f;
     public float maxSpeed = 10.0f;
-    public float speed = 2.0f;
     public float flySlowDownTime = 8.0f;
     public float flySlowDownSpeed = 0.5f;
 

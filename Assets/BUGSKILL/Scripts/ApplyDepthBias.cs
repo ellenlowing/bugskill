@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Meta.XR.EnvironmentDepth;
 
 public class ApplyDepthBias : MonoBehaviour
 {
@@ -10,8 +11,11 @@ public class ApplyDepthBias : MonoBehaviour
     void Start()
     {
         settings = GameManager.Instance.settings;
-        _renderers = GetComponentsInChildren<MeshRenderer>();
-        SetDepthBias(settings.EnvironmentDepthBias);
+        if (EnvironmentDepthManager.IsSupported)
+        {
+            _renderers = GetComponentsInChildren<MeshRenderer>();
+            SetDepthBias(settings.EnvironmentDepthBias);
+        }
     }
 
     public void SetDepthBias(float value)

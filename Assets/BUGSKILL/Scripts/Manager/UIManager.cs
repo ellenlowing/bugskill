@@ -25,6 +25,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject PlayerSettingsUI;
     public TextMeshProUGUI WalletText;
     public TextMeshProUGUI ShopWalletText;
+    public TextMeshProUGUI GameUIWalletText;
     [SerializeField] private TextMeshProUGUI LevelGoalText;
     [SerializeField] private TextMeshProUGUI LevelNumberText;
     public TextMeshProUGUI CatchCountUIText;
@@ -225,6 +226,7 @@ public class UIManager : MonoBehaviour
     {
         WalletText.text = settings.localKills.ToString(); // TODO Update later
         ShopWalletText.text = "$" + settings.Cash.ToString();
+        GameUIWalletText.text = "$" + settings.Cash.ToString();
         CatchCountUIText.text = FormatCatchCountUIText();
     }
 

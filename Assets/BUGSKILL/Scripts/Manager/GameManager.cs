@@ -280,6 +280,7 @@ public partial class GameManager : MonoBehaviour
         SetHandVisualsActive(false);
         SetHandControllersActive(true);
         StoreManager.Instance.HideStore();
+        UIManager.Instance.UpdateCashUI();
         Invoke(nameof(InitializeRound), UIManager.Instance.RoundStartUIDuration);
     }
 

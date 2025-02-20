@@ -11,7 +11,7 @@
     </activity>
     <meta-data android:name="unityplayer.SkipPermissionsDialog" android:value="false" />
     <meta-data android:name="com.samsung.android.vr.application.mode" android:value="vr_only" />
-    <meta-data android:name="com.oculus.ossplash.background" android:value="black" />
+    <meta-data android:name="com.oculus.ossplash.background" android:value="passthrough-contextual"/>
     <meta-data android:name="com.oculus.supportedDevices" android:value="quest2|questpro|eureka" />
     <meta-data android:name="com.oculus.handtracking.frequency" android:value="MAX" />
     <meta-data android:name="com.oculus.handtracking.version" android:value="V2.0" />

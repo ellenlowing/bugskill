@@ -5,7 +5,7 @@ using Oculus.Interaction.Input;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using Oculus.Platform.Models;
+using UnityEngine.Video;
 
 public class BasePowerUpBehavior : MonoBehaviour
 {
@@ -59,6 +59,7 @@ public class BasePowerUpBehavior : MonoBehaviour
     public TextMeshPro RightPriceTagText;
     public TextMeshPro DisplayPriceTagText;
     public GameObject DisplayPriceTag;
+    public VideoPlayer Teaser;
 
     protected bool _isEquipped = false;
 
@@ -79,6 +80,8 @@ public class BasePowerUpBehavior : MonoBehaviour
 
         LeftUIContainer.SetActive(false);
         RightUIContainer.SetActive(false);
+        DisplayPriceTag.SetActive(true);
+        if (Teaser != null) Teaser.Prepare();
 
         GlowEffect.gameObject.SetActive(false);
 
@@ -139,7 +142,6 @@ public class BasePowerUpBehavior : MonoBehaviour
 
     public virtual void EnterIdleState()
     {
-        DisplayPriceTag.SetActive(true);
     }
     public virtual void UpdateIdleState()
     {
@@ -152,7 +154,13 @@ public class BasePowerUpBehavior : MonoBehaviour
     }
     public virtual void EnterInactiveState() { }
     public virtual void UpdateInactiveState() { }
-    public virtual void EnterActiveState() { }
+    public virtual void EnterActiveState()
+    {
+        if (IsSold)
+        {
+            DisplayPriceTag.SetActive(false);
+        }
+    }
     public virtual void UpdateActiveState()
     {
         if (PowerCapacitySlider != null)
@@ -251,6 +259,8 @@ public class BasePowerUpBehavior : MonoBehaviour
             StoreManager.Instance.ShopItemDataUI.SetActive(true);
             LeftUIContainer.SetActive(handedness == Handedness.Left);
             RightUIContainer.SetActive(handedness == Handedness.Right);
+            DisplayPriceTag.SetActive(false);
+            if (Teaser != null) Teaser.Play();
         }
     }
 
@@ -276,6 +286,8 @@ public class BasePowerUpBehavior : MonoBehaviour
             StoreManager.Instance.GlobalCashAmount.text = "";
             StoreManager.Instance.GlobalName.text = "";
             StoreManager.Instance.ShopItemDataUI.SetActive(false);
+            DisplayPriceTag.SetActive(true);
+            if (Teaser != null) Teaser.Stop();
         }
     }
 
@@ -291,8 +303,6 @@ public class BasePowerUpBehavior : MonoBehaviour
         {
             ActiveOVRHand = GameManager.Instance.LeftOVRHand;
         }
-
-        DisplayPriceTag.SetActive(false);
 
         if (StoreManager.Instance.IsStoreActive)
         {
@@ -342,7 +352,6 @@ public class BasePowerUpBehavior : MonoBehaviour
         {
             ActiveOVRHand = null;
             EnterState(PowerUpState.IDLE);
-            DisplayPriceTag.SetActive(true);
         }
     }
 

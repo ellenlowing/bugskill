@@ -109,6 +109,7 @@ public class StoreManager : MonoBehaviour
         }
 
 #endif
+
     }
 
     public void Purchase(BasePowerUpBehavior powerup)

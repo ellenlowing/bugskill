@@ -210,7 +210,7 @@ public class BaseFlyBehavior : MonoBehaviour
         }
 
         Collider[] detectedHands = Physics.OverlapSphere(transform.position, CurrentFlyStat.detectionRadius, GameManager.Instance.HandsLayerMask);
-        if (detectedHands.Length > 0)
+        if (!IsKilled && detectedHands.Length > 0)
         {
             // If the fly is near the hand, it should start counting down to evading
             if (evadeTimer == -1)

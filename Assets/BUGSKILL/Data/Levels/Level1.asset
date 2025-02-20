@@ -18,7 +18,7 @@ MonoBehaviour:
   maxSpeed: 5
   flySlowDownTime: 7
   flySlowDownSpeed: 0.3
-  evadeTime: 0.8
+  evadeTime: 0.75
   evadeDistance: 0.2
   detectionRadius: 0.6
   rotationSpeed: 10

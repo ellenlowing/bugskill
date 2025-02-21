@@ -194,6 +194,7 @@ public class StoreManager : MonoBehaviour
         UIManager.Instance.UpdateCashUI();
         StoreUI.SetActive(true);
         IsStoreActive = true;
+        AudioManager.Instance.CueStore();
     }
 
     public void RestockPowerup(BasePowerUpBehavior powerup)

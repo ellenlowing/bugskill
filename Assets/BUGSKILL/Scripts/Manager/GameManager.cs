@@ -238,11 +238,13 @@ public partial class GameManager : MonoBehaviour
     {
         StartNextWaveEvent.OnEventRaised += StartNextWave;
         GameBegins.OnEventRaised += StartGameLoop;
+        GameEnds.OnEventRaised += AudioManager.Instance.CueEnding;
     }
 
     public void StartNextWave()
     {
         StoreManager.Instance.HideStore();
+        AudioManager.Instance.CueGame();
         Invoke(nameof(InitializeRound), UIManager.Instance.RoundStartUIDuration);
     }
 
@@ -280,6 +282,7 @@ public partial class GameManager : MonoBehaviour
         SetHandControllersActive(true);
         StoreManager.Instance.HideStore();
         UIManager.Instance.UpdateCashUI();
+        AudioManager.Instance.CueGame();
         Invoke(nameof(InitializeRound), UIManager.Instance.RoundStartUIDuration);
     }
 

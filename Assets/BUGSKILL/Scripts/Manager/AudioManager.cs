@@ -48,13 +48,6 @@ public class AudioManager : MonoBehaviour
 
     public void PlayClip(AudioClip clip, bool loop)
     {
-        // if (src.isPlaying) FadeOut();
-        // // src.Stop();
-        // src.clip = clip;
-        // src.loop = loop;
-
-        // FadeIn();
-        // // src.Play();
         StartCoroutine(FadeOutIn(clip, loop));
     }
 

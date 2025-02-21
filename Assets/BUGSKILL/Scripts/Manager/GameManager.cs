@@ -101,6 +101,9 @@ public partial class GameManager : MonoBehaviour
     public GameObject LeftFingerSlingshot;
     public GameObject RightFingerSlingshot;
 
+    [Header("Others")]
+    public AudioSource RoundEndAudio;
+
     // private bool doneOnce = false;
 
     void Awake()
@@ -202,6 +205,7 @@ public partial class GameManager : MonoBehaviour
 
     void HandleRoundEnd()
     {
+        RoundEndAudio.Play();
         foreach (var obj in settings.flies)
         {
             Destroy(obj);

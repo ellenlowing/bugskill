@@ -25,9 +25,9 @@ public class FingerGunProjectile : MonoBehaviour
 
         if (other.gameObject.tag == "Fly")
         {
-            other.gameObject.GetComponent<BaseFlyBehavior>().IsKilled = true;
             UIManager.Instance.IncrementKill(transform.position, (int)SCOREFACTOR.FINGERGUN);
-            Destroy(other.gameObject);
+            BaseFlyBehavior fly = other.gameObject.GetComponent<BaseFlyBehavior>();
+            fly.Kill();
         }
 
         if (hitPrefab != null)

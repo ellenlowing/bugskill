@@ -72,15 +72,13 @@ public class BasePowerUpBehavior : MonoBehaviour
 
         if (PointableEventWrapper != null)
         {
-            PointableEventWrapper.WhenHover.AddListener(OnHover);
-            PointableEventWrapper.WhenUnhover.AddListener(OnUnhover);
+            // PointableEventWrapper.WhenHover.AddListener(OnHover);
+            // PointableEventWrapper.WhenUnhover.AddListener(OnUnhover);
             PointableEventWrapper.WhenSelect.AddListener(OnGrabbableSelect);
             PointableEventWrapper.WhenUnselect.AddListener(OnGrabbableUnselect);
         }
 
-        LeftUIContainer.SetActive(false);
-        RightUIContainer.SetActive(false);
-        DisplayPriceTag.SetActive(true);
+        HandleUI(showDetails: false, showPriceTag: true, handedness: Handedness.Right);
         if (Teaser != null) Teaser.Prepare();
 
         GlowEffect.gameObject.SetActive(false);
@@ -140,18 +138,8 @@ public class BasePowerUpBehavior : MonoBehaviour
         }
     }
 
-    public virtual void EnterIdleState()
-    {
-    }
-    public virtual void UpdateIdleState()
-    {
-        // if (!GlowEffect.gameObject.activeInHierarchy && !StoreManager.Instance.IsStoreActive)
-        // {
-        //     GlowEffect.gameObject.SetActive(true);
-        //     GlowEffect.Stop();
-        //     GlowEffect.Play();
-        // }
-    }
+    public virtual void EnterIdleState() { }
+    public virtual void UpdateIdleState() { }
     public virtual void EnterInactiveState() { }
     public virtual void UpdateInactiveState() { }
     public virtual void EnterActiveState()
@@ -170,12 +158,6 @@ public class BasePowerUpBehavior : MonoBehaviour
                 PowerCapacitySlider.gameObject.SetActive(true);
             }
         }
-
-        // if (IsSold)
-        // {
-        //     LeftUIContainer.SetActive(false);
-        //     RightUIContainer.SetActive(false);
-        // }
 
         if (!StoreManager.Instance.IsStoreActive && PowerCapacity <= 0)
         {
@@ -206,9 +188,6 @@ public class BasePowerUpBehavior : MonoBehaviour
         {
             PowerCapacitySlider.gameObject.SetActive(false);
         }
-
-        // GameManager.Instance.RightHandRenderer.SetActive(false);
-        // GameManager.Instance.LeftHandRenderer.SetActive(false);
 
         foreach (var pair in DissolvePairs)
         {
@@ -241,54 +220,12 @@ public class BasePowerUpBehavior : MonoBehaviour
     {
         HandRef handData = (HandRef)arg0.Data;
         Handedness handedness = handData.Handedness;
-        // if (handedness == Handedness.Right)
-        // {
-        //     GameManager.Instance.RightHandRenderer.SetActive(true);
-        // }
-        // else
-        // {
-        //     GameManager.Instance.LeftHandRenderer.SetActive(true);
-        // }
-
-        // LeftUIContainer.SetActive(handedness == Handedness.Left && StoreManager.Instance.IsStoreActive);
-        // RightUIContainer.SetActive(handedness == Handedness.Right && StoreManager.Instance.IsStoreActive);
-
-        if (StoreManager.Instance.IsStoreActive)
-        {
-            ShowItemData(arg0);
-            StoreManager.Instance.ShopItemDataUI.SetActive(true);
-            LeftUIContainer.SetActive(handedness == Handedness.Left);
-            RightUIContainer.SetActive(handedness == Handedness.Right);
-            DisplayPriceTag.SetActive(false);
-            if (Teaser != null) Teaser.Play();
-        }
     }
 
     public void OnUnhover(PointerEvent arg0)
     {
         HandRef handData = (HandRef)arg0.Data;
         Handedness handedness = handData.Handedness;
-        // if (handedness == Handedness.Right)
-        // {
-        //     GameManager.Instance.RightHandRenderer.SetActive(false);
-        // }
-        // else
-        // {
-        //     GameManager.Instance.LeftHandRenderer.SetActive(false);
-        // }
-
-        LeftUIContainer.SetActive(false);
-        RightUIContainer.SetActive(false);
-
-        if (StoreManager.Instance.IsStoreActive)
-        {
-            StoreManager.Instance.GlobalDescription.text = "Grab a Power Up Item and Try it On!";
-            StoreManager.Instance.GlobalCashAmount.text = "";
-            StoreManager.Instance.GlobalName.text = "";
-            StoreManager.Instance.ShopItemDataUI.SetActive(false);
-            DisplayPriceTag.SetActive(true);
-            if (Teaser != null) Teaser.Stop();
-        }
     }
 
     public virtual void OnGrabbableSelect(PointerEvent arg0)
@@ -306,46 +243,21 @@ public class BasePowerUpBehavior : MonoBehaviour
 
         if (StoreManager.Instance.IsStoreActive)
         {
-            // StoreManager.Instance.Purchase(this);
             StoreManager.Instance.SetActivePowerUp(this);
+            HandleUI(showDetails: true, showPriceTag: false, handedness: handedness);
+            if (Teaser != null) Teaser.Play();
         }
-
-        // if (IsSold)
-        // {
-        //     _isEquipped = true;
-        //     GlowEffect.gameObject.SetActive(false);
-
-        //     if (AnchoredToHandPose)
-        //     {
-        //         transform.parent = ActiveOVRHand.gameObject.transform;
-        //     }
-        // }
-
-        // if (!StoreManager.Instance.IsStoreActive)
-        // {
-        // _isEquipped = true;
-        // GlowEffect.gameObject.SetActive(false);
-        // if (AnchoredToHandPose)
-        // {
-        //     transform.parent = ActiveOVRHand.gameObject.transform;
-        // }
-        // }
 
         EnterState(PowerUpState.ACTIVE);
     }
 
     public virtual void OnGrabbableUnselect(PointerEvent arg0)
     {
-        // if (StoreManager.Instance.IsStoreActive)
-        // {
-        // ActiveOVRHand = null;
-        // EnterState(PowerUpState.IDLE);
-        // DisplayPriceTag.SetActive(true);
-        // }
-
         if (!IsSold && StoreManager.Instance.IsStoreActive)
         {
             StoreManager.Instance.SetActivePowerUp(null);
+            HandleUI(showDetails: false, showPriceTag: true, handedness: Handedness.Right);
+            if (Teaser != null) Teaser.Stop();
         }
 
         if (!_isEquipped)
@@ -355,14 +267,19 @@ public class BasePowerUpBehavior : MonoBehaviour
         }
     }
 
+    public void HandleUI(bool showDetails, bool showPriceTag, Handedness handedness)
+    {
+        DisplayPriceTag.SetActive(showPriceTag);
+        LeftUIContainer.SetActive(showDetails && handedness == Handedness.Left);
+        RightUIContainer.SetActive(showDetails && handedness == Handedness.Right);
+    }
+
     public void HandlePurchase()
     {
         IsSold = true;
         _isEquipped = true;
         StoreManager.Instance.SetActivePowerUp(this);
-        DisplayPriceTag.SetActive(false);
-        LeftUIContainer.SetActive(false);
-        RightUIContainer.SetActive(false);
+        HandleUI(showDetails: false, showPriceTag: false, handedness: Handedness.Right);
         if (AnchoredToHandPose)
         {
             transform.parent = ActiveOVRHand.gameObject.transform;

@@ -241,7 +241,7 @@ public class BasePowerUpBehavior : MonoBehaviour
             ActiveOVRHand = GameManager.Instance.LeftOVRHand;
         }
 
-        if (StoreManager.Instance.IsStoreActive)
+        if (StoreManager.Instance.IsStoreActive && !IsSold)
         {
             StoreManager.Instance.SetActivePowerUp(this);
             HandleUI(showDetails: true, showPriceTag: false, handedness: handedness);

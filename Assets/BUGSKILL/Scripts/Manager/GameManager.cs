@@ -319,10 +319,8 @@ public partial class GameManager : MonoBehaviour
             BaseFlyBehavior flyBehavior = fly.GetComponent<BaseFlyBehavior>();
             if (fly.GetComponent<BaseFlyBehavior>().Type == BaseFlyBehavior.FlyType.REGULAR && !flyBehavior.IsKilled)
             {
-                flyBehavior.IsKilled = true;
                 UIManager.Instance.IncrementKill(fly.transform.position, (int)SCOREFACTOR.TNT);
-                Debug.Log("Increment Kill: " + fly.name + " " + fly.transform.position);
-                Destroy(fly.gameObject);
+                flyBehavior.Kill();
             }
         }
         UIManager.Instance.UpdateCashUI();

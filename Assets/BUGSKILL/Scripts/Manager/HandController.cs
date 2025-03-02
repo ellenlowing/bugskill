@@ -84,8 +84,9 @@ public class HandController : MonoBehaviour
     {
         if (!isTouchingFly && touchedFlyTransform != null && !touchedFlyTransform.GetComponent<BaseFlyBehavior>().IsKilled)
         {
+            BaseFlyBehavior fly = touchedFlyTransform.GetComponent<BaseFlyBehavior>();
             isTouchingFly = true;
-            touchedFlyTransform.GetComponent<BaseFlyBehavior>().IsKilled = true;
+            // touchedFlyTransform.GetComponent<BaseFlyBehavior>().IsKilled = true;
 
             if (isTouchingLandingSurface || isTouchingOtherHand)
             {
@@ -140,8 +141,9 @@ public class HandController : MonoBehaviour
                     }
                 }
 
-                settings.flies.Remove(touchedFlyTransform.gameObject);
-                Destroy(touchedFlyTransform.gameObject);
+                // settings.flies.Remove(touchedFlyTransform.gameObject);
+                // Destroy(touchedFlyTransform.gameObject);
+                fly.Kill();
 
                 isTouchingFly = false;
                 isTouchingLandingSurface = false;

@@ -145,11 +145,11 @@ public partial class GameManager : MonoBehaviour
         SetHandControllersActive(false);
         SetHandVisualsActive(true);
         RightHandRenderer.SetActive(false);
-        LeftHandRenderer.SetActive(false);
+        LeftHandRenderer.SetActive(false); 
 
-#if UNITY_EDITOR
-        EffectMesh.HideMesh = false;
-#endif
+// #if UNITY_EDITOR
+//         EffectMesh.HideMesh = false;
+// #endif
 
         if (debugObject != null)
         {

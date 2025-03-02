@@ -260,7 +260,7 @@ public class BaseFlyBehavior : MonoBehaviour
         animator.speed = 0;
         flyAudio.Mute(true);
         UIManager.Instance.IncrementKill(transform.position, (int)SCOREFACTOR.SPRAY);
-        Destroy(gameObject);
+        Kill();
     }
     public virtual void UpdateDeadState() { }
 
@@ -357,6 +357,20 @@ public class BaseFlyBehavior : MonoBehaviour
                     }
                 }
                 break;
+        }
+    }
+
+    public void Kill(float delay = 0)
+    {
+        IsKilled = true;
+        settings.flies.Remove(gameObject);
+        if(delay > 0)
+        {
+            Destroy(gameObject, delay);
+        } 
+        else 
+        {
+            Destroy(gameObject);
         }
     }
 

@@ -18,8 +18,8 @@ public class BulletBehavior : MonoBehaviour
         Destroy(gameObject);
         if (other.gameObject.tag == "Fly")
         {
-            other.gameObject.GetComponent<BaseFlyBehavior>().IsKilled = true;
-            Destroy(other.gameObject);
+            BaseFlyBehavior fly = other.gameObject.GetComponent<BaseFlyBehavior>();
+            fly.Kill();
         }
     }
 }

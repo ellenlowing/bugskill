@@ -105,14 +105,14 @@ public class FingerGun : MonoBehaviour
     void TurnOnFiring()
     {
         _isFiring = true;
-        StatusIndicator.GetComponent<MeshRenderer>().material.color = _corePowerUpBehavior.FingerGunFiringColor;
+        // StatusIndicator.GetComponent<MeshRenderer>().material.color = _corePowerUpBehavior.FingerGunFiringColor;
     }
 
     void TurnOffFiring()
     {
         _isFiring = false;
         _lastFiringTime = 0f;
-        StatusIndicator.GetComponent<MeshRenderer>().material.color = _corePowerUpBehavior.FingerGunIdleColor;
+        // StatusIndicator.GetComponent<MeshRenderer>().material.color = _corePowerUpBehavior.FingerGunIdleColor;
     }
 
     public void FireBullet()

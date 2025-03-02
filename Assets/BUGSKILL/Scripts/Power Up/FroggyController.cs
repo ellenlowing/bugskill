@@ -253,8 +253,9 @@ public class FroggyController : BasePowerUpBehavior
     {
         if (other.tag == "Fly")
         {
-            other.GetComponentInChildren<BaseFlyBehavior>().enabled = false;
-            other.GetComponentInChildren<BaseFlyBehavior>().IsKilled = true;
+            BaseFlyBehavior fly = other.GetComponent<BaseFlyBehavior>();    
+            // other.GetComponentInChildren<BaseFlyBehavior>().enabled = false;
+            // other.GetComponentInChildren<BaseFlyBehavior>().IsKilled = true;
             var outline = other.GetComponentInChildren<Outline>();
             if (outline != null)
             {
@@ -266,7 +267,7 @@ public class FroggyController : BasePowerUpBehavior
             other.transform.localScale = other.transform.localScale * 0.5f;
 
             UIManager.Instance.IncrementKill(other.transform.position, (int)SCOREFACTOR.FROG);
-            Destroy(other.gameObject, 0.5f);
+            fly.Kill();
         }
     }
 

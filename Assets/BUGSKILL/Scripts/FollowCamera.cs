@@ -8,10 +8,17 @@ public class FollowCamera : MonoBehaviour
     public float followSpeed = 2f;    // Speed of interpolation
     public float distance = 0.8f;       // Distance in front of the user
     public Vector3 offset = new Vector3(0, 0.3f, 0); // Adjust height offset
+    public MeshRenderer[] meshRenderers;
+    public Fader fader;
 
     void Start()
     {
+        meshRenderers = GetComponentsInChildren<MeshRenderer>();
+        fader = GetComponent<Fader>();
+        fader.FadeOut();
+        SetRendererVisibility(false);
         ResetPosition();
+        StartCoroutine(ShowAfterDelay(2f));
     }
 
     void Update()
@@ -36,5 +43,20 @@ public class FollowCamera : MonoBehaviour
         Vector3 targetPosition = cameraTransform.position + cameraTransform.forward * distance + offset;
         targetPosition = new Vector3(targetPosition.x, cameraTransform.position.y, targetPosition.z);
         transform.position = targetPosition;
+    }
+
+    public void SetRendererVisibility(bool isVisible)
+    {
+        foreach (var meshRenderer in meshRenderers)
+        {
+            meshRenderer.enabled = isVisible;
+        }
+    }
+
+    IEnumerator ShowAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        SetRendererVisibility(true);
+        fader.FadeIn();
     }
 }

@@ -330,6 +330,7 @@ public class UIManager : MonoBehaviour
         settings.localKills += 1;
         settings.Cash += amount;
         ScoreUIUpdateEvent.RaiseEvent(amount, pos);
+        // GameManager.Instance.UpdateHandMaterialColor();
 
         if (settings.localKills <= settings.LevelGoals[settings.waveIndex])
         {

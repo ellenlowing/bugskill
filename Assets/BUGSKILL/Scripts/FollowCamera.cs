@@ -20,6 +20,7 @@ public class FollowCamera : MonoBehaviour
 
         // Calculate target position in front of the camera
         Vector3 targetPosition = cameraTransform.position + cameraTransform.forward * distance + offset;
+        targetPosition = new Vector3(targetPosition.x, cameraTransform.position.y, targetPosition.z);
 
         // Smoothly interpolate position
         transform.position = Vector3.Lerp(transform.position, targetPosition, Time.deltaTime * followSpeed);
@@ -33,6 +34,7 @@ public class FollowCamera : MonoBehaviour
     public void ResetPosition()
     {
         Vector3 targetPosition = cameraTransform.position + cameraTransform.forward * distance + offset;
+        targetPosition = new Vector3(targetPosition.x, cameraTransform.position.y, targetPosition.z);
         transform.position = targetPosition;
     }
 }

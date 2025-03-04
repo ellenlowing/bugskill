@@ -31,7 +31,7 @@ MonoBehaviour:
   disableBackups: 1
   enableNSCConfig: 1
   securityXmlPath: 
-  skipUnneededShaders: 0
+  skipUnneededShaders: 1
   enableIL2CPPLTO: 0
   removeGradleManifest: 1
   focusAware: 1

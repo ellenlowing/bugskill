@@ -93,6 +93,11 @@ public partial class GameManager : MonoBehaviour
     public GameObject RightHandRayInteractor;
     public LayerMask HandsLayerMask;
 
+    [Header("Hand Color")]
+    public SkinnedMeshRenderer RightHandMeshRenderer;
+    public Color StartHandColor;
+    public Color EndHandColor;
+
     [Header("Finger Gun")]
     public GameObject LeftFingerGun;
     public GameObject RightFingerGun;
@@ -199,7 +204,7 @@ public partial class GameManager : MonoBehaviour
         LevelPanel.SetActive(true);
         animator.speed = settings.divFactor / settings.durationOfWave[settings.waveIndex];
         animator.Play("Animation", 0, 0);
-
+        // UpdateHandMaterialColor();
         StartCoroutine(SetTimer(settings.durationOfWave[settings.waveIndex]));
     }
 
@@ -254,7 +259,7 @@ public partial class GameManager : MonoBehaviour
 
     IEnumerator CheckGoal(int waveI)
     {
-        SetHandVisualsActive(true);
+        // SetHandVisualsActive(true);
         int powerUpCount = DissolveAllPowerUps();
         yield return null;
         // yield return new WaitForSeconds(powerUpCount > 0 ? DissolveDuration : 0.1f);
@@ -282,7 +287,7 @@ public partial class GameManager : MonoBehaviour
 
     private void StartGameLoop()
     {
-        SetHandVisualsActive(false);
+        // SetHandVisualsActive(true);
         SetHandControllersActive(true);
         StoreManager.Instance.HideStore();
         UIManager.Instance.UpdateCashUI();
@@ -292,7 +297,7 @@ public partial class GameManager : MonoBehaviour
 
     public void RestartGameLoop()
     {
-        SetHandVisualsActive(false);
+        // SetHandVisualsActive(true);
         settings.flies.Clear();
         settings.waveIndex = StartWaveIndex;
         settings.totalKills = 0;
@@ -337,83 +342,16 @@ public partial class GameManager : MonoBehaviour
         }
     }
 
-    // public void GetValidAnchorsForGameUIGroup()
-    // {
-    //     Debug.Log("get game UI group placement");
-    //     MRUKRoom room = MRUK.Instance.GetCurrentRoom();
-    //     List<string> sceneLabels = new List<string> { "FLOOR" };
-
-    //     if (room != null)
-    //     {
-    //         foreach (var anchor in room.Anchors)
-    //         {
-    //             if (anchor.HasAnyLabel(sceneLabels))
-    //             {
-    //                 ValidAnchors.Add(anchor);
-    //             }
-    //         }
-    //     }
-    // }
-
-    // public void CycleGameUIGroupPlacement()
-    // {
-    //     if (ValidAnchors.Count == 0)
-    //     {
-    //         GetValidAnchorsForGameUIGroup();
-    //     }
-
-    //     var anchor = ValidAnchors[ValidAnchorIndex];
-    //     GameUIGroup.transform.position = anchor.transform.position;
-    //     GameUIGroup.transform.LookAt(MRUK.Instance.GetCurrentRoom().FloorAnchor.transform);
-    //     GameUIGroup.transform.eulerAngles = new Vector3(0, GameUIGroup.transform.eulerAngles.y, 0);
-
-    //     ValidAnchorIndex = (ValidAnchorIndex + 1) % ValidAnchors.Count;
-    // }
-
-    // public void PlaceGameUIGroup()
-    // {
-    //     Debug.Log("starting to place gameUIgroup");
-    //     MRUKRoom room = MRUK.Instance.GetCurrentRoom();
-    //     foreach (var anchor in room.Anchors)
-    //     {
-    //         // place hourglass on table
-    //         if (anchor.HasAnyLabel(MRUKAnchor.SceneLabels.TABLE))
-    //         {
-    //             if (!doneOnce)
-    //             {
-    //                 GameUIGroup.transform.position = anchor.transform.position;
-    //                 doneOnce = true;
-    //                 Debug.Log("Place on table");
-    //                 break;
-    //             }
-    //         }
-    //         else
-    //         {
-    //             if (anchor.HasAnyLabel(MRUKAnchor.SceneLabels.FLOOR))
-    //             {
-    //                 if (!doneOnce)
-    //                 {
-    //                     GameUIGroup.transform.position = anchor.transform.position;
-    //                     GameUIGroup.transform.forward = anchor.transform.up;
-    //                     doneOnce = true;
-    //                     Debug.Log("Place on floor");
-    //                     break;
-    //                 }
-    //             }
-    //         }
-    //     }
-
-    //     if (!doneOnce)
-    //     {
-    //         var wall = room.GetKeyWall(out Vector2 wallScale);
-    //         GameUIGroup.transform.position = wall.transform.position - new Vector3(0, wallScale.y / 2, 0); // place on floor
-    //         GameUIGroup.transform.forward = -wall.transform.forward;
-    //         Debug.Log("Place on key wall");
-    //     }
-
-    //     GameUIGroup.transform.LookAt(room.FloorAnchor.transform);
-    //     GameUIGroup.transform.eulerAngles = new Vector3(0, GameUIGroup.transform.eulerAngles.y, 0);
-    // }
+    public void PlaceGameObjectOnCeiling(GameObject obj)
+    {
+        MRUKRoom room = MRUK.Instance.GetCurrentRoom();
+        if (room != null)
+        {
+            var ceiling = room.CeilingAnchor;
+            obj.transform.position = ceiling.transform.position;
+            obj.transform.rotation = ceiling.transform.rotation;
+        }
+    }
 
     public void PlaceGameUIOnKeyWall()
     {
@@ -464,6 +402,13 @@ public partial class GameManager : MonoBehaviour
         RightHandVisuals.SetActive(active);
         LeftHandRayInteractor.SetActive(active);
         RightHandRayInteractor.SetActive(active);
+    }
+
+    public void UpdateHandMaterialColor()
+    {
+        float killPercentage = (float)settings.localKills / (float)settings.LevelGoals[settings.waveIndex];
+        Color color = Color.Lerp(StartHandColor, EndHandColor, killPercentage);
+        RightHandMeshRenderer.sharedMaterial.SetColor("_ColorTop", color);
     }
 
     public bool IsOnAnyLandingLayer(GameObject obj)

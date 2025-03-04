@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 345cf1bedd32c9f4483a79373f5c4bc1, type: 3}
-  m_Name: ShortTestSettingsSO
+  m_Name: HandTestSettings
   m_EditorClassIdentifier: 
   totalKills: 0
   localKills: 0
@@ -24,9 +24,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: f5898cf1fcc934a4784ab8ecd71b4934, type: 2}
   - {fileID: 11400000, guid: 2cb2a157148019742a5339d058893360, type: 2}
   waveIndex: 0
-  durationOfWave: 0a0000000a0000000a0000000a0000000a000000
+  durationOfWave: 05000000140000001e0000000a0000000a000000
   fliesInWave: 070000000b0000000f0000001300000016000000180000001a0000001c000000
-  LevelGoals: 0000000000000000010000000000000000000000
+  LevelGoals: 0000000003000000050000000000000000000000
   TakeoffChances:
   - 0.1
   - 0.2

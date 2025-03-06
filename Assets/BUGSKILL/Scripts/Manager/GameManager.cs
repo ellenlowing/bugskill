@@ -54,10 +54,6 @@ public partial class GameManager : MonoBehaviour
     public float TNTExplosionRadius = 1.5f;
     private Stack<GameObject> TNTFlies = new Stack<GameObject>();
 
-    [Header("MRUK")]
-    public List<MRUKAnchor> ValidAnchors;
-    public int ValidAnchorIndex = 0;
-
     [Header("Game Events")]
     [Tooltip("Subscribe to run before first game wave")]
     public VoidEventChannelSO GameBegins;
@@ -108,8 +104,7 @@ public partial class GameManager : MonoBehaviour
 
     [Header("Others")]
     public AudioSource RoundEndAudio;
-
-    // private bool doneOnce = false;
+    public ParticleSystem RoomScaleSparkle;
 
     void Awake()
     {
@@ -348,8 +343,10 @@ public partial class GameManager : MonoBehaviour
         if (room != null)
         {
             var ceiling = room.CeilingAnchor;
-            obj.transform.position = ceiling.transform.position;
-            obj.transform.rotation = ceiling.transform.rotation;
+            var floor = room.FloorAnchor;
+            var spawnY = floor.transform.position.y + (ceiling.transform.position.y - floor.transform.position.y) * 0.6f;
+            obj.transform.position = new Vector3(floor.transform.position.x, spawnY, floor.transform.position.z);
+            obj.transform.rotation = floor.transform.rotation;
         }
     }
 

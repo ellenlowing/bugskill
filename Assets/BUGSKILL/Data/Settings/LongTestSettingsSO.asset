@@ -13,16 +13,9 @@ MonoBehaviour:
   m_Name: LongTestSettingsSO
   m_EditorClassIdentifier: 
   totalKills: 0
-  localKills: 2
-  Cash: 3702
+  localKills: 0
+  Cash: 3942
   flies:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
@@ -44,11 +37,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 5d57f6c22de3aaa4fbac695a7c0a185c, type: 2}
   - {fileID: 11400000, guid: f5898cf1fcc934a4784ab8ecd71b4934, type: 2}
   - {fileID: 11400000, guid: 2cb2a157148019742a5339d058893360, type: 2}
-  waveWaitTime: 9999
-  waveIndex: 0
-  durationOfWave: 1e0000001e0000001e0000001e0000001e000000
+  waveIndex: 2
+  durationOfWave: b80b00001e0000001e0000001e0000001e000000
   fliesInWave: 0f0000000f0000000f0000000f0000000f000000
-  tntFliesInWave: 0100000002000000030000000400000005000000
   LevelGoals: 0000000000000000000000000000000000000000
   TakeoffChances:
   - 0.1

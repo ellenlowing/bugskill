@@ -27375,8 +27375,8 @@ MonoBehaviour:
   LevelPanel: {fileID: 1501541907}
   MainCameraTransform: {fileID: 1915206569}
   settings: {fileID: 11400000, guid: 415f7b1141256224db7c3c8720566774, type: 2}
-  TestMode: 1
-  StartWaveIndex: 2
+  TestMode: 0
+  StartWaveIndex: 0
   gameSettings: {fileID: 11400000, guid: 415f7b1141256224db7c3c8720566774, type: 2}
   testSettings: {fileID: 11400000, guid: b60da9f77ff96467e8d8e56b55ad389c, type: 2}
   LandingLayerName: Landing
@@ -27401,8 +27401,6 @@ MonoBehaviour:
   TNTExplosion: {fileID: 1816584845}
   TNTEffectTimeout: 5
   TNTExplosionRadius: 0.5
-  ValidAnchors: []
-  ValidAnchorIndex: 0
   GameBegins: {fileID: 11400000, guid: e1f9e8cd7ed35bb4f933dfe252aff86d, type: 2}
   FrogPowerUp: {fileID: 11400000, guid: d77f5a68065e545499e35851c0ded3e1, type: 2}
   SprayPowerUp: {fileID: 11400000, guid: e4a38373fc5699847ad7d4c59e987ae5, type: 2}
@@ -27435,6 +27433,7 @@ MonoBehaviour:
   LeftFingerSlingshot: {fileID: 856285582}
   RightFingerSlingshot: {fileID: 1502083609}
   RoundEndAudio: {fileID: 730595232}
+  RoomScaleSparkle: {fileID: 1703338195}
 --- !u!114 &730595230
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -33255,16 +33254,36 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 198407186258688942, guid: 7e569f6542324b042846eedd0b1239e3, type: 3}
+      propertyPath: lengthInSec
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 198407186258688942, guid: 7e569f6542324b042846eedd0b1239e3, type: 3}
       propertyPath: playOnAwake
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 198407186258688942, guid: 7e569f6542324b042846eedd0b1239e3, type: 3}
-      propertyPath: NoiseModule.frequency
+      propertyPath: TrailModule.enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 198407186258688942, guid: 7e569f6542324b042846eedd0b1239e3, type: 3}
+      propertyPath: CollisionModule.type
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 198407186258688942, guid: 7e569f6542324b042846eedd0b1239e3, type: 3}
+      propertyPath: NoiseModule.frequency
+      value: 0.12
       objectReference: {fileID: 0}
     - target: {fileID: 198407186258688942, guid: 7e569f6542324b042846eedd0b1239e3, type: 3}
       propertyPath: RotationModule.enabled
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 198407186258688942, guid: 7e569f6542324b042846eedd0b1239e3, type: 3}
+      propertyPath: CollisionModule.enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 198407186258688942, guid: 7e569f6542324b042846eedd0b1239e3, type: 3}
+      propertyPath: CollisionModule.quality
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 198407186258688942, guid: 7e569f6542324b042846eedd0b1239e3, type: 3}
       propertyPath: SizeModule.curve.scalar
@@ -33279,6 +33298,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 198407186258688942, guid: 7e569f6542324b042846eedd0b1239e3, type: 3}
+      propertyPath: ClampVelocityModule.enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 198407186258688942, guid: 7e569f6542324b042846eedd0b1239e3, type: 3}
       propertyPath: NoiseModule.strength.scalar
       value: -0.5
       objectReference: {fileID: 0}
@@ -33287,12 +33310,16 @@ PrefabInstance:
       value: 0.2617994
       objectReference: {fileID: 0}
     - target: {fileID: 198407186258688942, guid: 7e569f6542324b042846eedd0b1239e3, type: 3}
+      propertyPath: TrailModule.lifetime.scalar
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 198407186258688942, guid: 7e569f6542324b042846eedd0b1239e3, type: 3}
       propertyPath: NoiseModule.strengthY.scalar
       value: -0.5
       objectReference: {fileID: 0}
     - target: {fileID: 198407186258688942, guid: 7e569f6542324b042846eedd0b1239e3, type: 3}
       propertyPath: NoiseModule.strengthZ.scalar
-      value: -0.2
+      value: -0.4
       objectReference: {fileID: 0}
     - target: {fileID: 198407186258688942, guid: 7e569f6542324b042846eedd0b1239e3, type: 3}
       propertyPath: InitialModule.startSize.scalar
@@ -33307,20 +33334,36 @@ PrefabInstance:
       value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 198407186258688942, guid: 7e569f6542324b042846eedd0b1239e3, type: 3}
+      propertyPath: CollisionModule.m_Bounce.scalar
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 198407186258688942, guid: 7e569f6542324b042846eedd0b1239e3, type: 3}
+      propertyPath: CollisionModule.m_Dampen.scalar
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 198407186258688942, guid: 7e569f6542324b042846eedd0b1239e3, type: 3}
       propertyPath: NoiseModule.strengthY.minScalar
       value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 198407186258688942, guid: 7e569f6542324b042846eedd0b1239e3, type: 3}
       propertyPath: NoiseModule.strengthZ.minScalar
-      value: 0.2
+      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: 198407186258688942, guid: 7e569f6542324b042846eedd0b1239e3, type: 3}
       propertyPath: InitialModule.startSize.minScalar
-      value: 0.05
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 198407186258688942, guid: 7e569f6542324b042846eedd0b1239e3, type: 3}
       propertyPath: NoiseModule.rotationAmount.scalar
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 198407186258688942, guid: 7e569f6542324b042846eedd0b1239e3, type: 3}
+      propertyPath: CollisionModule.collidesWith.m_Bits
+      value: 72
+      objectReference: {fileID: 0}
+    - target: {fileID: 198407186258688942, guid: 7e569f6542324b042846eedd0b1239e3, type: 3}
+      propertyPath: CollisionModule.collidesWithDynamic
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 198407186258688942, guid: 7e569f6542324b042846eedd0b1239e3, type: 3}
       propertyPath: InitialModule.startColor.maxColor.b
@@ -33434,6 +33477,10 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 6b22999712355474795091cef25021b4, type: 2}
+    - target: {fileID: 199538644977711144, guid: 7e569f6542324b042846eedd0b1239e3, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: e57417e23253b694ba0ab3e608c27b62, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -36091,6 +36138,11 @@ GameObject:
 --- !u!4 &1703338193 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4192814574690622, guid: 7e569f6542324b042846eedd0b1239e3, type: 3}
+  m_PrefabInstance: {fileID: 1452082904}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &1703338195 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 198407186258688942, guid: 7e569f6542324b042846eedd0b1239e3, type: 3}
   m_PrefabInstance: {fileID: 1452082904}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &1707698284 stripped
@@ -43956,6 +44008,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Start Game Button
       objectReference: {fileID: 0}
+    - target: {fileID: 4802443908962379470, guid: fdd733798a7a54a839890e650730dc78, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 2289af0cdc4c87a42a7ba4ab51756dab, type: 2}
     - target: {fileID: 5252001710517238742, guid: fdd733798a7a54a839890e650730dc78, type: 3}
       propertyPath: m_fontColor.a
       value: 0
@@ -44418,6 +44474,7 @@ MonoBehaviour:
   offset: {x: 0, y: 0.05, z: 0}
   meshRenderers: []
   fader: {fileID: 0}
+  fadeDelay: 1
 --- !u!114 &919132147851579480
 MonoBehaviour:
   m_ObjectHideFlags: 0

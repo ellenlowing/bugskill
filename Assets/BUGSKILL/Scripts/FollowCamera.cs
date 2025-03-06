@@ -10,18 +10,17 @@ public class FollowCamera : MonoBehaviour
     public Vector3 offset = new Vector3(0, 0.3f, 0); // Adjust height offset
     public MeshRenderer[] meshRenderers;
     public Fader fader;
+    public float fadeDelay = 1f;
 
     void Awake()
     {
         meshRenderers = GetComponentsInChildren<MeshRenderer>();
-        // SetRendererVisibility(false);
         fader = GetComponent<Fader>();
-        // fader.SetAlpha(0f);
     }
     void Start()
     {
         ResetPosition();
-        StartCoroutine(ShowAfterDelay(2f));
+        StartCoroutine(ShowAfterDelay(fadeDelay));
     }
 
     void Update()
@@ -59,7 +58,6 @@ public class FollowCamera : MonoBehaviour
     IEnumerator ShowAfterDelay(float delay)
     {
         yield return new WaitForSeconds(delay);
-        // SetRendererVisibility(true);
         fader.FadeIn();
     }
 }

@@ -43956,9 +43956,13 @@ PrefabInstance:
       propertyPath: m_Name
       value: Start Game Button
       objectReference: {fileID: 0}
-    - target: {fileID: 4802443908962379470, guid: fdd733798a7a54a839890e650730dc78, type: 3}
-      propertyPath: m_Enabled
-      value: 1
+    - target: {fileID: 5252001710517238742, guid: fdd733798a7a54a839890e650730dc78, type: 3}
+      propertyPath: m_fontColor.a
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5252001710517238742, guid: fdd733798a7a54a839890e650730dc78, type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 15463897
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -44426,7 +44430,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 808aaa4c2a9129d4d9e337fc35247b56, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fadeDuration: 5
+  fadeDuration: 1.5
   tmpTexts: []
   uiImages: []
   customMaterials: []

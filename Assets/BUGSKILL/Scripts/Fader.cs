@@ -13,6 +13,7 @@ public class Fader : MonoBehaviour
     [SerializeField] private List<Material> customMaterials = new List<Material>();
     [SerializeField] private List<Material> materials = new List<Material>();
 
+
     void Start()
     {
         // Find all TMP_Text components

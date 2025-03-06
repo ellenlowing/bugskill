@@ -11,12 +11,15 @@ public class FollowCamera : MonoBehaviour
     public MeshRenderer[] meshRenderers;
     public Fader fader;
 
-    void Start()
+    void Awake()
     {
         meshRenderers = GetComponentsInChildren<MeshRenderer>();
+        // SetRendererVisibility(false);
         fader = GetComponent<Fader>();
-        fader.FadeOut();
-        SetRendererVisibility(false);
+        // fader.SetAlpha(0f);
+    }
+    void Start()
+    {
         ResetPosition();
         StartCoroutine(ShowAfterDelay(2f));
     }
@@ -56,7 +59,7 @@ public class FollowCamera : MonoBehaviour
     IEnumerator ShowAfterDelay(float delay)
     {
         yield return new WaitForSeconds(delay);
-        SetRendererVisibility(true);
+        // SetRendererVisibility(true);
         fader.FadeIn();
     }
 }

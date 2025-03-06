@@ -155,24 +155,9 @@ public class BaseFlyBehavior : MonoBehaviour
     }
     public virtual void UpdateFlyingState()
     {
-        int tries = 0;
-        while (needNewTarget)
-        {
-            FindNewPosition(true);
-
-            tries++;
-            if (tries > 30)
-            {
-                FindNewPosition(false);
-                Debug.Log(gameObject.name + " couldn't find a new position");
-                break;
-            }
-        }
-
         if (!needNewTarget)
         {
-            MoveTowardsTargetPosition();
-            if (Vector3.Distance(transform.position, targetPosition) < 0.025f) // !! REASON FOR GLITCHING WHEN EVADING
+            if (Vector3.Distance(transform.position, targetPosition) < 0.04f) // !! REASON FOR GLITCHING WHEN LANDING
             {
                 if (evadeTimer != -1 || Random.Range(0, 1f) >= TakeoffChance)
                 {
@@ -181,6 +166,22 @@ public class BaseFlyBehavior : MonoBehaviour
                 else
                 {
                     needNewTarget = true;
+                }
+            } else {
+                MoveTowardsTargetPosition();
+            }
+        } else {
+            int tries = 0;
+            while (needNewTarget)
+            {
+                FindNewPosition(true);
+
+                tries++;
+                if (tries > 30)
+                {
+                    FindNewPosition(false);
+                    Debug.Log(gameObject.name + " couldn't find a new position");
+                    break;
                 }
             }
         }
@@ -207,43 +208,45 @@ public class BaseFlyBehavior : MonoBehaviour
         if (Time.time - restTimer >= RestDuration)
         {
             EnterState(FlyState.FLYING);
-        }
-
-        Collider[] detectedHands = Physics.OverlapSphere(transform.position, CurrentFlyStat.detectionRadius, GameManager.Instance.HandsLayerMask);
-        if (!IsKilled && detectedHands.Length > 0)
+        } 
+        else 
         {
-            // If the fly is near the hand, it should start counting down to evading
-            if (evadeTimer == -1)
+            Collider[] detectedHands = Physics.OverlapSphere(transform.position, CurrentFlyStat.detectionRadius, GameManager.Instance.HandsLayerMask);
+            if (!IsKilled && detectedHands.Length > 0)
             {
-                evadeTimer = Time.time;
-            }
-            else if (Time.time - evadeTimer >= CurrentFlyStat.evadeTime)
-            {
-                // Hop to nearby location
-                Transform hand = detectedHands[0].transform;
-                Vector3 awayFromHand = hand.position - transform.position; // Direction away from the hand
-                awayFromHand = Vector3.ProjectOnPlane(awayFromHand, transform.up).normalized; // TODO 2nd parameter should be the landing surface's normal vector
-                float randomAngle = Random.Range(-90f, 90f);
-                Quaternion randomRotation = Quaternion.Euler(randomAngle * transform.up);
-                awayFromHand = randomRotation * awayFromHand;
-                Vector3 evadePosition = transform.position + awayFromHand * CurrentFlyStat.evadeDistance;
-                Vector3 closestPosition = evadePosition;
-                Vector3 closestNormal = transform.up;
-                if (currentLandingSurface != null)
+                // If the fly is near the hand, it should start counting down to evading
+                if (evadeTimer == -1)
                 {
-                    // Improvement Notes
-                    // 1. Make sure the evaded position is within the bounds of the surface that the fly initially landed on
-                    // 2. Account for the landing surface's rotation
-                    float closestDistance = currentLandingSurface.GetClosestSurfacePosition(evadePosition, out closestPosition, out closestNormal);
+                    evadeTimer = Time.time;
                 }
-                targetPosition = closestPosition;
-                targetNormal = closestNormal;
-                EnterState(FlyState.FLYING);
+                else if (Time.time - evadeTimer >= CurrentFlyStat.evadeTime)
+                {
+                    // Hop to nearby location
+                    Transform hand = detectedHands[0].transform;
+                    Vector3 awayFromHand = hand.position - transform.position; // Direction away from the hand
+                    awayFromHand = Vector3.ProjectOnPlane(awayFromHand, transform.up).normalized; // TODO 2nd parameter should be the landing surface's normal vector
+                    float randomAngle = Random.Range(-90f, 90f);
+                    Quaternion randomRotation = Quaternion.Euler(randomAngle * transform.up);
+                    awayFromHand = randomRotation * awayFromHand;
+                    Vector3 evadePosition = transform.position + awayFromHand * CurrentFlyStat.evadeDistance;
+                    Vector3 closestPosition = evadePosition;
+                    Vector3 closestNormal = transform.up;
+                    if (currentLandingSurface != null)
+                    {
+                        // Improvement Notes
+                        // 1. Make sure the evaded position is within the bounds of the surface that the fly initially landed on
+                        // 2. Account for the landing surface's rotation
+                        float closestDistance = currentLandingSurface.GetClosestSurfacePosition(evadePosition, out closestPosition, out closestNormal);
+                    }
+                    targetPosition = closestPosition;
+                    targetNormal = closestNormal;
+                    EnterState(FlyState.FLYING);
+                }
             }
-        }
-        else
-        {
-            evadeTimer = -1;
+            else
+            {
+                evadeTimer = -1;
+            }
         }
     }
 
@@ -287,7 +290,8 @@ public class BaseFlyBehavior : MonoBehaviour
     private void MoveTowardsTargetPosition()
     {
         Vector3 direction = (targetPosition - transform.position).normalized;
-        transform.position += direction * FlyingSpeed * Time.deltaTime;
+        float evadeSpeedMultiplier = evadeTimer != -1? 0.5f : 1f;
+        transform.position += direction * FlyingSpeed * evadeSpeedMultiplier * Time.deltaTime;
         transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(direction), CurrentFlyStat.rotationSpeed * Time.deltaTime);
     }
 

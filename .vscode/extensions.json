@@ -1,5 +1,6 @@
 {
-    "recommendations": [
-      "visualstudiotoolsforunity.vstuc"
-    ]
+  "recommendations": [
+    "visualstudiotoolsforunity.vstuc",
+    "esbenp.prettier-vscode"
+  ]
 }

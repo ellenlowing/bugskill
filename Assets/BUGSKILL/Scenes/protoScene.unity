@@ -3189,6 +3189,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8329739274982515645, guid: 9e97e48275a5e4e569483e81bad37b11, type: 3}
+      propertyPath: fadeDuration
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -18851,7 +18855,7 @@ PrefabInstance:
     - target: {fileID: 3613868102660323786, guid: c2e00db6d2dfa42ac8d821db8d493a44, type: 3}
       propertyPath: <RoomCreatedEvent>k__BackingField.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
-      objectReference: {fileID: 730595231}
+      objectReference: {fileID: 0}
     - target: {fileID: 3613868102660323786, guid: c2e00db6d2dfa42ac8d821db8d493a44, type: 3}
       propertyPath: <RoomCreatedEvent>k__BackingField.m_PersistentCalls.m_Calls.Array.data[2].m_Target
       value: 
@@ -19708,6 +19712,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2300318445620189431, guid: 9e97e48275a5e4e569483e81bad37b11, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8329739274982515645, guid: 9e97e48275a5e4e569483e81bad37b11, type: 3}
+      propertyPath: fadeDuration
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -27019,7 +27027,7 @@ GameObject:
   - component: {fileID: 717276196}
   - component: {fileID: 717276195}
   m_Layer: 0
-  m_Name: AudioManager
+  m_Name: BGMManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -27037,7 +27045,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 0.45
+  m_Volume: 0.4
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -27136,6 +27144,7 @@ MonoBehaviour:
   src: {fileID: 717276195}
   fadeDuration: 1.5
   originalVolume: 0
+  subtleVolume: 0.1
   ingameClip: {fileID: 8300000, guid: cc52e5e512fb94334a175e7f85ce3d42, type: 3}
   storeClip: {fileID: 8300000, guid: 516724a424a0a494aa154e01da49c11b, type: 3}
   endClip: {fileID: 8300000, guid: 367d529ec43bd4645b254e3c5d14c2db, type: 3}
@@ -27319,7 +27328,6 @@ GameObject:
   - component: {fileID: 730595228}
   - component: {fileID: 730595229}
   - component: {fileID: 730595230}
-  - component: {fileID: 730595231}
   - component: {fileID: 730595232}
   m_Layer: 0
   m_Name: GameManager
@@ -27375,10 +27383,10 @@ MonoBehaviour:
   LevelPanel: {fileID: 1501541907}
   MainCameraTransform: {fileID: 1915206569}
   settings: {fileID: 11400000, guid: 415f7b1141256224db7c3c8720566774, type: 2}
-  TestMode: 0
+  TestMode: 1
   StartWaveIndex: 0
   gameSettings: {fileID: 11400000, guid: 415f7b1141256224db7c3c8720566774, type: 2}
-  testSettings: {fileID: 11400000, guid: b60da9f77ff96467e8d8e56b55ad389c, type: 2}
+  testSettings: {fileID: 11400000, guid: f17f1c6612d95425a8965738fd836c8a, type: 2}
   LandingLayerName: Landing
   FloorLayerName: Floor
   WallLayerName: Wall
@@ -27465,6 +27473,9 @@ MonoBehaviour:
   GameEndUI: {fileID: 1918739197658357991}
   GameEndWinText: {fileID: 1665218906}
   GameEndLoseText: {fileID: 78772365}
+  WinstonFly: {fileID: 1413817290}
+  WinClip: {fileID: 8300000, guid: 03c5260d2e5372644ac155fe80c5ef20, type: 3}
+  LoseClip: {fileID: 8300000, guid: e44eb7b733c7e7b4abc97c758d06dd2e, type: 3}
   FlaskRenderer: {fileID: 418204319768724896}
   FlaskParticles: {fileID: 654452862}
   FlaskFillSpeed: 2
@@ -27489,56 +27500,6 @@ MonoBehaviour:
   BossFightEvent: {fileID: 11400000, guid: f4a202747a2db56458f5fccf51298240, type: 2}
   StartNextWaveEvent: {fileID: 11400000, guid: 16826ff85b57ded42a9461c318dd55c3, type: 2}
   ScoreUIUpdateEvent: {fileID: 11400000, guid: 483d9bbf59d0e684fa36d25290bb15c8, type: 2}
---- !u!114 &730595231
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 730595226}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5cdc4b1b89c7c14e907ce0bab27b683, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  IsStoreActive: 0
-  MinDistanceToEdges: 1.5
-  StoreUI: {fileID: 2375270128856768485}
-  PopupTextObj: {fileID: 6082352034369301065, guid: 7f31f79308105443f8b0a1f4cb6bdfdc, type: 3}
-  GlobalName: {fileID: 519488274}
-  GlobalDescription: {fileID: 646988969265161865}
-  GlobalCashAmount: {fileID: 1293099588}
-  ShopItemDataUI: {fileID: 2028997170}
-  PurchaseBtnUI: {fileID: 9094096361958416363}
-  PurchaseBtn: {fileID: 613149751}
-  NextWaveBtn: {fileID: 1579489183}
-  StartNextWaveEvent: {fileID: 11400000, guid: 16826ff85b57ded42a9461c318dd55c3, type: 2}
-  ShopItems:
-  - {fileID: 3358396685065003162, guid: 5b709086755b74cd7856211270f75868, type: 3}
-  - {fileID: 124363068891232957, guid: 3ca39db74fe6b40daa34b2cd4edc4d57, type: 3}
-  - {fileID: 5455849151864903232, guid: 3c3e56f35930b43a6943720e083bf1ef, type: 3}
-  - {fileID: 2991904239131300368, guid: cf9b54e7873904dabbe3b87d6f87696e, type: 3}
-  - {fileID: 2819779808052606813, guid: 35762777fd1d94782b096022b23edcb1, type: 3}
-  ShopItemsParent: {fileID: 1414895417}
-  ShopItemContainersParent: {fileID: 1650644957}
-  ShopMaster: {fileID: 997094406}
-  ShoppingBasket: {fileID: 396587582}
-  ThumbsUpEvent: {fileID: 82103667}
-  PowerUpDockingStation: {fileID: 324472332}
-  ShopItemPositions:
-  - {fileID: 2086158869}
-  - {fileID: 149993698}
-  - {fileID: 1243422799}
-  - {fileID: 111128113}
-  - {fileID: 1964221243}
-  StorePositionFinder: {fileID: 107476052}
-  CheckoutSound: {fileID: 919132149417660269}
-  CheckoutInstructions: {fileID: 1833336822}
-  ThankyouDialog: {fileID: 1928257721}
-  ThankyouDialogText: {fileID: 1914784018}
-  NotEnoughCashDialog: {fileID: 566025704}
-  _selectedPowerUp: {fileID: 0}
-  _powerUpTypes: 
 --- !u!82 &730595232
 AudioSource:
   m_ObjectHideFlags: 0
@@ -29764,6 +29725,194 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2300318445620189431, guid: 9e97e48275a5e4e569483e81bad37b11, type: 3}
   m_PrefabInstance: {fileID: 967544234}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &980634048
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 980634051}
+  - component: {fileID: 980634050}
+  - component: {fileID: 980634049}
+  m_Layer: 0
+  m_Name: StoreManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!82 &980634049
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 980634048}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 30b6322c70f2b4f4f9d6c9112fe05392, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!114 &980634050
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 980634048}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5cdc4b1b89c7c14e907ce0bab27b683, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsStoreActive: 0
+  MinDistanceToEdges: 1.5
+  StoreUI: {fileID: 2375270128856768485}
+  PopupTextObj: {fileID: 6082352034369301065, guid: 7f31f79308105443f8b0a1f4cb6bdfdc, type: 3}
+  GlobalName: {fileID: 519488274}
+  GlobalDescription: {fileID: 646988969265161865}
+  GlobalCashAmount: {fileID: 1293099588}
+  ShopItemDataUI: {fileID: 2028997170}
+  PurchaseBtnUI: {fileID: 9094096361958416363}
+  PurchaseBtn: {fileID: 613149751}
+  NextWaveBtn: {fileID: 1579489183}
+  StartNextWaveEvent: {fileID: 11400000, guid: 16826ff85b57ded42a9461c318dd55c3, type: 2}
+  ShopItems:
+  - {fileID: 3358396685065003162, guid: 5b709086755b74cd7856211270f75868, type: 3}
+  - {fileID: 124363068891232957, guid: 3ca39db74fe6b40daa34b2cd4edc4d57, type: 3}
+  - {fileID: 5455849151864903232, guid: 3c3e56f35930b43a6943720e083bf1ef, type: 3}
+  - {fileID: 2991904239131300368, guid: cf9b54e7873904dabbe3b87d6f87696e, type: 3}
+  - {fileID: 2819779808052606813, guid: 35762777fd1d94782b096022b23edcb1, type: 3}
+  ShopItemsParent: {fileID: 1414895417}
+  ShopItemContainersParent: {fileID: 1650644957}
+  ShopMaster: {fileID: 997094406}
+  ShoppingBasket: {fileID: 396587582}
+  ThumbsUpEvent: {fileID: 82103667}
+  PowerUpDockingStation: {fileID: 324472332}
+  ShopItemPositions:
+  - {fileID: 2086158869}
+  - {fileID: 149993698}
+  - {fileID: 1243422799}
+  - {fileID: 111128113}
+  - {fileID: 1964221243}
+  StorePositionFinder: {fileID: 107476052}
+  CheckoutSound: {fileID: 919132149417660269}
+  CheckoutInstructions: {fileID: 1833336822}
+  ThankyouDialog: {fileID: 1928257721}
+  ThankyouDialogText: {fileID: 1914784018}
+  NotEnoughCashDialog: {fileID: 566025704}
+  StoreOwner: {fileID: 997094407}
+  KaChingSFX: {fileID: 980634049}
+  WelcomeClips:
+  - {fileID: 8300000, guid: a087c9a1353d5ee49acb2acb7270a3d4, type: 3}
+  - {fileID: 8300000, guid: 680988605fc049f46b793051b45546d8, type: 3}
+  BuyInstructionClip: {fileID: 8300000, guid: 761b5b99ae36c7842bab13d1b67066e0, type: 3}
+  CheckoutClips:
+  - {fileID: 8300000, guid: 9547d0f5d56b0234db4e7003bb052cec, type: 3}
+  - {fileID: 8300000, guid: 7cff76ae3bee7bc47b334aa21ecf0d53, type: 3}
+  _selectedPowerUp: {fileID: 0}
+  _powerUpTypes: 
+--- !u!4 &980634051
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 980634048}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &984829709
 GameObject:
   m_ObjectHideFlags: 0
@@ -30012,6 +30161,17 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 708182128869486111, guid: 9e97e48275a5e4e569483e81bad37b11, type: 3}
   m_PrefabInstance: {fileID: 202595825}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &997094407 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8329739274982515645, guid: 9e97e48275a5e4e569483e81bad37b11, type: 3}
+  m_PrefabInstance: {fileID: 202595825}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 997094406}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ab1c14d9bda043258f26635879c0a18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &997988755 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 9048238750646488156, guid: ea16c3c8c1688234fa81a4f39339bf1b, type: 3}
@@ -33051,6 +33211,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1411688636}
   m_CullTransparentMesh: 1
+--- !u!114 &1413817290 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8329739274982515645, guid: 9e97e48275a5e4e569483e81bad37b11, type: 3}
+  m_PrefabInstance: {fileID: 477481522}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ab1c14d9bda043258f26635879c0a18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1414895416
 GameObject:
   m_ObjectHideFlags: 0
@@ -37305,7 +37476,7 @@ MonoBehaviour:
   OnButtonPressed:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 730595231}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: StoreManager, Assembly-CSharp
         m_MethodName: NextWave
         m_Mode: 1
@@ -63956,6 +64127,7 @@ SceneRoots:
   - {fileID: 418266064}
   - {fileID: 115128580}
   - {fileID: 730595227}
+  - {fileID: 980634051}
   - {fileID: 717276197}
   - {fileID: 720755180}
   - {fileID: 1745066424}

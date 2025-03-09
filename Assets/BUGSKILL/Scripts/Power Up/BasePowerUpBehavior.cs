@@ -241,19 +241,25 @@ public class BasePowerUpBehavior : MonoBehaviour
             ActiveOVRHand = GameManager.Instance.LeftOVRHand;
         }
 
-        if (StoreManager.Instance.IsStoreActive && !IsSold)  
+        if (StoreManager.Instance.IsStoreActive && !IsSold)
         {
             StoreManager.Instance.SetActivePowerUp(this);
             HandleUI(showDetails: true, showPriceTag: false, handedness: handedness);
             if (Teaser != null) Teaser.Play();
         }
 
-        if(IsSold)
+        if (IsSold)
         {
             if (AnchoredToHandPose)
             {
                 transform.parent = ActiveOVRHand.gameObject.transform;
             }
+        }
+
+        if (!StoreManager.Instance.HasGrabbedAnyItem)
+        {
+            StoreManager.Instance.HasGrabbedAnyItem = true;
+            StoreManager.Instance.CueBuyInstruction();
         }
 
         EnterState(PowerUpState.ACTIVE);

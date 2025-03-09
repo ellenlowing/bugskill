@@ -2,12 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AudioManager : MonoBehaviour
+public class BGMManager : MonoBehaviour
 {
-    public static AudioManager Instance;
+    public static BGMManager Instance;
     public AudioSource src;
     public float fadeDuration = 1;
     public float originalVolume;
+    public float subtleVolume;
 
     [Header("Audio Clips")]
     public AudioClip ingameClip;
@@ -53,19 +54,18 @@ public class AudioManager : MonoBehaviour
 
     public void FadeIn()
     {
-        StartCoroutine(FadeAudio(0, originalVolume));
+        StartCoroutine(FadeAudio(subtleVolume, originalVolume));
     }
 
     public void FadeOut()
     {
-        StartCoroutine(FadeAudio(originalVolume, 0));
+        StartCoroutine(FadeAudio(originalVolume, subtleVolume));
     }
 
     private IEnumerator FadeAudio(float startVolume, float targetVolume)
     {
         float currentTime = 0;
         src.volume = startVolume;
-        src.Play();
 
         while (currentTime < fadeDuration)
         {
@@ -74,7 +74,6 @@ public class AudioManager : MonoBehaviour
             yield return null;
         }
     }
-
 
     private IEnumerator FadeOutIn(AudioClip newClip, bool loop)
     {

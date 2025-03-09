@@ -36,6 +36,11 @@ public class UIManager : MonoBehaviour
     public TextMeshProUGUI GameEndWinText;
     public TextMeshProUGUI GameEndLoseText;
 
+    [Header("Audio")]
+    public MCFlyBehavior WinstonFly;
+    public AudioClip WinClip;
+    public AudioClip LoseClip;
+
     [Header("Flask")]
     [Space(20)]
     public Renderer FlaskRenderer;
@@ -193,12 +198,14 @@ public class UIManager : MonoBehaviour
             GameEndWinText.text = String.Format("Splendid work! You've killed {0} flies and saved me from another day of sipping tea and pondering the futility of existence. Onward, dear friend, to our next adventure!", settings.totalKills);
             GameEndWinText.gameObject.SetActive(true);
             GameEndLoseText.gameObject.SetActive(false);
+            WinstonFly.PlayClip(WinClip, 3, false);
         }
         else
         {
             GameEndLoseText.text = String.Format("{0} flies down, and yet, here I am - still stuck in this tea-sipping nightmare. Bravo. Perhaps next time we’ll aim for success instead of existential dread, hmm?", settings.totalKills);
             GameEndWinText.gameObject.SetActive(false);
             GameEndLoseText.gameObject.SetActive(true);
+            WinstonFly.PlayClip(LoseClip, 3, false);
         }
     }
 

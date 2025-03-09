@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using Oculus.Interaction;
 using Oculus.Interaction.Input;
-using Oculus.Interaction.PoseDetection;
 using Meta.XR.MRUtilityKit;
 using UnityEngine.UIElements;
 using System.Collections;
@@ -54,9 +53,17 @@ public class StoreManager : MonoBehaviour
     public GameObject ThankyouDialog;
     public TextMeshProUGUI ThankyouDialogText;
     public GameObject NotEnoughCashDialog;
-    // public TextMeshProUGUI NotEnoughCashDialogText;
 
+    [Header("Audio")]
+    public MCFlyBehavior StoreOwner;
+    public AudioSource KaChingSFX;
+    public List<AudioClip> WelcomeClips;
+    public AudioClip BuyInstructionClip;
+    public List<AudioClip> CheckoutClips;
+
+    [Header("Misc")]
     public BasePowerUpBehavior _selectedPowerUp;
+    public bool HasGrabbedAnyItem = false;
     private SettingSO settings;
     public List<BasePowerUpBehavior.PowerUpType> _powerUpTypes = new List<BasePowerUpBehavior.PowerUpType>();
 
@@ -90,21 +97,25 @@ public class StoreManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             _selectedPowerUp = ShopItemsParent.GetChild(0).GetComponentInChildren<BasePowerUpBehavior>();
+            _selectedPowerUp.ActiveOVRHand = GameManager.Instance.LeftOVRHand;
             Purchase(_selectedPowerUp);
         }
         else if (Input.GetKeyDown(KeyCode.Alpha2))
         {
             _selectedPowerUp = ShopItemsParent.GetChild(1).GetComponentInChildren<BasePowerUpBehavior>();
+            _selectedPowerUp.ActiveOVRHand = GameManager.Instance.LeftOVRHand;
             Purchase(_selectedPowerUp);
         }
         else if (Input.GetKeyDown(KeyCode.Alpha3))
         {
             _selectedPowerUp = ShopItemsParent.GetChild(2).GetComponentInChildren<BasePowerUpBehavior>();
+            _selectedPowerUp.ActiveOVRHand = GameManager.Instance.LeftOVRHand;
             Purchase(_selectedPowerUp);
         }
         else if (Input.GetKeyDown(KeyCode.Alpha4))
         {
             _selectedPowerUp = ShopItemsParent.GetChild(3).GetComponentInChildren<BasePowerUpBehavior>();
+            _selectedPowerUp.ActiveOVRHand = GameManager.Instance.LeftOVRHand;
             Purchase(_selectedPowerUp);
         }
 
@@ -129,9 +140,9 @@ public class StoreManager : MonoBehaviour
                 UIManager.Instance.UpdateCashUI();
 
                 GameObject powerupItem = powerup.GetComponentInParent<Grabbable>().gameObject;
-
                 AddTextPopUp(shopItemName + " Purchased!", powerupItem.transform.position);
-                Debug.Log("Purchased " + powerup.name);
+                KaChingSFX.Play();
+                StoreOwner.PlayClip(clip: CheckoutClips[settings.waveIndex % CheckoutClips.Count], delay: 2f);
             }
         }
     }
@@ -146,42 +157,6 @@ public class StoreManager : MonoBehaviour
     {
         Debug.Log("Showing store");
 
-        // UNCOMMENT IF SHOPPING BASKET FEATURE IS RE-ENABLED
-        // // Dialog
-        // CheckoutInstructions.SetActive(true);
-        // ThankyouDialog.SetActive(false);
-        // NotEnoughCashDialog.SetActive(false);
-
-        // // Hide Docking Station
-        // PowerUpDockingStation.gameObject.SetActive(false);
-
-        // Empty shopping basket
-        // ShoppingBasket.Empty();
-
-        // ORIGINAL IMPLEMENTATION STARTS HERE
-        // Empty store displays
-        // for (int i = 0; i < ShopItemsParent.childCount; i++)
-        // {
-        //     Destroy(ShopItemsParent.GetChild(i).gameObject);
-        // }
-
-        // // Instantiate shop items
-        // List<GameObject> powerupInStock = new List<GameObject>();
-        // foreach (var item in ShopItems)
-        // {
-        //     var powerup = Instantiate(item, ShopItemsParent);
-        //     powerupInStock.Add(powerup);
-        // }
-
-        // // Organize shop items based on list of shop item transforms
-        // for (int i = 0; i < powerupInStock.Count; i++)
-        // {
-        //     var powerup = powerupInStock[i];
-        //     powerup.transform.position = ShopItemPositions[i].position;
-        //     RotatePowerUpDisplay(powerup);
-        // }
-        // ORIGINAL IMPLEMENTATION ENDS HERE
-
         for (int i = 0; i < ShopItemsParent.childCount; i++)
         {
             var powerup = ShopItemsParent.GetChild(i).gameObject;
@@ -190,11 +165,13 @@ public class StoreManager : MonoBehaviour
         }
 
         // Use Store Position Finder to grab spawn location
+        HasGrabbedAnyItem = false;
         PlaceStore();
         UIManager.Instance.UpdateCashUI();
         StoreUI.SetActive(true);
         IsStoreActive = true;
-        AudioManager.Instance.CueStore();
+        BGMManager.Instance.CueStore();
+        StoreOwner.PlayClip(clip: WelcomeClips[(settings.waveIndex + 1) % WelcomeClips.Count], delay: 3f);
     }
 
     public void RestockPowerup(BasePowerUpBehavior powerup)
@@ -349,5 +326,10 @@ public class StoreManager : MonoBehaviour
         GameObject tempObj = Instantiate(PopupTextObj, position, Quaternion.identity);
         UIManager.Instance.FaceCamera(tempObj);
         Destroy(tempObj, 1f);
+    }
+
+    public void CueBuyInstruction()
+    {
+        StoreOwner.PlayClip(clip: BuyInstructionClip, delay: 2f);
     }
 }

@@ -145,11 +145,11 @@ public partial class GameManager : MonoBehaviour
         SetHandControllersActive(false);
         SetHandVisualsActive(true);
         RightHandRenderer.SetActive(false);
-        LeftHandRenderer.SetActive(false); 
+        LeftHandRenderer.SetActive(false);
 
-// #if UNITY_EDITOR
-//         EffectMesh.HideMesh = false;
-// #endif
+        // #if UNITY_EDITOR
+        //         EffectMesh.HideMesh = false;
+        // #endif
 
         if (debugObject != null)
         {
@@ -242,13 +242,13 @@ public partial class GameManager : MonoBehaviour
     {
         StartNextWaveEvent.OnEventRaised += StartNextWave;
         GameBegins.OnEventRaised += StartGameLoop;
-        GameEnds.OnEventRaised += AudioManager.Instance.CueEnding;
+        GameEnds.OnEventRaised += BGMManager.Instance.CueEnding;
     }
 
     public void StartNextWave()
     {
         StoreManager.Instance.HideStore();
-        AudioManager.Instance.CueGame();
+        BGMManager.Instance.CueGame();
         Invoke(nameof(InitializeRound), UIManager.Instance.RoundStartUIDuration);
     }
 
@@ -286,7 +286,7 @@ public partial class GameManager : MonoBehaviour
         SetHandControllersActive(true);
         StoreManager.Instance.HideStore();
         UIManager.Instance.UpdateCashUI();
-        AudioManager.Instance.CueGame();
+        BGMManager.Instance.CueGame();
         Invoke(nameof(InitializeRound), UIManager.Instance.RoundStartUIDuration);
     }
 

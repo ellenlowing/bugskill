@@ -1363,7 +1363,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 3269330350203666269}
+    m_TransformParent: {fileID: 1437627962}
     m_Modifications:
     - target: {fileID: 1755020695691279219, guid: fdd733798a7a54a839890e650730dc78, type: 3}
       propertyPath: m_LocalScale.x
@@ -1391,11 +1391,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3343593301219384457, guid: fdd733798a7a54a839890e650730dc78, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.32
+      value: -0.32999992
       objectReference: {fileID: 0}
     - target: {fileID: 3343593301219384457, guid: fdd733798a7a54a839890e650730dc78, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.207
+      value: 1.177
       objectReference: {fileID: 0}
     - target: {fileID: 3343593301219384457, guid: fdd733798a7a54a839890e650730dc78, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1403,7 +1403,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3343593301219384457, guid: fdd733798a7a54a839890e650730dc78, type: 3}
       propertyPath: m_LocalRotation.w
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3343593301219384457, guid: fdd733798a7a54a839890e650730dc78, type: 3}
       propertyPath: m_LocalRotation.x
@@ -1437,6 +1437,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Skip (Store Button)
       objectReference: {fileID: 0}
+    - target: {fileID: 3678661475425720304, guid: fdd733798a7a54a839890e650730dc78, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4715845077349485654, guid: fdd733798a7a54a839890e650730dc78, type: 3}
       propertyPath: _data
       value: 
@@ -1448,6 +1452,14 @@ PrefabInstance:
     - target: {fileID: 5252001710517238742, guid: fdd733798a7a54a839890e650730dc78, type: 3}
       propertyPath: m_text
       value: SKIP
+      objectReference: {fileID: 0}
+    - target: {fileID: 5252001710517238742, guid: fdd733798a7a54a839890e650730dc78, type: 3}
+      propertyPath: m_fontSize
+      value: 45
+      objectReference: {fileID: 0}
+    - target: {fileID: 5252001710517238742, guid: fdd733798a7a54a839890e650730dc78, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 45
       objectReference: {fileID: 0}
     - target: {fileID: 8705044287800236265, guid: fdd733798a7a54a839890e650730dc78, type: 3}
       propertyPath: _width
@@ -3155,7 +3167,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2300318445620189431, guid: 9e97e48275a5e4e569483e81bad37b11, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.301
+      value: 1.157
       objectReference: {fileID: 0}
     - target: {fileID: 2300318445620189431, guid: 9e97e48275a5e4e569483e81bad37b11, type: 3}
       propertyPath: m_LocalPosition.z
@@ -3187,6 +3199,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2300318445620189431, guid: 9e97e48275a5e4e569483e81bad37b11, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4482827973642035594, guid: 9e97e48275a5e4e569483e81bad37b11, type: 3}
+      propertyPath: Spatialize
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4482827973642035594, guid: 9e97e48275a5e4e569483e81bad37b11, type: 3}
+      propertyPath: panLevelCustomCurve.m_Curve.Array.data[0].value
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8329739274982515645, guid: 9e97e48275a5e4e569483e81bad37b11, type: 3}
@@ -19214,7 +19234,7 @@ Transform:
   m_GameObject: {fileID: 454101724}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -1, z: -0, w: 0}
-  m_LocalPosition: {x: -0.893, y: 0.98, z: 0.065}
+  m_LocalPosition: {x: -0.893, y: 0.836, z: 0.065}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -19227,7 +19247,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 3269330350203666269}
+    m_TransformParent: {fileID: 1437627962}
     m_Modifications:
     - target: {fileID: 1755020695691279219, guid: fdd733798a7a54a839890e650730dc78, type: 3}
       propertyPath: m_LocalScale.x
@@ -19255,19 +19275,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3343593301219384457, guid: fdd733798a7a54a839890e650730dc78, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.023
+      value: -0.32999992
       objectReference: {fileID: 0}
     - target: {fileID: 3343593301219384457, guid: fdd733798a7a54a839890e650730dc78, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.207
+      value: 1.304
       objectReference: {fileID: 0}
     - target: {fileID: 3343593301219384457, guid: fdd733798a7a54a839890e650730dc78, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.01399985
+      value: -0.013999969
       objectReference: {fileID: 0}
     - target: {fileID: 3343593301219384457, guid: fdd733798a7a54a839890e650730dc78, type: 3}
       propertyPath: m_LocalRotation.w
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3343593301219384457, guid: fdd733798a7a54a839890e650730dc78, type: 3}
       propertyPath: m_LocalRotation.x
@@ -19312,6 +19332,14 @@ PrefabInstance:
     - target: {fileID: 5252001710517238742, guid: fdd733798a7a54a839890e650730dc78, type: 3}
       propertyPath: m_text
       value: BUY
+      objectReference: {fileID: 0}
+    - target: {fileID: 5252001710517238742, guid: fdd733798a7a54a839890e650730dc78, type: 3}
+      propertyPath: m_fontSize
+      value: 45
+      objectReference: {fileID: 0}
+    - target: {fileID: 5252001710517238742, guid: fdd733798a7a54a839890e650730dc78, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 45
       objectReference: {fileID: 0}
     - target: {fileID: 8705044287800236265, guid: fdd733798a7a54a839890e650730dc78, type: 3}
       propertyPath: _width
@@ -29859,7 +29887,7 @@ MonoBehaviour:
   GlobalDescription: {fileID: 646988969265161865}
   GlobalCashAmount: {fileID: 1293099588}
   ShopItemDataUI: {fileID: 2028997170}
-  PurchaseBtnUI: {fileID: 9094096361958416363}
+  StoreButtons: {fileID: 1437627961}
   PurchaseBtn: {fileID: 613149751}
   NextWaveBtn: {fileID: 1579489183}
   StartNextWaveEvent: {fileID: 11400000, guid: 16826ff85b57ded42a9461c318dd55c3, type: 2}
@@ -29897,6 +29925,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 9547d0f5d56b0234db4e7003bb052cec, type: 3}
   - {fileID: 8300000, guid: 7cff76ae3bee7bc47b334aa21ecf0d53, type: 3}
   _selectedPowerUp: {fileID: 0}
+  HasGrabbedAnyItem: 0
   _powerUpTypes: 
 --- !u!4 &980634051
 Transform:
@@ -33352,6 +33381,39 @@ Light:
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!1 &1437627961
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1437627962}
+  m_Layer: 10
+  m_Name: Store Buttons
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1437627962
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1437627961}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 613149747}
+  - {fileID: 1579489179}
+  m_Father: {fileID: 3269330350203666269}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1452082904
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -36078,7 +36140,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -0, y: -0.8}
-  m_SizeDelta: {x: 200, y: 62.7}
+  m_SizeDelta: {x: 200, y: 57.9}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1680593333
 MonoBehaviour:
@@ -36100,7 +36162,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Ready for your next battle? Grab a power-up and click Buy!
+  m_text: "Want something? Hold the item in one hand, then poke the button with another
+    hand. Voil\xE0!"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: f02e4f70bf1c84288993344b8500e643, type: 2}
   m_sharedMaterial: {fileID: 6242911578138398018, guid: f02e4f70bf1c84288993344b8500e643, type: 2}
@@ -36127,10 +36190,10 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 11
+  m_fontSize: 8.95
   m_fontSizeBase: 11
   m_fontWeight: 400
-  m_enableAutoSizing: 0
+  m_enableAutoSizing: 1
   m_fontSizeMin: 2
   m_fontSizeMax: 18
   m_fontStyle: 0
@@ -37849,18 +37912,17 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1833336822}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b49915d6d0cec4ebbaea41c66951f723, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   DialogList:
-  - Place the items in the glowing basket. When you're ready to check out, just look
-    at me and give me two big thumbs up!
-  - Feel free to experiment with the power-up at your leisure. Take your time and
-    see how it suits you!
-  DialogText: {fileID: 1942250206}
-  DialogDuration: 8
+  - "Want something? Hold the item in one hand, then poke the Buy button with another
+    hand. Voil\xE0!"
+  - Go on, grab whatever catches your eye and read up on its abilities.
+  DialogText: {fileID: 1680593333}
+  DialogDuration: 10
 --- !u!114 &1833336825
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -49863,8 +49925,7 @@ Transform:
   m_Children:
   - {fileID: 202595826}
   - {fileID: 454101725}
-  - {fileID: 613149747}
-  - {fileID: 1579489179}
+  - {fileID: 1437627962}
   - {fileID: 543450652473981799}
   - {fileID: 543450653337195984}
   - {fileID: 6639556372214571800}

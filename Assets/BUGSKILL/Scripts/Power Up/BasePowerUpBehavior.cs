@@ -259,7 +259,7 @@ public class BasePowerUpBehavior : MonoBehaviour
         if (!StoreManager.Instance.HasGrabbedAnyItem)
         {
             StoreManager.Instance.HasGrabbedAnyItem = true;
-            StoreManager.Instance.CueBuyInstruction();
+            // StoreManager.Instance.CueBuyInstruction();
         }
 
         EnterState(PowerUpState.ACTIVE);

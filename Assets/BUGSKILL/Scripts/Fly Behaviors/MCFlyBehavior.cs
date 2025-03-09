@@ -14,7 +14,7 @@ public class MCFlyBehavior : MonoBehaviour
         originalVolume = src.volume;
     }
 
-    public void PlayClip(AudioClip clip, float delay = 0, bool loop = false)
+    public float PlayClip(AudioClip clip, float delay = 0, bool loop = false)
     {
         // NOTE: delay must be larger than BGMManager fadeDuration*2
         if (delay < BGMManager.Instance.fadeDuration * 2)
@@ -23,6 +23,7 @@ public class MCFlyBehavior : MonoBehaviour
         }
         StartCoroutine(DelayPlay(clip, delay, loop));
         StartCoroutine(WaitForAudioEnd(clip, delay));
+        return clip.length + delay;
     }
 
     private IEnumerator DelayPlay(AudioClip newClip, float delay, bool loop)

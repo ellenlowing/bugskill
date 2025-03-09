@@ -25,9 +25,9 @@ public class StoreManager : MonoBehaviour
     [SerializeField] public TextMeshProUGUI GlobalDescription;
     [SerializeField] public TextMeshProUGUI GlobalCashAmount;
     public GameObject ShopItemDataUI;
-    public GameObject PurchaseBtnUI;
 
     [Header("Buttons")]
+    public GameObject StoreButtons;
     [SerializeField] private InteractableUnityEventWrapper PurchaseBtn;
     [SerializeField] private InteractableUnityEventWrapper NextWaveBtn;
 
@@ -142,9 +142,17 @@ public class StoreManager : MonoBehaviour
                 GameObject powerupItem = powerup.GetComponentInParent<Grabbable>().gameObject;
                 AddTextPopUp(shopItemName + " Purchased!", powerupItem.transform.position);
                 KaChingSFX.Play();
-                StoreOwner.PlayClip(clip: CheckoutClips[settings.waveIndex % CheckoutClips.Count], delay: 2f);
+                StartCoroutine(CueNextWave(CheckoutClips[settings.waveIndex % CheckoutClips.Count], 2f));
             }
         }
+    }
+
+    IEnumerator CueNextWave(AudioClip endClip, float delay)
+    {
+        float totalDuration = StoreOwner.PlayClip(clip: endClip, delay: delay) + 1f;
+        StoreButtons.SetActive(false);
+        yield return new WaitForSeconds(totalDuration);
+        NextWave();
     }
 
     public void NextWave()
@@ -164,7 +172,8 @@ public class StoreManager : MonoBehaviour
             RotatePowerUpDisplay(powerup);
         }
 
-        // Use Store Position Finder to grab spawn location
+        // Use Store Position Finder to grab spawn location]
+        StoreButtons.SetActive(true);
         HasGrabbedAnyItem = false;
         PlaceStore();
         UIManager.Instance.UpdateCashUI();

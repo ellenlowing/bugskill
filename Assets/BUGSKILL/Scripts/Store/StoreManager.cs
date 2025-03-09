@@ -63,6 +63,8 @@ public class StoreManager : MonoBehaviour
 
     [Header("Misc")]
     public BasePowerUpBehavior _selectedPowerUp;
+    public Grabbable RepositionGrabbable;
+    public GrabFreeTransformer GrabFreeTransformer;
     public bool HasGrabbedAnyItem = false;
     private SettingSO settings;
     public List<BasePowerUpBehavior.PowerUpType> _powerUpTypes = new List<BasePowerUpBehavior.PowerUpType>();
@@ -209,6 +211,17 @@ public class StoreManager : MonoBehaviour
         // Store looks at user
         StoreUI.transform.LookAt(new Vector3(GameManager.Instance.MainCameraTransform.position.x, 0, GameManager.Instance.MainCameraTransform.position.z));
         StoreUI.transform.eulerAngles = new Vector3(0, StoreUI.transform.eulerAngles.y, 0);
+
+        TransformerUtils.PositionConstraints positionConstraints = new TransformerUtils.PositionConstraints();
+        TransformerUtils.ConstrainedAxis yAxis = new TransformerUtils.ConstrainedAxis();
+        yAxis.ConstrainAxis = true;
+        TransformerUtils.FloatRange yAxisRange = new TransformerUtils.FloatRange();
+        yAxisRange.Min = StoreUI.transform.position.y;
+        yAxisRange.Max = StoreUI.transform.position.y;
+        yAxis.AxisRange = yAxisRange;
+        positionConstraints.YAxis = yAxis;
+        GrabFreeTransformer.InjectOptionalPositionConstraints(positionConstraints);
+        RepositionGrabbable.InjectOptionalOneGrabTransformer(GrabFreeTransformer);
     }
 
     public void HideStore()

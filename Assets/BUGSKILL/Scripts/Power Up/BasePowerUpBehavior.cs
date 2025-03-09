@@ -259,7 +259,10 @@ public class BasePowerUpBehavior : MonoBehaviour
         if (!StoreManager.Instance.HasGrabbedAnyItem)
         {
             StoreManager.Instance.HasGrabbedAnyItem = true;
-            // StoreManager.Instance.CueBuyInstruction();
+            if (settings.waveIndex <= 2)
+            {
+                StoreManager.Instance.CueBuyInstruction();
+            }
         }
 
         EnterState(PowerUpState.ACTIVE);
@@ -318,5 +321,4 @@ public class BasePowerUpBehavior : MonoBehaviour
             }
         }
     }
-
 }

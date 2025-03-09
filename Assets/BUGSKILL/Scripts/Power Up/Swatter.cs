@@ -38,7 +38,6 @@ public class Swatter : BasePowerUpBehavior
     new void Update()
     {
         base.Update();
-
     }
 
     public override void EnterIdleState()

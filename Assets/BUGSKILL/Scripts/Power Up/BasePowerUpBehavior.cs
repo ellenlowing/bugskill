@@ -256,14 +256,15 @@ public class BasePowerUpBehavior : MonoBehaviour
             }
         }
 
-        if (!StoreManager.Instance.HasGrabbedAnyItem)
-        {
-            StoreManager.Instance.HasGrabbedAnyItem = true;
-            if (settings.waveIndex <= 2)
-            {
-                StoreManager.Instance.CueBuyInstruction();
-            }
-        }
+        // Cue buy instruction audio from Winston
+        // if (!StoreManager.Instance.HasGrabbedAnyItem)
+        // {
+        //     StoreManager.Instance.HasGrabbedAnyItem = true;
+        //     if (settings.waveIndex <= 2)
+        //     {
+        //         StoreManager.Instance.CueBuyInstruction();
+        //     }
+        // }
 
         EnterState(PowerUpState.ACTIVE);
     }

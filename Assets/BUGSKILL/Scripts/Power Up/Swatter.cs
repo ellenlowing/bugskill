@@ -10,7 +10,6 @@ public class Swatter : BasePowerUpBehavior
     [Header("Effects and Sounds")]
     public ParticleSystem ElectricityEffect;
     public ParticleSystem HitEffect;
-    public Transform ElectricityEffectPosition;
     public Transform SwatterPosition;
     public AudioSource ElectricityEffectSoundPlayer;
     public AudioSource BatteryLevelSoundPlayer;
@@ -23,8 +22,6 @@ public class Swatter : BasePowerUpBehavior
 
     [Header("Recharge Settings")]
     public float RechargeDelay = 5.0f; // Time it takes to start recharging after depletion
-
-    private ParticleSystem electricityEffectInstance;
 
     private void Awake()
     {
@@ -71,10 +68,6 @@ public class Swatter : BasePowerUpBehavior
 
     public override void Dissolve()
     {
-        if (electricityEffectInstance != null)
-        {
-            Destroy(electricityEffectInstance.gameObject);
-        }
         ToggleEffects(false, DepletedSoundClip);
         base.Dissolve();
     }
@@ -84,20 +77,12 @@ public class Swatter : BasePowerUpBehavior
     {
         if (active)
         {
-            electricityEffectInstance =
-                Instantiate(ElectricityEffect, ElectricityEffectPosition.position, Quaternion.identity);
-            electricityEffectInstance.transform.SetParent(ElectricityEffectPosition);
-            electricityEffectInstance.Play();
-
+            ElectricityEffect.Play();
             ElectricityEffectSoundPlayer.Play();
         }
         else
         {
-            if (electricityEffectInstance != null)
-            {
-                Destroy(electricityEffectInstance.gameObject);
-            }
-
+            ElectricityEffect.Stop();
             ElectricityEffectSoundPlayer.Stop();
         }
 
@@ -115,20 +100,14 @@ public class Swatter : BasePowerUpBehavior
             if (other.gameObject.CompareTag("Fly"))
             {
                 BaseFlyBehavior fly = other.gameObject.GetComponent<BaseFlyBehavior>();
-                // other.GetComponent<BaseFlyBehavior>().IsKilled = true;
                 HitSoundPlayer.Play();
                 other.transform.SetParent(SwatterPosition);
 
                 // Instantiate shock effect on fly
-                ParticleSystem hitEffectInstance =
-                    Instantiate(HitEffect, other.transform.position, Quaternion.identity);
-                hitEffectInstance.Play();
-                Destroy(hitEffectInstance.gameObject, hitEffectInstance.main.duration);
+                HitEffect.Play();
 
                 UIManager.Instance.IncrementKill(other.transform.position, (int)SCOREFACTOR.SWATTER);
-                // Destroy fly after delay 
-                // Destroy(other.gameObject, destroyFlyDelay);
-                fly.Kill();
+                fly.Kill(destroyFlyDelay);
             }
         }
     }

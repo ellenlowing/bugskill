@@ -9795,7 +9795,7 @@ Light:
   m_Type: 2
   m_Shape: 0
   m_Color: {r: 0.7311321, g: 0.9361015, b: 1, a: 1}
-  m_Intensity: 1.9693
+  m_Intensity: 1.7949048
   m_Range: 8
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -14761,7 +14761,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9205bc1bbacc90040a998067b5643d16, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  clearBehavior: 2
+  clearBehavior: 0
   cameraShake:
     enabled: 0
     useMainCamera: 0

@@ -1430,7 +1430,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 6dbfbc610e2d9c3449bda691c28f3a3b, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 0.512
   m_Pitch: 1
@@ -2192,7 +2192,7 @@ MonoBehaviour:
   AnchoredToHandPose: 1
   MaxPowerCapacity: 1
   PowerCapacity: 1
-  UsePowerRate: 0.001
+  UsePowerRate: 0.0007
   DissolveDuration: 2
   DissolvePairs:
   - MeshRenderer: {fileID: 1182374509557272238}
@@ -2224,6 +2224,7 @@ MonoBehaviour:
   - MeshRenderer: {fileID: 3645019134322829577}
     Material: {fileID: 0}
   PowerCapacitySlider: {fileID: 89119599126848038}
+  DissolveAudio: {fileID: 1730376124359575723}
   IsSold: 0
   StoreItemData: {fileID: 11400000, guid: fc227df3124f7b94eb428fc63ab535ad, type: 2}
   LeftUIContainer: {fileID: 297457029372056136}
@@ -2235,15 +2236,10 @@ MonoBehaviour:
   Teaser: {fileID: 7683565244213469288}
   ElectricityEffect: {fileID: 8745999261263008335}
   HitEffect: {fileID: 4679624864208535933}
-  ElectricityEffectPosition: {fileID: 6972176862947461984}
   SwatterPosition: {fileID: 6734971544782742302}
   ElectricityEffectSoundPlayer: {fileID: 9153201561606451286}
-  BatteryLevelSoundPlayer: {fileID: 1730376124359575723}
   HitSoundPlayer: {fileID: 2565822747513975480}
   destroyFlyDelay: 0.5
-  RechargeSoundClip: {fileID: 8300000, guid: 56227355334454a669691eddf1801cb9, type: 3}
-  DepletedSoundClip: {fileID: 8300000, guid: 6dbfbc610e2d9c3449bda691c28f3a3b, type: 3}
-  RechargeDelay: 5
 --- !u!114 &2796636168851972562
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -208,9 +208,9 @@ public class StoreManager : MonoBehaviour
 
     public void PlaceStore()
     {
-        // Store looks at user
-        StoreUI.transform.LookAt(new Vector3(GameManager.Instance.MainCameraTransform.position.x, 0, GameManager.Instance.MainCameraTransform.position.z));
-        StoreUI.transform.eulerAngles = new Vector3(0, StoreUI.transform.eulerAngles.y, 0);
+        // Store looks at user : Don't reset rotation
+        // StoreUI.transform.LookAt(new Vector3(GameManager.Instance.MainCameraTransform.position.x, 0, GameManager.Instance.MainCameraTransform.position.z));
+        // StoreUI.transform.eulerAngles = new Vector3(0, StoreUI.transform.eulerAngles.y, 0);
 
         TransformerUtils.PositionConstraints positionConstraints = new TransformerUtils.PositionConstraints();
         TransformerUtils.ConstrainedAxis yAxis = new TransformerUtils.ConstrainedAxis();

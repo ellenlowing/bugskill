@@ -46,6 +46,7 @@ public class BasePowerUpBehavior : MonoBehaviour
     public float DissolveDuration = 1f;
     public List<MeshMatPair> DissolvePairs;
     public Slider PowerCapacitySlider;
+    public AudioSource DissolveAudio;
 
     [Header("Settings Data")]
     protected SettingSO settings;
@@ -153,13 +154,13 @@ public class BasePowerUpBehavior : MonoBehaviour
     {
         if (PowerCapacitySlider != null)
         {
-            if (!PowerCapacitySlider.gameObject.activeSelf && !StoreManager.Instance.IsStoreActive)
+            if (!PowerCapacitySlider.gameObject.activeSelf && GameManager.Instance.RoundStarted)
             {
                 PowerCapacitySlider.gameObject.SetActive(true);
             }
         }
 
-        if (!StoreManager.Instance.IsStoreActive && PowerCapacity <= 0)
+        if (GameManager.Instance.RoundStarted && PowerCapacity <= 0)
         {
             PowerCapacity = 0;
             ActiveOVRHand = null;
@@ -183,6 +184,8 @@ public class BasePowerUpBehavior : MonoBehaviour
         StoreManager.Instance.RestockPowerup(this);
 
         EnterState(PowerUpState.INACTIVE);
+
+        DissolveAudio.Play();
 
         if (PowerCapacitySlider != null)
         {
@@ -313,7 +316,7 @@ public class BasePowerUpBehavior : MonoBehaviour
 
     public void UsePowerCapacity()
     {
-        if (!StoreManager.Instance.IsStoreActive)
+        if (GameManager.Instance.RoundStarted)
         {
             if (PowerCapacity > 0)
             {

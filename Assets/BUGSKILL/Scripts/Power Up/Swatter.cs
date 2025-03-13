@@ -12,16 +12,8 @@ public class Swatter : BasePowerUpBehavior
     public ParticleSystem HitEffect;
     public Transform SwatterPosition;
     public AudioSource ElectricityEffectSoundPlayer;
-    public AudioSource BatteryLevelSoundPlayer;
     public AudioSource HitSoundPlayer;
     public float destroyFlyDelay = 0.5f;
-
-    [Header("Audio Clips")]
-    public AudioClip RechargeSoundClip;
-    public AudioClip DepletedSoundClip;
-
-    [Header("Recharge Settings")]
-    public float RechargeDelay = 5.0f; // Time it takes to start recharging after depletion
 
     private void Awake()
     {
@@ -39,7 +31,7 @@ public class Swatter : BasePowerUpBehavior
 
     public override void EnterIdleState()
     {
-        ToggleEffects(false, null);
+        ToggleEffects(false);
     }
 
     public override void UpdateIdleState()
@@ -57,7 +49,7 @@ public class Swatter : BasePowerUpBehavior
 
     public override void EnterActiveState()
     {
-        ToggleEffects(true, null);
+        ToggleEffects(true);
     }
 
     public override void UpdateActiveState()
@@ -68,12 +60,12 @@ public class Swatter : BasePowerUpBehavior
 
     public override void Dissolve()
     {
-        ToggleEffects(false, DepletedSoundClip);
+        ToggleEffects(false);
         base.Dissolve();
     }
 
     // Change and play particle and sound effects 
-    private void ToggleEffects(bool active, AudioClip clip)
+    private void ToggleEffects(bool active)
     {
         if (active)
         {
@@ -84,12 +76,6 @@ public class Swatter : BasePowerUpBehavior
         {
             ElectricityEffect.Stop();
             ElectricityEffectSoundPlayer.Stop();
-        }
-
-        if (clip != null)
-        {
-            BatteryLevelSoundPlayer.clip = clip;
-            BatteryLevelSoundPlayer.Play();
         }
     }
 

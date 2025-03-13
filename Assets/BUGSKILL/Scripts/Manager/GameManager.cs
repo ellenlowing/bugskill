@@ -46,6 +46,7 @@ public partial class GameManager : MonoBehaviour
 
     [Header("Power Up")]
     public float DissolveDuration = 1.5f;
+    public bool RoundStarted = false;
 
     [Header("TNT Stuff")]
     public GameObject TNTFlyPrefab;
@@ -195,16 +196,19 @@ public partial class GameManager : MonoBehaviour
             }
         }
 
+        SetHandVisualsActive(false);
         GameUIGroup.SetActive(true);
         LevelPanel.SetActive(true);
         animator.speed = settings.divFactor / settings.durationOfWave[settings.waveIndex];
         animator.Play("Animation", 0, 0);
         // UpdateHandMaterialColor();
+        RoundStarted = true;
         StartCoroutine(SetTimer(settings.durationOfWave[settings.waveIndex]));
     }
 
     void HandleRoundEnd()
     {
+        RoundStarted = false;
         RoundEndAudio.Play();
         foreach (var obj in settings.flies)
         {
@@ -254,7 +258,7 @@ public partial class GameManager : MonoBehaviour
 
     IEnumerator CheckGoal(int waveI)
     {
-        // SetHandVisualsActive(true);
+        SetHandVisualsActive(true);
         int powerUpCount = DissolveAllPowerUps();
         yield return null;
         // yield return new WaitForSeconds(powerUpCount > 0 ? DissolveDuration : 0.1f);
@@ -395,8 +399,6 @@ public partial class GameManager : MonoBehaviour
 
     public void SetHandVisualsActive(bool active)
     {
-        LeftHandVisuals.SetActive(active);
-        RightHandVisuals.SetActive(active);
         LeftHandRayInteractor.SetActive(active);
         RightHandRayInteractor.SetActive(active);
     }

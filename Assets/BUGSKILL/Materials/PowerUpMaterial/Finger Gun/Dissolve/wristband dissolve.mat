@@ -77,7 +77,7 @@ Material:
     - _BUILTIN_QueueOffset: 0
     - _BumpScale: 1
     - _Cull: 0
-    - _Cutoff: 0.99858093
+    - _Cutoff: 0.9969215
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
     - _EdgeWidth: 0.06

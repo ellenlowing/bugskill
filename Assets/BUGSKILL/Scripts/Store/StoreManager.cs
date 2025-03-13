@@ -66,6 +66,7 @@ public class StoreManager : MonoBehaviour
     public Grabbable RepositionGrabbable;
     public GrabFreeTransformer GrabFreeTransformer;
     public bool HasGrabbedAnyItem = false;
+    private bool _hasShownOnce = false;
     private SettingSO settings;
     public List<BasePowerUpBehavior.PowerUpType> _powerUpTypes = new List<BasePowerUpBehavior.PowerUpType>();
 
@@ -167,11 +168,18 @@ public class StoreManager : MonoBehaviour
     {
         Debug.Log("Showing store");
 
-        for (int i = 0; i < ShopItemsParent.childCount; i++)
+        for (int i = 0; i < ShopItems.Count; i++)
         {
-            var powerup = ShopItemsParent.GetChild(i).gameObject;
-            PlacePowerUpDisplay(powerup);
-            RotatePowerUpDisplay(powerup);
+            var powerup = ShopItems[i];
+            if ((i - 1) < settings.waveIndex)
+            {
+                PlacePowerUpDisplay(powerup);
+                RotatePowerUpDisplay(powerup);
+            }
+            else
+            {
+                ShowTeaser(powerup);
+            }
         }
 
         // Use Store Position Finder to grab spawn location]
@@ -212,6 +220,12 @@ public class StoreManager : MonoBehaviour
         // StoreUI.transform.LookAt(new Vector3(GameManager.Instance.MainCameraTransform.position.x, 0, GameManager.Instance.MainCameraTransform.position.z));
         // StoreUI.transform.eulerAngles = new Vector3(0, StoreUI.transform.eulerAngles.y, 0);
 
+        if (!_hasShownOnce)
+        {
+            UIManager.Instance.FaceCamera(StoreUI, placeOnFloor: true, flipForwardVector: true);
+            _hasShownOnce = true;
+        }
+
         TransformerUtils.PositionConstraints positionConstraints = new TransformerUtils.PositionConstraints();
         TransformerUtils.ConstrainedAxis yAxis = new TransformerUtils.ConstrainedAxis();
         yAxis.ConstrainAxis = true;
@@ -226,9 +240,7 @@ public class StoreManager : MonoBehaviour
 
     public void HideStore()
     {
-        IsStoreActive = false;
-
-        // StoreUI.transform.position = new Vector3(StoreUI.transform.position.x, -100, StoreUI.transform.position.z);
+        // IsStoreActive = false;
         StoreUI.SetActive(false);
     }
 
@@ -324,21 +336,64 @@ public class StoreManager : MonoBehaviour
     {
         string containerName = powerup.GetComponentInChildren<BasePowerUpBehavior>().StoreItemData.ItemContainerName;
         Transform containerTransform = ShopItemContainersParent.Find(containerName);
+        Transform teaserTransform = containerTransform.Find("Teaser");
+        if (teaserTransform != null)
+        {
+            teaserTransform.gameObject.SetActive(false);
+        }
+        GameObject powerupInStock = FindChildWithCondition(ShopItemsParent, item => item.GetComponent<BasePowerUpBehavior>().Type == powerup.GetComponent<BasePowerUpBehavior>().Type).gameObject;
+        powerupInStock.SetActive(true);
+        powerupInStock.GetComponent<BasePowerUpBehavior>().SetGrabbableActive(true);
         powerup.transform.position = containerTransform.position;
     }
 
     private void RotatePowerUpDisplay(GameObject powerup)
     {
-        Transform rotationTransform = powerup.transform.FindChildRecursive("Rotation");
+        GameObject powerupInStock = FindChildWithCondition(ShopItemsParent, item => item.GetComponent<BasePowerUpBehavior>().Type == powerup.GetComponent<BasePowerUpBehavior>().Type).gameObject;
+        Transform rotationTransform = powerupInStock.transform.FindChildRecursive("Rotation");
+
         if (rotationTransform != null)
         {
-            rotationTransform.localEulerAngles = powerup.GetComponentInChildren<BasePowerUpBehavior>().StoreItemData.LocalEulerAngles;
-            powerup.transform.localRotation = Quaternion.identity;
+            rotationTransform.localEulerAngles = powerupInStock.GetComponentInChildren<BasePowerUpBehavior>().StoreItemData.LocalEulerAngles;
+            powerupInStock.transform.localRotation = Quaternion.identity;
         }
         else
         {
-            powerup.transform.localEulerAngles = powerup.GetComponentInChildren<BasePowerUpBehavior>().StoreItemData.LocalEulerAngles;
+            powerupInStock.transform.localEulerAngles = powerupInStock.GetComponentInChildren<BasePowerUpBehavior>().StoreItemData.LocalEulerAngles;
         }
+    }
+
+    private void ShowTeaser(GameObject powerup)
+    {
+        string containerName = powerup.GetComponentInChildren<BasePowerUpBehavior>().StoreItemData.ItemContainerName;
+        Transform containerTransform = ShopItemContainersParent.Find(containerName);
+        Transform teaserTransform = containerTransform.Find("Teaser");
+        if (teaserTransform != null)
+        {
+            teaserTransform.gameObject.SetActive(true);
+        }
+        GameObject powerupInStock = FindChildWithCondition(ShopItemsParent, item => item.GetComponent<BasePowerUpBehavior>().Type == powerup.GetComponent<BasePowerUpBehavior>().Type).gameObject;
+        powerupInStock.SetActive(false);
+    }
+
+    public void DisableAllGrabbables()
+    {
+        foreach (Transform child in ShopItemsParent)
+        {
+            child.GetComponent<BasePowerUpBehavior>().SetGrabbableActive(false);
+        }
+    }
+
+    public Transform FindChildWithCondition(Transform parent, System.Func<Transform, bool> condition)
+    {
+        foreach (Transform child in parent)
+        {
+            if (condition(child))
+            {
+                return child; // Return the first matching child
+            }
+        }
+        return null; // No match found
     }
 
     public void AddTextPopUp(string text, Vector3 position)

@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.Video;
+using Oculus.Interaction.HandGrab;
 
 public class BasePowerUpBehavior : MonoBehaviour
 {
@@ -35,6 +36,8 @@ public class BasePowerUpBehavior : MonoBehaviour
     public OVRHand ActiveOVRHand = null;
     public PowerUpType Type;
     public PowerUpState CurrentState;
+    public Grabbable Grabbable;
+    public List<GameObject> HandGrabInteractables;
     public PointableUnityEventWrapper PointableEventWrapper;
     public ParticleSystem GlowEffect;
     public bool AnchoredToHandPose = true;
@@ -179,6 +182,15 @@ public class BasePowerUpBehavior : MonoBehaviour
         }
     }
 
+    public void SetGrabbableActive(bool active)
+    {
+        Grabbable.enabled = active;
+        foreach (GameObject interactable in HandGrabInteractables)
+        {
+            interactable.SetActive(active);
+        }
+    }
+
     public virtual void Dissolve()
     {
         StoreManager.Instance.RestockPowerup(this);
@@ -300,6 +312,8 @@ public class BasePowerUpBehavior : MonoBehaviour
         IsSold = true;
         _isEquipped = true;
         StoreManager.Instance.SetActivePowerUp(this);
+        StoreManager.Instance.IsStoreActive = false;
+        StoreManager.Instance.DisableAllGrabbables();
         HandleUI(showDetails: false, showPriceTag: false, handedness: Handedness.Right);
         if (AnchoredToHandPose)
         {

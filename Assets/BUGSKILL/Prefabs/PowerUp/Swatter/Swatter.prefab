@@ -2132,7 +2132,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6734971544782742302
 Transform:
   m_ObjectHideFlags: 0
@@ -2142,7 +2142,7 @@ Transform:
   m_GameObject: {fileID: 2991904239131300368}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.857955, y: 0.561355, z: -0.40053484}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2187,6 +2187,10 @@ MonoBehaviour:
   ActiveOVRHand: {fileID: 0}
   Type: 0
   CurrentState: 0
+  Grabbable: {fileID: 6403361001486953905}
+  HandGrabInteractables:
+  - {fileID: 77827111335474557}
+  - {fileID: 1753958196688248028}
   PointableEventWrapper: {fileID: 2796636168851972562}
   GlowEffect: {fileID: 9052023569953322102}
   AnchoredToHandPose: 1
@@ -8283,7 +8287,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4194664761675852282}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0.23921274, y: 0.02918365, z: 0.3863993, w: 0.89029276}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0

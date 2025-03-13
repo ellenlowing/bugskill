@@ -295,7 +295,7 @@ public class UIManager : MonoBehaviour
         isGameStarted = false;
     }
 
-    public void FaceCamera(GameObject obj, float yOffset = 0f, float distanceFromCamera = -1f, bool flipForwardVector = false)
+    public void FaceCamera(GameObject obj, float yOffset = 0f, float distanceFromCamera = -1f, bool flipForwardVector = false, bool placeOnFloor = false)
     {
         if (obj != null)
         {
@@ -315,9 +315,15 @@ public class UIManager : MonoBehaviour
 
                     Debug.Log("Not in room by distance: " + distance);
                 }
+
+                if (placeOnFloor)
+                {
+                    pos.y = room.FloorAnchor.transform.position.y;
+                }
             }
 
             obj.transform.position = pos;
+
             if (flipForwardVector)
             {
                 obj.transform.forward = -GameManager.Instance.MainCameraTransform.forward;

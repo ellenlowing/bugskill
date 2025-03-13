@@ -216,10 +216,6 @@ public class StoreManager : MonoBehaviour
 
     public void PlaceStore()
     {
-        // Store looks at user : Don't reset rotation
-        // StoreUI.transform.LookAt(new Vector3(GameManager.Instance.MainCameraTransform.position.x, 0, GameManager.Instance.MainCameraTransform.position.z));
-        // StoreUI.transform.eulerAngles = new Vector3(0, StoreUI.transform.eulerAngles.y, 0);
-
         if (!_hasShownOnce)
         {
             UIManager.Instance.FaceCamera(StoreUI, placeOnFloor: true, flipForwardVector: true);
@@ -344,7 +340,7 @@ public class StoreManager : MonoBehaviour
         GameObject powerupInStock = FindChildWithCondition(ShopItemsParent, item => item.GetComponent<BasePowerUpBehavior>().Type == powerup.GetComponent<BasePowerUpBehavior>().Type).gameObject;
         powerupInStock.SetActive(true);
         powerupInStock.GetComponent<BasePowerUpBehavior>().SetGrabbableActive(true);
-        powerup.transform.position = containerTransform.position;
+        powerupInStock.transform.position = containerTransform.position;
     }
 
     private void RotatePowerUpDisplay(GameObject powerup)

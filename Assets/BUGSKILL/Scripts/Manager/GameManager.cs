@@ -198,7 +198,7 @@ public partial class GameManager : MonoBehaviour
 
         SetHandVisualsActive(false);
         GameUIGroup.SetActive(true);
-        LevelPanel.SetActive(true);
+        // LevelPanel.SetActive(true);
         animator.speed = settings.divFactor / settings.durationOfWave[settings.waveIndex];
         animator.Play("Animation", 0, 0);
         // UpdateHandMaterialColor();
@@ -223,7 +223,7 @@ public partial class GameManager : MonoBehaviour
         }
 
         GameUIGroup.SetActive(false);
-        LevelPanel.SetActive(false);
+        // LevelPanel.SetActive(false);
         StartCoroutine(CheckGoal(settings.waveIndex));
 
         settings.waveIndex = settings.waveIndex + 1;

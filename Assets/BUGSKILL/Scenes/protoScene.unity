@@ -27545,7 +27545,7 @@ MonoBehaviour:
   LevelPanel: {fileID: 1501541907}
   MainCameraTransform: {fileID: 1915206569}
   settings: {fileID: 11400000, guid: 415f7b1141256224db7c3c8720566774, type: 2}
-  TestMode: 1
+  TestMode: 0
   StartWaveIndex: 0
   gameSettings: {fileID: 11400000, guid: 415f7b1141256224db7c3c8720566774, type: 2}
   testSettings: {fileID: 11400000, guid: f17f1c6612d95425a8965738fd836c8a, type: 2}
@@ -36499,7 +36499,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 2.2, y: -0.8}
+  m_AnchoredPosition: {x: 0.8, y: -0.8}
   m_SizeDelta: {x: 200, y: 57.9}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1680593333
@@ -36529,8 +36529,8 @@ MonoBehaviour:
     2. Press the
     Buy button with <u>another hand</u>'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: f02e4f70bf1c84288993344b8500e643, type: 2}
-  m_sharedMaterial: {fileID: 6242911578138398018, guid: f02e4f70bf1c84288993344b8500e643, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 21bce119d209c46af88746decef8f0e7, type: 2}
+  m_sharedMaterial: {fileID: -4233971865392930001, guid: 21bce119d209c46af88746decef8f0e7, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -36554,8 +36554,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 9.4
-  m_fontSizeBase: 9.4
+  m_fontSize: 8
+  m_fontSizeBase: 8
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 2
@@ -36566,7 +36566,7 @@ MonoBehaviour:
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
-  m_lineSpacing: 0
+  m_lineSpacing: -14.87
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0

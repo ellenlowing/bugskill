@@ -36499,7 +36499,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0, y: -0.8}
+  m_AnchoredPosition: {x: 2.2, y: -0.8}
   m_SizeDelta: {x: 200, y: 57.9}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1680593333
@@ -36522,8 +36522,12 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Want something? Hold the item in one hand, then poke the button with another
-    hand. Voil\xE0!"
+  m_text: 'TO BUY AN ITEM:
+
+    1. Grab it with <u>one hand</u>
+
+    2. Press the
+    Buy button with <u>another hand</u>'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: f02e4f70bf1c84288993344b8500e643, type: 2}
   m_sharedMaterial: {fileID: 6242911578138398018, guid: f02e4f70bf1c84288993344b8500e643, type: 2}
@@ -36550,10 +36554,10 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 8.95
-  m_fontSizeBase: 11
+  m_fontSize: 9.4
+  m_fontSizeBase: 9.4
   m_fontWeight: 400
-  m_enableAutoSizing: 1
+  m_enableAutoSizing: 0
   m_fontSizeMin: 2
   m_fontSizeMax: 18
   m_fontStyle: 0
@@ -38272,7 +38276,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1833336822}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b49915d6d0cec4ebbaea41c66951f723, type: 3}
   m_Name: 

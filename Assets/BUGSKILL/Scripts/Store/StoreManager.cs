@@ -218,7 +218,7 @@ public class StoreManager : MonoBehaviour
     {
         if (!_hasShownOnce)
         {
-            UIManager.Instance.FaceCamera(StoreUI, placeOnFloor: true, flipForwardVector: true);
+            UIManager.Instance.FaceCamera(StoreUI, placeOnFloor: true, flipForwardVector: true, distanceFromCamera: settings.farDistanceFromCamera);
             _hasShownOnce = true;
         }
 
@@ -377,6 +377,15 @@ public class StoreManager : MonoBehaviour
         foreach (Transform child in ShopItemsParent)
         {
             child.GetComponent<BasePowerUpBehavior>().SetGrabbableActive(false);
+        }
+    }
+
+    public void ShufflePowerups()
+    {
+        for (int i = ShopItems.Count - 1; i > 0; i--)
+        {
+            int j = Random.Range(0, i + 1);
+            (ShopItems[i], ShopItems[j]) = (ShopItems[j], ShopItems[i]); // Swap elements
         }
     }
 

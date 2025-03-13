@@ -11,8 +11,11 @@ public class DialogRunner : MonoBehaviour
     private int _currentIndex = 0;
     private float _timer = 0;
 
-    void Start()
+    void OnEnable()
     {
+        DialogText.text = DialogList[_currentIndex];
+        _currentIndex = (_currentIndex + 1) % DialogList.Count;
+        _timer = 0;
     }
 
     void Update()

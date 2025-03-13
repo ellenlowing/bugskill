@@ -16,10 +16,10 @@ MonoBehaviour:
   maxRestDuration: 6
   minSpeed: 7
   maxSpeed: 9
-  flySlowDownTime: 1
+  flySlowDownTime: 2
   flySlowDownSpeed: 1.5
   evadeTime: 0.5
   evadeDistance: 0.4
-  detectionRadius: 0.9
+  detectionRadius: 0.85
   rotationSpeed: 10
   distanceToEdges: 0.5

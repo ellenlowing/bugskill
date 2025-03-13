@@ -288,6 +288,7 @@ public partial class GameManager : MonoBehaviour
     {
         // SetHandVisualsActive(true);
         SetHandControllersActive(true);
+        StoreManager.Instance.ShufflePowerups();
         StoreManager.Instance.HideStore();
         UIManager.Instance.UpdateCashUI();
         BGMManager.Instance.CueGame();

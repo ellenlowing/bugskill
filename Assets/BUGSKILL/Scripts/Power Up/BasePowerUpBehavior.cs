@@ -313,12 +313,12 @@ public class BasePowerUpBehavior : MonoBehaviour
         _isEquipped = true;
         StoreManager.Instance.SetActivePowerUp(this);
         StoreManager.Instance.IsStoreActive = false;
-        StoreManager.Instance.DisableAllGrabbables();
         HandleUI(showDetails: false, showPriceTag: false, handedness: Handedness.Right);
         if (AnchoredToHandPose)
         {
             transform.parent = ActiveOVRHand.gameObject.transform;
         }
+        StoreManager.Instance.DisableAllGrabbables();
     }
 
     public void ShowItemData(PointerEvent arg0)

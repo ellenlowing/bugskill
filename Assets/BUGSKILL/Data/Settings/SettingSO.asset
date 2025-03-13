@@ -30,20 +30,23 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 5d57f6c22de3aaa4fbac695a7c0a185c, type: 2}
   - {fileID: 11400000, guid: f5898cf1fcc934a4784ab8ecd71b4934, type: 2}
   - {fileID: 11400000, guid: 2cb2a157148019742a5339d058893360, type: 2}
+  - {fileID: 11400000, guid: eca21990faa80470b81a9b6f1c7880e5, type: 2}
   waveIndex: 0
-  durationOfWave: 1e0000001e0000001e0000001e0000001e000000
-  fliesInWave: 0a0000000c0000000e0000001000000012000000
-  LevelGoals: 0500000007000000080000000a0000000c000000
+  durationOfWave: 1e0000001e0000001e0000001e0000001e0000001e000000
+  fliesInWave: 0a0000000c0000000e000000100000001200000014000000
+  LevelGoals: 0500000007000000080000000a0000000c0000000e000000
   TakeoffChances:
   - 0.2
   - 0.25
   - 0.3
   - 0.35
   - 0.4
+  - 0.45
   minNearbyFlyDistances:
   - 0.2
   - 0.25
   - 0.35
+  - 0.4
   - 0.45
   - 0.5
   divFactor: 3

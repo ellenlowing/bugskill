@@ -339,7 +339,7 @@ public class StoreManager : MonoBehaviour
         }
         GameObject powerupInStock = FindChildWithCondition(ShopItemsParent, item => item.GetComponent<BasePowerUpBehavior>().Type == powerup.GetComponent<BasePowerUpBehavior>().Type).gameObject;
         powerupInStock.SetActive(true);
-        powerupInStock.GetComponent<BasePowerUpBehavior>().SetGrabbableActive(true);
+        // powerupInStock.GetComponent<BasePowerUpBehavior>().SetGrabbableActive(true);
         powerupInStock.transform.position = containerTransform.position;
     }
 

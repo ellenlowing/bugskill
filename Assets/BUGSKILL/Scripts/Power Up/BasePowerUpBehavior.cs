@@ -318,7 +318,7 @@ public class BasePowerUpBehavior : MonoBehaviour
         {
             transform.parent = ActiveOVRHand.gameObject.transform;
         }
-        // StoreManager.Instance.DisableAllGrabbables();
+        StoreManager.Instance.DisableAllGrabbables();
     }
 
     public void ShowItemData(PointerEvent arg0)

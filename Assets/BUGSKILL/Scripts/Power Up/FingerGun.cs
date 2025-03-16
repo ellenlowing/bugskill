@@ -16,7 +16,6 @@ public class FingerGun : MonoBehaviour
     public float FiringRate = 0.5f;
     public OVRHand ActiveOVRHand;
     public GameObject StatusIndicator;
-    public Transform WristTransform;
 
     public Transform FirePoint;
     public float SmoothFactor;
@@ -38,7 +37,7 @@ public class FingerGun : MonoBehaviour
         _crosshairRaycastLayerMaskInt = GameManager.Instance.GetAnyLandingLayerMask();
 
         _firePosition = FirePoint.position;
-        _fireDirection = FirePoint.right;
+        _fireDirection = FirePoint.forward;
     }
 
     void Update()
@@ -60,7 +59,7 @@ public class FingerGun : MonoBehaviour
 
         // Update firing position and firing direction
         _firePosition = Vector3.Lerp(_firePosition, FirePoint.position, SmoothFactor);
-        _fireDirection = Vector3.Lerp(_fireDirection, FirePoint.right, SmoothFactor);
+        _fireDirection = Vector3.Lerp(_fireDirection, FirePoint.forward, SmoothFactor);
 
         // Update crosshair position
         if (_firePosition != null && _fireDirection != null)

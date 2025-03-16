@@ -110,7 +110,8 @@ public class SlingshotBall : MonoBehaviour
         UpdateFingerPose();
 
         transform.position = _averageFingerTipPosition;
-        transform.rotation = Quaternion.LookRotation(_indexFingerTipPose.up);
+        // transform.rotation = Quaternion.LookRotation(_indexFingerTipPose.up);
+        transform.LookAt(GameManager.Instance.MainCameraTransform);
 
         DrawSlingshotLines();
     }

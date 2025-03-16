@@ -88,11 +88,7 @@ public class FingerSlingshotPowerUp : BasePowerUpBehavior
         bool handPoseAvailable = hand.GetRootPose(out Pose pose);
         if (handPoseAvailable)
         {
-            transform.rotation = Quaternion.LookRotation(pose.forward, -pose.right);
-            if (_isActiveHandLeft)
-            {
-                transform.rotation = Quaternion.LookRotation(-pose.forward, pose.right);
-            }
+            transform.rotation = Quaternion.LookRotation(-pose.up, pose.forward);
             transform.position = pose.position - transform.up * 0.1f;
         }
     }

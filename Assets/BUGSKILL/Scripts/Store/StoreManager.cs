@@ -16,6 +16,8 @@ public class StoreManager : MonoBehaviour
     [Range(0.1f, 10f)]
     public float MinDistanceToEdges = 1.5f;
 
+    public int NumPowerUpToStart = 2;
+
     [Header("UI")]
     public GameObject StoreUI;
     [SerializeField] private GameObject PopupTextObj;
@@ -171,7 +173,7 @@ public class StoreManager : MonoBehaviour
         for (int i = 0; i < ShopItems.Count; i++)
         {
             var powerup = ShopItems[i];
-            if ((i - 1) < settings.waveIndex)
+            if ((i - (NumPowerUpToStart - 1)) < settings.waveIndex)
             {
                 PlacePowerUpDisplay(powerup);
                 RotatePowerUpDisplay(powerup);
@@ -339,7 +341,7 @@ public class StoreManager : MonoBehaviour
         }
         GameObject powerupInStock = FindChildWithCondition(ShopItemsParent, item => item.GetComponent<BasePowerUpBehavior>().Type == powerup.GetComponent<BasePowerUpBehavior>().Type).gameObject;
         powerupInStock.SetActive(true);
-        // powerupInStock.GetComponent<BasePowerUpBehavior>().SetGrabbableActive(true);
+        powerupInStock.GetComponent<BasePowerUpBehavior>().SetGrabbableActive(true);
         powerupInStock.transform.position = containerTransform.position;
     }
 

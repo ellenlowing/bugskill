@@ -15,6 +15,7 @@ public class HandController : MonoBehaviour
 
     bool isTouchingLandingSurface = false;
     bool isTouchingOtherHand = false;
+    HandController otherHandController = null;
     bool isTouchingFly = false;
     Collider touchedSurfaceCollider = null;
     Transform touchedFlyTransform = null;
@@ -45,6 +46,7 @@ public class HandController : MonoBehaviour
         else if (other.gameObject.tag == "Hands")
         {
             isTouchingOtherHand = true;
+            otherHandController = other.GetComponent<HandController>();
             StartCoroutine(CheckFlyHit());
         }
         else if (other.gameObject.tag == "Fly")
@@ -72,6 +74,7 @@ public class HandController : MonoBehaviour
         else if (other.gameObject.tag == "Hands")
         {
             isTouchingOtherHand = false;
+            otherHandController = null;
         }
         else if (other.gameObject.tag == "Fly")
         {
@@ -86,12 +89,10 @@ public class HandController : MonoBehaviour
         {
             BaseFlyBehavior fly = touchedFlyTransform.GetComponent<BaseFlyBehavior>();
             isTouchingFly = true;
-            // touchedFlyTransform.GetComponent<BaseFlyBehavior>().IsKilled = true;
 
             if (isTouchingLandingSurface || isTouchingOtherHand)
             {
                 GameObject splatterPrefab = GameManager.Instance.BloodSplatterPrefabs[Random.Range(0, GameManager.Instance.BloodSplatterPrefabs.Count)];
-                bool isTouchingMC = touchedFlyTransform.gameObject.name == "MC Fly";
 
                 if (isTouchingLandingSurface)
                 {
@@ -107,11 +108,7 @@ public class HandController : MonoBehaviour
                     }
                     splatter.transform.parent = GameManager.Instance.BloodSplatContainer;
                     splatter.transform.localPosition = splatter.transform.localPosition + splatter.transform.up * settings.SplatDistanceOffset;
-
-                    if (!isTouchingMC)
-                    {
-                        UIManager.Instance.IncrementKill(touchedFlyTransform.position, (int)SCOREFACTOR.SLAP);
-                    }
+                    UIManager.Instance.IncrementKill(touchedFlyTransform.position, (int)SCOREFACTOR.SLAP);
 
                     var audioSource = splatter.GetComponent<AudioSource>();
                     if (audioSource == null)
@@ -127,22 +124,18 @@ public class HandController : MonoBehaviour
                 {
                     HandSplat.SetActive(true);
                     BloodSplatTimer = Time.time;
-
-                    if (IsRightHand)
+                    if (otherHandController != null)
                     {
-                        BloodSplatParticles.transform.position = touchedFlyTransform.position;
-                        BloodSplatParticles.Stop();
-                        BloodSplatParticles.Play();
-                        BloodSplatParticles.gameObject.GetComponent<AudioSource>().Play();
-                        if (!isTouchingMC)
-                        {
-                            UIManager.Instance.IncrementKill(touchedFlyTransform.position, (int)SCOREFACTOR.CLAP);
-                        }
+                        otherHandController.HandSplat.SetActive(true);
+                        otherHandController.BloodSplatTimer = Time.time;
                     }
+                    BloodSplatParticles.transform.position = touchedFlyTransform.position;
+                    BloodSplatParticles.Stop();
+                    BloodSplatParticles.Play();
+                    BloodSplatParticles.gameObject.GetComponent<AudioSource>().Play();
+                    UIManager.Instance.IncrementKill(touchedFlyTransform.position, (int)SCOREFACTOR.CLAP);
                 }
 
-                // settings.flies.Remove(touchedFlyTransform.gameObject);
-                // Destroy(touchedFlyTransform.gameObject);
                 fly.Kill();
 
                 isTouchingFly = false;

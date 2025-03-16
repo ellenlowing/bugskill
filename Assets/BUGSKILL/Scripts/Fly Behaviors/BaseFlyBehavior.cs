@@ -36,8 +36,9 @@ public class BaseFlyBehavior : MonoBehaviour
     [SerializeField] private List<MeshRenderer> circularEyeMesh;
     [SerializeField] private Animator animator;
     private SettingSO settings;
-    private Rigidbody rb;
-    private FlyAudioSource flyAudio;
+    [SerializeField] private Rigidbody rb;
+    [SerializeField] private FlyAudioSource flyAudio;
+    [SerializeField] private CapsuleCollider capsuleCollider;
     public Vector3 targetPosition;
     private Vector3 targetNormal;
     private float restTimer;
@@ -49,8 +50,6 @@ public class BaseFlyBehavior : MonoBehaviour
 
     public void Start()
     {
-        rb = GetComponent<Rigidbody>();
-        flyAudio = GetComponent<FlyAudioSource>();
         settings = GameManager.Instance.settings;
         landingLayerMask = GameManager.Instance.GetAnyLandingLayerMask();
         CurrentFlyStat = settings.flyIntelLevels[settings.waveIndex];
@@ -61,6 +60,8 @@ public class BaseFlyBehavior : MonoBehaviour
         if (Random.Range(0f, 1f) < TakeoffChance)
         {
             transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+            capsuleCollider.radius = 0.07f;
+            capsuleCollider.center = new Vector3(0, 0.06f, 0);
         }
         needNewTarget = true;
         IsSlowed = false;
@@ -167,10 +168,14 @@ public class BaseFlyBehavior : MonoBehaviour
                 {
                     needNewTarget = true;
                 }
-            } else {
+            }
+            else
+            {
                 MoveTowardsTargetPosition();
             }
-        } else {
+        }
+        else
+        {
             int tries = 0;
             while (needNewTarget)
             {
@@ -208,8 +213,8 @@ public class BaseFlyBehavior : MonoBehaviour
         if (Time.time - restTimer >= RestDuration)
         {
             EnterState(FlyState.FLYING);
-        } 
-        else 
+        }
+        else
         {
             Collider[] detectedHands = Physics.OverlapSphere(transform.position, CurrentFlyStat.detectionRadius, GameManager.Instance.HandsLayerMask);
             if (!IsKilled && detectedHands.Length > 0)
@@ -290,7 +295,7 @@ public class BaseFlyBehavior : MonoBehaviour
     private void MoveTowardsTargetPosition()
     {
         Vector3 direction = (targetPosition - transform.position).normalized;
-        float evadeSpeedMultiplier = evadeTimer != -1? 0.5f : 1f;
+        float evadeSpeedMultiplier = evadeTimer != -1 ? 0.5f : 1f;
         transform.position += direction * FlyingSpeed * evadeSpeedMultiplier * Time.deltaTime;
         transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(direction), CurrentFlyStat.rotationSpeed * Time.deltaTime);
     }
@@ -368,11 +373,11 @@ public class BaseFlyBehavior : MonoBehaviour
     {
         IsKilled = true;
         settings.flies.Remove(gameObject);
-        if(delay > 0)
+        if (delay > 0)
         {
             Destroy(gameObject, delay);
-        } 
-        else 
+        }
+        else
         {
             Destroy(gameObject);
         }

@@ -27604,11 +27604,13 @@ MonoBehaviour:
   settings: {fileID: 11400000, guid: 415f7b1141256224db7c3c8720566774, type: 2}
   TestMode: 0
   StartWaveIndex: 0
-  gameSettings: {fileID: 11400000, guid: 415f7b1141256224db7c3c8720566774, type: 2}
+  gameSettings: {fileID: 11400000, guid: 3e291f1dac7e3401bbd848e9708630c1, type: 2}
   testSettings: {fileID: 11400000, guid: b60da9f77ff96467e8d8e56b55ad389c, type: 2}
   LandingLayerName: Landing
   FloorLayerName: Floor
   WallLayerName: Wall
+  LandingSurfaceMinHeight: 0
+  LandingSurfaceMaxHeight: 1.5
   FlyPrefab: {fileID: 708182128869486111, guid: 75d14416f534f4b11aec372b6307c3bb, type: 3}
   FlyParentAnchor: {fileID: 652486518}
   BloodSplatterPrefabs:
@@ -30274,7 +30276,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsStoreActive: 0
   MinDistanceToEdges: 1.5
-  NumPowerUpToStart: 2
+  NumPowerUpToStart: 3
   StoreUI: {fileID: 2375270128856768485}
   PopupTextObj: {fileID: 6082352034369301065, guid: 7f31f79308105443f8b0a1f4cb6bdfdc, type: 3}
   GlobalName: {fileID: 519488274}

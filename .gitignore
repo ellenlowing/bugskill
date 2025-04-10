@@ -23,6 +23,8 @@
 
 # Visual Studio cache directory
 .vs/
+.vscode/
+.utmp/
 
 # Gradle cache directory
 .gradle/

@@ -35,6 +35,8 @@ public partial class GameManager : MonoBehaviour
     public string LandingLayerName = "Landing";
     public string FloorLayerName = "Floor";
     public string WallLayerName = "Wall";
+    public float LandingSurfaceMinHeight = 0f;
+    public float LandingSurfaceMaxHeight = 1.5f;
 
     [Header("Flies")]
     public GameObject FlyPrefab;
@@ -339,6 +341,17 @@ public partial class GameManager : MonoBehaviour
             var floor = room.FloorAnchor;
             obj.transform.position = floor.transform.position;
             obj.transform.up = floor.transform.forward;
+        }
+    }
+
+    public void SetLandingSurfaceHeightRange()
+    {
+        MRUKRoom room = MRUK.Instance.GetCurrentRoom();
+        if (room != null)
+        {
+            var floor = room.FloorAnchor;
+            LandingSurfaceMinHeight = floor.transform.position.y;
+            LandingSurfaceMaxHeight = floor.transform.position.y + 2f;
         }
     }
 

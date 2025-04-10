@@ -325,17 +325,24 @@ public class BaseFlyBehavior : MonoBehaviour
         }
         else
         {
-            bool isFlyNearby = false;
-            foreach (var fly in settings.flies)
-            {
-                if (Vector3.Distance(fly.GetComponent<BaseFlyBehavior>().targetPosition, position) < MinNearbyFlyDistance)
-                {
-                    isFlyNearby = true;
-                    break;
-                }
-            }
-            if (isFlyNearby) return;
+            // CHECK IF FLY IS NEARBY NEW SPAWN LOCATION
+            // bool isFlyNearby = false;
+            // foreach (var fly in settings.flies)
+            // {
+            //     if (Vector3.Distance(fly.GetComponent<BaseFlyBehavior>().targetPosition, position) < MinNearbyFlyDistance)
+            //     {
+            //         isFlyNearby = true;
+            //         break;
+            //     }
+            // }
+            // if (isFlyNearby) return;
 
+            // CHECK IF FLY IS WITHIN HEIGHT RANGE
+            if(position.y < GameManager.Instance.LandingSurfaceMinHeight || position.y > GameManager.Instance.LandingSurfaceMaxHeight) 
+            {
+                Debug.Log(name + " is outside of height range");
+                return;
+            }
             AssignNewTarget(position, normal);
         }
     }

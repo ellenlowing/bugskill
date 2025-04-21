@@ -251,15 +251,6 @@ public class StoreManager : MonoBehaviour
         }
     }
 
-    public void OnThumbsUpSelected()
-    {
-        Debug.Log("Thumbs up selected");
-        if (IsStoreActive) // Change isstoreactive
-        {
-            CheckoutBasket();
-        }
-    }
-
     public void CheckoutBasket()
     {
         IsStoreActive = false;

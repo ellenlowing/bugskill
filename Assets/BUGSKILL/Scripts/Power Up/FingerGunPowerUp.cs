@@ -41,7 +41,6 @@ public class FingerGunPowerUp : BasePowerUpBehavior
     public override void OnGrabbableSelect(PointerEvent arg0)
     {
         base.OnGrabbableSelect(arg0);
-        // transform.parent = null;
 
         HandRef handData = (HandRef)arg0.Data;
         Handedness handedness = handData.Handedness;

@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5468476972978534699}
   - component: {fileID: 4983446621007840089}
   - component: {fileID: 3930196080396434392}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: eye_left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -184,6 +184,7 @@ MonoBehaviour:
   LandingSurface: 49151
   IsSlowed: 0
   IsKilled: 0
+  Outline: {fileID: 3629548130581130035}
   normalEyeMesh:
   - {fileID: 8161353380878517188}
   - {fileID: 8161488179538572312}
@@ -391,7 +392,7 @@ GameObject:
   - component: {fileID: 8860143217507585408}
   - component: {fileID: 1580154761112210043}
   - component: {fileID: 5509550933052834594}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: eyes_right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -513,7 +514,7 @@ GameObject:
   - component: {fileID: 8151125162887450878}
   - component: {fileID: 8171161980780702588}
   - component: {fileID: 8161108033435662170}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: left-legs
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -600,7 +601,7 @@ GameObject:
   - component: {fileID: 8142648167534934466}
   - component: {fileID: 8089709310135259662}
   - component: {fileID: 3629548130581130035}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Fly-flying
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4711,7 +4712,7 @@ GameObject:
   - component: {fileID: 8151186618165528196}
   - component: {fileID: 8172032450144359244}
   - component: {fileID: 8161353380878517188}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: left-eye
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4797,7 +4798,7 @@ GameObject:
   - component: {fileID: 8151309558971962406}
   - component: {fileID: 8171740508348681788}
   - component: {fileID: 8161639700808888584}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: right-wings
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4884,7 +4885,7 @@ GameObject:
   - component: {fileID: 8143003390999155268}
   - component: {fileID: 8171672984397532438}
   - component: {fileID: 8161488179538572312}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: right-eye
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4970,7 +4971,7 @@ GameObject:
   - component: {fileID: 8142953552667422556}
   - component: {fileID: 8171943151940059156}
   - component: {fileID: 8161343422958390254}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: right-wing
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5056,7 +5057,7 @@ GameObject:
   - component: {fileID: 8143063709195603190}
   - component: {fileID: 8171193339678192218}
   - component: {fileID: 8161479640683861072}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: left-wing
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5142,7 +5143,7 @@ GameObject:
   - component: {fileID: 8151410391257601842}
   - component: {fileID: 8171430243018445582}
   - component: {fileID: 8162125125776691950}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: body
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -43198,6 +43198,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 224047400060589573, guid: 3ca39db74fe6b40daa34b2cd4edc4d57, type: 3}
+      propertyPath: _handGhostProvider
+      value: 
+      objectReference: {fileID: 11400000, guid: 9b9df4f150839de48af887d742aabf53, type: 2}
     - target: {fileID: 552427255012593206, guid: 3ca39db74fe6b40daa34b2cd4edc4d57, type: 3}
       propertyPath: _ghostProvider
       value: 
@@ -43270,6 +43274,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 2157113450522106339, guid: 3ca39db74fe6b40daa34b2cd4edc4d57, type: 3}
+      propertyPath: _handGhostProvider
+      value: 
+      objectReference: {fileID: 11400000, guid: 9b9df4f150839de48af887d742aabf53, type: 2}
     - target: {fileID: 2399222044915824635, guid: 3ca39db74fe6b40daa34b2cd4edc4d57, type: 3}
       propertyPath: _ghostProvider
       value: 
@@ -43306,6 +43314,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 3172902383436195263, guid: 3ca39db74fe6b40daa34b2cd4edc4d57, type: 3}
+      propertyPath: _handGhostProvider
+      value: 
+      objectReference: {fileID: 11400000, guid: 9b9df4f150839de48af887d742aabf53, type: 2}
     - target: {fileID: 3316249857120703607, guid: 3ca39db74fe6b40daa34b2cd4edc4d57, type: 3}
       propertyPath: m_Layer
       value: 10
@@ -43422,6 +43434,10 @@ PrefabInstance:
       propertyPath: _ghostProvider
       value: 
       objectReference: {fileID: 11400000, guid: ba24f6f783d84ef4f8ff075364e1283c, type: 2}
+    - target: {fileID: 6676086163825400671, guid: 3ca39db74fe6b40daa34b2cd4edc4d57, type: 3}
+      propertyPath: _handGhostProvider
+      value: 
+      objectReference: {fileID: 11400000, guid: 9b9df4f150839de48af887d742aabf53, type: 2}
     - target: {fileID: 6840909241149315531, guid: 3ca39db74fe6b40daa34b2cd4edc4d57, type: 3}
       propertyPath: m_Layer
       value: 10
@@ -50400,6 +50416,10 @@ PrefabInstance:
       propertyPath: _ghostProvider
       value: 
       objectReference: {fileID: 11400000, guid: ba24f6f783d84ef4f8ff075364e1283c, type: 2}
+    - target: {fileID: 5653255641834456320, guid: 35762777fd1d94782b096022b23edcb1, type: 3}
+      propertyPath: _handGhostProvider
+      value: 
+      objectReference: {fileID: 11400000, guid: 9b9df4f150839de48af887d742aabf53, type: 2}
     - target: {fileID: 8358663444087909656, guid: 35762777fd1d94782b096022b23edcb1, type: 3}
       propertyPath: _ghostProvider
       value: 

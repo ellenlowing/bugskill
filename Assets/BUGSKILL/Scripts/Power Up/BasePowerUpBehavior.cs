@@ -76,8 +76,6 @@ public class BasePowerUpBehavior : MonoBehaviour
 
         if (PointableEventWrapper != null)
         {
-            // PointableEventWrapper.WhenHover.AddListener(OnHover);
-            // PointableEventWrapper.WhenUnhover.AddListener(OnUnhover);
             PointableEventWrapper.WhenSelect.AddListener(OnGrabbableSelect);
             PointableEventWrapper.WhenUnselect.AddListener(OnGrabbableUnselect);
         }
@@ -229,18 +227,6 @@ public class BasePowerUpBehavior : MonoBehaviour
             t += Time.deltaTime;
             yield return null;
         }
-    }
-
-    public void OnHover(PointerEvent arg0)
-    {
-        HandRef handData = (HandRef)arg0.Data;
-        Handedness handedness = handData.Handedness;
-    }
-
-    public void OnUnhover(PointerEvent arg0)
-    {
-        HandRef handData = (HandRef)arg0.Data;
-        Handedness handedness = handData.Handedness;
     }
 
     public virtual void OnGrabbableSelect(PointerEvent arg0)

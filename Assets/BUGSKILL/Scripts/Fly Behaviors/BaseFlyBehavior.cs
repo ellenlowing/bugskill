@@ -32,6 +32,7 @@ public class BaseFlyBehavior : MonoBehaviour
     public MRUKAnchor.SceneLabels LandingSurface;
     public bool IsSlowed;
     public bool IsKilled;
+    public Outline Outline;
     [SerializeField] private List<MeshRenderer> normalEyeMesh;
     [SerializeField] private List<MeshRenderer> circularEyeMesh;
     [SerializeField] private Animator animator;
@@ -338,7 +339,7 @@ public class BaseFlyBehavior : MonoBehaviour
             // if (isFlyNearby) return;
 
             // CHECK IF FLY IS WITHIN HEIGHT RANGE
-            if(position.y < GameManager.Instance.LandingSurfaceMinHeight || position.y > GameManager.Instance.LandingSurfaceMaxHeight) 
+            if (position.y < GameManager.Instance.LandingSurfaceMinHeight || position.y > GameManager.Instance.LandingSurfaceMaxHeight)
             {
                 Debug.Log(name + " is outside of height range");
                 return;

@@ -46,7 +46,6 @@ public class FingerSlingshotPowerUp : BasePowerUpBehavior
         }
 
         base.OnGrabbableSelect(arg0);
-        // transform.parent = null;
 
         HandRef handData = (HandRef)arg0.Data;
         Handedness handedness = handData.Handedness;

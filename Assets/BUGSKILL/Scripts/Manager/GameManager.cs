@@ -14,6 +14,7 @@ using Unity.VisualScripting;
 using Oculus.Interaction.Input.Filter;
 using UnityEngine.InputSystem;
 using Meta.XR.EnvironmentDepth;
+using TMPro;
 
 public partial class GameManager : MonoBehaviour
 {
@@ -102,6 +103,7 @@ public partial class GameManager : MonoBehaviour
     public AudioSource RoundEndAudio;
     public ParticleSystem RoomScaleSparkle;
     public GameObject EnvironmentDepthOcclusion;
+    public TextMeshProUGUI TimerText;
 
     void Awake()
     {
@@ -147,8 +149,10 @@ public partial class GameManager : MonoBehaviour
 
 #if UNITY_EDITOR
         EffectMesh.HideMesh = false;
+        TimerText.gameObject.SetActive(true);
 #else
         EffectMesh.HideMesh = true;
+        TimerText.gameObject.SetActive(false);
 #endif
 
         if (debugObject != null)
@@ -200,7 +204,15 @@ public partial class GameManager : MonoBehaviour
         animator.speed = settings.divFactor / settings.durationOfWave[settings.waveIndex];
         animator.Play("Animation", 0, 0);
         RoundStarted = true;
-        StartCoroutine(SetTimer(settings.durationOfWave[settings.waveIndex]));
+
+        if (TimerText.gameObject.activeSelf)
+        {
+            StartCoroutine(SetTimerDebug(settings.durationOfWave[settings.waveIndex]));
+        }
+        else
+        {
+            StartCoroutine(SetTimer(settings.durationOfWave[settings.waveIndex]));
+        }
     }
 
     void HandleRoundEnd()
@@ -233,6 +245,18 @@ public partial class GameManager : MonoBehaviour
     IEnumerator SetTimer(float time)
     {
         yield return new WaitForSeconds(time);
+        HandleRoundEnd();
+    }
+
+    IEnumerator SetTimerDebug(float time)
+    {
+        var t = 0;
+        while (t < time)
+        {
+            TimerText.text = t.ToString();
+            yield return new WaitForSeconds(1f);
+            t++;
+        }
         HandleRoundEnd();
     }
 

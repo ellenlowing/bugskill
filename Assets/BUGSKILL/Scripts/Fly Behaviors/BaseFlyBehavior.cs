@@ -48,6 +48,7 @@ public class BaseFlyBehavior : MonoBehaviour
     private float evadeTimer;
     private bool needNewTarget;
     private int landingLayerMask;
+    private bool _hasRestedOnce = false;
     public MRUKAnchor currentLandingSurface;
 
     public void Start()
@@ -196,7 +197,17 @@ public class BaseFlyBehavior : MonoBehaviour
 
     public virtual void EnterRestingState()
     {
-        restTimer = Time.time;
+        RestDuration = Random.Range(CurrentFlyStat.minRestDuration, CurrentFlyStat.maxRestDuration);
+        if (!_hasRestedOnce)
+        {
+            _hasRestedOnce = true;
+            restTimer = Time.time + Random.Range(0, RestDuration);
+        }
+        else
+        {
+            restTimer = Time.time;
+        }
+
         evadeTimer = -1;
         animator.speed = 0;
         flyAudio.Mute(true);
@@ -214,6 +225,7 @@ public class BaseFlyBehavior : MonoBehaviour
     {
         if (Time.time - restTimer >= RestDuration)
         {
+            needNewTarget = true;
             EnterState(FlyState.FLYING);
         }
         else
@@ -328,16 +340,23 @@ public class BaseFlyBehavior : MonoBehaviour
         else
         {
             // CHECK IF FLY IS NEARBY NEW SPAWN LOCATION
-            // bool isFlyNearby = false;
-            // foreach (var fly in settings.flies)
-            // {
-            //     if (Vector3.Distance(fly.GetComponent<BaseFlyBehavior>().targetPosition, position) < MinNearbyFlyDistance)
-            //     {
-            //         isFlyNearby = true;
-            //         break;
-            //     }
-            // }
-            // if (isFlyNearby) return;
+            bool isFlyNearby = false;
+            foreach (var fly in settings.flies)
+            {
+                if (Vector3.Distance(fly.GetComponent<BaseFlyBehavior>().targetPosition, position) < MinNearbyFlyDistance)
+                {
+                    isFlyNearby = true;
+                    break;
+                }
+            }
+            if (isFlyNearby) return;
+
+            // CHECK IF TARGET POSITION IS FAR ENOUGH
+            if (Vector3.Distance(position, transform.position) < CurrentFlyStat.evadeDistance)
+            {
+                Debug.Log(name + " is too close to player");
+                return;
+            }
 
             // CHECK IF FLY IS WITHIN HEIGHT RANGE
             if (position.y < GameManager.Instance.LandingSurfaceMinHeight || position.y > GameManager.Instance.LandingSurfaceMaxHeight)

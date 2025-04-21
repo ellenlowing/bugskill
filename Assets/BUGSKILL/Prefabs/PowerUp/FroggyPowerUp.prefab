@@ -1558,11 +1558,6 @@ MonoBehaviour:
   FroggyRotationOffset: {x: 0, y: 0, z: 60}
   SphereCastRadius: 0.15
   SphereCastDistance: 8
-  FlyLayerMask:
-    serializedVersion: 2
-    m_Bits: 128
-  CooldownTime: 2
-  FroggyLastTriggeredTime: 0
   audioSource: {fileID: 6607646118037085995}
   munchClip: {fileID: 8300000, guid: 21417dbb25a2bfb40b6de9fad5db1462, type: 3}
   croakClip: {fileID: 8300000, guid: d97bfd58edfbae146a20e40cefb83c72, type: 3}
@@ -4380,7 +4375,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4486967883610955787
 Transform:
   m_ObjectHideFlags: 0
@@ -4413,7 +4408,7 @@ ParticleSystem:
   emitterVelocityMode: 1
   looping: 1
   prewarm: 0
-  playOnAwake: 1
+  playOnAwake: 0
   useUnscaledTime: 0
   autoRandomSeed: 1
   startDelay:

@@ -1,12 +1,9 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 using Oculus.Interaction;
-using Oculus.Interaction.Input;
-using Meta.XR.MRUtilityKit;
-using UnityEngine.UIElements;
 using System.Collections;
+using UnityEngine.InputSystem;
 
 public class StoreManager : MonoBehaviour
 {
@@ -21,12 +18,6 @@ public class StoreManager : MonoBehaviour
     [Header("UI")]
     public GameObject StoreUI;
     [SerializeField] private GameObject PopupTextObj;
-
-    [Header("Shared UI")]
-    [SerializeField] public TextMeshProUGUI GlobalName;
-    [SerializeField] public TextMeshProUGUI GlobalDescription;
-    [SerializeField] public TextMeshProUGUI GlobalCashAmount;
-    public GameObject ShopItemDataUI;
 
     [Header("Buttons")]
     public GameObject StoreButtons;
@@ -44,8 +35,6 @@ public class StoreManager : MonoBehaviour
     [Header("Shop Props")]
     public GameObject ShopMaster;
     public ShoppingBasket ShoppingBasket;
-    public SelectorUnityEventWrapper ThumbsUpEvent;
-    public Transform PowerUpDockingStation;
     public List<Transform> ShopItemPositions;
     public Transform StorePositionFinder;
     public AudioSource CheckoutSound;
@@ -64,17 +53,16 @@ public class StoreManager : MonoBehaviour
     public List<AudioClip> CheckoutClips;
 
     [Header("Misc")]
-    public BasePowerUpBehavior _selectedPowerUp;
+    public BasePowerUpBehavior SelectedPowerUp;
     public Grabbable RepositionGrabbable;
     public GrabFreeTransformer GrabFreeTransformer;
     public bool HasGrabbedAnyItem = false;
     private bool _hasShownOnce = false;
     private SettingSO settings;
-    public List<BasePowerUpBehavior.PowerUpType> _powerUpTypes = new List<BasePowerUpBehavior.PowerUpType>();
 
     private void OnEnable()
     {
-        PurchaseBtn.WhenSelect.AddListener(delegate { Purchase(_selectedPowerUp); });
+        PurchaseBtn.WhenSelect.AddListener(delegate { Purchase(SelectedPowerUp); });
         NextWaveBtn.WhenSelect.AddListener(NextWave);
     }
 
@@ -98,31 +86,30 @@ public class StoreManager : MonoBehaviour
     void Update()
     {
 #if UNITY_EDITOR
-        if (Input.GetKeyDown(KeyCode.Alpha1))
+        if (Keyboard.current[Key.Digit1].wasPressedThisFrame)
         {
-            _selectedPowerUp = ShopItemsParent.GetChild(0).GetComponentInChildren<BasePowerUpBehavior>();
-            _selectedPowerUp.ActiveOVRHand = GameManager.Instance.LeftOVRHand;
-            Purchase(_selectedPowerUp);
+            SelectedPowerUp = ShopItemsParent.GetChild(0).GetComponentInChildren<BasePowerUpBehavior>();
+            SelectedPowerUp.ActiveOVRHand = GameManager.Instance.LeftOVRHand;
+            Purchase(SelectedPowerUp);
         }
-        else if (Input.GetKeyDown(KeyCode.Alpha2))
+        else if (Keyboard.current[Key.Digit2].wasPressedThisFrame)
         {
-            _selectedPowerUp = ShopItemsParent.GetChild(1).GetComponentInChildren<BasePowerUpBehavior>();
-            _selectedPowerUp.ActiveOVRHand = GameManager.Instance.LeftOVRHand;
-            Purchase(_selectedPowerUp);
+            SelectedPowerUp = ShopItemsParent.GetChild(1).GetComponentInChildren<BasePowerUpBehavior>();
+            SelectedPowerUp.ActiveOVRHand = GameManager.Instance.LeftOVRHand;
+            Purchase(SelectedPowerUp);
         }
-        else if (Input.GetKeyDown(KeyCode.Alpha3))
+        else if (Keyboard.current[Key.Digit3].wasPressedThisFrame)
         {
-            _selectedPowerUp = ShopItemsParent.GetChild(2).GetComponentInChildren<BasePowerUpBehavior>();
-            _selectedPowerUp.ActiveOVRHand = GameManager.Instance.LeftOVRHand;
-            Purchase(_selectedPowerUp);
+            SelectedPowerUp = ShopItemsParent.GetChild(2).GetComponentInChildren<BasePowerUpBehavior>();
+            SelectedPowerUp.ActiveOVRHand = GameManager.Instance.LeftOVRHand;
+            Purchase(SelectedPowerUp);
         }
-        else if (Input.GetKeyDown(KeyCode.Alpha4))
+        else if (Keyboard.current[Key.Digit4].wasPressedThisFrame)
         {
-            _selectedPowerUp = ShopItemsParent.GetChild(3).GetComponentInChildren<BasePowerUpBehavior>();
-            _selectedPowerUp.ActiveOVRHand = GameManager.Instance.LeftOVRHand;
-            Purchase(_selectedPowerUp);
+            SelectedPowerUp = ShopItemsParent.GetChild(3).GetComponentInChildren<BasePowerUpBehavior>();
+            SelectedPowerUp.ActiveOVRHand = GameManager.Instance.LeftOVRHand;
+            Purchase(SelectedPowerUp);
         }
-
 #endif
 
     }
@@ -234,13 +221,12 @@ public class StoreManager : MonoBehaviour
 
     public void HideStore()
     {
-        // IsStoreActive = false;
         StoreUI.SetActive(false);
     }
 
     public void SetActivePowerUp(BasePowerUpBehavior powerUp)
     {
-        _selectedPowerUp = powerUp;
+        SelectedPowerUp = powerUp;
         if (powerUp != null)
         {
             Debug.Log("Active Power Up: " + powerUp.gameObject.name);
@@ -248,72 +234,6 @@ public class StoreManager : MonoBehaviour
         else
         {
             Debug.Log("Removed Active Power Up");
-        }
-    }
-
-    public void CheckoutBasket()
-    {
-        IsStoreActive = false;
-        if (ShoppingBasket.Items.Count == 0)
-        {
-            NotEnoughCashDialog.SetActive(false);
-            CheckoutInstructions.SetActive(false);
-            ThankyouDialog.SetActive(true);
-            ThankyouDialogText.text = "Oh, nothing in the basket? A true connoisseur of window shopping, I see. Well then, back to work in 3... 2... 1...";
-
-            Invoke(nameof(NextWave), 2f);
-            return;
-        }
-        ;
-
-        var totalSum = 0;
-        foreach (GameObject item in ShoppingBasket.Items)
-        {
-            var price = item.GetComponent<BasePowerUpBehavior>().StoreItemData.Price;
-            totalSum += price;
-        }
-
-        if (settings.Cash < totalSum)
-        {
-            NotEnoughCashDialog.SetActive(true);
-            CheckoutInstructions.SetActive(false);
-            ThankyouDialog.SetActive(false);
-        }
-        else
-        {
-            Debug.Log("Checking out basket with enough cash");
-            settings.Cash -= totalSum;
-            UIManager.Instance.UpdateCashUI();
-            // AddTextPopUp("Purchased " + ShoppingBasket.Items.Count + " items!", ShoppingBasket.transform.position);
-            NotEnoughCashDialog.SetActive(false);
-            CheckoutInstructions.SetActive(false);
-            ThankyouDialog.SetActive(true);
-            ThankyouDialogText.text = "You've checked out " + ShoppingBasket.Items.Count + " items! Thank you for supporting my small business.\nBack to work in 3... 2... 1...";
-            CheckoutSound.Play();
-
-            // Add to docking station
-            int index = 0;
-            foreach (var item in ShoppingBasket.Items)
-            {
-                var powerUp = item.GetComponent<BasePowerUpBehavior>();
-                powerUp.IsSold = true;
-                powerUp.gameObject.transform.SetParent(PowerUpDockingStation, true);
-                powerUp.gameObject.transform.localPosition = new Vector3(index * 0.3f, 0, 0);
-                powerUp.GlowEffect.gameObject.SetActive(true);
-                powerUp.GlowEffect.Stop();
-                powerUp.GlowEffect.Play();
-                RotatePowerUpDisplay(powerUp.gameObject);
-
-                index++;
-                Debug.Log("Purchased " + powerUp.StoreItemData.Name);
-            }
-
-            // Place docking station behind store
-            PowerUpDockingStation.transform.position = StoreUI.transform.position - StoreUI.transform.forward * 0.3f + StoreUI.transform.up * 0.8f;
-            PowerUpDockingStation.gameObject.SetActive(true);
-
-            // Start Next Wave
-            Invoke(nameof(NextWave), 2f);
         }
     }
 

@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using System.Linq;
+using UnityEngine.InputSystem;
 
 public class FroggyController : BasePowerUpBehavior
 {
@@ -23,7 +24,6 @@ public class FroggyController : BasePowerUpBehavior
     [Header("SphereCast")]
     public float SphereCastRadius = 0.2f;
     public float SphereCastDistance = 4f;
-    public LayerMask FlyLayerMask;
     private RaycastHit[] _previousHits;
 
     [Header("Sounds")]
@@ -50,7 +50,7 @@ public class FroggyController : BasePowerUpBehavior
         TongueTipObjectTransform.rotation = TongueTipTargetTransform.rotation;
 
 #if UNITY_EDITOR
-        if (Input.GetKeyDown(KeyCode.F))
+        if (Keyboard.current[Key.F].wasPressedThisFrame)
         {
             TriggerPress();
         }
@@ -61,7 +61,7 @@ public class FroggyController : BasePowerUpBehavior
     {
         base.UpdateActiveState();
 
-        RaycastHit[] hits = Physics.SphereCastAll(transform.position, SphereCastRadius, -transform.right, SphereCastDistance, FlyLayerMask);
+        RaycastHit[] hits = Physics.SphereCastAll(transform.position, SphereCastRadius, -transform.right, SphereCastDistance, GameManager.Instance.FlyLayerMask);
 
         // Disable outline for previous hits if they are not in the current hits
         foreach (var hit in _previousHits)

@@ -12,6 +12,8 @@ using Oculus.Interaction.Input;
 using Oculus.Interaction.PoseDetection;
 using Unity.VisualScripting;
 using Oculus.Interaction.Input.Filter;
+using UnityEngine.InputSystem;
+using Meta.XR.EnvironmentDepth;
 
 public partial class GameManager : MonoBehaviour
 {
@@ -61,16 +63,6 @@ public partial class GameManager : MonoBehaviour
     [Header("Game Events")]
     [Tooltip("Subscribe to run before first game wave")]
     public VoidEventChannelSO GameBegins;
-    [Tooltip("Subscribe to activate FrogPowerUp panels and tutorials during cooldown time after a wave")]
-    public VoidEventChannelSO FrogPowerUp;
-    [Tooltip("Subscribe to activate SprayPowerUp panels and tutorials during cooldown time after a wave")]
-    public VoidEventChannelSO SprayPowerUp;
-    [Tooltip("Subscribe to activate ElectricSwatter panels and tutorials during cooldown time after a wave")]
-    public VoidEventChannelSO ElectricSwatterPowerUp;
-    [Tooltip("Subscribe to activate power up upgrades")]
-    public VoidEventChannelSO UpgradePowerUps;
-    [Tooltip("Subscribe to activate during boss fight begin")]
-    public VoidEventChannelSO BossFightEvent;
     [Tooltip("Subscribe to activate when game ends")]
     public VoidEventChannelSO GameEnds;
     [Tooltip("Starts the Next Wave Event")]
@@ -109,6 +101,7 @@ public partial class GameManager : MonoBehaviour
     [Header("Others")]
     public AudioSource RoundEndAudio;
     public ParticleSystem RoomScaleSparkle;
+    public GameObject EnvironmentDepthOcclusion;
 
     void Awake()
     {
@@ -128,13 +121,14 @@ public partial class GameManager : MonoBehaviour
         else
         {
             settings = gameSettings;
+            settings.Cash = 0;
         }
 
         settings.waveIndex = StartWaveIndex;
         settings.totalKills = 0;
         settings.localKills = 0;
-        if (!TestMode) settings.Cash = 0;
         settings.flies = new List<GameObject>();
+        EnvironmentDepthOcclusion.SetActive(EnvironmentDepthManager.IsSupported);
     }
 
     void Start()
@@ -166,7 +160,7 @@ public partial class GameManager : MonoBehaviour
     void Update()
     {
 #if UNITY_EDITOR
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Keyboard.current[Key.Space].wasPressedThisFrame)
         {
             settings.localKills += 1;
         }
@@ -203,10 +197,8 @@ public partial class GameManager : MonoBehaviour
 
         SetHandVisualsActive(false);
         GameUIGroup.SetActive(true);
-        // LevelPanel.SetActive(true);
         animator.speed = settings.divFactor / settings.durationOfWave[settings.waveIndex];
         animator.Play("Animation", 0, 0);
-        // UpdateHandMaterialColor();
         RoundStarted = true;
         StartCoroutine(SetTimer(settings.durationOfWave[settings.waveIndex]));
     }
@@ -228,11 +220,8 @@ public partial class GameManager : MonoBehaviour
         }
 
         GameUIGroup.SetActive(false);
-        // LevelPanel.SetActive(false);
         StartCoroutine(CheckGoal(settings.waveIndex));
-
         settings.waveIndex = settings.waveIndex + 1;
-
         animator.speed = 1f;
 
         if (animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1)
@@ -291,7 +280,6 @@ public partial class GameManager : MonoBehaviour
 
     private void StartGameLoop()
     {
-        // SetHandVisualsActive(true);
         SetHandControllersActive(true);
         StoreManager.Instance.ShufflePowerups();
         StoreManager.Instance.HideStore();
@@ -302,7 +290,6 @@ public partial class GameManager : MonoBehaviour
 
     public void RestartGameLoop()
     {
-        // SetHandVisualsActive(true);
         settings.flies.Clear();
         settings.waveIndex = StartWaveIndex;
         settings.totalKills = 0;
@@ -313,7 +300,6 @@ public partial class GameManager : MonoBehaviour
         UIManager.Instance.UpdateLevel();
         UIManager.Instance.UpdateCashUI();
         StartGameLoop();
-        // StoreManager.Instance.HideAllPowerUps();
     }
 
     public void TriggerTNT(Vector3 position, GameObject tntFly = null)
@@ -384,7 +370,7 @@ public partial class GameManager : MonoBehaviour
     public int DissolveAllPowerUps()
     {
         Debug.Log("StoreManager: Dissolving all powerups");
-        var powerup = StoreManager.Instance._selectedPowerUp;
+        var powerup = StoreManager.Instance.SelectedPowerUp;
         if (powerup != null)
         {
             Debug.Log("dissolving " + powerup.name);
@@ -394,18 +380,6 @@ public partial class GameManager : MonoBehaviour
         else
         {
             return 0;
-        }
-    }
-
-    void OnDrawGizmos()
-    {
-        foreach (var fly in TNTFlies)
-        {
-            if (fly != null)
-            {
-                Gizmos.color = Color.red;
-                Gizmos.DrawWireSphere(fly.transform.position, TNTExplosionRadius);
-            }
         }
     }
 
@@ -421,13 +395,6 @@ public partial class GameManager : MonoBehaviour
         RightHandRayInteractor.SetActive(active);
     }
 
-    public void UpdateHandMaterialColor()
-    {
-        float killPercentage = (float)settings.localKills / (float)settings.LevelGoals[settings.waveIndex];
-        Color color = Color.Lerp(StartHandColor, EndHandColor, killPercentage);
-        RightHandMeshRenderer.sharedMaterial.SetColor("_ColorTop", color);
-    }
-
     public bool IsOnAnyLandingLayer(GameObject obj)
     {
         return obj.layer == LayerMask.NameToLayer(LandingLayerName) || obj.layer == LayerMask.NameToLayer(FloorLayerName) || obj.layer == LayerMask.NameToLayer(WallLayerName);
@@ -441,5 +408,17 @@ public partial class GameManager : MonoBehaviour
     public int GetWallLayerMask()
     {
         return 1 << LayerMask.NameToLayer(WallLayerName);
+    }
+
+    void OnDrawGizmos()
+    {
+        foreach (var fly in TNTFlies)
+        {
+            if (fly != null)
+            {
+                Gizmos.color = Color.red;
+                Gizmos.DrawWireSphere(fly.transform.position, TNTExplosionRadius);
+            }
+        }
     }
 }

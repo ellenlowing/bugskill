@@ -27610,7 +27610,7 @@ MonoBehaviour:
   LevelPanel: {fileID: 1501541907}
   MainCameraTransform: {fileID: 1915206569}
   settings: {fileID: 11400000, guid: 415f7b1141256224db7c3c8720566774, type: 2}
-  TestMode: 0
+  TestMode: 1
   StartWaveIndex: 0
   gameSettings: {fileID: 11400000, guid: 415f7b1141256224db7c3c8720566774, type: 2}
   testSettings: {fileID: 11400000, guid: f17f1c6612d95425a8965738fd836c8a, type: 2}
@@ -27641,11 +27641,6 @@ MonoBehaviour:
   TNTEffectTimeout: 5
   TNTExplosionRadius: 0.5
   GameBegins: {fileID: 11400000, guid: e1f9e8cd7ed35bb4f933dfe252aff86d, type: 2}
-  FrogPowerUp: {fileID: 11400000, guid: d77f5a68065e545499e35851c0ded3e1, type: 2}
-  SprayPowerUp: {fileID: 11400000, guid: e4a38373fc5699847ad7d4c59e987ae5, type: 2}
-  ElectricSwatterPowerUp: {fileID: 11400000, guid: 793b6ad92a0542b4b9c97ab4c35131e6, type: 2}
-  UpgradePowerUps: {fileID: 11400000, guid: 88877fe6112ab3d4084b157b3dfa9d1d, type: 2}
-  BossFightEvent: {fileID: 11400000, guid: f4a202747a2db56458f5fccf51298240, type: 2}
   GameEnds: {fileID: 11400000, guid: e22ab8411ca0bdf4d88477caf03a8ecc, type: 2}
   StartNextWaveEvent: {fileID: 11400000, guid: 16826ff85b57ded42a9461c318dd55c3, type: 2}
   GameRestartEvent: {fileID: 148265972}
@@ -27673,6 +27668,7 @@ MonoBehaviour:
   RightFingerSlingshot: {fileID: 1502083609}
   RoundEndAudio: {fileID: 730595232}
   RoomScaleSparkle: {fileID: 1703338195}
+  EnvironmentDepthOcclusion: {fileID: 1972933895}
 --- !u!114 &730595230
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -27723,12 +27719,7 @@ MonoBehaviour:
   PlayerSettingsButton: {fileID: 1858778943}
   GameExitButton: {fileID: 1024137554}
   GameBegins: {fileID: 11400000, guid: e1f9e8cd7ed35bb4f933dfe252aff86d, type: 2}
-  FrogPowerUp: {fileID: 11400000, guid: d77f5a68065e545499e35851c0ded3e1, type: 2}
-  SprayPowerUp: {fileID: 11400000, guid: e4a38373fc5699847ad7d4c59e987ae5, type: 2}
-  ElectricSwatterPowerUp: {fileID: 11400000, guid: 793b6ad92a0542b4b9c97ab4c35131e6, type: 2}
-  UpgradePowerUps: {fileID: 11400000, guid: 88877fe6112ab3d4084b157b3dfa9d1d, type: 2}
   GameEnds: {fileID: 11400000, guid: e22ab8411ca0bdf4d88477caf03a8ecc, type: 2}
-  BossFightEvent: {fileID: 11400000, guid: f4a202747a2db56458f5fccf51298240, type: 2}
   StartNextWaveEvent: {fileID: 11400000, guid: 16826ff85b57ded42a9461c318dd55c3, type: 2}
   ScoreUIUpdateEvent: {fileID: 11400000, guid: 483d9bbf59d0e684fa36d25290bb15c8, type: 2}
 --- !u!82 &730595232
@@ -29589,15 +29580,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3214761230815107649, guid: 940ca5991157c5b418edaf5e5226df05, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -6.517985
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3214761230815107649, guid: 940ca5991157c5b418edaf5e5226df05, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.6094764
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3214761230815107649, guid: 940ca5991157c5b418edaf5e5226df05, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.23569429
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3214761230815107649, guid: 940ca5991157c5b418edaf5e5226df05, type: 3}
       propertyPath: m_LocalRotation.w
@@ -39927,6 +39918,11 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!1 &1972933895 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2762874143974431201, guid: 940ca5991157c5b418edaf5e5226df05, type: 3}
+  m_PrefabInstance: {fileID: 907711823}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1975725573
 GameObject:
   m_ObjectHideFlags: 0

@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.Video;
-using Oculus.Interaction.HandGrab;
+using UnityEngine.InputSystem;
 
 public class BasePowerUpBehavior : MonoBehaviour
 {
@@ -39,7 +39,6 @@ public class BasePowerUpBehavior : MonoBehaviour
     public Grabbable Grabbable;
     public List<GameObject> HandGrabInteractables;
     public PointableUnityEventWrapper PointableEventWrapper;
-    public ParticleSystem GlowEffect;
     public bool AnchoredToHandPose = true;
 
     [Header("Power Capacity Settings")]
@@ -81,9 +80,10 @@ public class BasePowerUpBehavior : MonoBehaviour
         }
 
         HandleUI(showDetails: false, showPriceTag: true, handedness: Handedness.Right);
-        if (Teaser != null) Teaser.Prepare();
-
-        GlowEffect.gameObject.SetActive(false);
+        if (Teaser != null)
+        {
+            Teaser.Prepare();
+        }
 
         LeftPriceTagText.text = StoreItemData.Price.ToString();
         RightPriceTagText.text = StoreItemData.Price.ToString();
@@ -95,7 +95,7 @@ public class BasePowerUpBehavior : MonoBehaviour
         UpdateState();
 
 #if UNITY_EDITOR
-        if (Input.GetKeyDown(KeyCode.LeftShift))
+        if (Keyboard.current[Key.LeftShift].wasPressedThisFrame)
         {
             Dissolve();
         }
@@ -246,7 +246,10 @@ public class BasePowerUpBehavior : MonoBehaviour
         {
             StoreManager.Instance.SetActivePowerUp(this);
             HandleUI(showDetails: true, showPriceTag: false, handedness: handedness);
-            if (Teaser != null) Teaser.Play();
+            if (Teaser != null)
+            {
+                Teaser.Play();
+            }
         }
 
         if (IsSold)
@@ -276,7 +279,10 @@ public class BasePowerUpBehavior : MonoBehaviour
         {
             StoreManager.Instance.SetActivePowerUp(null);
             HandleUI(showDetails: false, showPriceTag: true, handedness: Handedness.Right);
-            if (Teaser != null) Teaser.Stop();
+            if (Teaser != null)
+            {
+                Teaser.Stop();
+            }
         }
 
         if (!_isEquipped)
@@ -305,13 +311,6 @@ public class BasePowerUpBehavior : MonoBehaviour
             transform.parent = ActiveOVRHand.gameObject.transform;
         }
         StoreManager.Instance.DisableAllGrabbables();
-    }
-
-    public void ShowItemData(PointerEvent arg0)
-    {
-        StoreManager.Instance.GlobalName.text = StoreItemData.Name;
-        StoreManager.Instance.GlobalDescription.text = StoreItemData.Description;
-        StoreManager.Instance.GlobalCashAmount.text = StoreItemData.Price.ToString();
     }
 
     public void UsePowerCapacity()

@@ -77,7 +77,7 @@ Material:
     - _BUILTIN_QueueOffset: 0
     - _BumpScale: 1
     - _Cull: 0
-    - _Cutoff: 0.99949
+    - _Cutoff: 0.99543667
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
     - _EdgeWidth: 0.06
@@ -104,6 +104,7 @@ Material:
     - _Edge_Color: {r: 0, g: 0.2024592, b: 3.526622, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
   m_BuildTextureStacks: []
+  m_AllowLocking: 1
 --- !u!114 &6126442697981158533
 MonoBehaviour:
   m_ObjectHideFlags: 11

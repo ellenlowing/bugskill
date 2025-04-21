@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Meta.XR.MRUtilityKit;
+using UnityEngine.InputSystem;
 
 public class BaseFlyBehavior : MonoBehaviour
 {
@@ -82,7 +83,7 @@ public class BaseFlyBehavior : MonoBehaviour
         }
 
 #if UNITY_EDITOR
-        if (Input.GetKeyDown(KeyCode.DownArrow))
+        if (Keyboard.current[Key.DownArrow].wasPressedThisFrame)
         {
             MRUKRoom currentRoom = MRUK.Instance.GetCurrentRoom();
             if (currentRoom != null)

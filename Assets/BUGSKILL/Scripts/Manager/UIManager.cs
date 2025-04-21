@@ -67,17 +67,7 @@ public class UIManager : MonoBehaviour
     [Space(20)]
     [Tooltip("Subscribe to run before first game wave")]
     public VoidEventChannelSO GameBegins;
-    [Tooltip("Subscribe to activate FrogPowerUp panels and tutorials during cooldown time after a wave")]
-    public VoidEventChannelSO FrogPowerUp;
-    [Tooltip("Subscribe to activate SprayPowerUp panels and tutorials during cooldown time after a wave")]
-    public VoidEventChannelSO SprayPowerUp;
-    [Tooltip("Subscribe to activate ElectricSwatter panels and tutorials during cooldown time after a wave")]
-    public VoidEventChannelSO ElectricSwatterPowerUp;
-    [Tooltip("Subscribe to activate power up upgrades")]
-    public VoidEventChannelSO UpgradePowerUps;
-    [Tooltip("Subscribe to activate when game ends")]
     public VoidEventChannelSO GameEnds;
-    public VoidEventChannelSO BossFightEvent;
     public VoidEventChannelSO StartNextWaveEvent;
     public FVEventSO ScoreUIUpdateEvent;
 
@@ -90,10 +80,6 @@ public class UIManager : MonoBehaviour
     {
         Assert.IsNotNull(GameStartUI, "UI not Assigned");
         Assert.IsNotNull(GameBegins, "Event not Assigned");
-        Assert.IsNotNull(FrogPowerUp, "Event not Assigned");
-        Assert.IsNotNull(SprayPowerUp, "Event not Assigned");
-        Assert.IsNotNull(ElectricSwatterPowerUp, "Event not Assigned");
-        Assert.IsNotNull(UpgradePowerUps, "Event not Assigned");
         Assert.IsNotNull(GameEnds, "Event not Assigned");
     }
 

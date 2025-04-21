@@ -108,8 +108,14 @@ public class HandController : MonoBehaviour
                     }
                     splatter.transform.parent = GameManager.Instance.BloodSplatContainer;
                     splatter.transform.localPosition = splatter.transform.localPosition + splatter.transform.up * settings.SplatDistanceOffset;
+
+                    BloodSplatParticles.transform.position = touchedFlyTransform.position;
+                    BloodSplatParticles.Stop();
+                    BloodSplatParticles.Play();
+
                     UIManager.Instance.IncrementKill(touchedFlyTransform.position, (int)SCOREFACTOR.SLAP);
 
+                    // TODO create a splat class so that the audio source component can be set on init
                     var audioSource = splatter.GetComponent<AudioSource>();
                     if (audioSource == null)
                     {
@@ -132,6 +138,8 @@ public class HandController : MonoBehaviour
                     BloodSplatParticles.transform.position = touchedFlyTransform.position;
                     BloodSplatParticles.Stop();
                     BloodSplatParticles.Play();
+
+                    // TODO create a splat class so that the audio source component can be set on init
                     BloodSplatParticles.gameObject.GetComponent<AudioSource>().Play();
                     UIManager.Instance.IncrementKill(touchedFlyTransform.position, (int)SCOREFACTOR.CLAP);
                 }

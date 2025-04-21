@@ -126,7 +126,6 @@ public class UIManager : MonoBehaviour
 
         // subscribe to all events
         GameEnds.OnEventRaised += EndGame;
-        GameBegins.OnEventRaised += StoreManager.Instance.InitializeStorePosition;
         GameBegins.OnEventRaised += UpdateLevel;
         GameBegins.OnEventRaised += HidePlayerSettings; // TODO change it so that an settings close button is attached to HidePlayerSettings
         StartNextWaveEvent.OnEventRaised += UpdateLevel;

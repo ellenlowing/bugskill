@@ -37,6 +37,7 @@ public partial class GameManager : MonoBehaviour
     public string WallLayerName = "Wall";
     public float LandingSurfaceMinHeight = 0f;
     public float LandingSurfaceMaxHeight = 1.5f;
+    public float LandingSurfaceHeightOffset = 2.5f;
 
     [Header("Flies")]
     public GameObject FlyPrefab;
@@ -150,9 +151,11 @@ public partial class GameManager : MonoBehaviour
         RightHandRenderer.SetActive(false);
         LeftHandRenderer.SetActive(false);
 
-        // #if UNITY_EDITOR
-        //         EffectMesh.HideMesh = false;
-        // #endif
+#if UNITY_EDITOR
+        EffectMesh.HideMesh = false;
+#else
+        EffectMesh.HideMesh = true;
+#endif
 
         if (debugObject != null)
         {
@@ -350,8 +353,9 @@ public partial class GameManager : MonoBehaviour
         if (room != null)
         {
             var floor = room.FloorAnchor;
-            LandingSurfaceMinHeight = floor.transform.position.y;
-            LandingSurfaceMaxHeight = floor.transform.position.y + 2f;
+            LandingSurfaceMinHeight = floor.transform.position.y - 0.1f;
+            LandingSurfaceMaxHeight = floor.transform.position.y + LandingSurfaceHeightOffset;
+            Debug.Log("Setting landing surface height range: " + LandingSurfaceMinHeight + " - " + LandingSurfaceMaxHeight);
         }
     }
 

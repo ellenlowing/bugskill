@@ -300,8 +300,6 @@ MonoBehaviour:
   - {fileID: 3760036195323213143}
   - {fileID: 7773123543584073156}
   - {fileID: 1647112938319989136}
-  - {fileID: 6219595525749547451}
-  - {fileID: 4102787674655690629}
   PointableEventWrapper: {fileID: 5670062738024195284}
   GlowEffect: {fileID: 7626204558893884579}
   AnchoredToHandPose: 1
@@ -11269,7 +11267,7 @@ MonoBehaviour:
     - {x: -0.117535174, y: 0.040306382, z: -0.057283927, w: -0.9905956}
     - {x: 0.40737247, y: 0.046477776, z: -0.013605067, w: 0.9119773}
   _ghostProvider: {fileID: 0}
-  _handGhostProvider: {fileID: 0}
+  _handGhostProvider: {fileID: 11400000, guid: 9b9df4f150839de48af887d742aabf53, type: 2}
   _ovrOffsetMode: 1
 --- !u!1 &1609507796868824384
 GameObject:
@@ -17220,7 +17218,7 @@ MonoBehaviour:
     - {x: 0.117535174, y: 0.040306382, z: -0.057283927, w: 0.9905956}
     - {x: 0.40737244, y: -0.046477776, z: 0.013605088, w: 0.9119773}
   _ghostProvider: {fileID: 0}
-  _handGhostProvider: {fileID: 0}
+  _handGhostProvider: {fileID: 11400000, guid: 9b9df4f150839de48af887d742aabf53, type: 2}
   _ovrOffsetMode: 1
 --- !u!1 &2931342260571863075
 GameObject:
@@ -17831,7 +17829,7 @@ MonoBehaviour:
     - {x: -0.37277928, y: 0.023903208, z: -0.065838315, w: -0.9252728}
     - {x: 0.6070237, y: 0.04207773, z: -0.023973571, w: 0.7932069}
   _ghostProvider: {fileID: 0}
-  _handGhostProvider: {fileID: 0}
+  _handGhostProvider: {fileID: 11400000, guid: 9b9df4f150839de48af887d742aabf53, type: 2}
   _ovrOffsetMode: 1
 --- !u!1 &3655271348029591507
 GameObject:
@@ -20586,7 +20584,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &3788520708578550684
 Transform:
   m_ObjectHideFlags: 0
@@ -20612,7 +20610,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7340839708812645497}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 8ab18bb1e2cfcab478dadefb1cd1a1ae, type: 2}
   m_CullingMode: 0

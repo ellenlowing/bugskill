@@ -9926,7 +9926,7 @@ MonoBehaviour:
     - {x: -0.28930736, y: 0.029331638, z: -0.06250054, w: -0.9547433}
     - {x: 0.08415886, y: 0.04893161, z: -0.001015423, w: 0.9952498}
   _ghostProvider: {fileID: 0}
-  _handGhostProvider: {fileID: 0}
+  _handGhostProvider: {fileID: 11400000, guid: 9b9df4f150839de48af887d742aabf53, type: 2}
   _ovrOffsetMode: 1
 --- !u!1 &9147200533604670644
 GameObject:

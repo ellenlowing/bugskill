@@ -93,7 +93,6 @@ public class StoreManager : MonoBehaviour
     private void Start()
     {
         settings = GameManager.Instance.settings;
-        InitializeStorePosition();
     }
 
     void Update()
@@ -147,14 +146,19 @@ public class StoreManager : MonoBehaviour
                 GameObject powerupItem = powerup.GetComponentInParent<Grabbable>().gameObject;
                 AddTextPopUp(shopItemName + " Purchased!", powerupItem.transform.position);
                 KaChingSFX.Play();
-                StartCoroutine(CueNextWave(CheckoutClips[settings.waveIndex % CheckoutClips.Count], 2f));
+                // StartCoroutine(CueNextWave(CheckoutClips[settings.waveIndex % CheckoutClips.Count], 2f));
+                StartCoroutine(CueNextWave(endClip: null, delay: 1f));
             }
         }
     }
 
-    IEnumerator CueNextWave(AudioClip endClip, float delay)
+    IEnumerator CueNextWave(AudioClip endClip = null, float delay = 0f)
     {
-        float totalDuration = StoreOwner.PlayClip(clip: endClip, delay: delay) + 1f;
+        float totalDuration = delay;
+        if (endClip != null)
+        {
+            totalDuration = StoreOwner.PlayClip(clip: endClip, delay: delay) + 1f;
+        }
         StoreButtons.SetActive(false);
         yield return new WaitForSeconds(totalDuration);
         NextWave();
@@ -170,6 +174,11 @@ public class StoreManager : MonoBehaviour
     {
         Debug.Log("Showing store");
 
+        if (GameManager.Instance.TestMode)
+        {
+            NumPowerUpToStart = 5;
+        }
+
         for (int i = 0; i < ShopItems.Count; i++)
         {
             var powerup = ShopItems[i];
@@ -184,7 +193,7 @@ public class StoreManager : MonoBehaviour
             }
         }
 
-        // Use Store Position Finder to grab spawn location]
+        // Place store in front of player
         StoreButtons.SetActive(true);
         HasGrabbedAnyItem = false;
         PlaceStore();
@@ -201,19 +210,6 @@ public class StoreManager : MonoBehaviour
         var powerupObj = Instantiate(shopItem, ShopItemsParent);
         PlacePowerUpDisplay(powerupObj);
         RotatePowerUpDisplay(powerupObj);
-    }
-
-    public void InitializeStorePosition()
-    {
-        Debug.Log("Placing store " + StorePositionFinder.childCount);
-        if (StorePositionFinder.childCount == 0)
-        {
-            StorePositionFinder.GetComponent<FindLargestSpawnPositions>().StartSpawnCurrentRoom();
-        }
-        else
-        {
-            StoreUI.transform.position = StorePositionFinder.GetChild(StorePositionFinder.childCount - 1).position;
-        }
     }
 
     public void PlaceStore()

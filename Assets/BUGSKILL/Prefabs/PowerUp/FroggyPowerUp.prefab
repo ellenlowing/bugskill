@@ -4008,7 +4008,7 @@ MonoBehaviour:
   _scoringModifier:
     _positionRotationWeight: 1
   _slippiness: 0
-  _supportedGrabTypes: 2
+  _supportedGrabTypes: -1
   _pinchGrabRules:
     _thumbRequirement: 0
     _indexRequirement: 1
@@ -4293,7 +4293,7 @@ MonoBehaviour:
   _scoringModifier:
     _positionRotationWeight: 1
   _slippiness: 0
-  _supportedGrabTypes: 2
+  _supportedGrabTypes: -1
   _pinchGrabRules:
     _thumbRequirement: 0
     _indexRequirement: 1

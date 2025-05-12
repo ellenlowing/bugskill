@@ -205,14 +205,14 @@ public partial class GameManager : MonoBehaviour
         animator.Play("Animation", 0, 0);
         RoundStarted = true;
 
-        if (TimerText.gameObject.activeSelf)
-        {
-            StartCoroutine(SetTimerDebug(settings.durationOfWave[settings.waveIndex]));
-        }
-        else
-        {
-            StartCoroutine(SetTimer(settings.durationOfWave[settings.waveIndex]));
-        }
+        // if (TimerText.gameObject.activeSelf)
+        // {
+        //     StartCoroutine(SetTimerDebug(settings.durationOfWave[settings.waveIndex]));
+        // }
+        // else
+        // {
+        StartCoroutine(SetTimer(settings.durationOfWave[settings.waveIndex]));
+        // }
     }
 
     void HandleRoundEnd()

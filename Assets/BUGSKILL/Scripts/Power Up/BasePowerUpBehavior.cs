@@ -66,6 +66,9 @@ public class BasePowerUpBehavior : MonoBehaviour
 
     protected bool _isEquipped = false;
 
+    private Vector3 _originalPosition;
+    private Quaternion _originalRotation;
+
     public void Start()
     {
         settings = GameManager.Instance.settings;
@@ -75,6 +78,8 @@ public class BasePowerUpBehavior : MonoBehaviour
 
         if (PointableEventWrapper != null)
         {
+            PointableEventWrapper.WhenHover.AddListener(OnGrabbableHover);
+            // PointableEventWrapper.WhenUnhover.AddListener(OnGrabbableUnhover);
             PointableEventWrapper.WhenSelect.AddListener(OnGrabbableSelect);
             PointableEventWrapper.WhenUnselect.AddListener(OnGrabbableUnselect);
         }
@@ -88,6 +93,9 @@ public class BasePowerUpBehavior : MonoBehaviour
         LeftPriceTagText.text = StoreItemData.Price.ToString();
         RightPriceTagText.text = StoreItemData.Price.ToString();
         DisplayPriceTagText.text = StoreItemData.Price.ToString();
+
+        _originalPosition = transform.localPosition;
+        _originalRotation = transform.localRotation;
     }
 
     public void Update()
@@ -246,10 +254,10 @@ public class BasePowerUpBehavior : MonoBehaviour
         {
             StoreManager.Instance.SetActivePowerUp(this);
             HandleUI(showDetails: true, showPriceTag: false, handedness: handedness);
-            if (Teaser != null)
-            {
-                Teaser.Play();
-            }
+            // if (Teaser != null)
+            // {
+            //     Teaser.Play();
+            // }
         }
 
         if (IsSold)
@@ -279,16 +287,40 @@ public class BasePowerUpBehavior : MonoBehaviour
         {
             StoreManager.Instance.SetActivePowerUp(null);
             HandleUI(showDetails: false, showPriceTag: true, handedness: Handedness.Right);
-            if (Teaser != null)
-            {
-                Teaser.Stop();
-            }
+            // if (Teaser != null)
+            // {
+            //     Teaser.Stop();
+            // }
+
+            StartCoroutine(ReturnToOriginalPosition());
         }
 
         if (!_isEquipped)
         {
             ActiveOVRHand = null;
             EnterState(PowerUpState.IDLE);
+        }
+    }
+
+    public virtual void OnGrabbableHover(PointerEvent arg0)
+    {
+        if (StoreManager.Instance.IsStoreActive && !IsSold)
+        {
+            if (Teaser != null)
+            {
+                Teaser.Play();
+            }
+        }
+    }
+
+    public virtual void OnGrabbableUnhover(PointerEvent arg0)
+    {
+        if (StoreManager.Instance.IsStoreActive && !IsSold)
+        {
+            if (Teaser != null)
+            {
+                Teaser.Stop();
+            }
         }
     }
 
@@ -322,6 +354,18 @@ public class BasePowerUpBehavior : MonoBehaviour
                 PowerCapacity -= UsePowerRate;
                 PowerCapacitySlider.value = PowerCapacity;
             }
+        }
+    }
+
+    private IEnumerator ReturnToOriginalPosition()
+    {
+        float t = 0;
+        while (t < 0.5f)
+        {
+            transform.localPosition = Vector3.Lerp(transform.localPosition, _originalPosition, t);
+            transform.localRotation = Quaternion.Slerp(transform.localRotation, _originalRotation, t);
+            t += Time.deltaTime;
+            yield return null;
         }
     }
 }
